@@ -267,6 +267,7 @@ class AustriaQuiz {
     savePointsData() {
         localStorage.setItem('pointsData', JSON.stringify(this.globalPoints));
         this.updateMenuPointsDisplay();
+        this.updateFloatingBalance();
     }
 
     /**
@@ -389,6 +390,119 @@ class AustriaQuiz {
     init() {
         this.setupEventListeners();
         this.loadTheme();
+        this.initFloatingBalance();
+    }
+
+    /**
+     * Floating Balance Widget initialisieren
+     */
+    initFloatingBalance() {
+        const floatingBalance = document.getElementById('floatingBalance');
+        if (!floatingBalance) return;
+
+        // Lade gespeicherte Position
+        const savedPos = JSON.parse(localStorage.getItem('floatingBalancePos') || '{}');
+        if (savedPos.top) floatingBalance.style.top = savedPos.top;
+        if (savedPos.right) floatingBalance.style.right = savedPos.right;
+
+        // Drag & Drop Funktionalität
+        let isDragging = false;
+        let currentX;
+        let currentY;
+        let initialX;
+        let initialY;
+
+        const handle = floatingBalance.querySelector('.floating-balance-handle');
+
+        handle.addEventListener('mousedown', dragStart);
+        handle.addEventListener('touchstart', dragStart);
+
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('touchmove', drag);
+
+        document.addEventListener('mouseup', dragEnd);
+        document.addEventListener('touchend', dragEnd);
+
+        function dragStart(e) {
+            if (e.type === 'touchstart') {
+                initialX = e.touches[0].clientX;
+                initialY = e.touches[0].clientY;
+            } else {
+                initialX = e.clientX;
+                initialY = e.clientY;
+            }
+
+            const rect = floatingBalance.getBoundingClientRect();
+            currentX = rect.left;
+            currentY = rect.top;
+
+            isDragging = true;
+            floatingBalance.classList.add('dragging');
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+
+            e.preventDefault();
+
+            let clientX, clientY;
+            if (e.type === 'touchmove') {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+
+            const xOffset = clientX - initialX;
+            const yOffset = clientY - initialY;
+
+            const newX = currentX + xOffset;
+            const newY = currentY + yOffset;
+
+            // Begrenze auf Viewport
+            const maxX = window.innerWidth - floatingBalance.offsetWidth;
+            const maxY = window.innerHeight - floatingBalance.offsetHeight;
+
+            const boundedX = Math.max(0, Math.min(newX, maxX));
+            const boundedY = Math.max(0, Math.min(newY, maxY));
+
+            floatingBalance.style.left = boundedX + 'px';
+            floatingBalance.style.top = boundedY + 'px';
+            floatingBalance.style.right = 'auto';
+        }
+
+        function dragEnd() {
+            if (!isDragging) return;
+
+            isDragging = false;
+            floatingBalance.classList.remove('dragging');
+
+            // Speichere Position
+            const pos = {
+                top: floatingBalance.style.top,
+                left: floatingBalance.style.left || null,
+                right: floatingBalance.style.right === 'auto' ? null : floatingBalance.style.right
+            };
+            localStorage.setItem('floatingBalancePos', JSON.stringify(pos));
+        }
+    }
+
+    /**
+     * Aktualisiere Floating Balance
+     */
+    updateFloatingBalance() {
+        const floatingBalance = document.getElementById('floatingBalance');
+        const floatingBalanceAmount = document.getElementById('floatingBalanceAmount');
+        
+        if (floatingBalance && floatingBalanceAmount) {
+            if (this.paidHints && this.gameActive) {
+                floatingBalanceAmount.textContent = this.globalPoints.totalPoints;
+                floatingBalance.style.display = 'block';
+            } else {
+                floatingBalance.style.display = 'none';
+            }
+        }
     }
 
     /**
@@ -1557,17 +1671,8 @@ class AustriaQuiz {
      * Aktualisiert welche Tipps verfügbar sind
      */
     updateAvailableHints() {
-        // Kontostand anzeigen wenn kostenpflichtige Tipps aktiv
-        const balanceElement = document.getElementById('hintBalance');
-        const balanceAmount = document.getElementById('balanceAmount');
-        if (balanceElement && balanceAmount) {
-            if (this.paidHints) {
-                balanceAmount.textContent = this.globalPoints.totalPoints;
-                balanceElement.style.display = 'inline';
-            } else {
-                balanceElement.style.display = 'none';
-            }
-        }
+        // Update floating balance
+        this.updateFloatingBalance();
         
         document.querySelectorAll('.hint-btn-compact').forEach(btn => {
             const hintType = btn.dataset.hint;

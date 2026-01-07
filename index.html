@@ -126,9 +126,6 @@
             <div class="hint-section">
                 <div class="hint-header">
                     <i class="fas fa-lightbulb"></i> Tipps <span id="hintCount">(3 verfügbar)</span>
-                    <span class="hint-balance" id="hintBalance" style="display: none;">
-                        <i class="fas fa-coins"></i> <span id="balanceAmount">0</span>P
-                    </span>
                 </div>
                 <div class="hint-buttons-grid">
                     <button class="hint-btn-compact" data-hint="5050" type="button">
@@ -175,6 +172,19 @@
             </div>
         </div>
     </main>
+
+    <!-- Floating Balance Widget -->
+    <div id="floatingBalance" class="floating-balance" style="display: none;">
+        <div class="floating-balance-handle">
+            <i class="fas fa-grip-vertical"></i>
+        </div>
+        <div class="floating-balance-content">
+            <i class="fas fa-wallet"></i>
+            <span class="floating-balance-label">Guthaben</span>
+            <span class="floating-balance-amount" id="floatingBalanceAmount">0</span>
+            <span class="floating-balance-currency">P</span>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
