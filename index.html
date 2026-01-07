@@ -109,9 +109,10 @@
                 <button class="restart-btn" id="restartBtn" title="Neustart">
                     <i class="fas fa-rotate-right"></i>
                 </button>
-                <button class="back-btn" id="backBtn" title="Zurück">
-                    <i class="fas fa-times"></i>
-                </button>
+                <div class="header-balance" id="headerBalance" style="display: none;">
+                    <i class="fas fa-coins"></i>
+                    <span id="headerBalanceAmount">0</span>P
+                </div>
             </div>
 
             <!-- Question Area -->
@@ -168,6 +169,13 @@
                 </div>
                 <button class="next-btn" id="nextBtn">
                     <i class="fas fa-forward"></i> Nächste Frage
+                </button>
+            </div>
+
+            <!-- End Game Button -->
+            <div class="end-game-section">
+                <button class="end-game-btn" id="endGameBtn">
+                    <i class="fas fa-door-open"></i> Spiel beenden
                 </button>
             </div>
         </div>

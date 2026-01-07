@@ -221,6 +221,7 @@ class AustriaQuiz {
         this.maxHints = 3; // Maximale Tipps pro Frage
         this.typoTolerance = localStorage.getItem('typoTolerance') !== 'false'; // Tippfehler-Toleranz aktivierbar
         this.paidHints = localStorage.getItem('paidHints') === 'true'; // Kostenpflichtige Tipps
+        this.balanceDisplayMode = localStorage.getItem('balanceDisplayMode') || 'widget'; // 'widget' or 'header'
         
         // Tipp-Preise nach Nützlichkeit
         this.hintPrices = {
@@ -484,15 +485,85 @@ class AustriaQuiz {
     updateFloatingBalance() {
         const floatingBalance = document.getElementById('floatingBalance');
         const floatingBalanceAmount = document.getElementById('floatingBalanceAmount');
+        const headerBalance = document.getElementById('headerBalance');
+        const headerBalanceAmount = document.getElementById('headerBalanceAmount');
         
-        if (floatingBalance && floatingBalanceAmount) {
-            if (this.paidHints && this.gameActive) {
-                floatingBalanceAmount.textContent = this.globalPoints.totalPoints;
-                floatingBalance.style.display = 'block';
+        if (this.paidHints && this.gameActive) {
+            const amount = this.globalPoints.totalPoints;
+            
+            if (this.balanceDisplayMode === 'widget') {
+                // Zeige Widget
+                if (floatingBalance && floatingBalanceAmount) {
+                    floatingBalanceAmount.textContent = amount;
+                    floatingBalance.style.display = 'block';
+                }
+                // Verstecke Header
+                if (headerBalance) {
+                    headerBalance.style.display = 'none';
+                }
             } else {
-                floatingBalance.style.display = 'none';
+                // Zeige Header
+                if (headerBalance && headerBalanceAmount) {
+                    headerBalanceAmount.textContent = amount;
+                    headerBalance.style.display = 'flex';
+                }
+                // Verstecke Widget
+                if (floatingBalance) {
+                    floatingBalance.style.display = 'none';
+                }
             }
+        } else {
+            // Verstecke beide
+            if (floatingBalance) floatingBalance.style.display = 'none';
+            if (headerBalance) headerBalance.style.display = 'none';
         }
+    }
+
+    /**
+     * Update Balance Display (für Settings-Änderungen)
+     */
+    updateBalanceDisplay() {
+        this.updateFloatingBalance();
+    }
+
+    /**
+     * Bestätige Spielende
+     */
+    confirmEndGame() {
+        const modal = document.createElement('div');
+        modal.className = 'settings-modal';
+        modal.innerHTML = `
+            <div class="settings-content" style="max-width: 400px;">
+                <div class="settings-header">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Spiel beenden?</h3>
+                </div>
+                <div class="settings-body">
+                    <p style="text-align: center; color: var(--text-secondary); margin: 1.5rem 0;">
+                        Möchtest du das Spiel wirklich beenden? Dein Fortschritt wird gespeichert.
+                    </p>
+                </div>
+                <div class="settings-footer" style="display: flex; gap: 0.75rem;">
+                    <button id="confirmCancel" class="settings-save-btn" style="background: var(--text-secondary); flex: 1;" type="button">
+                        <i class="fas fa-times"></i> Abbrechen
+                    </button>
+                    <button id="confirmEnd" class="settings-save-btn" style="background: var(--error-color); flex: 1;" type="button">
+                        <i class="fas fa-check"></i> Beenden
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        document.getElementById('confirmCancel').addEventListener('click', () => modal.remove());
+        document.getElementById('confirmEnd').addEventListener('click', () => {
+            modal.remove();
+            this.backToStart();
+        });
+        
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.remove();
+        });
     }
 
     /**
@@ -573,10 +644,13 @@ class AustriaQuiz {
             this.restartGame();
         });
 
-        // Back Button
-        document.getElementById('backBtn').addEventListener('click', () => {
-            this.backToStart();
-        });
+        // End Game Button
+        const endGameBtn = document.getElementById('endGameBtn');
+        if (endGameBtn) {
+            endGameBtn.addEventListener('click', () => {
+                this.confirmEndGame();
+            });
+        }
 
         // Next Button
         document.getElementById('nextBtn').addEventListener('click', () => {
@@ -645,12 +719,22 @@ class AustriaQuiz {
                     <div class="settings-option">
                         <div class="settings-option-info">
                             <span class="settings-option-label">Kostenpflichtige Tipps</span>
-                            <span class="settings-option-desc">Tipps kosten ${this.hintCost} gesammelte Punkte</span>
+                            <span class="settings-option-desc">Tipps kosten gesammelte Punkte</span>
                         </div>
                         <label class="toggle-switch">
                             <input type="checkbox" id="paidHintsCheck" ${this.paidHints ? 'checked' : ''}>
                             <span class="toggle-slider"></span>
                         </label>
+                    </div>
+                    <div class="settings-option">
+                        <div class="settings-option-info">
+                            <span class="settings-option-label">Guthaben-Anzeige</span>
+                            <span class="settings-option-desc">Wo das Guthaben angezeigt wird (wenn kostenpflichtig)</span>
+                        </div>
+                        <select id="balanceDisplaySelect" class="settings-select" style="max-width: 150px;">
+                            <option value="widget" ${this.balanceDisplayMode === 'widget' ? 'selected' : ''}>Floating Widget</option>
+                            <option value="header" ${this.balanceDisplayMode === 'header' ? 'selected' : ''}>Im Header</option>
+                        </select>
                     </div>
                 </div>
 
@@ -704,15 +788,20 @@ class AustriaQuiz {
             const darkMode = document.getElementById('darkModeCheck').checked;
             this.typoTolerance = document.getElementById('typoToleranceCheck').checked;
             this.paidHints = document.getElementById('paidHintsCheck').checked;
+            this.balanceDisplayMode = document.getElementById('balanceDisplaySelect').value;
             const historyLimit = parseInt(document.getElementById('historyLimitSelect').value);
             
             localStorage.setItem('theme', darkMode ? 'dark' : 'light');
             localStorage.setItem('typoTolerance', this.typoTolerance);
             localStorage.setItem('paidHints', this.paidHints);
+            localStorage.setItem('balanceDisplayMode', this.balanceDisplayMode);
             localStorage.setItem('historyLimit', historyLimit);
             
             // Bereinige Historie falls neues Limit kleiner ist
             this.trimHistory(historyLimit);
+            
+            // Update Balance Display
+            this.updateBalanceDisplay();
             
             modal.remove();
         });
