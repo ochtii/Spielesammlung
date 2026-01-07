@@ -7,96 +7,109 @@
  */
 const districtData = [
     // Burgenland
-    { code: 'B', name: 'Burgenland', state: 'Burgenland' },
-    { code: 'BZ', name: 'Bruck an der Leitha', state: 'Burgenland' },
+    { code: 'E', name: 'Eisenstadt', state: 'Burgenland' },
+    { code: 'EU', name: 'Eisenstadt-Umgebung', state: 'Burgenland' },
     { code: 'GS', name: 'Güssing', state: 'Burgenland' },
     { code: 'JE', name: 'Jennersdorf', state: 'Burgenland' },
-    { code: 'MO', name: 'Mattersburg', state: 'Burgenland' },
+    { code: 'MA', name: 'Mattersburg', state: 'Burgenland' },
+    { code: 'ND', name: 'Neusiedl am See', state: 'Burgenland' },
     { code: 'OP', name: 'Oberpullendorf', state: 'Burgenland' },
     { code: 'OW', name: 'Oberwart', state: 'Burgenland' },
     
     // Kärnten
-    { code: 'K', name: 'Klagenfurt-Land', state: 'Kärnten' },
-    { code: 'KL', name: 'Klagenfurt-Stadt', state: 'Kärnten' },
-    { code: 'VV', name: 'Villach-Land', state: 'Kärnten' },
-    { code: 'VS', name: 'Villach-Stadt', state: 'Kärnten' },
+    { code: 'K', name: 'Klagenfurt', state: 'Kärnten' },
+    { code: 'VI', name: 'Villach', state: 'Kärnten' },
     { code: 'SP', name: 'Spittal an der Drau', state: 'Kärnten' },
     { code: 'HE', name: 'Hermagor', state: 'Kärnten' },
-    { code: 'F', name: 'Feldkirchen', state: 'Kärnten' },
+    { code: 'FE', name: 'Feldkirchen', state: 'Kärnten' },
+    { code: 'SV', name: 'Sankt Veit an der Glan', state: 'Kärnten' },
+    { code: 'VK', name: 'Völkermarkt', state: 'Kärnten' },
+    { code: 'WO', name: 'Wolfsberg', state: 'Kärnten' },
     
     // Niederösterreich
-    { code: 'N', name: 'Niederösterreich', state: 'Niederösterreich' },
-    { code: 'AU', name: 'Amstetten', state: 'Niederösterreich' },
+    { code: 'AM', name: 'Amstetten', state: 'Niederösterreich' },
+    { code: 'BN', name: 'Baden', state: 'Niederösterreich' },
+    { code: 'BL', name: 'Bruck an der Leitha', state: 'Niederösterreich' },
     { code: 'GD', name: 'Gmünd', state: 'Niederösterreich' },
     { code: 'GF', name: 'Gänserndorf', state: 'Niederösterreich' },
+    { code: 'HL', name: 'Hollabrunn', state: 'Niederösterreich' },
     { code: 'HO', name: 'Horn', state: 'Niederösterreich' },
+    { code: 'KR', name: 'Krems', state: 'Niederösterreich' },
     { code: 'KO', name: 'Korneuburg', state: 'Niederösterreich' },
-    { code: 'KS', name: 'Krems-Land', state: 'Niederösterreich' },
-    { code: 'MA', name: 'Melk', state: 'Niederösterreich' },
+    { code: 'LF', name: 'Lilienfeld', state: 'Niederösterreich' },
+    { code: 'ME', name: 'Melk', state: 'Niederösterreich' },
     { code: 'MI', name: 'Mistelbach', state: 'Niederösterreich' },
-    { code: 'MZ', name: 'Mödling', state: 'Niederösterreich' },
-    { code: 'TR', name: 'Traiskirchen', state: 'Niederösterreich' },
-    { code: 'TL', name: 'Tulln', state: 'Niederösterreich' },
-    { code: 'WZ', name: 'Wiener Neustadt', state: 'Niederösterreich' },
-    { code: 'YB', name: 'Ybbs an der Donau', state: 'Niederösterreich' },
-    { code: 'ZH', name: 'Zwettl', state: 'Niederösterreich' },
+    { code: 'MD', name: 'Mödling', state: 'Niederösterreich' },
+    { code: 'NK', name: 'Neunkirchen', state: 'Niederösterreich' },
+    { code: 'P', name: 'Sankt Pölten', state: 'Niederösterreich' },
+    { code: 'PL', name: 'Sankt Pölten-Land', state: 'Niederösterreich' },
+    { code: 'SB', name: 'Scheibbs', state: 'Niederösterreich' },
+    { code: 'TU', name: 'Tulln', state: 'Niederösterreich' },
+    { code: 'WB', name: 'Wiener Neustadt', state: 'Niederösterreich' },
+    { code: 'WT', name: 'Waidhofen an der Thaya', state: 'Niederösterreich' },
+    { code: 'ZT', name: 'Zwettl', state: 'Niederösterreich' },
     
     // Oberösterreich
-    { code: 'O', name: 'Oberösterreich', state: 'Oberösterreich' },
-    { code: 'AM', name: 'Urfahr-Umgebung', state: 'Oberösterreich' },
     { code: 'BR', name: 'Braunau am Inn', state: 'Oberösterreich' },
     { code: 'EF', name: 'Eferding', state: 'Oberösterreich' },
     { code: 'FR', name: 'Freistadt', state: 'Oberösterreich' },
-    { code: 'GD', name: 'Grieskirchen', state: 'Oberösterreich' },
     { code: 'GM', name: 'Gmunden', state: 'Oberösterreich' },
-    { code: 'L', name: 'Linz-Stadt', state: 'Oberösterreich' },
+    { code: 'GR', name: 'Grieskirchen', state: 'Oberösterreich' },
+    { code: 'KI', name: 'Kirchdorf', state: 'Oberösterreich' },
+    { code: 'L', name: 'Linz', state: 'Oberösterreich' },
+    { code: 'LL', name: 'Linz-Land', state: 'Oberösterreich' },
     { code: 'PE', name: 'Perg', state: 'Oberösterreich' },
     { code: 'RI', name: 'Ried im Innkreis', state: 'Oberösterreich' },
-    { code: 'RH', name: 'Rohrbach', state: 'Oberösterreich' },
-    { code: 'ST', name: 'Steyr', state: 'Oberösterreich' },
-    { code: 'SU', name: 'Scheibbs', state: 'Oberösterreich' },
+    { code: 'RO', name: 'Rohrbach', state: 'Oberösterreich' },
+    { code: 'SD', name: 'Schärding', state: 'Oberösterreich' },
+    { code: 'SE', name: 'Steyr-Land', state: 'Oberösterreich' },
+    { code: 'SR', name: 'Steyr', state: 'Oberösterreich' },
+    { code: 'UU', name: 'Urfahr-Umgebung', state: 'Oberösterreich' },
+    { code: 'VB', name: 'Vöcklabruck', state: 'Oberösterreich' },
+    { code: 'WE', name: 'Wels', state: 'Oberösterreich' },
+    { code: 'WL', name: 'Wels-Land', state: 'Oberösterreich' },
     
     // Salzburg
-    { code: 'S', name: 'Salzburg-Stadt', state: 'Salzburg' },
-    { code: 'SL', name: 'Salzburg-Umgebung', state: 'Salzburg' },
+    { code: 'S', name: 'Salzburg', state: 'Salzburg' },
     { code: 'HA', name: 'Hallein', state: 'Salzburg' },
-    { code: 'SZ', name: 'Saalfelden-Leogang', state: 'Salzburg' },
-    { code: 'TL', name: 'Tamsweg', state: 'Salzburg' },
+    { code: 'JO', name: 'Sankt Johann im Pongau', state: 'Salzburg' },
+    { code: 'TA', name: 'Tamsweg', state: 'Salzburg' },
     { code: 'ZE', name: 'Zell am See', state: 'Salzburg' },
     
     // Steiermark
-    { code: 'G', name: 'Graz-Stadt', state: 'Steiermark' },
+    { code: 'G', name: 'Graz', state: 'Steiermark' },
     { code: 'GU', name: 'Graz-Umgebung', state: 'Steiermark' },
+    { code: 'BM', name: 'Bruck-Mürzzuschlag', state: 'Steiermark' },
     { code: 'DL', name: 'Deutschlandsberg', state: 'Steiermark' },
-    { code: 'FB', name: 'Feldbach', state: 'Steiermark' },
-    { code: 'FU', name: 'Fürstenfeld', state: 'Steiermark' },
+    { code: 'FF', name: 'Feldbach', state: 'Steiermark' },
     { code: 'HB', name: 'Hartberg-Fürstenfeld', state: 'Steiermark' },
     { code: 'JU', name: 'Judenburg', state: 'Steiermark' },
-    { code: 'KF', name: 'Kapfenberg', state: 'Steiermark' },
-    { code: 'KN', name: 'Knittelfeld', state: 'Steiermark' },
+    { code: 'KF', name: 'Knittelfeld', state: 'Steiermark' },
     { code: 'LB', name: 'Leibnitz', state: 'Steiermark' },
-    { code: 'LE', name: 'Liezen', state: 'Steiermark' },
+    { code: 'LN', name: 'Leoben', state: 'Steiermark' },
+    { code: 'LI', name: 'Liezen', state: 'Steiermark' },
     { code: 'MU', name: 'Murau', state: 'Steiermark' },
+    { code: 'MT', name: 'Murtal', state: 'Steiermark' },
+    { code: 'RA', name: 'Radkersburg', state: 'Steiermark' },
     { code: 'VO', name: 'Voitsberg', state: 'Steiermark' },
     { code: 'WZ', name: 'Weiz', state: 'Steiermark' },
     
     // Tirol
-    { code: 'I', name: 'Innsbruck-Stadt', state: 'Tirol' },
-    { code: 'IU', name: 'Innsbruck-Land', state: 'Tirol' },
-    { code: 'IB', name: 'Imst', state: 'Tirol' },
-    { code: 'KB', name: 'Kufstein', state: 'Tirol' },
-    { code: 'KI', name: 'Kitzbühel', state: 'Tirol' },
-    { code: 'LL', name: 'Landeck', state: 'Tirol' },
+    { code: 'I', name: 'Innsbruck', state: 'Tirol' },
+    { code: 'IL', name: 'Innsbruck-Land', state: 'Tirol' },
+    { code: 'IM', name: 'Imst', state: 'Tirol' },
+    { code: 'KB', name: 'Kitzbühel', state: 'Tirol' },
+    { code: 'KU', name: 'Kufstein', state: 'Tirol' },
+    { code: 'LA', name: 'Landeck', state: 'Tirol' },
+    { code: 'LZ', name: 'Lienz', state: 'Tirol' },
     { code: 'RE', name: 'Reutte', state: 'Tirol' },
-    { code: 'SB', name: 'Schwaz', state: 'Tirol' },
+    { code: 'SZ', name: 'Schwaz', state: 'Tirol' },
     
     // Vorarlberg
-    { code: 'BL', name: 'Bludenz', state: 'Vorarlberg' },
-    { code: 'BR', name: 'Bregenz', state: 'Vorarlberg' },
+    { code: 'B', name: 'Bregenz', state: 'Vorarlberg' },
+    { code: 'BZ', name: 'Bludenz', state: 'Vorarlberg' },
     { code: 'DO', name: 'Dornbirn', state: 'Vorarlberg' },
     { code: 'FK', name: 'Feldkirch', state: 'Vorarlberg' },
-    { code: 'GO', name: 'Götzis', state: 'Vorarlberg' },
-    { code: 'HE', name: 'Hohenems', state: 'Vorarlberg' },
     
     // Wien
     { code: 'W', name: 'Wien', state: 'Wien' },
@@ -1130,22 +1143,29 @@ class AustriaQuiz {
     getWrongAnswers(question) {
         if (question.type === 'license-plates') {
             const correctAnswer = question.answer;
+            const correctCode = question.code;
             const firstLetter = correctAnswer.charAt(0).toUpperCase();
             
+            // Nur Bezirke aus districtData verwenden (alle haben gültige Kennzeichen)
+            // Filtere die richtige Antwort raus (nach Code UND Name)
+            const availableDistricts = districtData.filter(d => 
+                d.code !== correctCode && d.name !== correctAnswer
+            );
+            
             // Zuerst Bezirke mit gleichem Anfangsbuchstaben suchen
-            const sameLetterDistricts = districtData
-                .filter(d => d.code !== question.code && d.name.charAt(0).toUpperCase() === firstLetter)
+            const sameLetterDistricts = availableDistricts
+                .filter(d => d.name.charAt(0).toUpperCase() === firstLetter)
                 .sort(() => 0.5 - Math.random());
             
             // Dann andere Bezirke als Fallback
-            const otherDistricts = districtData
-                .filter(d => d.code !== question.code && d.name.charAt(0).toUpperCase() !== firstLetter)
+            const otherDistricts = availableDistricts
+                .filter(d => d.name.charAt(0).toUpperCase() !== firstLetter)
                 .sort(() => 0.5 - Math.random());
             
             // Bevorzugt gleiche Anfangsbuchstaben, Rest auffüllen
             const wrongAnswers = [];
             
-            // Zuerst alle mit gleichem Anfangsbuchstaben nehmen (max 3)
+            // Zuerst mit gleichem Anfangsbuchstaben nehmen (max 3)
             for (let i = 0; i < Math.min(3, sameLetterDistricts.length); i++) {
                 wrongAnswers.push(sameLetterDistricts[i].name);
             }
