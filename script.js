@@ -630,7 +630,14 @@ class AustriaQuiz {
 
         if (this.currentGame === 'world-capitals' && typeof worldCapitals !== 'undefined') {
             // Internationale Hauptstädte
-            dataToUse = worldCapitals.map(w => ({ state: `${w.emoji} ${w.country}`, capital: w.capital, country: w.country, emoji: w.emoji }));
+            dataToUse = worldCapitals.map(w => ({ 
+                state: `${w.emoji} ${w.country}`, 
+                capital: w.capital, 
+                capitalEn: w.capitalEn,
+                capitalNative: w.capitalNative,
+                country: w.country, 
+                emoji: w.emoji 
+            }));
         } else {
             if (this.capitalMode === 'federal') {
                 dataToUse = [...capitalsData];
@@ -664,6 +671,8 @@ class AustriaQuiz {
                 type: 'capitals',
                 question: `Was ist die Hauptstadt von ${item.state}?`,
                 answer: item.capital,
+                capitalEn: item.capitalEn || item.capital,
+                capitalNative: item.capitalNative || item.capital,
                 options: options.sort(() => 0.5 - Math.random()),
                 hint: `Der erste Buchstabe ist "${item.capital.charAt(0)}".`,
                 state: item.state,
