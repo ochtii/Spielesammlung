@@ -188,13 +188,29 @@ main {
 
 /* Settings Button */
 .settings-btn {
-    background: none;
-    border: none;
+    background-color: var(--bg-secondary);
+    border: 2px solid var(--border-color);
     color: var(--text-primary);
-    font-size: 1.3rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     cursor: pointer;
-    transition: transform 0.3s ease;
-    padding: 0.5rem;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-btn:hover {
+    background-color: var(--warning-color);
+    color: white;
+    border-color: var(--warning-color);
+    transform: scale(1.1);
+}
+
+.settings-btn:active {
+    transform: scale(0.95);
 }
 
 /* ============================================

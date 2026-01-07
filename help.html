@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hilfe - Österreich-Quiz</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <h1 class="navbar-title">
+                <i class="fas fa-question-circle"></i> Hilfe
+            </h1>
+            <div class="navbar-buttons">
+                <a href="index.html" class="help-btn" aria-label="Zurück zum Spiel" style="background-color: var(--primary-color); border-color: var(--primary-color); color: white;">
+                    <i class="fas fa-home"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="container">
+        <div class="card welcome-card">
+            <h2><i class="fas fa-gamepad"></i> Willkommen zur Spielesammlung!</h2>
+            <p>Hier findest du alle Informationen zu den verschiedenen Spielmodi und wie du sie spielst.</p>
+        </div>
+
+        <!-- Spielmodi -->
+        <div class="card" style="margin-top: 1.5rem;">
+            <h3><i class="fas fa-dice"></i> Spielmodi</h3>
+            
+            <div class="help-section">
+                <h4><i class="fas fa-car"></i> Kennzeichen raten</h4>
+                <p>Dir wird ein österreichisches KFZ-Kennzeichen gezeigt. Errate, zu welchem Bezirk oder Bundesland es gehört.</p>
+                <ul>
+                    <li>Das Kennzeichen zeigt den Bezirkscode (z.B. W für Wien, G für Graz)</li>
+                    <li>Nutze den Tipp-Button für einen Hinweis zum Bundesland inkl. Wappen</li>
+                </ul>
+            </div>
+
+            <div class="help-section">
+                <h4><i class="fas fa-university"></i> Hauptstädte quizzen</h4>
+                <p>Teste dein Wissen über die Hauptstädte der österreichischen Bundesländer und Bezirke.</p>
+                <ul>
+                    <li><strong>Bundesländer:</strong> Die 9 Landeshauptstädte Österreichs</li>
+                    <li><strong>Bezirke:</strong> Größere Bezirks- und Stadthauptstädte</li>
+                    <li><strong>Gemischt:</strong> Kombination aus beiden</li>
+                </ul>
+            </div>
+
+            <div class="help-section">
+                <h4><i class="fas fa-globe"></i> Internationale Hauptstädte</h4>
+                <p>Errate die Hauptstädte von Ländern aus der ganzen Welt. Die Antworten werden in Deutsch, Englisch und der Landessprache akzeptiert.</p>
+            </div>
+
+            <div class="help-section">
+                <h4><i class="fas fa-users"></i> Einwohner vergleichen</h4>
+                <p>Vergleiche zwei österreichische Städte: Welche hat mehr Einwohner?</p>
+            </div>
+        </div>
+
+        <!-- Schwierigkeitsgrade -->
+        <div class="card" style="margin-top: 1.5rem;">
+            <h3><i class="fas fa-layer-group"></i> Schwierigkeitsgrade</h3>
+            
+            <div class="help-section">
+                <h4><i class="fas fa-clone"></i> Quiz-Modus</h4>
+                <p>Wähle die richtige Antwort aus 4 Optionen. Ideal für Einsteiger!</p>
+            </div>
+
+            <div class="help-section">
+                <h4><i class="fas fa-edit"></i> Kombiniert</h4>
+                <p>Gib deine Antwort ein, aber du kannst dir auch die Optionen anzeigen lassen. Nur bei Hauptstädte-Spielen verfügbar.</p>
+            </div>
+
+            <div class="help-section">
+                <h4><i class="fas fa-keyboard"></i> Profi-Modus</h4>
+                <p>Tippe die Antwort selbst ein – ohne Hilfe! Für echte Experten.</p>
+            </div>
+        </div>
+
+        <!-- Punktesystem -->
+        <div class="card" style="margin-top: 1.5rem;">
+            <h3><i class="fas fa-star"></i> Punktesystem</h3>
+            
+            <div class="help-section">
+                <ul>
+                    <li><strong>Richtige Antwort:</strong> +1 Punkt</li>
+                    <li><strong>Falsche Antwort:</strong> 0 Punkte</li>
+                    <li><strong>Tipp verwenden:</strong> -10 Punkte (mind. 10 Punkte erforderlich)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Einstellungen -->
+        <div class="card" style="margin-top: 1.5rem;">
+            <h3><i class="fas fa-cog"></i> Einstellungen</h3>
+            
+            <div class="help-section">
+                <h4><i class="fas fa-spell-check"></i> Tippfehler akzeptieren</h4>
+                <p>Aktiviere diese Option in den Einstellungen, um kleine Tippfehler bei der Eingabe zu tolerieren. Nützlich bei schwierigen Städtenamen!</p>
+            </div>
+
+            <div class="help-section">
+                <h4><i class="fas fa-moon"></i> Dark Mode</h4>
+                <p>Klicke auf das Mond-/Sonnen-Symbol oben rechts, um zwischen hellem und dunklem Design zu wechseln.</p>
+            </div>
+        </div>
+
+        <!-- Zurück Button -->
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="index.html" class="start-btn" style="text-decoration: none; display: inline-block;">
+                <i class="fas fa-play"></i> Zurück zum Spiel
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Österreich-Quiz – Lerne spielend!</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme aus localStorage laden
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</body>
+</html>
