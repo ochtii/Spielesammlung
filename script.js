@@ -327,7 +327,8 @@ class AustriaQuiz {
 
         const container = document.createElement('div');
         container.id = 'capitalModeInline';
-        container.style.margin = '1rem 0 0 0';
+        container.className = 'selection-section';
+        container.style.margin = '0 0 1rem 0';
         container.innerHTML = `
             <h4>Welche Hauptstädte verwenden?</h4>
             <div class="button-grid">
