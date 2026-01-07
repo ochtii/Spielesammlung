@@ -668,6 +668,36 @@ class AustriaQuiz {
 // ANWENDUNG INITIALISIEREN
 // ============================================
 
+/**
+ * Letzte Commit-Zeit von GitHub API abrufen
+ */
+async function loadCommitTime() {
+    try {
+        const response = await fetch('https://api.github.com/repos/ochtii/Spielesammlung/commits?per_page=1');
+        if (!response.ok) throw new Error('API Error');
+        
+        const data = await response.json();
+        if (data.length > 0) {
+            const commitDate = new Date(data[0].commit.author.date);
+            const options = {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                timeZone: 'Europe/Vienna'
+            };
+            const formattedDate = new Intl.DateTimeFormat('de-AT', options).format(commitDate);
+            document.getElementById('commitTime').textContent = `${formattedDate} CET`;
+        }
+    } catch (error) {
+        console.log('Commit-Zeit konnte nicht geladen werden:', error);
+        document.getElementById('commitTime').textContent = 'v1.0';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     new AustriaQuiz();
+    loadCommitTime();
 });
