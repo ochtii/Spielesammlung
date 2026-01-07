@@ -331,6 +331,29 @@ button {
     color: white;
 }
 
+.restart-btn {
+    background-color: var(--primary-color);
+    padding: 0.5rem 0.75rem;
+    min-width: auto;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 0.5rem;
+}
+
+.restart-btn:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.15) rotate(360deg);
+}
+
+
 
 
 

@@ -257,6 +257,11 @@ class AustriaQuiz {
             });
         }
 
+        // Restart Button
+        document.getElementById('restartBtn').addEventListener('click', () => {
+            this.restartGame();
+        });
+
         // Back Button
         document.getElementById('backBtn').addEventListener('click', () => {
             this.backToStart();
@@ -561,6 +566,13 @@ class AustriaQuiz {
         this.loadNextQuestion();
         this.switchScreen('gameScreen');
         window.scrollTo(0, 0);
+    }
+
+    /**
+     * Spiel neustarten (mit gleichen Einstellungen)
+     */
+    restartGame() {
+        this.startGame();
     }
 
     /**
