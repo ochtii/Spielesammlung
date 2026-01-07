@@ -221,7 +221,16 @@ class AustriaQuiz {
         this.maxHints = 3; // Maximale Tipps pro Frage
         this.typoTolerance = localStorage.getItem('typoTolerance') !== 'false'; // Tippfehler-Toleranz aktivierbar
         this.paidHints = localStorage.getItem('paidHints') === 'true'; // Kostenpflichtige Tipps
-        this.hintCost = 20; // Kosten pro Tipp in gesammelten Punkten
+        
+        // Tipp-Preise nach Nützlichkeit
+        this.hintPrices = {
+            '5050': 30,          // Sehr hilfreich
+            'removeOne': 20,     // Hilfreich
+            'firstLetter': 15,   // Mittel
+            'randomLetter': 15,  // Mittel
+            'length': 10,        // Weniger hilfreich
+            'coat': 15           // Mittel
+        };
         
         // Punktesystem-Konstanten
         this.basePoints = 100; // Basispunkte ohne Tipp
@@ -1366,11 +1375,12 @@ class AustriaQuiz {
 
         // Prüfe ob Tipps kostenpflichtig sind
         if (this.paidHints) {
-            if (this.globalPoints.totalPoints < this.hintCost) {
-                alert(`Du hast nicht genug Punkte! (Benötigt: ${this.hintCost}, Vorhanden: ${this.globalPoints.totalPoints})`);
+            const hintPrice = this.hintPrices[hintType] || 20;
+            if (this.globalPoints.totalPoints < hintPrice) {
+                alert(`Du hast nicht genug Punkte! (Benötigt: ${hintPrice}P, Vorhanden: ${this.globalPoints.totalPoints}P)`);
                 return;
             }
-            this.spendGlobalPoints(this.hintCost, hintType);
+            this.spendGlobalPoints(hintPrice, hintType);
         }
 
         this.hintsUsedThisQuestion++;
@@ -1547,8 +1557,29 @@ class AustriaQuiz {
      * Aktualisiert welche Tipps verfügbar sind
      */
     updateAvailableHints() {
+        // Kontostand anzeigen wenn kostenpflichtige Tipps aktiv
+        const balanceElement = document.getElementById('hintBalance');
+        if (balanceElement) {
+            if (this.paidHints) {
+                balanceElement.textContent = `${this.globalPoints.totalPoints}P`;
+                balanceElement.style.display = 'inline';
+            } else {
+                balanceElement.style.display = 'none';
+            }
+        }
+        
         document.querySelectorAll('.hint-btn-compact').forEach(btn => {
             const hintType = btn.dataset.hint;
+            const hintPrice = this.hintPrices[hintType] || 20;
+            
+            // Preis-Anzeige aktualisieren
+            const priceSpan = btn.querySelector('.hint-price');
+            if (priceSpan && this.paidHints) {
+                priceSpan.textContent = `${hintPrice}P`;
+                priceSpan.style.display = 'inline-block';
+            } else if (priceSpan) {
+                priceSpan.style.display = 'none';
+            }
             
             // Deaktivieren und als "used" markieren wenn bereits verwendet
             if (this.usedHintTypes && this.usedHintTypes.includes(hintType)) {
@@ -1564,10 +1595,18 @@ class AustriaQuiz {
                 // Nicht verfügbare Tipps ausblenden
                 btn.style.display = 'none';
             } else {
-                // Verfügbare Tipps anzeigen und aktivieren
+                // Verfügbare Tipps anzeigen
                 btn.style.display = '';
-                btn.disabled = false;
                 btn.classList.remove('used');
+                
+                // Bei kostenpflichtigen Tipps: Prüfen ob genug Punkte vorhanden
+                if (this.paidHints && this.globalPoints.totalPoints < hintPrice) {
+                    btn.disabled = true;
+                    btn.classList.add('unaffordable');
+                } else {
+                    btn.disabled = false;
+                    btn.classList.remove('unaffordable');
+                }
             }
         });
     }
