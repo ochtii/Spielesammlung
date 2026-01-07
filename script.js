@@ -205,13 +205,96 @@ class AustriaQuiz {
         this.gameActive = false;
         this.hintsUsedThisQuestion = 0; // Anzahl verwendeter Tipps pro Frage
         this.maxHints = 3; // Maximale Tipps pro Frage
-        this.typoTolerance = localStorage.getItem('typoTolerance') === 'true'; // Tippfehler-Toleranz aktivierbar
+        this.typoTolerance = localStorage.getItem('typoTolerance') !== 'false'; // Tippfehler-Toleranz aktivierbar
+        this.paidHints = localStorage.getItem('paidHints') === 'true'; // Kostenpflichtige Tipps
+        this.hintCost = 20; // Kosten pro Tipp in gesammelten Punkten
         
         // Punktesystem-Konstanten
         this.basePoints = 100; // Basispunkte ohne Tipp
         this.hintPenalty = 30; // Punktabzug pro Tipp
         
+        // Lade globale Punkte-Daten
+        this.loadPointsData();
+        
         this.init();
+    }
+
+    /**
+     * Globale Punkte-Daten aus localStorage laden
+     */
+    loadPointsData() {
+        const data = JSON.parse(localStorage.getItem('pointsData')) || {
+            totalPoints: 0,
+            gamesPlayed: 0,
+            correctAnswers: 0,
+            hintsUsed: 0
+        };
+        this.globalPoints = data;
+        this.updateMenuPointsDisplay();
+    }
+
+    /**
+     * Globale Punkte-Daten in localStorage speichern
+     */
+    savePointsData() {
+        localStorage.setItem('pointsData', JSON.stringify(this.globalPoints));
+        this.updateMenuPointsDisplay();
+    }
+
+    /**
+     * Punkte im Menü aktualisieren
+     */
+    updateMenuPointsDisplay() {
+        const menuPointsDisplay = document.getElementById('menuPointsDisplay');
+        if (menuPointsDisplay) {
+            menuPointsDisplay.textContent = this.globalPoints.totalPoints;
+        }
+    }
+
+    /**
+     * Punkte zum globalen Konto hinzufügen
+     */
+    addGlobalPoints(points) {
+        this.globalPoints.totalPoints += points;
+        this.savePointsData();
+    }
+
+    /**
+     * Globale Punkte ausgeben (für Tipps)
+     */
+    spendGlobalPoints(amount) {
+        if (this.globalPoints.totalPoints >= amount) {
+            this.globalPoints.totalPoints -= amount;
+            this.savePointsData();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Statistik aktualisieren
+     */
+    updateStats(correct) {
+        if (correct) {
+            this.globalPoints.correctAnswers++;
+        }
+        this.savePointsData();
+    }
+
+    /**
+     * Spiel-Statistik aktualisieren
+     */
+    incrementGamesPlayed() {
+        this.globalPoints.gamesPlayed++;
+        this.savePointsData();
+    }
+
+    /**
+     * Hinweis-Statistik aktualisieren
+     */
+    incrementHintsUsed() {
+        this.globalPoints.hintsUsed++;
+        this.savePointsData();
     }
 
     /**
@@ -254,12 +337,6 @@ class AustriaQuiz {
                 });
             });
         }
-
-        // Theme Toggle
-        document.getElementById('themeToggle').addEventListener('click', (e) => {
-            e.preventDefault();
-            this.toggleTheme();
-        });
 
         // Settings Button
         const settingsBtn = document.getElementById('settingsBtn');
@@ -372,6 +449,16 @@ class AustriaQuiz {
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
+                    <div class="settings-option">
+                        <div class="settings-option-info">
+                            <span class="settings-option-label">Kostenpflichtige Tipps</span>
+                            <span class="settings-option-desc">Tipps kosten ${this.hintCost} gesammelte Punkte</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="paidHintsCheck" ${this.paidHints ? 'checked' : ''}>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
@@ -407,9 +494,11 @@ class AustriaQuiz {
         document.getElementById('settingsSave').addEventListener('click', () => {
             const darkMode = document.getElementById('darkModeCheck').checked;
             this.typoTolerance = document.getElementById('typoToleranceCheck').checked;
+            this.paidHints = document.getElementById('paidHintsCheck').checked;
             
             localStorage.setItem('theme', darkMode ? 'dark' : 'light');
             localStorage.setItem('typoTolerance', this.typoTolerance);
+            localStorage.setItem('paidHints', this.paidHints);
             
             modal.remove();
         });
@@ -852,7 +941,12 @@ class AustriaQuiz {
         
         // Reset Tipp-Button
         const hintBtn = document.getElementById('hintBtn');
-        hintBtn.innerHTML = `<i class="fas fa-lightbulb"></i> Tipp (${this.maxHints} verfügbar)`;
+        let hintText = `<i class="fas fa-lightbulb"></i> Tipp (${this.maxHints} verfügbar`;
+        if (this.paidHints) {
+            hintText += `, ${this.hintCost}P`;
+        }
+        hintText += `)`;
+        hintBtn.innerHTML = hintText;
         hintBtn.disabled = false;
         
         if (this.currentQuestionIndex >= this.questions.length) {
@@ -1078,8 +1172,13 @@ class AustriaQuiz {
             // Punkte basierend auf verwendeten Tipps berechnen
             earnedPoints = Math.max(10, this.basePoints - (this.hintsUsedThisQuestion * this.hintPenalty));
             this.score += earnedPoints;
+            // Füge Punkte zum globalen Konto hinzu
+            this.addGlobalPoints(earnedPoints);
         }
         this.totalPossiblePoints += this.basePoints;
+        
+        // Aktualisiere Statistik
+        this.updateStats(isCorrect);
 
         this.showFeedback(isCorrect, earnedPoints);
         document.getElementById('scoreValue').textContent = this.score;
@@ -1129,7 +1228,18 @@ class AustriaQuiz {
             return;
         }
 
+        // Prüfe ob Tipps kostenpflichtig sind
+        if (this.paidHints) {
+            if (this.globalPoints.totalPoints < this.hintCost) {
+                alert(`Du hast nicht genug Punkte! (Benötigt: ${this.hintCost}, Vorhanden: ${this.globalPoints.totalPoints})`);
+                return;
+            }
+            // Ziehe Punkte ab
+            this.spendGlobalPoints(this.hintCost);
+        }
+
         this.hintsUsedThisQuestion++;
+        this.incrementHintsUsed();
         
         // Berechne aktuelle mögliche Punkte
         const currentPossiblePoints = Math.max(10, this.basePoints - (this.hintsUsedThisQuestion * this.hintPenalty));
@@ -1137,12 +1247,19 @@ class AustriaQuiz {
         // Update Tipp-Button Text
         const hintBtn = document.getElementById('hintBtn');
         const remainingHints = this.maxHints - this.hintsUsedThisQuestion;
+        
+        let buttonText = '';
         if (remainingHints > 0) {
-            hintBtn.innerHTML = `<i class="fas fa-lightbulb"></i> Tipp (${remainingHints} übrig, dann ${currentPossiblePoints - this.hintPenalty}P)`;
+            buttonText = `<i class="fas fa-lightbulb"></i> Tipp (${remainingHints} übrig`;
+            if (this.paidHints) {
+                buttonText += `, ${this.hintCost}P`;
+            }
+            buttonText += `)`;
         } else {
-            hintBtn.innerHTML = `<i class="fas fa-lightbulb"></i> Keine Tipps mehr`;
+            buttonText = `<i class="fas fa-lightbulb"></i> Keine Tipps mehr`;
             hintBtn.disabled = true;
         }
+        hintBtn.innerHTML = buttonText;
 
         const feedbackContent = document.getElementById('feedbackContent');
         
@@ -1192,6 +1309,9 @@ class AustriaQuiz {
      * Spiel beenden
      */
     endGame() {
+        // Spiel-Statistik aktualisieren
+        this.incrementGamesPlayed();
+        
         const finalScore = this.score;
         const maxScore = this.totalPossiblePoints;
         const totalQuestions = this.currentQuestionIndex;
@@ -1200,6 +1320,7 @@ class AustriaQuiz {
         let message = `
             <h3>Spiel beendet!</h3>
             <p><i class="fas fa-coins"></i> Punkte: <strong>${finalScore}</strong> von <strong>${maxScore}</strong> möglichen</p>
+            <p><i class="fas fa-wallet"></i> Gesamte Punkte: <strong>${this.globalPoints.totalPoints}</strong></p>
             <p><i class="fas fa-percentage"></i> Erfolgsquote: <strong>${percentage}%</strong></p>
             <p><i class="fas fa-list"></i> Fragen: <strong>${totalQuestions}</strong></p>
         `;
