@@ -203,6 +203,7 @@ class AustriaQuiz {
         this.currentQuestion = null;
         this.gameActive = false;
         this.hintUsed = false;
+        this.typoTolerance = localStorage.getItem('typoTolerance') === 'true'; // Tippfehler-Toleranz aktivierbar
         
         this.init();
     }
@@ -222,6 +223,11 @@ class AustriaQuiz {
         // Theme Toggle
         document.getElementById('themeToggle').addEventListener('click', () => {
             this.toggleTheme();
+        });
+
+        // Settings Button
+        document.getElementById('settingsBtn').addEventListener('click', () => {
+            this.showSettings();
         });
 
         // Game Selection
@@ -268,8 +274,98 @@ class AustriaQuiz {
     }
 
     /**
-     * Theme-Management
+     * Settings Modal anzeigen
      */
+    showSettings() {
+        let modal = document.getElementById('settingsModal');
+        if (modal) modal.remove();
+
+        modal = document.createElement('div');
+        modal.id = 'settingsModal';
+        modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 2000;';
+
+        const content = document.createElement('div');
+        content.style.cssText = 'background: var(--bg-primary); padding: 2rem; border-radius: 12px; max-width: 400px; width: 90%; box-shadow: var(--shadow-hover);';
+        content.innerHTML = `
+            <h3 style="margin-bottom: 1.5rem;">Einstellungen</h3>
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                <input type="checkbox" id="typoToleranceCheck" ${this.typoTolerance ? 'checked' : ''}>
+                <label for="typoToleranceCheck" style="cursor: pointer; margin: 0;">Tippfehler akzeptieren</label>
+            </div>
+            <small style="color: var(--text-secondary); display: block; margin-bottom: 1.5rem;">Erlaubt kleine Abweichungen in den Antworten.</small>
+            <div style="display: flex; gap: 1rem;">
+                <button id="settingsClose" class="back-btn" style="flex: 1;">Schließen</button>
+                <button id="settingsSave" class="start-btn" style="flex: 1;">Speichern</button>
+            </div>
+        `;
+
+        modal.appendChild(content);
+        document.body.appendChild(modal);
+
+        document.getElementById('settingsClose').addEventListener('click', () => modal.remove());
+        document.getElementById('settingsSave').addEventListener('click', () => {
+            this.typoTolerance = document.getElementById('typoToleranceCheck').checked;
+            localStorage.setItem('typoTolerance', this.typoTolerance);
+            modal.remove();
+        });
+    }
+
+    /**
+     * Levenshtein-Distanz für Tippfehler-Toleranz
+     */
+    levenshteinDistance(a, b) {
+        const matrix = [];
+        for (let i = 0; i <= b.length; i++) {
+            matrix[i] = [i];
+        }
+        for (let j = 0; j <= a.length; j++) {
+            matrix[0][j] = j;
+        }
+        for (let i = 1; i <= b.length; i++) {
+            for (let j = 1; j <= a.length; j++) {
+                if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                    matrix[i][j] = matrix[i - 1][j - 1];
+                } else {
+                    matrix[i][j] = Math.min(
+                        matrix[i - 1][j - 1] + 1,
+                        matrix[i][j - 1] + 1,
+                        matrix[i - 1][j] + 1
+                    );
+                }
+            }
+        }
+        return matrix[b.length][a.length];
+    }
+
+    /**
+     * Normalisierung und Fuzzy-Matching für Antwort-Prüfung
+     */
+    checkAnswer(userAnswer, question) {
+        const normalize = (str) => str.trim().toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue');
+        const userNorm = normalize(userAnswer);
+        const correctNorm = normalize(question.answer);
+        const correctEnNorm = normalize(question.capitalEn || '');
+        const correctNativeNorm = normalize(question.capitalNative || '');
+
+        // Exakte Treffer in alle 3 Sprachen
+        if (userNorm === correctNorm || userNorm === correctEnNorm || userNorm === correctNativeNorm) {
+            return true;
+        }
+
+        // Tippfehler-Toleranz: max 2 Zeichen Abweichung (bis 20% der Länge)
+        if (this.typoTolerance) {
+            const maxDist = Math.max(2, Math.ceil(Math.max(correctNorm.length, userNorm.length) * 0.2));
+            const dist1 = this.levenshteinDistance(userNorm, correctNorm);
+            const dist2 = this.levenshteinDistance(userNorm, correctEnNorm);
+            const dist3 = this.levenshteinDistance(userNorm, correctNativeNorm);
+            const minDist = Math.min(dist1, dist2, dist3);
+            if (minDist <= maxDist) {
+                return true;
+            }
+        }
+
+        return false;
+    }
     toggleTheme() {
         document.body.classList.toggle('dark-mode');
         localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
@@ -730,19 +826,23 @@ class AustriaQuiz {
         if (!this.gameActive) return;
         this.gameActive = false;
 
-        const normalizedAnswer = userAnswer.trim().toLowerCase();
-        const correctAnswer = this.currentQuestion.answer.toLowerCase();
-        const isCorrect = normalizedAnswer === correctAnswer;
+        // Nutze neue Prüfmethode für Multi-Language + Tippfehler-Toleranz
+        const isCorrect = this.checkAnswer(userAnswer, this.currentQuestion);
 
+        // Markiere Buttons mit Feedback
         document.querySelectorAll('.answer-btn').forEach(btn => {
             btn.disabled = true;
-            if (btn.textContent.toLowerCase() === correctAnswer) {
+            const btnText = btn.textContent.trim().toLowerCase();
+            const correctText = this.currentQuestion.answer.toLowerCase();
+            
+            if (btnText === correctText) {
                 btn.classList.add('correct');
-            } else if (btn.textContent.toLowerCase() === normalizedAnswer && !isCorrect) {
+            } else if (btnText === userAnswer.trim().toLowerCase() && !isCorrect) {
                 btn.classList.add('incorrect');
             }
         });
 
+        // Scoring
         if (isCorrect) {
             this.score += 1;
         } else if (this.currentDifficulty === 'profi') {
