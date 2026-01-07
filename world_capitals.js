@@ -121,6 +121,5 @@ const worldCapitals = [
   { country: 'Vereinigtes Königreich', emoji: '🇬🇧', capital: 'London', capitalEn: 'London', capitalNative: 'London' },
   { country: 'USA', emoji: '🇺🇸', capital: 'Washington, D.C.', capitalEn: 'Washington, D.C.', capitalNative: 'Washington, D.C.' },
   { country: 'Uruguay', emoji: '🇺🇾', capital: 'Montevideo', capitalEn: 'Montevideo', capitalNative: 'Montevideo' },
-  { country: 'Vietnam', emoji: '🇻🇳', capital: 'Hanoi', capitalEn: 'Hanoi', capitalNative: 'Hà Nội' },
-  { country: 'Zypern', emoji: '🇨🇾', capital: 'Nikosia', capitalEn: 'Nicosia', capitalNative: 'Λευκωσία' }
+  { country: 'Vietnam', emoji: '🇻🇳', capital: 'Hanoi', capitalEn: 'Hanoi', capitalNative: 'Hà Nội' }
 ];

@@ -27,8 +27,8 @@ const districtData = [
     // Niederösterreich
     { code: 'N', name: 'Niederösterreich', state: 'Niederösterreich' },
     { code: 'AU', name: 'Amstetten', state: 'Niederösterreich' },
-    { code: 'GF', name: 'Gmünd', state: 'Niederösterreich' },
-    { code: 'GM', name: 'Gänserndorf', state: 'Niederösterreich' },
+    { code: 'GD', name: 'Gmünd', state: 'Niederösterreich' },
+    { code: 'GF', name: 'Gänserndorf', state: 'Niederösterreich' },
     { code: 'HO', name: 'Horn', state: 'Niederösterreich' },
     { code: 'KO', name: 'Korneuburg', state: 'Niederösterreich' },
     { code: 'KS', name: 'Krems-Land', state: 'Niederösterreich' },
@@ -1120,7 +1120,7 @@ async function loadCommitTime() {
             return;
         }
     } catch (error) {
-        console.log('GitHub API nicht erreichbar');
+        // GitHub API nicht erreichbar - stiller Fallback
     }
     
     const lastCommit = '2026-01-07 19:22:00';
