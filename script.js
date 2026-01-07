@@ -3,118 +3,111 @@
 // ============================================
 
 /**
- * Array mit österreichischen Bezirkskürzeln
- * Quelle: Offizielle österreichische Bezirkskennzeichen
+ * Array mit österreichischen KFZ-Kennzeichen (Bezirkskürzel)
+ * Quelle: Offizielle österreichische Behördenregistratur
  */
 const districtData = [
     // Burgenland
-    { code: 'B', name: 'Burgenland', state: 'Burgenland' },
-    { code: 'BA', name: 'Graz-Umgebung', state: 'Steiermark' },
+    { code: 'B', name: 'Burgenland', state: 'Burgenland', wappen: '🛡️' },
     
     // Kärnten
-    { code: 'K', name: 'Klagenfurt-Land', state: 'Kärnten' },
-    { code: 'KL', name: 'Klagenfurt', state: 'Kärnten' },
-    { code: 'VV', name: 'Villach-Land', state: 'Kärnten' },
-    { code: 'V', name: 'Villach', state: 'Kärnten' },
-    { code: 'ST', name: 'Spittal an der Drau', state: 'Kärnten' },
+    { code: 'K', name: 'Klagenfurt-Land', state: 'Kärnten', wappen: '🦅' },
+    { code: 'KL', name: 'Klagenfurt-Stadt', state: 'Kärnten', wappen: '🦅' },
+    { code: 'VV', name: 'Villach-Land', state: 'Kärnten', wappen: '🦅' },
+    { code: 'V', name: 'Villach-Stadt', state: 'Kärnten', wappen: '🦅' },
+    { code: 'ST', name: 'Spittal an der Drau', state: 'Kärnten', wappen: '🦅' },
+    { code: 'HE', name: 'Hermagor-Pressegger See', state: 'Kärnten', wappen: '🦅' },
+    { code: 'FE', name: 'Feldkirchen', state: 'Kärnten', wappen: '🦅' },
     
     // Niederösterreich
-    { code: 'N', name: 'Niederösterreich', state: 'Niederösterreich' },
-    { code: 'NO', name: 'Gänserndorf', state: 'Niederösterreich' },
-    { code: 'GF', name: 'Gmünd', state: 'Niederösterreich' },
-    { code: 'WR', name: 'Waidhofen an der Thaya', state: 'Niederösterreich' },
-    { code: 'HB', name: 'Horn', state: 'Niederösterreich' },
-    { code: 'KO', name: 'Korneuburg', state: 'Niederösterreich' },
-    { code: 'MA', name: 'Melk', state: 'Niederösterreich' },
-    { code: 'MI', name: 'Mistelbach', state: 'Niederösterreich' },
-    { code: 'MZ', name: 'Mödling', state: 'Niederösterreich' },
+    { code: 'N', name: 'Niederösterreich (allg.)', state: 'Niederösterreich', wappen: '🏰' },
+    { code: 'GF', name: 'Gmünd', state: 'Niederösterreich', wappen: '🏰' },
+    { code: 'WR', name: 'Waidhofen an der Thaya', state: 'Niederösterreich', wappen: '🏰' },
+    { code: 'KO', name: 'Korneuburg', state: 'Niederösterreich', wappen: '🏰' },
+    { code: 'MA', name: 'Melk', state: 'Niederösterreich', wappen: '🏰' },
+    { code: 'MI', name: 'Mistelbach', state: 'Niederösterreich', wappen: '🏰' },
+    { code: 'MZ', name: 'Mödling', state: 'Niederösterreich', wappen: '🏰' },
+    { code: 'WZ', name: 'Waidhofen an der Ybbs', state: 'Niederösterreich', wappen: '🏰' },
+    { code: 'KS', name: 'Krems an der Donau', state: 'Niederösterreich', wappen: '🏰' },
+    { code: 'ZH', name: 'Zwettl', state: 'Niederösterreich', wappen: '🏰' },
     
     // Oberösterreich
-    { code: 'O', name: 'Oberösterreich', state: 'Oberösterreich' },
-    { code: 'AM', name: 'Urfahr-Umgebung', state: 'Oberösterreich' },
-    { code: 'AU', name: 'Altstadt', state: 'Oberösterreich' },
-    { code: 'AD', name: 'Bad Ischl', state: 'Oberösterreich' },
-    { code: 'BR', name: 'Braunau am Inn', state: 'Oberösterreich' },
-    { code: 'EF', name: 'Eferding', state: 'Oberösterreich' },
-    { code: 'FR', name: 'Freistadt', state: 'Oberösterreich' },
-    { code: 'GD', name: 'Grieskirchen', state: 'Oberösterreich' },
-    { code: 'GM', name: 'Gmunden', state: 'Oberösterreich' },
-    { code: 'LI', name: 'Linz', state: 'Oberösterreich' },
-    { code: 'PE', name: 'Perg', state: 'Oberösterreich' },
-    { code: 'RI', name: 'Ried im Innkreis', state: 'Oberösterreich' },
+    { code: 'O', name: 'Oberösterreich (allg.)', state: 'Oberösterreich', wappen: '👑' },
+    { code: 'AM', name: 'Urfahr-Umgebung', state: 'Oberösterreich', wappen: '👑' },
+    { code: 'AD', name: 'Altmünster/Bad Ischl', state: 'Oberösterreich', wappen: '👑' },
+    { code: 'BR', name: 'Braunau am Inn', state: 'Oberösterreich', wappen: '👑' },
+    { code: 'EF', name: 'Eferding', state: 'Oberösterreich', wappen: '👑' },
+    { code: 'FR', name: 'Freistadt', state: 'Oberösterreich', wappen: '👑' },
+    { code: 'GD', name: 'Grieskirchen', state: 'Oberösterreich', wappen: '👑' },
+    { code: 'GM', name: 'Gmunden', state: 'Oberösterreich', wappen: '👑' },
+    { code: 'LI', name: 'Linz', state: 'Oberösterreich', wappen: '👑' },
+    { code: 'PE', name: 'Perg', state: 'Oberösterreich', wappen: '👑' },
+    { code: 'RI', name: 'Ried im Innkreis', state: 'Oberösterreich', wappen: '👑' },
+    { code: 'RO', name: 'Rohrbach', state: 'Oberösterreich', wappen: '👑' },
     
     // Salzburg
-    { code: 'S', name: 'Salzburg', state: 'Salzburg' },
-    { code: 'SL', name: 'Salzburg-Umgebung', state: 'Salzburg' },
-    { code: 'HA', name: 'Hallein', state: 'Salzburg' },
-    { code: 'SZ', name: 'Saalfelden', state: 'Salzburg' },
-    { code: 'TL', name: 'Tamsweg', state: 'Salzburg' },
-    { code: 'ZE', name: 'Zell am See', state: 'Salzburg' },
+    { code: 'S', name: 'Salzburg-Stadt', state: 'Salzburg', wappen: '🎵' },
+    { code: 'SL', name: 'Salzburg-Umgebung', state: 'Salzburg', wappen: '🎵' },
+    { code: 'HA', name: 'Hallein', state: 'Salzburg', wappen: '🎵' },
+    { code: 'SZ', name: 'Saalfelden', state: 'Salzburg', wappen: '🎵' },
+    { code: 'TL', name: 'Tamsweg', state: 'Salzburg', wappen: '🎵' },
+    { code: 'ZE', name: 'Zell am See', state: 'Salzburg', wappen: '🎵' },
     
     // Steiermark
-    { code: 'ST', name: 'Steiermark', state: 'Steiermark' },
-    { code: 'G', name: 'Graz', state: 'Steiermark' },
-    { code: 'GU', name: 'Graz-Umgebung', state: 'Steiermark' },
-    { code: 'DL', name: 'Deutschlandsberg', state: 'Steiermark' },
-    { code: 'FB', name: 'Feldbach', state: 'Steiermark' },
-    { code: 'FU', name: 'Fürstenfeld', state: 'Steiermark' },
-    { code: 'HB', name: 'Hartberg', state: 'Steiermark' },
-    { code: 'JU', name: 'Judenburg', state: 'Steiermark' },
-    { code: 'KF', name: 'Kapfenberg', state: 'Steiermark' },
-    { code: 'KN', name: 'Knittelfeld', state: 'Steiermark' },
-    { code: 'LB', name: 'Leibnitz', state: 'Steiermark' },
-    { code: 'LI', name: 'Liezen', state: 'Steiermark' },
-    { code: 'MU', name: 'Murau', state: 'Steiermark' },
-    { code: 'VO', name: 'Voitsberg', state: 'Steiermark' },
-    { code: 'WZ', name: 'Weiz', state: 'Steiermark' },
+    { code: 'ST', name: 'Steiermark (allg.)', state: 'Steiermark', wappen: '🦁' },
+    { code: 'G', name: 'Graz', state: 'Steiermark', wappen: '🦁' },
+    { code: 'GU', name: 'Graz-Umgebung', state: 'Steiermark', wappen: '🦁' },
+    { code: 'DL', name: 'Deutschlandsberg', state: 'Steiermark', wappen: '🦁' },
+    { code: 'FB', name: 'Feldbach', state: 'Steiermark', wappen: '🦁' },
+    { code: 'FU', name: 'Fürstenfeld', state: 'Steiermark', wappen: '🦁' },
+    { code: 'HB', name: 'Hartberg-Fürstenfeld', state: 'Steiermark', wappen: '🦁' },
+    { code: 'JU', name: 'Judenburg', state: 'Steiermark', wappen: '🦁' },
+    { code: 'KF', name: 'Kapfenberg', state: 'Steiermark', wappen: '🦁' },
+    { code: 'KN', name: 'Knittelfeld', state: 'Steiermark', wappen: '🦁' },
+    { code: 'LB', name: 'Leibnitz', state: 'Steiermark', wappen: '🦁' },
+    { code: 'LI', name: 'Liezen', state: 'Steiermark', wappen: '🦁' },
+    { code: 'MU', name: 'Murau', state: 'Steiermark', wappen: '🦁' },
+    { code: 'VO', name: 'Voitsberg', state: 'Steiermark', wappen: '🦁' },
+    { code: 'WZ', name: 'Weiz', state: 'Steiermark', wappen: '🦁' },
     
     // Tirol
-    { code: 'T', name: 'Tirol', state: 'Tirol' },
-    { code: 'IB', name: 'Imst', state: 'Tirol' },
-    { code: 'IN', name: 'Innsbruck', state: 'Tirol' },
-    { code: 'KB', name: 'Kufstein', state: 'Tirol' },
-    { code: 'KL', name: 'Kitzbühel', state: 'Tirol' },
-    { code: 'LL', name: 'Landeck', state: 'Tirol' },
-    { code: 'OZ', name: 'Ötztal', state: 'Tirol' },
-    { code: 'RO', name: 'Reutte', state: 'Tirol' },
-    { code: 'SB', name: 'Schwaz', state: 'Tirol' },
+    { code: 'T', name: 'Tirol (allg.)', state: 'Tirol', wappen: '⛏️' },
+    { code: 'IB', name: 'Imst', state: 'Tirol', wappen: '⛏️' },
+    { code: 'IN', name: 'Innsbruck-Stadt', state: 'Tirol', wappen: '⛏️' },
+    { code: 'KB', name: 'Kufstein', state: 'Tirol', wappen: '⛏️' },
+    { code: 'KI', name: 'Kitzbühel', state: 'Tirol', wappen: '⛏️' },
+    { code: 'LL', name: 'Landeck', state: 'Tirol', wappen: '⛏️' },
+    { code: 'RO', name: 'Reutte', state: 'Tirol', wappen: '⛏️' },
+    { code: 'SB', name: 'Schwaz', state: 'Tirol', wappen: '⛏️' },
+    { code: 'IU', name: 'Innsbruck-Land', state: 'Tirol', wappen: '⛏️' },
     
     // Vorarlberg
-    { code: 'V', name: 'Vorarlberg', state: 'Vorarlberg' },
-    { code: 'BL', name: 'Bludenz', state: 'Vorarlberg' },
-    { code: 'BR', name: 'Bregenz', state: 'Vorarlberg' },
-    { code: 'DO', name: 'Dornbirn', state: 'Vorarlberg' },
-    { code: 'FE', name: 'Feldkirch', state: 'Vorarlberg' },
-    { code: 'GE', name: 'Götzis', state: 'Vorarlberg' },
-    { code: 'HA', name: 'Hohenems', state: 'Vorarlberg' },
-    { code: 'SG', name: 'Sankt Gallen', state: 'Vorarlberg' },
+    { code: 'V', name: 'Vorarlberg', state: 'Vorarlberg', wappen: '📍' },
+    { code: 'BL', name: 'Bludenz', state: 'Vorarlberg', wappen: '📍' },
+    { code: 'BR', name: 'Bregenz', state: 'Vorarlberg', wappen: '📍' },
+    { code: 'DO', name: 'Dornbirn', state: 'Vorarlberg', wappen: '📍' },
+    { code: 'FE', name: 'Feldkirch', state: 'Vorarlberg', wappen: '📍' },
+    { code: 'GO', name: 'Götzis', state: 'Vorarlberg', wappen: '📍' },
+    { code: 'HO', name: 'Hohenems', state: 'Vorarlberg', wappen: '📍' },
     
     // Wien
-    { code: 'W', name: 'Wien', state: 'Wien' },
-    { code: '1', name: 'Innere Stadt', state: 'Wien' },
-    { code: '2', name: 'Leopoldstadt', state: 'Wien' },
-    { code: '3', name: 'Landstraße', state: 'Wien' },
-    { code: '4', name: 'Wieden', state: 'Wien' },
-    { code: '5', name: 'Margareten', state: 'Wien' },
-    { code: '6', name: 'Mariahilf', state: 'Wien' },
-    { code: '7', name: 'Neubau', state: 'Wien' },
-    { code: '8', name: 'Josefstadt', state: 'Wien' },
-    { code: '9', name: 'Alsergrund', state: 'Wien' },
-    { code: '10', name: 'Favoriten', state: 'Wien' },
-    { code: '11', name: 'Simmering', state: 'Wien' },
-    { code: '12', name: 'Meidling', state: 'Wien' },
-    { code: '13', name: 'Hietzing', state: 'Wien' },
-    { code: '14', name: 'Penzing', state: 'Wien' },
-    { code: '15', name: 'Rudolfsheim-Fünfhaus', state: 'Wien' },
-    { code: '16', name: 'Ottakring', state: 'Wien' },
-    { code: '17', name: 'Hernals', state: 'Wien' },
-    { code: '18', name: 'Währing', state: 'Wien' },
-    { code: '19', name: 'Döbling', state: 'Wien' },
-    { code: '20', name: 'Brigittenau', state: 'Wien' },
-    { code: '21', name: 'Floridsdorf', state: 'Wien' },
-    { code: '22', name: 'Donaustadt', state: 'Wien' },
-    { code: '23', name: 'Liesing', state: 'Wien' },
+    { code: 'W', name: 'Wien', state: 'Wien', wappen: '🏛️' },
 ];
+
+/**
+ * Bundesland-Informationen mit Wappen-Emojis
+ */
+const stateCoats = {
+    'Burgenland': { emoji: '🛡️', color: '#DC241F' },
+    'Kärnten': { emoji: '🦅', color: '#FFD700' },
+    'Niederösterreich': { emoji: '🏰', color: '#003399' },
+    'Oberösterreich': { emoji: '👑', color: '#ED2939' },
+    'Salzburg': { emoji: '🎵', color: '#6B8E23' },
+    'Steiermark': { emoji: '🦁', color: '#006600' },
+    'Tirol': { emoji: '⛏️', color: '#FF0000' },
+    'Vorarlberg': { emoji: '📍', color: '#0052CC' },
+    'Wien': { emoji: '🏛️', color: '#ED2939' },
+};
 
 /**
  * Österreichische Bundesländer und ihre Hauptstädte
@@ -576,6 +569,12 @@ class AustriaQuiz {
             html += '<div class="feedback-correct"><i class="fas fa-check-circle"></i> Richtig!</div>';
         } else {
             html += '<div class="feedback-incorrect"><i class="fas fa-times-circle"></i> Falsch!</div>';
+        }
+
+        // Wappen anzeigen
+        const stateInfo = stateCoats[this.currentQuestion.state];
+        if (stateInfo) {
+            html += `<div class="feedback-answer"><strong>Bundesland:</strong> ${stateInfo.emoji} ${this.currentQuestion.state}</div>`;
         }
 
         html += `<div class="feedback-answer"><strong>Antwort:</strong> ${this.currentQuestion.answer}</div>`;

@@ -270,11 +270,20 @@ button {
 
 .back-btn {
     background-color: var(--text-secondary);
+    padding: 0.5rem 0.75rem;
+    min-width: auto;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .back-btn:hover {
-    background-color: var(--text-primary);
-    transform: scale(1.05);
+    background-color: var(--error-color);
+    transform: scale(1.15);
+    color: white;
 }
 
 .end-btn {
