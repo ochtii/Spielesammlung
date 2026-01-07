@@ -407,31 +407,11 @@ class AustriaQuiz {
             this.loadNextQuestion();
         });
 
-        // Hint Dropdown Toggle
-        const hintBtn = document.getElementById('hintBtn');
-        const hintDropdown = document.getElementById('hintDropdown');
-        
-        hintBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            hintDropdown.classList.toggle('show');
-            hintBtn.parentElement.classList.toggle('open');
-        });
-
-        // Close hint dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!hintDropdown.contains(e.target) && !hintBtn.contains(e.target)) {
-                hintDropdown.classList.remove('show');
-                hintBtn.parentElement.classList.remove('open');
-            }
-        });
-
-        // Hint Options
-        document.querySelectorAll('.hint-option').forEach(option => {
-            option.addEventListener('click', (e) => {
+        // Hint Buttons
+        document.querySelectorAll('.hint-btn-compact').forEach(btn => {
+            btn.addEventListener('click', (e) => {
                 const hintType = e.currentTarget.dataset.hint;
                 this.useHint(hintType);
-                hintDropdown.classList.remove('show');
-                hintBtn.parentElement.classList.remove('open');
             });
         });
     }
@@ -957,7 +937,6 @@ class AustriaQuiz {
         this.usedHintTypes = [];
         
         // Reset Tipp-Button und Dropdown
-        const hintBtn = document.getElementById('hintBtn');
         const hintCount = document.getElementById('hintCount');
         
         let countText = `(${this.maxHints} verfügbar`;
@@ -966,16 +945,12 @@ class AustriaQuiz {
         }
         countText += ')';
         hintCount.textContent = countText;
-        hintBtn.disabled = false;
         
-        // Reset alle Tipp-Optionen
-        document.querySelectorAll('.hint-option').forEach(option => {
-            option.disabled = false;
+        // Reset alle Tipp-Buttons
+        document.querySelectorAll('.hint-btn-compact').forEach(btn => {
+            btn.disabled = false;
+            btn.classList.remove('used');
         });
-        
-        // Schließe Dropdown falls offen
-        document.getElementById('hintDropdown').classList.remove('show');
-        hintBtn.parentElement.classList.remove('open');
         
         if (this.currentQuestionIndex >= this.questions.length) {
             this.endGame();
@@ -1474,7 +1449,6 @@ class AustriaQuiz {
     updateHintDisplay() {
         const remainingHints = this.maxHints - this.hintsUsedThisQuestion;
         const hintCount = document.getElementById('hintCount');
-        const hintBtn = document.getElementById('hintBtn');
         
         if (remainingHints > 0) {
             let text = `(${remainingHints} übrig`;
@@ -1485,7 +1459,6 @@ class AustriaQuiz {
             hintCount.textContent = text;
         } else {
             hintCount.textContent = '(keine mehr)';
-            hintBtn.disabled = true;
         }
 
         // Aktualisiere verfügbare Tipp-Optionen
@@ -1496,27 +1469,27 @@ class AustriaQuiz {
      * Aktualisiert welche Tipps verfügbar sind
      */
     updateAvailableHints() {
-        document.querySelectorAll('.hint-option').forEach(option => {
-            const hintType = option.dataset.hint;
-            // Zuerst aktivieren, dann prüfen ob verfügbar
-            option.disabled = false;
+        document.querySelectorAll('.hint-btn-compact').forEach(btn => {
+            const hintType = btn.dataset.hint;
             
-            // Deaktivieren wenn bereits verwendet
+            // Deaktivieren und als "used" markieren wenn bereits verwendet
             if (this.usedHintTypes && this.usedHintTypes.includes(hintType)) {
-                option.disabled = true;
+                btn.disabled = true;
+                btn.classList.add('used');
+                btn.style.display = '';
+                return;
             }
             
-            // Ausblenden/Deaktivieren wenn nicht verfügbar für diesen Modus
+            // Prüfe ob verfügbar für diesen Modus
             const isAvailable = this.isHintAvailable(hintType);
             if (!isAvailable) {
-                // Eingabe-Tipps komplett ausblenden im Quiz-Modus
-                if (['firstLetter', 'randomLetter', 'length'].includes(hintType)) {
-                    option.style.display = 'none';
-                } else {
-                    option.disabled = true;
-                }
+                // Nicht verfügbare Tipps ausblenden
+                btn.style.display = 'none';
             } else {
-                option.style.display = '';
+                // Verfügbare Tipps anzeigen und aktivieren
+                btn.style.display = '';
+                btn.disabled = false;
+                btn.classList.remove('used');
             }
         });
     }

@@ -122,39 +122,36 @@
             <!-- Answer Area -->
             <div id="answerArea"></div>
 
-            <!-- Hint Section with Dropdown -->
+            <!-- Hint Section with Buttons -->
             <div class="hint-section">
-                <div class="hint-dropdown-container">
-                    <button class="hint-btn" id="hintBtn" type="button">
-                        <i class="fas fa-lightbulb"></i> Tipps <span id="hintCount">(3 verfügbar)</span>
-                        <i class="fas fa-chevron-down hint-arrow"></i>
+                <div class="hint-header">
+                    <i class="fas fa-lightbulb"></i> Tipps <span id="hintCount">(3 verfügbar)</span>
+                </div>
+                <div class="hint-buttons-grid">
+                    <button class="hint-btn-compact" data-hint="5050" type="button">
+                        <i class="fas fa-divide"></i>
+                        <span class="hint-label">50/50</span>
                     </button>
-                    <div class="hint-dropdown" id="hintDropdown">
-                        <button class="hint-option" data-hint="5050" type="button">
-                            <i class="fas fa-divide"></i> 50/50
-                            <small>Entfernt 2 falsche Antworten</small>
-                        </button>
-                        <button class="hint-option" data-hint="removeOne" type="button">
-                            <i class="fas fa-minus-circle"></i> Eine weg
-                            <small>Entfernt 1 falsche Antwort</small>
-                        </button>
-                        <button class="hint-option" data-hint="firstLetter" type="button">
-                            <i class="fas fa-font"></i> Anfangsbuchstabe
-                            <small>Zeigt den ersten Buchstaben</small>
-                        </button>
-                        <button class="hint-option" data-hint="randomLetter" type="button">
-                            <i class="fas fa-random"></i> Zufälliger Buchstabe
-                            <small>Zeigt einen zufälligen Buchstaben</small>
-                        </button>
-                        <button class="hint-option" data-hint="length" type="button">
-                            <i class="fas fa-ruler"></i> Länge
-                            <small>Zeigt die Anzahl der Buchstaben</small>
-                        </button>
-                        <button class="hint-option" data-hint="coat" type="button">
-                            <i class="fas fa-shield-alt"></i> Wappen
-                            <small>Zeigt das Bundesland-Wappen</small>
-                        </button>
-                    </div>
+                    <button class="hint-btn-compact" data-hint="removeOne" type="button">
+                        <i class="fas fa-minus-circle"></i>
+                        <span class="hint-label">Eine weg</span>
+                    </button>
+                    <button class="hint-btn-compact" data-hint="firstLetter" type="button">
+                        <i class="fas fa-font"></i>
+                        <span class="hint-label">Anfangsbuchstabe</span>
+                    </button>
+                    <button class="hint-btn-compact" data-hint="randomLetter" type="button">
+                        <i class="fas fa-random"></i>
+                        <span class="hint-label">Zufälliger Buchstabe</span>
+                    </button>
+                    <button class="hint-btn-compact" data-hint="length" type="button">
+                        <i class="fas fa-ruler"></i>
+                        <span class="hint-label">Länge</span>
+                    </button>
+                    <button class="hint-btn-compact" data-hint="coat" type="button">
+                        <i class="fas fa-shield-alt"></i>
+                        <span class="hint-label">Wappen</span>
+                    </button>
                 </div>
             </div>
 
