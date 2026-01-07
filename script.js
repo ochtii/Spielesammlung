@@ -479,7 +479,6 @@ class AustriaQuiz {
             } else {
                 document.body.classList.remove('dark-mode');
             }
-            this.updateThemeIcon();
         });
 
         // Event: Schließen
@@ -560,31 +559,11 @@ class AustriaQuiz {
 
         return false;
     }
-    toggleTheme() {
-        document.body.classList.toggle('dark-mode');
-        localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
-        this.updateThemeIcon();
-    }
 
     loadTheme() {
         const theme = localStorage.getItem('theme') || 'light';
         if (theme === 'dark') {
             document.body.classList.add('dark-mode');
-        }
-        this.updateThemeIcon();
-    }
-
-    updateThemeIcon() {
-        const icon = document.querySelector('#themeToggle i');
-        const themeText = document.getElementById('themeText');
-        if (document.body.classList.contains('dark-mode')) {
-            icon.classList.remove('fa-moon');
-            icon.classList.add('fa-sun');
-            if (themeText) themeText.textContent = 'Light Mode';
-        } else {
-            icon.classList.remove('fa-sun');
-            icon.classList.add('fa-moon');
-            if (themeText) themeText.textContent = 'Dark Mode';
         }
     }
 
