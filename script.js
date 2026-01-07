@@ -1502,9 +1502,17 @@ class AustriaQuiz {
                 option.disabled = true;
             }
             
-            // Deaktivieren wenn nicht verfügbar für diesen Modus
-            if (!this.isHintAvailable(hintType)) {
-                option.disabled = true;
+            // Ausblenden/Deaktivieren wenn nicht verfügbar für diesen Modus
+            const isAvailable = this.isHintAvailable(hintType);
+            if (!isAvailable) {
+                // Eingabe-Tipps komplett ausblenden im Quiz-Modus
+                if (['firstLetter', 'randomLetter', 'length'].includes(hintType)) {
+                    option.style.display = 'none';
+                } else {
+                    option.disabled = true;
+                }
+            } else {
+                option.style.display = '';
             }
         });
     }
