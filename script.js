@@ -624,23 +624,29 @@ class AustriaQuiz {
     }
 
     /**
-     * Zufälliges Kennzeichen generieren
+     * Zufälliges Kennzeichen generieren (österreichisches Format)
      */
     generateRandomPlate(code) {
+        const numbers = '123456789';
         const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const numbers = '0123456789';
         
-        let plate = '';
-        const numLetters = Math.random() > 0.5 ? 2 : 3;
+        // Österreichisches Format: CODE 123AB oder CODE 1234A
+        let numPart = '';
+        let letterPart = '';
+        
+        // 1-4 Ziffern
+        const numDigits = Math.floor(Math.random() * 4) + 1;
+        for (let i = 0; i < numDigits; i++) {
+            numPart += numbers[Math.floor(Math.random() * numbers.length)];
+        }
+        
+        // 1-3 Buchstaben am Ende
+        const numLetters = Math.floor(Math.random() * 3) + 1;
         for (let i = 0; i < numLetters; i++) {
-            plate += letters[Math.floor(Math.random() * letters.length)];
-        }
-        plate += ' ';
-        for (let i = 0; i < 6; i++) {
-            plate += numbers[Math.floor(Math.random() * numbers.length)];
+            letterPart += letters[Math.floor(Math.random() * letters.length)];
         }
         
-        return `${code} ${plate}`;
+        return `${code} ${numPart}${letterPart}`;
     }
 
     /**
@@ -767,9 +773,6 @@ class AustriaQuiz {
 
         if (this.currentQuestion.type === 'license-plates') {
             html += this.renderLicensePlate(this.currentQuestion.licensePlate);
-            if (this.currentQuestion.coat) {
-                html += `<div class="plate-meta">${this.currentQuestion.coat} <span class="plate-state">${this.currentQuestion.state}</span></div>`;
-            }
         } else if (this.currentQuestion.type === 'population') {
             html += `<p style="font-size: 1.2rem; margin-top: 1.5rem;">
                 <strong>${this.currentQuestion.city1}</strong> vs <strong>${this.currentQuestion.city2}</strong>
@@ -783,7 +786,9 @@ class AustriaQuiz {
      * Kennzeichen rendern
      */
     renderLicensePlate(plate) {
-        const [code, rest] = plate.split(' ');
+        const parts = plate.split(' ');
+        const code = parts[0];
+        const rest = parts.slice(1).join(' ');
         return `
             <div class="license-plate">
                 <div class="plate-eu">AT</div>
@@ -1020,8 +1025,17 @@ class AustriaQuiz {
         const feedbackArea = document.getElementById('feedbackArea');
         const feedbackContent = document.getElementById('feedbackContent');
 
+        let hintHtml = `<div class="feedback-hint"><i class="fas fa-info-circle"></i> <strong>Tipp:</strong> ${this.currentQuestion.hint}`;
+        
+        // Bei Kennzeichen-Fragen: Wappen als zusätzlichen visuellen Tipp anzeigen
+        if (this.currentQuestion.type === 'license-plates' && this.currentQuestion.coat) {
+            hintHtml += ` <span class="hint-wappen" style="font-size: 1.5rem; margin-left: 0.5rem;">${this.currentQuestion.coat}</span>`;
+        }
+        
+        hintHtml += '</div>';
+
         let existingContent = feedbackContent.innerHTML;
-        existingContent += `<div class="feedback-hint"><i class="fas fa-info-circle"></i> <strong>Tipp:</strong> ${this.currentQuestion.hint}</div>`;
+        existingContent += hintHtml;
 
         feedbackContent.innerHTML = existingContent;
     }
