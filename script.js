@@ -1287,23 +1287,8 @@ async function loadCommitTime() {
         // GitHub API nicht erreichbar - stiller Fallback
     }
     
-    const lastCommit = '2026-01-07 19:22:00';
-    try {
-        const commitDate = new Date(lastCommit);
-        const options = {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            timeZone: 'Europe/Vienna'
-        };
-        const formattedDate = new Intl.DateTimeFormat('de-AT', options).format(commitDate);
-        document.getElementById('commitTime').textContent = `${formattedDate} CET`;
-    } catch (e) {
-        document.getElementById('commitTime').textContent = 'v1.0';
-    }
+    // Fallback: Zeige "Version" statt veraltetes Datum
+    document.getElementById('commitTime').textContent = 'Aktuell';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
