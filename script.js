@@ -201,6 +201,14 @@ class AustriaQuiz {
             });
         });
 
+        // Start Game Button
+        const startBtn = document.getElementById('startBtn');
+        if (startBtn) {
+            startBtn.addEventListener('click', () => {
+                this.startGame();
+            });
+        }
+
         // Back Button
         document.getElementById('backBtn').addEventListener('click', () => {
             this.backToStart();
@@ -255,10 +263,20 @@ class AustriaQuiz {
     }
 
     /**
-     * Schwierigkeitsgrad auswählen und Spiel starten
+     * Schwierigkeitsgrad auswählen
      */
     selectDifficulty(difficulty) {
         this.currentDifficulty = difficulty;
+        // Zeige den "Spiel starten" Button
+        document.getElementById('startBtn').classList.add('active');
+        document.querySelector('.start-game-section').classList.add('active');
+        window.scrollTo(0, document.querySelector('.start-game-section').offsetTop);
+    }
+
+    /**
+     * Spiel tatsächlich starten
+     */
+    startGame() {
         this.score = 0;
         this.currentQuestionIndex = 0;
         this.hintUsed = false;
@@ -641,8 +659,10 @@ class AustriaQuiz {
      */
     backToStart() {
         this.switchScreen('startScreen');
+        this.currentDifficulty = null;
         document.getElementById('gameSelectionSection').style.display = 'block';
         document.getElementById('difficultySection').style.display = 'none';
+        document.querySelector('.start-game-section').classList.remove('active');
         document.getElementById('nextBtn').innerHTML = '<i class="fas fa-forward"></i> Nächste Frage';
         document.getElementById('nextBtn').onclick = () => this.loadNextQuestion();
         window.scrollTo(0, 0);

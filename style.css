@@ -331,6 +331,43 @@ button {
     font-size: 1.05rem;
 }
 
+.start-game-section {
+    display: none;
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.start-game-section.active {
+    display: block;
+}
+
+.start-btn {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    box-shadow: var(--shadow-hover);
+    transition: all 0.3s ease;
+}
+
+.start-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(237, 41, 57, 0.3);
+}
+
+.start-btn:active {
+    transform: translateY(-1px);
+}
+
 .start-button-section {
     display: flex;
     justify-content: center;
