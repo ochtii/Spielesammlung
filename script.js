@@ -3,114 +3,107 @@
 // ============================================
 
 /**
- * Array mit österreichischen KFZ-Kennzeichen (Bezirkskürzel)
- * Quelle: Offizielle österreichische Behördenregistratur
+ * Offizielle österreichische KFZ-Kennzeichen
  */
 const districtData = [
     // Burgenland
-    { code: 'B', name: 'Burgenland', state: 'Burgenland', wappen: '🛡️' },
+    { code: 'B', name: 'Burgenland', state: 'Burgenland' },
+    { code: 'BZ', name: 'Bruck an der Leitha', state: 'Burgenland' },
+    { code: 'GS', name: 'Güssing', state: 'Burgenland' },
+    { code: 'JE', name: 'Jennersdorf', state: 'Burgenland' },
+    { code: 'MO', name: 'Mattersburg', state: 'Burgenland' },
+    { code: 'OP', name: 'Oberpullendorf', state: 'Burgenland' },
+    { code: 'OW', name: 'Oberwart', state: 'Burgenland' },
     
     // Kärnten
-    { code: 'K', name: 'Klagenfurt-Land', state: 'Kärnten', wappen: '🦅' },
-    { code: 'KL', name: 'Klagenfurt-Stadt', state: 'Kärnten', wappen: '🦅' },
-    { code: 'VV', name: 'Villach-Land', state: 'Kärnten', wappen: '🦅' },
-    { code: 'V', name: 'Villach-Stadt', state: 'Kärnten', wappen: '🦅' },
-    { code: 'ST', name: 'Spittal an der Drau', state: 'Kärnten', wappen: '🦅' },
-    { code: 'HE', name: 'Hermagor-Pressegger See', state: 'Kärnten', wappen: '🦅' },
-    { code: 'FE', name: 'Feldkirchen', state: 'Kärnten', wappen: '🦅' },
+    { code: 'K', name: 'Klagenfurt-Land', state: 'Kärnten' },
+    { code: 'KL', name: 'Klagenfurt-Stadt', state: 'Kärnten' },
+    { code: 'VV', name: 'Villach-Land', state: 'Kärnten' },
+    { code: 'VS', name: 'Villach-Stadt', state: 'Kärnten' },
+    { code: 'SP', name: 'Spittal an der Drau', state: 'Kärnten' },
+    { code: 'HE', name: 'Hermagor', state: 'Kärnten' },
+    { code: 'F', name: 'Feldkirchen', state: 'Kärnten' },
     
     // Niederösterreich
-    { code: 'N', name: 'Niederösterreich (allg.)', state: 'Niederösterreich', wappen: '🏰' },
-    { code: 'GF', name: 'Gmünd', state: 'Niederösterreich', wappen: '🏰' },
-    { code: 'WR', name: 'Waidhofen an der Thaya', state: 'Niederösterreich', wappen: '🏰' },
-    { code: 'KO', name: 'Korneuburg', state: 'Niederösterreich', wappen: '🏰' },
-    { code: 'MA', name: 'Melk', state: 'Niederösterreich', wappen: '🏰' },
-    { code: 'MI', name: 'Mistelbach', state: 'Niederösterreich', wappen: '🏰' },
-    { code: 'MZ', name: 'Mödling', state: 'Niederösterreich', wappen: '🏰' },
-    { code: 'WZ', name: 'Waidhofen an der Ybbs', state: 'Niederösterreich', wappen: '🏰' },
-    { code: 'KS', name: 'Krems an der Donau', state: 'Niederösterreich', wappen: '🏰' },
-    { code: 'ZH', name: 'Zwettl', state: 'Niederösterreich', wappen: '🏰' },
+    { code: 'N', name: 'Niederösterreich', state: 'Niederösterreich' },
+    { code: 'AU', name: 'Amstetten', state: 'Niederösterreich' },
+    { code: 'GF', name: 'Gmünd', state: 'Niederösterreich' },
+    { code: 'GM', name: 'Gänserndorf', state: 'Niederösterreich' },
+    { code: 'HO', name: 'Horn', state: 'Niederösterreich' },
+    { code: 'KO', name: 'Korneuburg', state: 'Niederösterreich' },
+    { code: 'KS', name: 'Krems-Land', state: 'Niederösterreich' },
+    { code: 'MA', name: 'Melk', state: 'Niederösterreich' },
+    { code: 'MI', name: 'Mistelbach', state: 'Niederösterreich' },
+    { code: 'MZ', name: 'Mödling', state: 'Niederösterreich' },
+    { code: 'TR', name: 'Traiskirchen', state: 'Niederösterreich' },
+    { code: 'TL', name: 'Tulln', state: 'Niederösterreich' },
+    { code: 'WZ', name: 'Wiener Neustadt', state: 'Niederösterreich' },
+    { code: 'YB', name: 'Ybbs an der Donau', state: 'Niederösterreich' },
+    { code: 'ZH', name: 'Zwettl', state: 'Niederösterreich' },
     
     // Oberösterreich
-    { code: 'O', name: 'Oberösterreich (allg.)', state: 'Oberösterreich', wappen: '👑' },
-    { code: 'AM', name: 'Urfahr-Umgebung', state: 'Oberösterreich', wappen: '👑' },
-    { code: 'AD', name: 'Altmünster/Bad Ischl', state: 'Oberösterreich', wappen: '👑' },
-    { code: 'BR', name: 'Braunau am Inn', state: 'Oberösterreich', wappen: '👑' },
-    { code: 'EF', name: 'Eferding', state: 'Oberösterreich', wappen: '👑' },
-    { code: 'FR', name: 'Freistadt', state: 'Oberösterreich', wappen: '👑' },
-    { code: 'GD', name: 'Grieskirchen', state: 'Oberösterreich', wappen: '👑' },
-    { code: 'GM', name: 'Gmunden', state: 'Oberösterreich', wappen: '👑' },
-    { code: 'LI', name: 'Linz', state: 'Oberösterreich', wappen: '👑' },
-    { code: 'PE', name: 'Perg', state: 'Oberösterreich', wappen: '👑' },
-    { code: 'RI', name: 'Ried im Innkreis', state: 'Oberösterreich', wappen: '👑' },
-    { code: 'RO', name: 'Rohrbach', state: 'Oberösterreich', wappen: '👑' },
+    { code: 'O', name: 'Oberösterreich', state: 'Oberösterreich' },
+    { code: 'AM', name: 'Urfahr-Umgebung', state: 'Oberösterreich' },
+    { code: 'BR', name: 'Braunau am Inn', state: 'Oberösterreich' },
+    { code: 'EF', name: 'Eferding', state: 'Oberösterreich' },
+    { code: 'FR', name: 'Freistadt', state: 'Oberösterreich' },
+    { code: 'GD', name: 'Grieskirchen', state: 'Oberösterreich' },
+    { code: 'GM', name: 'Gmunden', state: 'Oberösterreich' },
+    { code: 'L', name: 'Linz-Stadt', state: 'Oberösterreich' },
+    { code: 'PE', name: 'Perg', state: 'Oberösterreich' },
+    { code: 'RI', name: 'Ried im Innkreis', state: 'Oberösterreich' },
+    { code: 'RH', name: 'Rohrbach', state: 'Oberösterreich' },
+    { code: 'ST', name: 'Steyr', state: 'Oberösterreich' },
+    { code: 'SU', name: 'Scheibbs', state: 'Oberösterreich' },
     
     // Salzburg
-    { code: 'S', name: 'Salzburg-Stadt', state: 'Salzburg', wappen: '🎵' },
-    { code: 'SL', name: 'Salzburg-Umgebung', state: 'Salzburg', wappen: '🎵' },
-    { code: 'HA', name: 'Hallein', state: 'Salzburg', wappen: '🎵' },
-    { code: 'SZ', name: 'Saalfelden', state: 'Salzburg', wappen: '🎵' },
-    { code: 'TL', name: 'Tamsweg', state: 'Salzburg', wappen: '🎵' },
-    { code: 'ZE', name: 'Zell am See', state: 'Salzburg', wappen: '🎵' },
+    { code: 'S', name: 'Salzburg-Stadt', state: 'Salzburg' },
+    { code: 'SL', name: 'Salzburg-Umgebung', state: 'Salzburg' },
+    { code: 'HA', name: 'Hallein', state: 'Salzburg' },
+    { code: 'SZ', name: 'Saalfelden-Leogang', state: 'Salzburg' },
+    { code: 'TL', name: 'Tamsweg', state: 'Salzburg' },
+    { code: 'ZE', name: 'Zell am See', state: 'Salzburg' },
     
     // Steiermark
-    { code: 'ST', name: 'Steiermark (allg.)', state: 'Steiermark', wappen: '🦁' },
-    { code: 'G', name: 'Graz', state: 'Steiermark', wappen: '🦁' },
-    { code: 'GU', name: 'Graz-Umgebung', state: 'Steiermark', wappen: '🦁' },
-    { code: 'DL', name: 'Deutschlandsberg', state: 'Steiermark', wappen: '🦁' },
-    { code: 'FB', name: 'Feldbach', state: 'Steiermark', wappen: '🦁' },
-    { code: 'FU', name: 'Fürstenfeld', state: 'Steiermark', wappen: '🦁' },
-    { code: 'HB', name: 'Hartberg-Fürstenfeld', state: 'Steiermark', wappen: '🦁' },
-    { code: 'JU', name: 'Judenburg', state: 'Steiermark', wappen: '🦁' },
-    { code: 'KF', name: 'Kapfenberg', state: 'Steiermark', wappen: '🦁' },
-    { code: 'KN', name: 'Knittelfeld', state: 'Steiermark', wappen: '🦁' },
-    { code: 'LB', name: 'Leibnitz', state: 'Steiermark', wappen: '🦁' },
-    { code: 'LI', name: 'Liezen', state: 'Steiermark', wappen: '🦁' },
-    { code: 'MU', name: 'Murau', state: 'Steiermark', wappen: '🦁' },
-    { code: 'VO', name: 'Voitsberg', state: 'Steiermark', wappen: '🦁' },
-    { code: 'WZ', name: 'Weiz', state: 'Steiermark', wappen: '🦁' },
+    { code: 'G', name: 'Graz-Stadt', state: 'Steiermark' },
+    { code: 'GU', name: 'Graz-Umgebung', state: 'Steiermark' },
+    { code: 'DL', name: 'Deutschlandsberg', state: 'Steiermark' },
+    { code: 'FB', name: 'Feldbach', state: 'Steiermark' },
+    { code: 'FU', name: 'Fürstenfeld', state: 'Steiermark' },
+    { code: 'HB', name: 'Hartberg-Fürstenfeld', state: 'Steiermark' },
+    { code: 'JU', name: 'Judenburg', state: 'Steiermark' },
+    { code: 'KF', name: 'Kapfenberg', state: 'Steiermark' },
+    { code: 'KN', name: 'Knittelfeld', state: 'Steiermark' },
+    { code: 'LB', name: 'Leibnitz', state: 'Steiermark' },
+    { code: 'LE', name: 'Liezen', state: 'Steiermark' },
+    { code: 'MU', name: 'Murau', state: 'Steiermark' },
+    { code: 'VO', name: 'Voitsberg', state: 'Steiermark' },
+    { code: 'WZ', name: 'Weiz', state: 'Steiermark' },
     
     // Tirol
-    { code: 'T', name: 'Tirol (allg.)', state: 'Tirol', wappen: '⛏️' },
-    { code: 'IB', name: 'Imst', state: 'Tirol', wappen: '⛏️' },
-    { code: 'IN', name: 'Innsbruck-Stadt', state: 'Tirol', wappen: '⛏️' },
-    { code: 'KB', name: 'Kufstein', state: 'Tirol', wappen: '⛏️' },
-    { code: 'KI', name: 'Kitzbühel', state: 'Tirol', wappen: '⛏️' },
-    { code: 'LL', name: 'Landeck', state: 'Tirol', wappen: '⛏️' },
-    { code: 'RO', name: 'Reutte', state: 'Tirol', wappen: '⛏️' },
-    { code: 'SB', name: 'Schwaz', state: 'Tirol', wappen: '⛏️' },
-    { code: 'IU', name: 'Innsbruck-Land', state: 'Tirol', wappen: '⛏️' },
+    { code: 'I', name: 'Innsbruck-Stadt', state: 'Tirol' },
+    { code: 'IU', name: 'Innsbruck-Land', state: 'Tirol' },
+    { code: 'IB', name: 'Imst', state: 'Tirol' },
+    { code: 'KB', name: 'Kufstein', state: 'Tirol' },
+    { code: 'KI', name: 'Kitzbühel', state: 'Tirol' },
+    { code: 'LL', name: 'Landeck', state: 'Tirol' },
+    { code: 'RE', name: 'Reutte', state: 'Tirol' },
+    { code: 'SB', name: 'Schwaz', state: 'Tirol' },
     
     // Vorarlberg
-    { code: 'V', name: 'Vorarlberg', state: 'Vorarlberg', wappen: '📍' },
-    { code: 'BL', name: 'Bludenz', state: 'Vorarlberg', wappen: '📍' },
-    { code: 'BR', name: 'Bregenz', state: 'Vorarlberg', wappen: '📍' },
-    { code: 'DO', name: 'Dornbirn', state: 'Vorarlberg', wappen: '📍' },
-    { code: 'FE', name: 'Feldkirch', state: 'Vorarlberg', wappen: '📍' },
-    { code: 'GO', name: 'Götzis', state: 'Vorarlberg', wappen: '📍' },
-    { code: 'HO', name: 'Hohenems', state: 'Vorarlberg', wappen: '📍' },
+    { code: 'BL', name: 'Bludenz', state: 'Vorarlberg' },
+    { code: 'BR', name: 'Bregenz', state: 'Vorarlberg' },
+    { code: 'DO', name: 'Dornbirn', state: 'Vorarlberg' },
+    { code: 'FK', name: 'Feldkirch', state: 'Vorarlberg' },
+    { code: 'GO', name: 'Götzis', state: 'Vorarlberg' },
+    { code: 'HE', name: 'Hohenems', state: 'Vorarlberg' },
     
     // Wien
-    { code: 'W', name: 'Wien', state: 'Wien', wappen: '🏛️' },
+    { code: 'W', name: 'Wien', state: 'Wien' },
 ];
 
 /**
- * Bundesland-Informationen mit Wappen-Emojis
- */
-const stateCoats = {
-    'Burgenland': { emoji: '🛡️', color: '#DC241F' },
-    'Kärnten': { emoji: '🦅', color: '#FFD700' },
-    'Niederösterreich': { emoji: '🏰', color: '#003399' },
-    'Oberösterreich': { emoji: '👑', color: '#ED2939' },
-    'Salzburg': { emoji: '🎵', color: '#6B8E23' },
-    'Steiermark': { emoji: '🦁', color: '#006600' },
-    'Tirol': { emoji: '⛏️', color: '#FF0000' },
-    'Vorarlberg': { emoji: '📍', color: '#0052CC' },
-    'Wien': { emoji: '🏛️', color: '#ED2939' },
-};
-
-/**
- * Österreichische Bundesländer und ihre Hauptstädte
+ * Bundesländer mit Hauptstädten
  */
 const capitalsData = [
     { state: 'Burgenland', capital: 'Eisenstadt' },
@@ -122,6 +115,23 @@ const capitalsData = [
     { state: 'Tirol', capital: 'Innsbruck' },
     { state: 'Vorarlberg', capital: 'Bregenz' },
     { state: 'Wien', capital: 'Wien' },
+];
+
+/**
+ * Bezirks-Hauptstädte (zusätzlich für erweitertes Quiz)
+ */
+const districtCapitals = [
+    { city: 'Eisenstadt', state: 'Burgenland', district: 'Eisenstadt-Umgebung' },
+    { city: 'Klagenfurt', state: 'Kärnten', district: 'Klagenfurt-Land' },
+    { city: 'Villach', state: 'Kärnten', district: 'Villach-Land' },
+    { city: 'Sankt Pölten', state: 'Niederösterreich', district: 'Sankt Pölten-Land' },
+    { city: 'Linz', state: 'Oberösterreich', district: 'Linz-Land' },
+    { city: 'Wels', state: 'Oberösterreich', district: 'Wels-Land' },
+    { city: 'Salzburg', state: 'Salzburg', district: 'Salzburg-Umgebung' },
+    { city: 'Graz', state: 'Steiermark', district: 'Graz-Umgebung' },
+    { city: 'Innsbruck', state: 'Tirol', district: 'Innsbruck-Land' },
+    { city: 'Bregenz', state: 'Vorarlberg', district: 'Bregenz' },
+    { city: 'Wien', state: 'Wien', district: 'Wien' },
 ];
 
 /**
@@ -137,7 +147,6 @@ const populationData = [
     { city: 'Wels', population: 62000 },
     { city: 'Sankt Pölten', population: 55000 },
     { city: 'Dornbirn', population: 48000 },
-    { city: 'Eisenstadt', population: 14000 },
     { city: 'Hallein', population: 56000 },
     { city: 'Villach', population: 59000 },
     { city: 'Feldkirch', population: 32000 },
@@ -148,6 +157,7 @@ const populationData = [
     { city: 'Kufstein', population: 18000 },
     { city: 'Saalfelden', population: 16000 },
     { city: 'Tamsweg', population: 8000 },
+    { city: 'Eisenstadt', population: 14000 },
 ];
 
 // ============================================
@@ -158,6 +168,7 @@ class AustriaQuiz {
     constructor() {
         this.currentGame = null;
         this.currentDifficulty = null;
+        this.capitalMode = 'all'; // 'federal', 'district', 'all'
         this.score = 0;
         this.questions = [];
         this.currentQuestionIndex = 0;
@@ -194,10 +205,13 @@ class AustriaQuiz {
         });
 
         // Difficulty Selection
-        document.querySelectorAll('.difficulty-btn').forEach(btn => {
+        document.querySelectorAll('[data-difficulty]').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const difficulty = e.currentTarget.dataset.difficulty;
-                this.selectDifficulty(difficulty);
+                if (e.currentTarget.dataset.difficulty) {
+                    document.querySelectorAll('[data-difficulty]').forEach(b => b.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    this.selectDifficulty(e.currentTarget.dataset.difficulty);
+                }
             });
         });
 
@@ -258,8 +272,65 @@ class AustriaQuiz {
      */
     selectGame(game) {
         this.currentGame = game;
-        document.getElementById('difficultySection').style.display = 'block';
+        
+        if (game === 'capitals') {
+            // Für Hauptstädte: zeige Modus-Auswahl
+            this.showCapitalModeSelection();
+        } else {
+            // Für andere Spiele: zeige direkt Schwierigkeitsgrad
+            document.getElementById('gameSelectionSection').style.display = 'none';
+            document.getElementById('difficultySection').style.display = 'block';
+            document.getElementById('startGameSection').classList.remove('active');
+        }
         window.scrollTo(0, 0);
+    }
+
+    /**
+     * Capital Mode Selection (Bundes- vs. Bezirks-Hauptstädte)
+     */
+    showCapitalModeSelection() {
+        // Entferne alte Modal/Overlay wenn es existiert
+        let modeModal = document.getElementById('capitalModeModal');
+        if (modeModal) modeModal.remove();
+
+        // Erstelle neuen Modal
+        modeModal = document.createElement('div');
+        modeModal.id = 'capitalModeModal';
+        modeModal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;';
+        
+        const modalContent = document.createElement('div');
+        modalContent.style.cssText = 'background: var(--bg-primary); padding: 2rem; border-radius: 12px; max-width: 500px; width: 90%; box-shadow: var(--shadow-hover);';
+        modalContent.innerHTML = `
+            <h3 style="margin-bottom: 1.5rem; text-align: center;">Hauptstädte-Auswahl</h3>
+            <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+                <button class="difficulty-btn" style="width: 100%; padding: 1.2rem;" data-capital-mode="federal">
+                    <i class="fas fa-flag"></i>
+                    <span>Bundeslands-Hauptstädte<br><small>9 Bundesländer</small></span>
+                </button>
+                <button class="difficulty-btn" style="width: 100%; padding: 1.2rem;" data-capital-mode="district">
+                    <i class="fas fa-city"></i>
+                    <span>Bezirks-Hauptstädte<br><small>Größere Städte</small></span>
+                </button>
+                <button class="difficulty-btn" style="width: 100%; padding: 1.2rem;" data-capital-mode="all">
+                    <i class="fas fa-globe"></i>
+                    <span>Gemischt<br><small>Beides kombiniert</small></span>
+                </button>
+            </div>
+        `;
+        
+        modeModal.appendChild(modalContent);
+        document.body.appendChild(modeModal);
+
+        // Event Listener
+        modalContent.querySelectorAll('[data-capital-mode]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.capitalMode = btn.dataset.capitalMode;
+                modeModal.remove();
+                document.getElementById('difficultySection').style.display = 'block';
+                document.querySelector('.start-game-section').classList.remove('active');
+                window.scrollTo(0, 0);
+            });
+        });
     }
 
     /**
@@ -268,9 +339,8 @@ class AustriaQuiz {
     selectDifficulty(difficulty) {
         this.currentDifficulty = difficulty;
         // Zeige den "Spiel starten" Button
-        document.getElementById('startBtn').classList.add('active');
-        document.querySelector('.start-game-section').classList.add('active');
-        window.scrollTo(0, document.querySelector('.start-game-section').offsetTop);
+        document.getElementById('startGameSection').classList.add('active');
+        window.scrollTo(0, document.getElementById('startGameSection').offsetTop - 50);
     }
 
     /**
@@ -314,7 +384,7 @@ class AustriaQuiz {
         shuffled.forEach(district => {
             this.questions.push({
                 type: 'license-plates',
-                question: `Welcher Bezirk hat das Kennzeichen "${district.code}"?`,
+                question: `Welcher Bezirk/Bundesland hat das Kennzeichen "${district.code}"?`,
                 licensePlate: this.generateRandomPlate(district.code),
                 answer: district.name,
                 state: district.state,
@@ -332,7 +402,6 @@ class AustriaQuiz {
         const numbers = '0123456789';
         
         let plate = '';
-        // Format: 2-3 Buchstaben, 5-6 Ziffern (z.B. "AB 123456")
         const numLetters = Math.random() > 0.5 ? 2 : 3;
         for (let i = 0; i < numLetters; i++) {
             plate += letters[Math.floor(Math.random() * letters.length)];
@@ -349,18 +418,28 @@ class AustriaQuiz {
      * Hauptstädte-Fragen generieren
      */
     generateCapitalQuestions() {
-        const shuffled = [...capitalsData].sort(() => 0.5 - Math.random());
+        let dataToUse = [];
+
+        if (this.capitalMode === 'federal') {
+            dataToUse = [...capitalsData];
+        } else if (this.capitalMode === 'district') {
+            dataToUse = districtCapitals.map(d => ({ state: d.district, capital: d.city }));
+        } else {
+            dataToUse = [...capitalsData, ...districtCapitals.map(d => ({ state: d.district, capital: d.city }))];
+        }
+
+        const shuffled = dataToUse.sort(() => 0.5 - Math.random()).slice(0, 15);
 
         shuffled.forEach(item => {
             const options = [item.capital];
+            const allCities = this.capitalMode === 'federal' 
+                ? capitalsData.map(c => c.capital)
+                : districtCapitals.map(d => d.city);
             
-            // Falsche Optionen hinzufügen
             while (options.length < 4) {
-                const randomCapital = capitalsData[
-                    Math.floor(Math.random() * capitalsData.length)
-                ].capital;
-                if (!options.includes(randomCapital)) {
-                    options.push(randomCapital);
+                const randomCity = allCities[Math.floor(Math.random() * allCities.length)];
+                if (!options.includes(randomCity)) {
+                    options.push(randomCity);
                 }
             }
 
@@ -370,7 +449,7 @@ class AustriaQuiz {
                 answer: item.capital,
                 options: options.sort(() => 0.5 - Math.random()),
                 hint: `Der erste Buchstabe ist "${item.capital.charAt(0)}".`,
-                state: item.state,
+                state: item.state.includes('Österreich') ? item.state.split('(')[0].trim() : item.state,
             });
         });
     }
@@ -412,11 +491,9 @@ class AustriaQuiz {
         this.currentQuestion = this.questions[this.currentQuestionIndex];
         this.gameActive = true;
 
-        // Feedback verstecken
         document.getElementById('feedbackArea').classList.add('feedback-hidden');
         document.getElementById('answerArea').innerHTML = '';
 
-        // Frage anzeigen
         this.renderQuestion();
         this.renderAnswerArea();
         window.scrollTo(0, 0);
@@ -516,15 +593,6 @@ class AustriaQuiz {
                 .sort(() => 0.5 - Math.random())
                 .slice(0, 3);
             return otherDistricts.map(d => d.name);
-        } else if (question.type === 'capitals') {
-            const otherCapitals = capitalsData
-                .filter(c => c.capital !== question.answer)
-                .sort(() => 0.5 - Math.random())
-                .slice(0, 3);
-            return otherCapitals.map(c => c.capital);
-        } else if (question.type === 'population') {
-            const otherCity = question.city1 === question.answer ? question.city2 : question.city1;
-            return [otherCity];
         }
 
         return [];
@@ -537,12 +605,10 @@ class AustriaQuiz {
         if (!this.gameActive) return;
         this.gameActive = false;
 
-        // Antwort normalisieren
         const normalizedAnswer = userAnswer.trim().toLowerCase();
         const correctAnswer = this.currentQuestion.answer.toLowerCase();
         const isCorrect = normalizedAnswer === correctAnswer;
 
-        // Buttons deaktivieren
         document.querySelectorAll('.answer-btn').forEach(btn => {
             btn.disabled = true;
             if (btn.textContent.toLowerCase() === correctAnswer) {
@@ -552,17 +618,13 @@ class AustriaQuiz {
             }
         });
 
-        // Score aktualisieren
         if (isCorrect) {
             this.score += 1;
         } else if (this.currentDifficulty === 'profi') {
-            this.score = 0; // Hardcore: Score zurücksetzen
+            this.score = 0;
         }
 
-        // Feedback anzeigen
         this.showFeedback(isCorrect);
-
-        // Score-Display aktualisieren
         document.getElementById('scoreValue').textContent = this.score;
 
         this.currentQuestionIndex++;
@@ -582,12 +644,6 @@ class AustriaQuiz {
             html += '<div class="feedback-correct"><i class="fas fa-check-circle"></i> Richtig!</div>';
         } else {
             html += '<div class="feedback-incorrect"><i class="fas fa-times-circle"></i> Falsch!</div>';
-        }
-
-        // Wappen anzeigen
-        const stateInfo = stateCoats[this.currentQuestion.state];
-        if (stateInfo) {
-            html += `<div class="feedback-answer"><strong>Bundesland:</strong> ${stateInfo.emoji} ${this.currentQuestion.state}</div>`;
         }
 
         html += `<div class="feedback-answer"><strong>Antwort:</strong> ${this.currentQuestion.answer}</div>`;
@@ -659,10 +715,12 @@ class AustriaQuiz {
      */
     backToStart() {
         this.switchScreen('startScreen');
+        this.currentGame = null;
         this.currentDifficulty = null;
+        this.capitalMode = 'all';
         document.getElementById('gameSelectionSection').style.display = 'block';
         document.getElementById('difficultySection').style.display = 'none';
-        document.querySelector('.start-game-section').classList.remove('active');
+        document.getElementById('startGameSection').classList.remove('active');
         document.getElementById('nextBtn').innerHTML = '<i class="fas fa-forward"></i> Nächste Frage';
         document.getElementById('nextBtn').onclick = () => this.loadNextQuestion();
         window.scrollTo(0, 0);
@@ -685,11 +743,9 @@ class AustriaQuiz {
 
 /**
  * Letzte Commit-Zeit anzeigen
- * Fallback auf Fetch von GitHub API mit Timeout
  */
 async function loadCommitTime() {
     try {
-        // Versuche mit Timeout von 3 Sekunden
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 3000);
         
@@ -718,12 +774,10 @@ async function loadCommitTime() {
             return;
         }
     } catch (error) {
-        console.log('GitHub API nicht erreichbar, verwende Fallback');
+        console.log('GitHub API nicht erreichbar');
     }
     
-    // Fallback: Lokale Commit-Info (wird beim Deploy aktualisiert)
-    // Format: YYYY-MM-DD HH:MM:SS
-    const lastCommit = '2026-01-07 19:10:06';
+    const lastCommit = '2026-01-07 19:22:00';
     try {
         const commitDate = new Date(lastCommit);
         const options = {
