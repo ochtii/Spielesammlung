@@ -304,6 +304,11 @@ class AustriaQuiz {
         if (game === 'capitals') {
             // Für Hauptstädte: zeige Inline-Modus-Auswahl (Modal bleibt als Fallback)
             this.showCapitalModeInline();
+        } else if (game === 'world-capitals') {
+            // Internationaler Modus: direkt Schwierigkeitsgrad anzeigen
+            document.getElementById('gameSelectionSection').style.display = 'none';
+            document.getElementById('difficultySection').style.display = 'block';
+            document.getElementById('startGameSection').classList.remove('active');
         } else {
             // Für andere Spiele: zeige direkt Schwierigkeitsgrad
             document.getElementById('gameSelectionSection').style.display = 'none';
@@ -317,39 +322,77 @@ class AustriaQuiz {
      * Zeigt eine Inline-Auswahl für Hauptstädte im Difficulty-Abschnitt
      */
     showCapitalModeInline() {
-        const difficultySection = document.getElementById('difficultySection');
+        // Schrittweiser Auswahl-Dialog für Capitals
+        const startScreen = document.getElementById('startScreen');
         document.getElementById('gameSelectionSection').style.display = 'none';
-        difficultySection.style.display = 'block';
 
-        // Entferne bestehende Auswahl falls vorhanden
-        const existing = document.getElementById('capitalModeInline');
-        if (existing) existing.remove();
+        // Entferne alte Inline-Selection falls vorhanden
+        const old = document.getElementById('capitalModeInline');
+        if (old) old.remove();
 
         const container = document.createElement('div');
         container.id = 'capitalModeInline';
-        container.className = 'selection-section';
-        container.style.margin = '0 0 1rem 0';
+        container.className = 'capital-inline-modal';
         container.innerHTML = `
-            <h4>Welche Hauptstädte verwenden?</h4>
-            <div class="button-grid">
-                <button class="difficulty-btn" data-capital-mode="federal">Bundesländer</button>
-                <button class="difficulty-btn" data-capital-mode="district">Bezirke</button>
-                <button class="difficulty-btn" data-capital-mode="all">Gemischt</button>
+            <div class="capital-card">
+                <h3>Hauptstädte-Modus</h3>
+                <p class="capital-instruction">Wähle, welche Art von Hauptstädten du spielen möchtest. Danach wähle den Schwierigkeitsgrad.</p>
+                <div class="capital-options">
+                    <button class="capital-option" data-capital-mode="federal">
+                        <strong>Bundesländer</strong>
+                        <span class="capital-sub">Nur die 9 Landeshauptstädte</span>
+                    </button>
+                    <button class="capital-option" data-capital-mode="district">
+                        <strong>Bezirke</strong>
+                        <span class="capital-sub">Größere Bezirks-/Stadt-Hauptstädte</span>
+                    </button>
+                    <button class="capital-option" data-capital-mode="all">
+                        <strong>Gemischt</strong>
+                        <span class="capital-sub">Beides kombiniert</span>
+                    </button>
+                </div>
+                <div class="capital-actions">
+                    <button id="capitalModeBack" class="back-btn">Abbrechen</button>
+                    <button id="capitalModeNext" class="start-btn" disabled>Weiter</button>
+                </div>
             </div>
         `;
 
-        difficultySection.prepend(container);
+        startScreen.prepend(container);
 
-        container.querySelectorAll('[data-capital-mode]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
+        const options = container.querySelectorAll('.capital-option');
+        const nextBtn = container.querySelector('#capitalModeNext');
+        const backBtn = container.querySelector('#capitalModeBack');
+
+        options.forEach(opt => {
+            opt.addEventListener('click', (e) => {
+                options.forEach(o => o.classList.remove('selected'));
+                e.currentTarget.classList.add('selected');
                 this.capitalMode = e.currentTarget.dataset.capitalMode;
-                // Markiere Auswahl
-                container.querySelectorAll('[data-capital-mode]').forEach(b => b.classList.remove('active'));
-                e.currentTarget.classList.add('active');
-                // Zeige Schwierigkeitsgrad und start-Button
-                document.getElementById('difficultySection').style.display = 'block';
-                document.getElementById('startGameSection').classList.remove('active');
+                nextBtn.disabled = false;
+                // Update instruction text
+                const desc = container.querySelector('.capital-instruction');
+                if (this.capitalMode === 'federal') desc.textContent = 'Bundeslands-Hauptstädte: 9 einfache Fragen.';
+                else if (this.capitalMode === 'district') desc.textContent = 'Bezirks-Hauptstädte: größere Auswahl an Städten.';
+                else desc.textContent = 'Gemischt: Kombination aus beidem.';
             });
+            opt.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') opt.click();
+            });
+        });
+
+        backBtn.addEventListener('click', () => {
+            container.remove();
+            document.getElementById('gameSelectionSection').style.display = 'block';
+        });
+
+        nextBtn.addEventListener('click', () => {
+            // Entferne Modal und zeige Difficulty
+            container.remove();
+            document.getElementById('difficultySection').style.display = 'block';
+            // Stelle sicher, dass Start-Button erst nach Difficulty-Auswahl erscheint
+            document.getElementById('startGameSection').classList.remove('active');
+            window.scrollTo(0, document.getElementById('difficultySection').offsetTop - 20);
         });
     }
 
@@ -489,27 +532,36 @@ class AustriaQuiz {
     generateCapitalQuestions() {
         let dataToUse = [];
 
-        if (this.capitalMode === 'federal') {
-            dataToUse = [...capitalsData];
-        } else if (this.capitalMode === 'district') {
-            dataToUse = districtCapitals.map(d => ({ state: d.district, capital: d.city }));
+        if (this.currentGame === 'world-capitals' && typeof worldCapitals !== 'undefined') {
+            // Internationale Hauptstädte
+            dataToUse = worldCapitals.map(w => ({ state: `${w.emoji} ${w.country}`, capital: w.capital, country: w.country, emoji: w.emoji }));
         } else {
-            dataToUse = [...capitalsData, ...districtCapitals.map(d => ({ state: d.district, capital: d.city }))];
+            if (this.capitalMode === 'federal') {
+                dataToUse = [...capitalsData];
+            } else if (this.capitalMode === 'district') {
+                dataToUse = districtCapitals.map(d => ({ state: d.district, capital: d.city }));
+            } else {
+                dataToUse = [...capitalsData, ...districtCapitals.map(d => ({ state: d.district, capital: d.city }))];
+            }
         }
 
         const shuffled = dataToUse.sort(() => 0.5 - Math.random()).slice(0, 15);
 
         shuffled.forEach(item => {
+            // Multiple-Choice-Optionen immer erstellen (für nationale und internationale Modi)
             const options = [item.capital];
-            const allCities = this.capitalMode === 'federal' 
-                ? capitalsData.map(c => c.capital)
-                : districtCapitals.map(d => d.city);
-            
-            while (options.length < 4) {
+            let allCities = [];
+            if (this.currentGame === 'world-capitals' && typeof worldCapitals !== 'undefined') {
+                allCities = worldCapitals.map(w => w.capital);
+            } else {
+                allCities = this.capitalMode === 'federal' 
+                    ? capitalsData.map(c => c.capital)
+                    : districtCapitals.map(d => d.city);
+            }
+
+            while (options.length < 4 && allCities.length > 0) {
                 const randomCity = allCities[Math.floor(Math.random() * allCities.length)];
-                if (!options.includes(randomCity)) {
-                    options.push(randomCity);
-                }
+                if (!options.includes(randomCity)) options.push(randomCity);
             }
 
             this.questions.push({
@@ -518,7 +570,7 @@ class AustriaQuiz {
                 answer: item.capital,
                 options: options.sort(() => 0.5 - Math.random()),
                 hint: `Der erste Buchstabe ist "${item.capital.charAt(0)}".`,
-                state: item.state.includes('Österreich') ? item.state.split('(')[0].trim() : item.state,
+                state: item.state,
             });
         });
     }
@@ -611,7 +663,8 @@ class AustriaQuiz {
         const area = document.getElementById('answerArea');
         area.innerHTML = '';
 
-        if (this.currentDifficulty === 'quiz') {
+        // Capitals always multiple-choice; otherwise Quiz/Profi decide
+        if (this.currentQuestion.type === 'capitals' || this.currentDifficulty === 'quiz') {
             // Quiz-Modus: Buttons
             const options = this.currentQuestion.options || [
                 this.currentQuestion.answer,
