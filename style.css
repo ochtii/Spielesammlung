@@ -249,6 +249,9 @@ main {
     border-radius: 16px;
     max-width: 420px;
     width: 100%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
     box-shadow: var(--shadow-hover);
     overflow: hidden;
     animation: slideIn 0.3s ease;
@@ -261,6 +264,7 @@ main {
     padding: 1.25rem 1.5rem;
     border-bottom: 1px solid var(--border-color);
     background: var(--bg-secondary);
+    flex-shrink: 0;
 }
 
 .settings-header h3 {
@@ -293,6 +297,8 @@ main {
 
 .settings-body {
     padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
 }
 
 .settings-section {
@@ -413,6 +419,7 @@ main {
     padding: 1rem 1.5rem;
     border-top: 1px solid var(--border-color);
     background: var(--bg-secondary);
+    flex-shrink: 0;
 }
 
 .settings-save-btn {
