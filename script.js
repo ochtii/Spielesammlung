@@ -329,32 +329,88 @@ class AustriaQuiz {
         let modal = document.getElementById('settingsModal');
         if (modal) modal.remove();
 
+        const isDarkMode = document.body.classList.contains('dark-mode');
+
         modal = document.createElement('div');
         modal.id = 'settingsModal';
-        modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 2000;';
+        modal.className = 'settings-modal';
 
         const content = document.createElement('div');
-        content.style.cssText = 'background: var(--bg-primary); padding: 2rem; border-radius: 12px; max-width: 400px; width: 90%; box-shadow: var(--shadow-hover);';
+        content.className = 'settings-content';
         content.innerHTML = `
-            <h3 style="margin-bottom: 1.5rem;">Einstellungen</h3>
-            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                <input type="checkbox" id="typoToleranceCheck" ${this.typoTolerance ? 'checked' : ''}>
-                <label for="typoToleranceCheck" style="cursor: pointer; margin: 0;">Tippfehler akzeptieren</label>
+            <div class="settings-header">
+                <h3><i class="fas fa-cog"></i> Einstellungen</h3>
+                <button class="settings-close-btn" id="settingsClose" type="button">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-            <small style="color: var(--text-secondary); display: block; margin-bottom: 1.5rem;">Erlaubt kleine Abweichungen in den Antworten.</small>
-            <div style="display: flex; gap: 1rem;">
-                <button id="settingsClose" class="back-btn" style="flex: 1;">Schließen</button>
-                <button id="settingsSave" class="start-btn" style="flex: 1;">Speichern</button>
+            
+            <div class="settings-body">
+                <div class="settings-section">
+                    <h4><i class="fas fa-palette"></i> Darstellung</h4>
+                    <div class="settings-option">
+                        <div class="settings-option-info">
+                            <span class="settings-option-label">Dark Mode</span>
+                            <span class="settings-option-desc">Dunkles Farbschema aktivieren</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="darkModeCheck" ${isDarkMode ? 'checked' : ''}>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h4><i class="fas fa-gamepad"></i> Spieloptionen</h4>
+                    <div class="settings-option">
+                        <div class="settings-option-info">
+                            <span class="settings-option-label">Tippfehler akzeptieren</span>
+                            <span class="settings-option-desc">Erlaubt kleine Abweichungen bei Antworten</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="typoToleranceCheck" ${this.typoTolerance ? 'checked' : ''}>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-footer">
+                <button id="settingsSave" class="settings-save-btn" type="button">
+                    <i class="fas fa-check"></i> Speichern
+                </button>
             </div>
         `;
 
         modal.appendChild(content);
         document.body.appendChild(modal);
 
+        // Event: Dark Mode Toggle (sofort anwenden)
+        document.getElementById('darkModeCheck').addEventListener('change', (e) => {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+            this.updateThemeIcon();
+        });
+
+        // Event: Schließen
         document.getElementById('settingsClose').addEventListener('click', () => modal.remove());
+        
+        // Event: Außerhalb klicken schließt Modal
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.remove();
+        });
+
+        // Event: Speichern
         document.getElementById('settingsSave').addEventListener('click', () => {
+            const darkMode = document.getElementById('darkModeCheck').checked;
             this.typoTolerance = document.getElementById('typoToleranceCheck').checked;
+            
+            localStorage.setItem('theme', darkMode ? 'dark' : 'light');
             localStorage.setItem('typoTolerance', this.typoTolerance);
+            
             modal.remove();
         });
     }
