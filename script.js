@@ -574,6 +574,7 @@ class AustriaQuiz {
                 this.generateLicensePlateQuestions();
                 break;
             case 'capitals':
+            case 'world-capitals':
                 this.generateCapitalQuestions();
                 break;
             case 'population':
@@ -655,16 +656,19 @@ class AustriaQuiz {
             const options = [item.capital];
             let allCities = [];
             if (this.currentGame === 'world-capitals' && typeof worldCapitals !== 'undefined') {
-                allCities = worldCapitals.map(w => w.capital);
+                allCities = worldCapitals.map(w => w.capital).filter(c => c !== item.capital);
             } else {
                 allCities = this.capitalMode === 'federal' 
-                    ? capitalsData.map(c => c.capital)
-                    : districtCapitals.map(d => d.city);
+                    ? capitalsData.map(c => c.capital).filter(c => c !== item.capital)
+                    : districtCapitals.map(d => d.city).filter(c => c !== item.capital);
             }
 
-            while (options.length < 4 && allCities.length > 0) {
-                const randomCity = allCities[Math.floor(Math.random() * allCities.length)];
-                if (!options.includes(randomCity)) options.push(randomCity);
+            // Mische und nimm bis zu 3 weitere Optionen
+            const shuffledCities = allCities.sort(() => 0.5 - Math.random());
+            for (let i = 0; i < shuffledCities.length && options.length < 4; i++) {
+                if (!options.includes(shuffledCities[i])) {
+                    options.push(shuffledCities[i]);
+                }
             }
 
             this.questions.push({
