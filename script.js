@@ -1429,8 +1429,8 @@ class AustriaQuiz {
                 // Nur bei Eingabe-Modus
                 return isInputMode || q.type === 'population' === false;
             case 'coat':
-                // Nur bei Kennzeichen oder Hauptstädten mit Wappen
-                return (q.type === 'license-plates' || q.type === 'capitals' || q.type === 'world-capitals') && q.state;
+                // Nur bei Kennzeichen oder Hauptstädten mit verfügbarem Wappen
+                return (q.type === 'license-plates' || (q.type === 'capitals' && stateCoats[q.state])) && q.state;
             default:
                 return false;
         }
@@ -1559,9 +1559,10 @@ class AustriaQuiz {
     updateAvailableHints() {
         // Kontostand anzeigen wenn kostenpflichtige Tipps aktiv
         const balanceElement = document.getElementById('hintBalance');
-        if (balanceElement) {
+        const balanceAmount = document.getElementById('balanceAmount');
+        if (balanceElement && balanceAmount) {
             if (this.paidHints) {
-                balanceElement.textContent = `${this.globalPoints.totalPoints}P`;
+                balanceAmount.textContent = this.globalPoints.totalPoints;
                 balanceElement.style.display = 'inline';
             } else {
                 balanceElement.style.display = 'none';
