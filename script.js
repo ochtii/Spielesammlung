@@ -664,11 +664,21 @@ class AustriaQuiz {
 // ============================================
 
 /**
- * Letzte Commit-Zeit von GitHub API abrufen
+ * Letzte Commit-Zeit anzeigen
+ * Fallback auf Fetch von GitHub API mit Timeout
  */
 async function loadCommitTime() {
     try {
-        const response = await fetch('https://api.github.com/repos/ochtii/Spielesammlung/commits?per_page=1');
+        // Versuche mit Timeout von 3 Sekunden
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 3000);
+        
+        const response = await fetch(
+            'https://api.github.com/repos/ochtii/Spielesammlung/commits?per_page=1',
+            { signal: controller.signal }
+        );
+        clearTimeout(timeout);
+        
         if (!response.ok) throw new Error('API Error');
         
         const data = await response.json();
@@ -685,9 +695,29 @@ async function loadCommitTime() {
             };
             const formattedDate = new Intl.DateTimeFormat('de-AT', options).format(commitDate);
             document.getElementById('commitTime').textContent = `${formattedDate} CET`;
+            return;
         }
     } catch (error) {
-        console.log('Commit-Zeit konnte nicht geladen werden:', error);
+        console.log('GitHub API nicht erreichbar, verwende Fallback');
+    }
+    
+    // Fallback: Lokale Commit-Info (wird beim Deploy aktualisiert)
+    // Format: YYYY-MM-DD HH:MM:SS
+    const lastCommit = '2026-01-07 19:10:06';
+    try {
+        const commitDate = new Date(lastCommit);
+        const options = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            timeZone: 'Europe/Vienna'
+        };
+        const formattedDate = new Intl.DateTimeFormat('de-AT', options).format(commitDate);
+        document.getElementById('commitTime').textContent = `${formattedDate} CET`;
+    } catch (e) {
         document.getElementById('commitTime').textContent = 'v1.0';
     }
 }
