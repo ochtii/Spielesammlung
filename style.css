@@ -608,21 +608,6 @@ button {
     transform: scale(1.15) rotate(360deg);
 }
 
-
-
-
-
-
-.hint-btn {
-    display: flex;
-    margin: 0 auto;
-    padding: 1rem 2rem;
-    font-size: 1.05rem;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-}
-
 .hint-header {
     text-align: center;
     font-size: 1rem;
@@ -1514,7 +1499,7 @@ input[type="text"]::placeholder {
 @media print {
     .navbar,
     .back-btn,
-    .hint-btn {
+    .hint-section {
         display: none;
     }
 }

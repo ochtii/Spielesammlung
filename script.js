@@ -801,40 +801,11 @@ class AustriaQuiz {
             this.questions.push({
                 type: 'license-plates',
                 question: `Welcher Bezirk/Bundesland hat das Kennzeichen "${district.code}"?`,
-                licensePlate: this.generateRandomPlate(district.code),
                 answer: district.name,
                 state: district.state,
-                coat: stateCoats[district.state] || '',
-                hint: `Das liegt im Bundesland ${district.state}.`,
                 code: district.code,
             });
         });
-    }
-
-    /**
-     * Zufälliges Kennzeichen generieren (österreichisches Format)
-     */
-    generateRandomPlate(code) {
-        const numbers = '123456789';
-        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        
-        // Österreichisches Format: CODE 123AB oder CODE 1234A
-        let numPart = '';
-        let letterPart = '';
-        
-        // 1-4 Ziffern
-        const numDigits = Math.floor(Math.random() * 4) + 1;
-        for (let i = 0; i < numDigits; i++) {
-            numPart += numbers[Math.floor(Math.random() * numbers.length)];
-        }
-        
-        // 1-3 Buchstaben am Ende
-        const numLetters = Math.floor(Math.random() * 3) + 1;
-        for (let i = 0; i < numLetters; i++) {
-            letterPart += letters[Math.floor(Math.random() * letters.length)];
-        }
-        
-        return `${code} ${numPart}${letterPart}`;
     }
 
     /**
@@ -899,7 +870,6 @@ class AustriaQuiz {
                 capitalEn: item.capitalEn || item.capital,
                 capitalNative: item.capitalNative || item.capital,
                 options: options.sort(() => 0.5 - Math.random()),
-                hint: `Der erste Buchstabe ist "${item.capital.charAt(0)}".`,
                 state: item.state,
             });
         });
@@ -923,7 +893,6 @@ class AustriaQuiz {
                 answer: item.population > wrongCity.population ? item.city : wrongCity.city,
                 population1: item.population,
                 population2: wrongCity.population,
-                hint: `${item.city} hat etwa ${item.population.toLocaleString('de-AT')} Einwohner.`,
             });
         });
     }
@@ -1258,13 +1227,7 @@ class AustriaQuiz {
             html += '<div class="feedback-incorrect"><i class="fas fa-times-circle"></i> Falsch! +0 Punkte</div>';
         }
 
-        html += `<div class="feedback-answer"><strong>Antwort:</strong> ${this.currentQuestion.answer}`;
-
-        if (this.currentQuestion.type === 'license-plates' && this.currentQuestion.coat) {
-            html += ` <span class="feedback-wappen">${this.currentQuestion.coat}</span>`;
-        }
-
-        html += `</div>`;
+        html += `<div class="feedback-answer"><strong>Antwort:</strong> ${this.currentQuestion.answer}</div>`;
 
         feedbackContent.innerHTML = html;
 
