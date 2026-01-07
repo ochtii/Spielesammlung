@@ -338,9 +338,10 @@ class AustriaQuiz {
         }
         this.globalPoints.history.unshift(entry); // Neueste zuerst
         
-        // Begrenze Historie auf 100 Einträge
-        if (this.globalPoints.history.length > 100) {
-            this.globalPoints.history = this.globalPoints.history.slice(0, 100);
+        // Begrenze Historie auf eingestelltes Limit
+        const limit = this.getHistoryLimit();
+        if (this.globalPoints.history.length > limit) {
+            this.globalPoints.history = this.globalPoints.history.slice(0, limit);
         }
     }
 
@@ -539,6 +540,23 @@ class AustriaQuiz {
                         </label>
                     </div>
                 </div>
+
+                <div class="settings-section">
+                    <h4><i class="fas fa-database"></i> Datenspeicherung</h4>
+                    <div class="settings-option">
+                        <div class="settings-option-info">
+                            <span class="settings-option-label">Historie-Größe</span>
+                            <span class="settings-option-desc">Maximale Anzahl gespeicherter Einträge</span>
+                        </div>
+                        <select id="historyLimitSelect" class="settings-select">
+                            <option value="20" ${this.getHistoryLimit() === 20 ? 'selected' : ''}>20 Einträge (Minimal)</option>
+                            <option value="50" ${this.getHistoryLimit() === 50 ? 'selected' : ''}>50 Einträge (Klein)</option>
+                            <option value="100" ${this.getHistoryLimit() === 100 ? 'selected' : ''}>100 Einträge (Standard)</option>
+                            <option value="200" ${this.getHistoryLimit() === 200 ? 'selected' : ''}>200 Einträge (Groß)</option>
+                            <option value="500" ${this.getHistoryLimit() === 500 ? 'selected' : ''}>500 Einträge (Maximal)</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
             <div class="settings-footer">
@@ -573,13 +591,35 @@ class AustriaQuiz {
             const darkMode = document.getElementById('darkModeCheck').checked;
             this.typoTolerance = document.getElementById('typoToleranceCheck').checked;
             this.paidHints = document.getElementById('paidHintsCheck').checked;
+            const historyLimit = parseInt(document.getElementById('historyLimitSelect').value);
             
             localStorage.setItem('theme', darkMode ? 'dark' : 'light');
             localStorage.setItem('typoTolerance', this.typoTolerance);
             localStorage.setItem('paidHints', this.paidHints);
+            localStorage.setItem('historyLimit', historyLimit);
+            
+            // Bereinige Historie falls neues Limit kleiner ist
+            this.trimHistory(historyLimit);
             
             modal.remove();
         });
+    }
+
+    /**
+     * Hole Historie-Limit aus localStorage
+     */
+    getHistoryLimit() {
+        return parseInt(localStorage.getItem('historyLimit')) || 100;
+    }
+
+    /**
+     * Bereinige Historie auf angegebenes Limit
+     */
+    trimHistory(limit) {
+        if (this.globalPoints.history && this.globalPoints.history.length > limit) {
+            this.globalPoints.history = this.globalPoints.history.slice(0, limit);
+            this.savePointsData();
+        }
     }
 
     /**

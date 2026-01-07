@@ -337,6 +337,30 @@ main {
     color: var(--text-secondary);
 }
 
+/* Settings Select */
+.settings-select {
+    padding: 0.625rem 1rem;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    max-width: 250px;
+}
+
+.settings-select:hover {
+    border-color: var(--primary-color);
+}
+
+.settings-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
 /* Toggle Switch */
 .toggle-switch {
     position: relative;

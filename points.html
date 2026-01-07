@@ -332,6 +332,7 @@
             const isDarkMode = document.body.classList.contains('dark-mode');
             const typoTolerance = localStorage.getItem('typoTolerance') !== 'false';
             const paidHints = localStorage.getItem('paidHints') === 'true';
+            const historyLimit = parseInt(localStorage.getItem('historyLimit')) || 100;
 
             modal = document.createElement('div');
             modal.id = 'settingsModal';
@@ -385,6 +386,23 @@
                             </label>
                         </div>
                     </div>
+
+                    <div class="settings-section">
+                        <h4><i class="fas fa-database"></i> Datenspeicherung</h4>
+                        <div class="settings-option">
+                            <div class="settings-option-info">
+                                <span class="settings-option-label">Historie-Größe</span>
+                                <span class="settings-option-desc">Maximale Anzahl gespeicherter Einträge</span>
+                            </div>
+                            <select id="historyLimitSelect" class="settings-select">
+                                <option value="20" ${historyLimit === 20 ? 'selected' : ''}>20 Einträge (Minimal)</option>
+                                <option value="50" ${historyLimit === 50 ? 'selected' : ''}>50 Einträge (Klein)</option>
+                                <option value="100" ${historyLimit === 100 ? 'selected' : ''}>100 Einträge (Standard)</option>
+                                <option value="200" ${historyLimit === 200 ? 'selected' : ''}>200 Einträge (Groß)</option>
+                                <option value="500" ${historyLimit === 500 ? 'selected' : ''}>500 Einträge (Maximal)</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="settings-footer">
@@ -419,10 +437,20 @@
                 const darkMode = document.getElementById('darkModeCheck').checked;
                 const typoTol = document.getElementById('typoToleranceCheck').checked;
                 const paidH = document.getElementById('paidHintsCheck').checked;
+                const histLimit = parseInt(document.getElementById('historyLimitSelect').value);
                 
                 localStorage.setItem('theme', darkMode ? 'dark' : 'light');
                 localStorage.setItem('typoTolerance', typoTol);
                 localStorage.setItem('paidHints', paidH);
+                localStorage.setItem('historyLimit', histLimit);
+                
+                // Bereinige Historie falls neues Limit kleiner ist
+                const pointsData = JSON.parse(localStorage.getItem('pointsData')) || { history: [] };
+                if (pointsData.history && pointsData.history.length > histLimit) {
+                    pointsData.history = pointsData.history.slice(0, histLimit);
+                    localStorage.setItem('pointsData', JSON.stringify(pointsData));
+                    loadPointsData(); // Seite neu laden
+                }
                 
                 modal.remove();
             });
