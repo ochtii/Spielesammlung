@@ -599,19 +599,6 @@ class AustriaQuiz {
             });
         }
 
-        // Settings Button
-        const settingsBtn = document.getElementById('settingsBtn');
-        if (settingsBtn) {
-            settingsBtn.addEventListener('click', () => {
-                this.showSettings();
-                // Close menu after clicking
-                if (menuToggle && menuDropdown) {
-                    menuToggle.classList.remove('active');
-                    menuDropdown.classList.remove('show');
-                }
-            });
-        }
-
         // Game Selection
         document.querySelectorAll('.game-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
