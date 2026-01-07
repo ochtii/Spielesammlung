@@ -320,32 +320,9 @@ button {
     color: white;
 }
 
-.end-btn {
-    background-color: var(--warning-color);
-    color: white;
-    padding: 0.5rem 0.75rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.9rem;
-    min-width: auto;
-}
 
-.end-btn:hover {
-    background-color: var(--error-color);
-    transform: scale(1.05);
-}
 
-.end-btn:active {
-    transform: scale(0.98);
-}
 
-.header-buttons {
-    display: flex;
-    gap: 0.6rem;
-    justify-content: flex-end;
-}
 
 .hint-btn {
     display: block;
@@ -476,7 +453,7 @@ input[type="text"]::placeholder {
    ============================================ */
 .game-header {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr auto;
     align-items: center;
     margin-bottom: 2rem;
     gap: 1.5rem;
@@ -691,22 +668,18 @@ input[type="text"]::placeholder {
     }
 
     .game-header {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr auto;
         gap: 1rem;
     }
 
     .score-display {
         width: 100%;
         justify-content: center;
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
     }
 
-    .header-buttons {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .back-btn,
-    .end-btn {
+    .back-btn {
         width: auto;
     }
 

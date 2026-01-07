@@ -206,11 +206,6 @@ class AustriaQuiz {
             this.backToStart();
         });
 
-        // End Button
-        document.getElementById('endBtn').addEventListener('click', () => {
-            this.endGame();
-        });
-
         // Next Button
         document.getElementById('nextBtn').addEventListener('click', () => {
             this.loadNextQuestion();
