@@ -402,6 +402,14 @@ class AustriaQuiz {
     selectGame(game) {
         this.currentGame = game;
         
+        // Toggle "kombiniert" Button für Capitals
+        const combinedBtn = document.getElementById('combinedBtn');
+        if (game === 'capitals' || game === 'world-capitals') {
+            combinedBtn.style.display = 'block';
+        } else {
+            combinedBtn.style.display = 'none';
+        }
+        
         if (game === 'capitals') {
             // Für Hauptstädte: zeige Inline-Modus-Auswahl (Modal bleibt als Fallback)
             this.showCapitalModeInline();
@@ -791,47 +799,122 @@ class AustriaQuiz {
         const area = document.getElementById('answerArea');
         area.innerHTML = '';
 
-        // Capitals always multiple-choice; otherwise Quiz/Profi decide
-        if (this.currentQuestion.type === 'capitals' || this.currentDifficulty === 'quiz') {
-            // Quiz-Modus: Buttons
-            const options = this.currentQuestion.options || [
-                this.currentQuestion.answer,
-                ...this.getWrongAnswers(this.currentQuestion)
-            ];
-
-            const shuffledOptions = options.sort(() => 0.5 - Math.random());
-
-            shuffledOptions.forEach(option => {
-                const btn = document.createElement('button');
-                btn.className = 'answer-btn';
-                btn.textContent = option;
-                btn.addEventListener('click', () => this.submitAnswer(option));
-                area.appendChild(btn);
-            });
+        // Für Capitals: Quiz-Modus oder Kombiniert/Profi
+        if (this.currentQuestion.type === 'capitals') {
+            if (this.currentDifficulty === 'quiz') {
+                // Quiz-Modus: immer Multiple Choice
+                this.renderMultipleChoice(area);
+            } else if (this.currentDifficulty === 'kombiniert') {
+                // Kombiniert: Eingabe + Button zum Anzeigen der Optionen
+                this.renderCombinedMode(area);
+            } else {
+                // Profi-Modus: nur Eingabefeld
+                this.renderTextInput(area);
+            }
+        } else if (this.currentDifficulty === 'quiz') {
+            // Andere Spiele im Quiz-Modus: MC
+            this.renderMultipleChoice(area);
         } else {
-            // Profi-Modus: Textfeld
-            const container = document.createElement('div');
-            container.className = 'text-input-container';
-
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.placeholder = 'Deine Antwort...';
-            input.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    this.submitAnswer(input.value);
-                }
-            });
-
-            const btn = document.createElement('button');
-            btn.textContent = 'Antwort';
-            btn.addEventListener('click', () => this.submitAnswer(input.value));
-
-            container.appendChild(input);
-            container.appendChild(btn);
-            area.appendChild(container);
-
-            input.focus();
+            // Andere Spiele im Profi-Modus: Textfeld
+            this.renderTextInput(area);
         }
+    }
+
+    /**
+     * Multiple-Choice Antwortoptionen rendern
+     */
+    renderMultipleChoice(area) {
+        const options = this.currentQuestion.options || [
+            this.currentQuestion.answer,
+            ...this.getWrongAnswers(this.currentQuestion)
+        ];
+
+        const shuffledOptions = options.sort(() => 0.5 - Math.random());
+
+        shuffledOptions.forEach(option => {
+            const btn = document.createElement('button');
+            btn.className = 'answer-btn';
+            btn.textContent = option;
+            btn.addEventListener('click', () => this.submitAnswer(option));
+            area.appendChild(btn);
+        });
+    }
+
+    /**
+     * Textfeld Antwortmodus rendern
+     */
+    renderTextInput(area) {
+        const container = document.createElement('div');
+        container.className = 'text-input-container';
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = 'Deine Antwort...';
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.submitAnswer(input.value);
+            }
+        });
+
+        const btn = document.createElement('button');
+        btn.textContent = 'Antwort';
+        btn.addEventListener('click', () => this.submitAnswer(input.value));
+
+        container.appendChild(input);
+        container.appendChild(btn);
+        area.appendChild(container);
+
+        input.focus();
+    }
+
+    /**
+     * Kombiniert-Modus: Eingabefeld + "Antworten anzeigen" Button
+     */
+    renderCombinedMode(area) {
+        const container = document.createElement('div');
+        container.className = 'combined-container';
+
+        const inputSection = document.createElement('div');
+        inputSection.className = 'text-input-container';
+        inputSection.id = 'combinedInputSection';
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = 'Deine Antwort...';
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.submitAnswer(input.value);
+            }
+        });
+
+        const submitBtn = document.createElement('button');
+        submitBtn.textContent = 'Antwort';
+        submitBtn.addEventListener('click', () => this.submitAnswer(input.value));
+
+        const helpBtn = document.createElement('button');
+        helpBtn.className = 'help-btn';
+        helpBtn.textContent = 'Antworten anzeigen';
+        helpBtn.id = 'showOptionsBtn';
+        helpBtn.addEventListener('click', () => {
+            // Zeige Optionen und verstecke Eingabefeld
+            inputSection.style.display = 'none';
+            optionsSection.style.display = 'block';
+            this.renderMultipleChoice(optionsSection);
+        });
+
+        inputSection.appendChild(input);
+        inputSection.appendChild(submitBtn);
+        inputSection.appendChild(helpBtn);
+        container.appendChild(inputSection);
+
+        const optionsSection = document.createElement('div');
+        optionsSection.className = 'options-container';
+        optionsSection.id = 'combinedOptionsSection';
+        optionsSection.style.display = 'none';
+        container.appendChild(optionsSection);
+
+        area.appendChild(container);
+        input.focus();
     }
 
     /**
