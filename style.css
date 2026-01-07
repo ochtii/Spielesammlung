@@ -940,6 +940,22 @@ input[type="text"]::placeholder {
         font-size: 1.3rem;
     }
 
+    .navbar-buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.4rem;
+        flex-wrap: nowrap;
+    }
+
+    .navbar-buttons .help-btn,
+    .navbar-buttons .theme-toggle,
+    .navbar-buttons .settings-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+
     .card {
         padding: 1rem;
         border-radius: 8px;
