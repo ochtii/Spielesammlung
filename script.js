@@ -1252,13 +1252,16 @@ class AustriaQuiz {
 // ============================================
 
 /**
- * Letzte Commit-Zeit anzeigen
+ * Letzte Commit-Info anzeigen (Zeit + geänderte Datei)
  */
 async function loadCommitTime() {
+    const commitInfoEl = document.getElementById('commitInfo');
+    
     try {
         const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 3000);
+        const timeout = setTimeout(() => controller.abort(), 5000);
         
+        // Hole letzten Commit mit Datei-Informationen
         const response = await fetch(
             'https://api.github.com/repos/ochtii/Spielesammlung/commits?per_page=1',
             { signal: controller.signal }
@@ -1269,26 +1272,48 @@ async function loadCommitTime() {
         
         const data = await response.json();
         if (data.length > 0) {
-            const commitDate = new Date(data[0].commit.author.date);
+            const commit = data[0];
+            const commitDate = new Date(commit.commit.author.date);
             const options = {
                 year: 'numeric',
                 month: '2-digit',
                 day: '2-digit',
                 hour: '2-digit',
                 minute: '2-digit',
-                second: '2-digit',
                 timeZone: 'Europe/Vienna'
             };
             const formattedDate = new Intl.DateTimeFormat('de-AT', options).format(commitDate);
-            document.getElementById('commitTime').textContent = `${formattedDate} CET`;
+            
+            // Hole Datei-Details vom Commit
+            const commitDetailResponse = await fetch(
+                `https://api.github.com/repos/ochtii/Spielesammlung/commits/${commit.sha}`,
+                { signal: controller.signal }
+            );
+            
+            let filesChanged = '';
+            if (commitDetailResponse.ok) {
+                const commitDetail = await commitDetailResponse.json();
+                if (commitDetail.files && commitDetail.files.length > 0) {
+                    const fileNames = commitDetail.files.map(f => f.filename).slice(0, 3);
+                    filesChanged = fileNames.join(', ');
+                    if (commitDetail.files.length > 3) {
+                        filesChanged += ` (+${commitDetail.files.length - 3})`;
+                    }
+                }
+            }
+            
+            let infoText = `<i class="fas fa-clock"></i> ${formattedDate}`;
+            if (filesChanged) {
+                infoText += ` <span class="footer-separator">|</span> <i class="fas fa-file-code"></i> ${filesChanged}`;
+            }
+            
+            commitInfoEl.innerHTML = infoText;
             return;
         }
     } catch (error) {
-        // GitHub API nicht erreichbar - stiller Fallback
+        // API nicht erreichbar
+        commitInfoEl.innerHTML = '<i class="fas fa-wifi"></i> Offline';
     }
-    
-    // Fallback: Zeige "Version" statt veraltetes Datum
-    document.getElementById('commitTime').textContent = 'Aktuell';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
