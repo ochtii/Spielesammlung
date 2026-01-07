@@ -232,6 +232,7 @@ class AustriaQuiz {
         
         if (menuToggle && menuDropdown) {
             menuToggle.addEventListener('click', (e) => {
+                e.preventDefault();
                 e.stopPropagation();
                 menuToggle.classList.toggle('active');
                 menuDropdown.classList.toggle('show');
@@ -244,10 +245,19 @@ class AustriaQuiz {
                     menuDropdown.classList.remove('show');
                 }
             });
+            
+            // Close menu when clicking a menu item
+            menuDropdown.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    menuDropdown.classList.remove('show');
+                });
+            });
         }
 
         // Theme Toggle
-        document.getElementById('themeToggle').addEventListener('click', () => {
+        document.getElementById('themeToggle').addEventListener('click', (e) => {
+            e.preventDefault();
             this.toggleTheme();
         });
 
