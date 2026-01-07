@@ -185,11 +185,6 @@ class AustriaQuiz {
             this.toggleTheme();
         });
 
-        // Start Game Button
-        document.getElementById('startGameBtn').addEventListener('click', () => {
-            this.showGameSelection();
-        });
-
         // Game Selection
         document.querySelectorAll('.game-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -253,15 +248,6 @@ class AustriaQuiz {
             icon.classList.remove('fa-sun');
             icon.classList.add('fa-moon');
         }
-    }
-
-    /**
-     * Spiel auswählen
-     */
-    showGameSelection() {
-        document.getElementById('startButtonSection').style.display = 'none';
-        document.getElementById('gameSelectionSection').style.display = 'block';
-        window.scrollTo(0, 0);
     }
 
     /**
@@ -660,8 +646,7 @@ class AustriaQuiz {
      */
     backToStart() {
         this.switchScreen('startScreen');
-        document.getElementById('startButtonSection').style.display = 'flex';
-        document.getElementById('gameSelectionSection').style.display = 'none';
+        document.getElementById('gameSelectionSection').style.display = 'block';
         document.getElementById('difficultySection').style.display = 'none';
         document.getElementById('nextBtn').innerHTML = '<i class="fas fa-forward"></i> Nächste Frage';
         document.getElementById('nextBtn').onclick = () => this.loadNextQuestion();
