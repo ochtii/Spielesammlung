@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Österreich-Quiz</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <h1 class="navbar-title">
+                <i class="fas fa-map-location-dot"></i> Österreich-Quiz
+            </h1>
+            <button class="theme-toggle" id="themeToggle" aria-label="Theme toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="container">
+        <!-- Start Screen -->
+        <div id="startScreen" class="screen active">
+            <div class="card welcome-card">
+                <h2>Willkommen zum Österreich-Quiz!</h2>
+                <p>Teste dein Wissen über Österreich. Wähle ein Spiel und einen Schwierigkeitsgrad.</p>
+            </div>
+
+            <!-- Game Selection -->
+            <div class="selection-section">
+                <h3>Wähle ein Spiel:</h3>
+                <div class="button-grid">
+                    <button class="game-btn" data-game="license-plates">
+                        <i class="fas fa-car"></i>
+                        <span>Kennzeichen raten</span>
+                    </button>
+                    <button class="game-btn" data-game="capitals">
+                        <i class="fas fa-university"></i>
+                        <span>Hauptstädte quizzen</span>
+                    </button>
+                    <button class="game-btn" data-game="population">
+                        <i class="fas fa-users"></i>
+                        <span>Einwohner vergleichen</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Difficulty Selection -->
+            <div class="selection-section" id="difficultySection" style="display: none;">
+                <h3>Wähle einen Schwierigkeitsgrad:</h3>
+                <div class="button-grid">
+                    <button class="difficulty-btn" data-difficulty="quiz">
+                        <i class="fas fa-clone"></i>
+                        <span>Quiz-Modus<br><small>4 Antwort-Optionen</small></span>
+                    </button>
+                    <button class="difficulty-btn" data-difficulty="profi">
+                        <i class="fas fa-keyboard"></i>
+                        <span>Profi-Modus<br><small>Freie Eingabe</small></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="screen">
+            <div class="game-header">
+                <div class="score-display">
+                    <span class="score-label">Punkte:</span>
+                    <span class="score-value" id="scoreValue">0</span>
+                </div>
+                <button class="back-btn" id="backBtn">
+                    <i class="fas fa-arrow-left"></i> Zurück
+                </button>
+            </div>
+
+            <!-- Question Area -->
+            <div class="card question-card">
+                <div id="questionContent"></div>
+            </div>
+
+            <!-- Answer Area -->
+            <div id="answerArea"></div>
+
+            <!-- Hint Button -->
+            <div class="hint-section">
+                <button class="hint-btn" id="hintBtn">
+                    <i class="fas fa-lightbulb"></i> Tipp (-10 Punkte)
+                </button>
+            </div>
+
+            <!-- Feedback Area -->
+            <div id="feedbackArea" class="feedback-hidden">
+                <div class="card feedback-card">
+                    <div id="feedbackContent"></div>
+                </div>
+                <button class="next-btn" id="nextBtn">
+                    <i class="fas fa-forward"></i> Nächste Frage
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
