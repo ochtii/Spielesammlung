@@ -241,8 +241,13 @@ class AustriaQuiz {
             totalPoints: 0,
             gamesPlayed: 0,
             correctAnswers: 0,
-            hintsUsed: 0
+            hintsUsed: 0,
+            history: []
         };
+        // Stelle sicher, dass history existiert (für bestehende Daten)
+        if (!data.history) {
+            data.history = [];
+        }
         this.globalPoints = data;
         this.updateMenuPointsDisplay();
     }
@@ -268,17 +273,46 @@ class AustriaQuiz {
     /**
      * Punkte zum globalen Konto hinzufügen
      */
-    addGlobalPoints(points) {
+    addGlobalPoints(points, questionData = null) {
         this.globalPoints.totalPoints += points;
+        
+        // Füge zur Historie hinzu
+        if (questionData) {
+            this.addToHistory({
+                type: 'earned',
+                points: points,
+                timestamp: Date.now(),
+                game: this.getGameName(),
+                difficulty: this.currentDifficulty,
+                question: questionData.question,
+                answer: questionData.answer,
+                userAnswer: questionData.userAnswer,
+                isCorrect: questionData.isCorrect,
+                hintsUsed: this.hintsUsedThisQuestion
+            });
+        }
+        
         this.savePointsData();
     }
 
     /**
      * Globale Punkte ausgeben (für Tipps)
      */
-    spendGlobalPoints(amount) {
+    spendGlobalPoints(amount, hintType = null) {
         if (this.globalPoints.totalPoints >= amount) {
             this.globalPoints.totalPoints -= amount;
+            
+            // Füge zur Historie hinzu
+            this.addToHistory({
+                type: 'spent',
+                points: -amount,
+                timestamp: Date.now(),
+                game: this.getGameName(),
+                difficulty: this.currentDifficulty,
+                question: this.currentQuestion ? this.currentQuestion.question : 'Tipp verwendet',
+                hintType: hintType
+            });
+            
             this.savePointsData();
             return true;
         }
@@ -293,6 +327,34 @@ class AustriaQuiz {
             this.globalPoints.correctAnswers++;
         }
         this.savePointsData();
+    }
+
+    /**
+     * Eintrag zur Historie hinzufügen
+     */
+    addToHistory(entry) {
+        if (!this.globalPoints.history) {
+            this.globalPoints.history = [];
+        }
+        this.globalPoints.history.unshift(entry); // Neueste zuerst
+        
+        // Begrenze Historie auf 100 Einträge
+        if (this.globalPoints.history.length > 100) {
+            this.globalPoints.history = this.globalPoints.history.slice(0, 100);
+        }
+    }
+
+    /**
+     * Spielname für Historie abrufen
+     */
+    getGameName() {
+        const gameNames = {
+            'license-plates': 'Kennzeichen',
+            'capitals': 'Hauptstädte',
+            'world-capitals': 'Welt-Hauptstädte',
+            'population': 'Einwohner'
+        };
+        return gameNames[this.currentGame] || 'Quiz';
     }
 
     /**
@@ -1193,8 +1255,21 @@ class AustriaQuiz {
             // Punkte basierend auf verwendeten Tipps berechnen
             earnedPoints = Math.max(10, this.basePoints - (this.hintsUsedThisQuestion * this.hintPenalty));
             this.score += earnedPoints;
-            // Füge Punkte zum globalen Konto hinzu
-            this.addGlobalPoints(earnedPoints);
+            // Füge Punkte zum globalen Konto hinzu mit Frage-Daten
+            this.addGlobalPoints(earnedPoints, {
+                question: this.currentQuestion.question,
+                answer: this.currentQuestion.answer,
+                userAnswer: userAnswer,
+                isCorrect: true
+            });
+        } else {
+            // Auch falsche Antworten in Historie aufnehmen (0 Punkte)
+            this.addGlobalPoints(0, {
+                question: this.currentQuestion.question,
+                answer: this.currentQuestion.answer,
+                userAnswer: userAnswer,
+                isCorrect: false
+            });
         }
         this.totalPossiblePoints += this.basePoints;
         
@@ -1255,7 +1330,7 @@ class AustriaQuiz {
                 alert(`Du hast nicht genug Punkte! (Benötigt: ${this.hintCost}, Vorhanden: ${this.globalPoints.totalPoints})`);
                 return;
             }
-            this.spendGlobalPoints(this.hintCost);
+            this.spendGlobalPoints(this.hintCost, hintType);
         }
 
         this.hintsUsedThisQuestion++;
