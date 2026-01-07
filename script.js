@@ -1917,19 +1917,6 @@ async function loadCommitTime() {
     }
 }
 
-// Bottom Navigation initialisieren
-function initBottomNav() {
-    const bottomNavEnabled = localStorage.getItem('bottomNavEnabled') !== 'false';
-    const bottomNav = document.getElementById('bottomNav');
-    if (bottomNavEnabled && bottomNav) {
-        bottomNav.classList.add('active');
-        document.body.classList.add('bottom-nav-enabled');
-    }
-    
-    // Punkteanzeige in Bottom Nav aktualisieren
-    updateBottomNavPoints();
-}
-
 // Punkteanzeige in Bottom Nav aktualisieren
 function updateBottomNavPoints() {
     const pointsDisplay = document.getElementById('bottomNavPoints');
@@ -1942,5 +1929,5 @@ function updateBottomNavPoints() {
 document.addEventListener('DOMContentLoaded', () => {
     new AustriaQuiz();
     loadCommitTime();
-    initBottomNav();
+    updateBottomNavPoints();
 });

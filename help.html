@@ -198,14 +198,6 @@
         if (theme === 'dark') {
             document.body.classList.add('dark-mode');
         }
-        
-        // Bottom Navigation initialisieren
-        const bottomNavEnabled = localStorage.getItem('bottomNavEnabled') !== 'false';
-        const bottomNav = document.getElementById('bottomNav');
-        if (bottomNavEnabled && bottomNav) {
-            bottomNav.classList.add('active');
-            document.body.classList.add('bottom-nav-enabled');
-        }
 
         // Menu Toggle
         const menuToggle = document.getElementById('menuToggle');

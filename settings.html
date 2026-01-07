@@ -59,16 +59,6 @@
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
-                    <div class="settings-option">
-                        <div class="settings-option-info">
-                            <span class="settings-option-label">Mobile Bottom Navigation</span>
-                            <span class="settings-option-desc">Zeigt eine fixierte Navigation am unteren Bildschirmrand auf Mobilgeräten</span>
-                        </div>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="bottomNavCheck">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
                 </div>
             </div>
 
@@ -179,29 +169,12 @@
             const paidHints = localStorage.getItem('paidHints') === 'true';
             const balanceDisplayMode = localStorage.getItem('balanceDisplayMode') || 'widget';
             const historyLimit = localStorage.getItem('historyLimit') || '100';
-            const bottomNavEnabled = localStorage.getItem('bottomNavEnabled') !== 'false';
 
             document.getElementById('darkModeCheck').checked = theme === 'dark';
             document.getElementById('typoToleranceCheck').checked = typoTolerance;
             document.getElementById('paidHintsCheck').checked = paidHints;
             document.getElementById('balanceDisplaySelect').value = balanceDisplayMode;
             document.getElementById('historyLimitSelect').value = historyLimit;
-            document.getElementById('bottomNavCheck').checked = bottomNavEnabled;
-            
-            // Bottom Nav anzeigen/verstecken
-            updateBottomNav(bottomNavEnabled);
-        }
-
-        // Bottom Navigation aktualisieren
-        function updateBottomNav(enabled) {
-            const bottomNav = document.getElementById('bottomNav');
-            if (enabled) {
-                bottomNav.classList.add('active');
-                document.body.classList.add('bottom-nav-enabled');
-            } else {
-                bottomNav.classList.remove('active');
-                document.body.classList.remove('bottom-nav-enabled');
-            }
         }
 
         // Auto-Save bei Änderungen
@@ -235,12 +208,6 @@
             // Historie Limit
             document.getElementById('historyLimitSelect').addEventListener('change', (e) => {
                 localStorage.setItem('historyLimit', e.target.value);
-            });
-            
-            // Bottom Navigation
-            document.getElementById('bottomNavCheck').addEventListener('change', (e) => {
-                localStorage.setItem('bottomNavEnabled', e.target.checked);
-                updateBottomNav(e.target.checked);
             });
         }
 
