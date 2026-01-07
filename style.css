@@ -1998,12 +1998,27 @@ input[type="text"]::placeholder {
 }
 
 @media (max-width: 480px) {
-    .points-stats {
-        grid-template-columns: 1fr;
+    .points-page {
+        padding: 0 0.5rem;
+        max-width: 100%;
+    }
+    
+    .points-display-card {
+        padding: 1.5rem 1rem;
+        border-radius: 16px;
     }
     
     .points-value {
-        font-size: 3rem;
+        font-size: 2.5rem;
+    }
+    
+    .points-label {
+        font-size: 0.95rem;
+    }
+    
+    .points-stats {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
     }
     
     .stat-card {
@@ -2011,10 +2026,36 @@ input[type="text"]::placeholder {
         align-items: center;
         gap: 1rem;
         text-align: left;
+        padding: 1rem;
     }
     
     .stat-card i {
         margin-bottom: 0;
+        font-size: 1.8rem;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
+    }
+    
+    .points-info,
+    .points-history {
+        padding: 1rem;
+        border-radius: 10px;
+    }
+    
+    .points-info h2,
+    .points-history h2 {
+        font-size: 1rem;
+    }
+    
+    .points-info li {
+        font-size: 0.85rem;
+        padding: 0.4rem 0;
     }
 }
 
