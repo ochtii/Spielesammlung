@@ -1383,6 +1383,63 @@ input[type="text"]::placeholder {
         font-size: 0.9rem;
     }
 
+    /* Settings Modal für Mobile */
+    .settings-modal {
+        padding: 0.5rem;
+    }
+
+    .settings-content {
+        max-height: 75vh;
+        border-radius: 12px;
+    }
+
+    .settings-header {
+        padding: 0.875rem 1rem;
+    }
+
+    .settings-header h3 {
+        font-size: 1rem;
+    }
+
+    .settings-body {
+        padding: 1rem;
+    }
+
+    .settings-section {
+        margin-bottom: 1rem;
+    }
+
+    .settings-section h4 {
+        font-size: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .settings-option {
+        padding: 0.5rem 0;
+    }
+
+    .settings-option-label {
+        font-size: 0.9rem;
+    }
+
+    .settings-option-desc {
+        font-size: 0.8rem;
+    }
+
+    .settings-select {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .settings-footer {
+        padding: 0.75rem 1rem;
+    }
+
+    .settings-save-btn {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.95rem;
+    }
+
     .card {
         padding: 1rem;
         border-radius: 8px;
