@@ -217,6 +217,7 @@ class AustriaQuiz {
         this.currentQuestion = null;
         this.gameActive = false;
         this.hintsUsedThisQuestion = 0; // Anzahl verwendeter Tipps pro Frage
+        this.usedHintTypes = []; // Bereits verwendete Tipp-Typen pro Frage
         this.maxHints = 3; // Maximale Tipps pro Frage
         this.typoTolerance = localStorage.getItem('typoTolerance') !== 'false'; // Tippfehler-Toleranz aktivierbar
         this.paidHints = localStorage.getItem('paidHints') === 'true'; // Kostenpflichtige Tipps
@@ -406,9 +407,32 @@ class AustriaQuiz {
             this.loadNextQuestion();
         });
 
-        // Hint Button
-        document.getElementById('hintBtn').addEventListener('click', () => {
-            this.showHint();
+        // Hint Dropdown Toggle
+        const hintBtn = document.getElementById('hintBtn');
+        const hintDropdown = document.getElementById('hintDropdown');
+        
+        hintBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            hintDropdown.classList.toggle('show');
+            hintBtn.parentElement.classList.toggle('open');
+        });
+
+        // Close hint dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hintDropdown.contains(e.target) && !hintBtn.contains(e.target)) {
+                hintDropdown.classList.remove('show');
+                hintBtn.parentElement.classList.remove('open');
+            }
+        });
+
+        // Hint Options
+        document.querySelectorAll('.hint-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                const hintType = e.currentTarget.dataset.hint;
+                this.useHint(hintType);
+                hintDropdown.classList.remove('show');
+                hintBtn.parentElement.classList.remove('open');
+            });
         });
     }
 
@@ -930,16 +954,28 @@ class AustriaQuiz {
     loadNextQuestion() {
         // Reset Tipps für neue Frage
         this.hintsUsedThisQuestion = 0;
+        this.usedHintTypes = [];
         
-        // Reset Tipp-Button
+        // Reset Tipp-Button und Dropdown
         const hintBtn = document.getElementById('hintBtn');
-        let hintText = `<i class="fas fa-lightbulb"></i> Tipp (${this.maxHints} verfügbar`;
+        const hintCount = document.getElementById('hintCount');
+        
+        let countText = `(${this.maxHints} verfügbar`;
         if (this.paidHints) {
-            hintText += `, ${this.hintCost}P`;
+            countText += `, ${this.hintCost}P`;
         }
-        hintText += `)`;
-        hintBtn.innerHTML = hintText;
+        countText += ')';
+        hintCount.textContent = countText;
         hintBtn.disabled = false;
+        
+        // Reset alle Tipp-Optionen
+        document.querySelectorAll('.hint-option').forEach(option => {
+            option.disabled = false;
+        });
+        
+        // Schließe Dropdown falls offen
+        document.getElementById('hintDropdown').classList.remove('show');
+        hintBtn.parentElement.classList.remove('open');
         
         if (this.currentQuestionIndex >= this.questions.length) {
             this.endGame();
@@ -955,6 +991,7 @@ class AustriaQuiz {
 
         this.renderQuestion();
         this.renderAnswerArea();
+        this.updateAvailableHints();
         window.scrollTo(0, 0);
     }
 
@@ -1260,11 +1297,17 @@ class AustriaQuiz {
     }
 
     /**
-     * Tipp anzeigen
+     * Tipp verwenden
      */
-    showHint() {
+    useHint(hintType) {
         if (this.hintsUsedThisQuestion >= this.maxHints) {
             alert('Du hast bereits alle Tipps für diese Frage verwendet!');
+            return;
+        }
+
+        // Prüfe ob dieser Tipp-Typ für diese Frage verfügbar ist
+        if (!this.isHintAvailable(hintType)) {
+            alert('Dieser Tipp ist für diese Frage nicht verfügbar!');
             return;
         }
 
@@ -1274,75 +1317,196 @@ class AustriaQuiz {
                 alert(`Du hast nicht genug Punkte! (Benötigt: ${this.hintCost}, Vorhanden: ${this.globalPoints.totalPoints})`);
                 return;
             }
-            // Ziehe Punkte ab
             this.spendGlobalPoints(this.hintCost);
         }
 
         this.hintsUsedThisQuestion++;
         this.incrementHintsUsed();
         
-        // Berechne aktuelle mögliche Punkte
-        const currentPossiblePoints = Math.max(10, this.basePoints - (this.hintsUsedThisQuestion * this.hintPenalty));
+        // Markiere diesen Tipp als verwendet
+        this.usedHintTypes = this.usedHintTypes || [];
+        this.usedHintTypes.push(hintType);
         
-        // Update Tipp-Button Text
-        const hintBtn = document.getElementById('hintBtn');
-        const remainingHints = this.maxHints - this.hintsUsedThisQuestion;
-        
-        let buttonText = '';
-        if (remainingHints > 0) {
-            buttonText = `<i class="fas fa-lightbulb"></i> Tipp (${remainingHints} übrig`;
-            if (this.paidHints) {
-                buttonText += `, ${this.hintCost}P`;
-            }
-            buttonText += `)`;
-        } else {
-            buttonText = `<i class="fas fa-lightbulb"></i> Keine Tipps mehr`;
-            hintBtn.disabled = true;
+        // Deaktiviere den verwendeten Tipp-Button
+        const hintOption = document.querySelector(`[data-hint="${hintType}"]`);
+        if (hintOption) {
+            hintOption.disabled = true;
         }
-        hintBtn.innerHTML = buttonText;
 
-        const feedbackContent = document.getElementById('feedbackContent');
+        // Führe den Tipp aus
+        this.executeHint(hintType);
         
-        // Generiere verschiedene Tipps basierend auf Tipp-Nummer
-        let hintText = this.getHintForLevel(this.hintsUsedThisQuestion);
-
-        let hintHtml = `<div class="feedback-hint"><i class="fas fa-info-circle"></i> <strong>Tipp ${this.hintsUsedThisQuestion}:</strong> ${hintText}`;
-        
-        // Bei Kennzeichen-Fragen: Wappen als zusätzlichen visuellen Tipp anzeigen (beim 2. oder 3. Tipp)
-        if (this.hintsUsedThisQuestion >= 2 && this.currentQuestion.type === 'license-plates' && this.currentQuestion.coat) {
-            hintHtml += ` <span class="hint-wappen" style="font-size: 1.5rem; margin-left: 0.5rem;">${this.currentQuestion.coat}</span>`;
-        }
-        
-        hintHtml += `</div>`;
-        hintHtml += `<div class="hint-points-info" style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.3rem;"><i class="fas fa-coins"></i> Mögliche Punkte: ${currentPossiblePoints}</div>`;
-
-        let existingContent = feedbackContent.innerHTML;
-        existingContent += hintHtml;
-
-        feedbackContent.innerHTML = existingContent;
+        // Update Tipp-Anzeige
+        this.updateHintDisplay();
     }
 
     /**
-     * Generiere Tipp basierend auf Level
+     * Prüft ob ein Tipp-Typ für die aktuelle Frage verfügbar ist
      */
-    getHintForLevel(level) {
+    isHintAvailable(hintType) {
         const q = this.currentQuestion;
+        const isQuizMode = this.currentDifficulty === 'quiz';
+        const isInputMode = this.currentDifficulty === 'profi' || this.currentDifficulty === 'kombiniert';
         
-        if (q.type === 'license-plates') {
-            if (level === 1) return `Das liegt im Bundesland ${q.state}.`;
-            if (level === 2) return `Der Bezirk beginnt mit "${q.answer.charAt(0)}".`;
-            if (level === 3) return `Die Antwort hat ${q.answer.length} Buchstaben: ${q.answer.substring(0, 2)}...`;
-        } else if (q.type === 'capitals' || q.type === 'world-capitals') {
-            if (level === 1) return `Die Hauptstadt beginnt mit "${q.answer.charAt(0)}".`;
-            if (level === 2) return `Die Antwort hat ${q.answer.length} Buchstaben.`;
-            if (level === 3) return `${q.answer.substring(0, Math.ceil(q.answer.length / 2))}...`;
-        } else if (q.type === 'population') {
-            if (level === 1) return `Denke an die Größe der Bundesländer.`;
-            if (level === 2) return `Einer der Städte ist deutlich größer.`;
-            if (level === 3) return `Der Unterschied beträgt etwa ${Math.abs(q.pop1 - q.pop2).toLocaleString()} Einwohner.`;
+        // Bereits verwendete Tipps
+        if (this.usedHintTypes && this.usedHintTypes.includes(hintType)) {
+            return false;
         }
+
+        switch (hintType) {
+            case '5050':
+            case 'removeOne':
+                // Nur bei Multiple Choice (Quiz-Modus) oder Population
+                return isQuizMode || q.type === 'population';
+            case 'firstLetter':
+                // Immer verfügbar
+                return true;
+            case 'randomLetter':
+            case 'length':
+                // Nur bei Eingabe-Modus
+                return isInputMode || q.type === 'population' === false;
+            case 'coat':
+                // Nur bei Kennzeichen oder Hauptstädten mit Wappen
+                return (q.type === 'license-plates' || q.type === 'capitals' || q.type === 'world-capitals') && q.state;
+            default:
+                return false;
+        }
+    }
+
+    /**
+     * Führt den Tipp aus
+     */
+    executeHint(hintType) {
+        const q = this.currentQuestion;
+        const feedbackContent = document.getElementById('feedbackContent');
+        let hintText = '';
+
+        switch (hintType) {
+            case '5050':
+                this.execute5050Hint();
+                hintText = '50/50: Zwei falsche Antworten wurden entfernt.';
+                break;
+            case 'removeOne':
+                this.executeRemoveOneHint();
+                hintText = 'Eine falsche Antwort wurde entfernt.';
+                break;
+            case 'firstLetter':
+                hintText = `Anfangsbuchstabe: Die Antwort beginnt mit "<strong>${q.answer.charAt(0)}</strong>".`;
+                break;
+            case 'randomLetter':
+                const randomIndex = Math.floor(Math.random() * q.answer.length);
+                const letter = q.answer.charAt(randomIndex);
+                hintText = `Zufälliger Buchstabe: Position ${randomIndex + 1} ist "<strong>${letter}</strong>".`;
+                break;
+            case 'length':
+                hintText = `Länge: Die Antwort hat <strong>${q.answer.length}</strong> Buchstaben.`;
+                break;
+            case 'coat':
+                const coat = stateCoats[q.state] || '🏛️';
+                hintText = `Wappen: <span style="font-size: 2rem;">${coat}</span> (${q.state})`;
+                break;
+        }
+
+        // Berechne aktuelle mögliche Punkte
+        const currentPossiblePoints = Math.max(10, this.basePoints - (this.hintsUsedThisQuestion * this.hintPenalty));
+
+        const hintHtml = `
+            <div class="feedback-hint">
+                <i class="fas fa-info-circle"></i> <strong>Tipp ${this.hintsUsedThisQuestion}:</strong> ${hintText}
+            </div>
+            <div class="hint-points-info" style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.3rem;">
+                <i class="fas fa-coins"></i> Mögliche Punkte: ${currentPossiblePoints}
+            </div>
+        `;
+
+        feedbackContent.innerHTML += hintHtml;
+        document.getElementById('feedbackArea').classList.remove('feedback-hidden');
+    }
+
+    /**
+     * 50/50 Tipp: Entfernt 2 falsche Antworten
+     */
+    execute5050Hint() {
+        const answerBtns = document.querySelectorAll('.answer-btn:not(.removed)');
+        const correctAnswer = this.currentQuestion.answer.toLowerCase();
+        const wrongBtns = Array.from(answerBtns).filter(btn => 
+            btn.textContent.trim().toLowerCase() !== correctAnswer
+        );
         
-        return q.hint || 'Kein weiterer Tipp verfügbar.';
+        // Entferne 2 zufällige falsche Antworten
+        const shuffled = wrongBtns.sort(() => 0.5 - Math.random());
+        const toRemove = shuffled.slice(0, Math.min(2, shuffled.length));
+        
+        toRemove.forEach(btn => {
+            btn.classList.add('removed');
+            btn.disabled = true;
+            btn.style.opacity = '0.3';
+            btn.style.textDecoration = 'line-through';
+        });
+    }
+
+    /**
+     * Eine weg Tipp: Entfernt 1 falsche Antwort
+     */
+    executeRemoveOneHint() {
+        const answerBtns = document.querySelectorAll('.answer-btn:not(.removed)');
+        const correctAnswer = this.currentQuestion.answer.toLowerCase();
+        const wrongBtns = Array.from(answerBtns).filter(btn => 
+            btn.textContent.trim().toLowerCase() !== correctAnswer
+        );
+        
+        if (wrongBtns.length > 0) {
+            const randomWrong = wrongBtns[Math.floor(Math.random() * wrongBtns.length)];
+            randomWrong.classList.add('removed');
+            randomWrong.disabled = true;
+            randomWrong.style.opacity = '0.3';
+            randomWrong.style.textDecoration = 'line-through';
+        }
+    }
+
+    /**
+     * Aktualisiert die Tipp-Anzeige
+     */
+    updateHintDisplay() {
+        const remainingHints = this.maxHints - this.hintsUsedThisQuestion;
+        const hintCount = document.getElementById('hintCount');
+        const hintBtn = document.getElementById('hintBtn');
+        
+        if (remainingHints > 0) {
+            let text = `(${remainingHints} übrig`;
+            if (this.paidHints) {
+                text += `, ${this.hintCost}P`;
+            }
+            text += ')';
+            hintCount.textContent = text;
+        } else {
+            hintCount.textContent = '(keine mehr)';
+            hintBtn.disabled = true;
+        }
+
+        // Aktualisiere verfügbare Tipp-Optionen
+        this.updateAvailableHints();
+    }
+
+    /**
+     * Aktualisiert welche Tipps verfügbar sind
+     */
+    updateAvailableHints() {
+        document.querySelectorAll('.hint-option').forEach(option => {
+            const hintType = option.dataset.hint;
+            // Zuerst aktivieren, dann prüfen ob verfügbar
+            option.disabled = false;
+            
+            // Deaktivieren wenn bereits verwendet
+            if (this.usedHintTypes && this.usedHintTypes.includes(hintType)) {
+                option.disabled = true;
+            }
+            
+            // Deaktivieren wenn nicht verfügbar für diesen Modus
+            if (!this.isHintAvailable(hintType)) {
+                option.disabled = true;
+            }
+        });
     }
 
     /**

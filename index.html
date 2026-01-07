@@ -122,11 +122,40 @@
             <!-- Answer Area -->
             <div id="answerArea"></div>
 
-            <!-- Hint Button -->
+            <!-- Hint Section with Dropdown -->
             <div class="hint-section">
-                <button class="hint-btn" id="hintBtn">
-                    <i class="fas fa-lightbulb"></i> Tipp (3 verfügbar)
-                </button>
+                <div class="hint-dropdown-container">
+                    <button class="hint-btn" id="hintBtn" type="button">
+                        <i class="fas fa-lightbulb"></i> Tipps <span id="hintCount">(3 verfügbar)</span>
+                        <i class="fas fa-chevron-down hint-arrow"></i>
+                    </button>
+                    <div class="hint-dropdown" id="hintDropdown">
+                        <button class="hint-option" data-hint="5050" type="button">
+                            <i class="fas fa-divide"></i> 50/50
+                            <small>Entfernt 2 falsche Antworten</small>
+                        </button>
+                        <button class="hint-option" data-hint="removeOne" type="button">
+                            <i class="fas fa-minus-circle"></i> Eine weg
+                            <small>Entfernt 1 falsche Antwort</small>
+                        </button>
+                        <button class="hint-option" data-hint="firstLetter" type="button">
+                            <i class="fas fa-font"></i> Anfangsbuchstabe
+                            <small>Zeigt den ersten Buchstaben</small>
+                        </button>
+                        <button class="hint-option" data-hint="randomLetter" type="button">
+                            <i class="fas fa-random"></i> Zufälliger Buchstabe
+                            <small>Zeigt einen zufälligen Buchstaben</small>
+                        </button>
+                        <button class="hint-option" data-hint="length" type="button">
+                            <i class="fas fa-ruler"></i> Länge
+                            <small>Zeigt die Anzahl der Buchstaben</small>
+                        </button>
+                        <button class="hint-option" data-hint="coat" type="button">
+                            <i class="fas fa-shield-alt"></i> Wappen
+                            <small>Zeigt das Bundesland-Wappen</small>
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <!-- Feedback Area -->
