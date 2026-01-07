@@ -318,6 +318,37 @@ button {
     font-size: 1.05rem;
 }
 
+.start-button-section {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.start-game-btn {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 1.5rem 3rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    box-shadow: var(--shadow-hover);
+    transition: all 0.3s ease;
+}
+
+.start-game-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(237, 41, 57, 0.3);
+}
+
+.start-game-btn:active {
+    transform: translateY(-2px);
+}
+
 /* ============================================
    Forms & Inputs
    ============================================ */
@@ -603,6 +634,11 @@ input[type="text"]::placeholder {
 
     .welcome-card h2 {
         font-size: 1.5rem;
+    }
+
+    .start-game-btn {
+        padding: 1.2rem 2rem;
+        font-size: 1.1rem;
     }
 
     .button-grid {
