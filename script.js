@@ -403,41 +403,36 @@ class AustriaQuiz {
         // Lade gespeicherte Position
         const savedPos = JSON.parse(localStorage.getItem('floatingBalancePos') || '{}');
         if (savedPos.top) floatingBalance.style.top = savedPos.top;
-        if (savedPos.right) floatingBalance.style.right = savedPos.right;
+        if (savedPos.left) floatingBalance.style.left = savedPos.left;
+        if (savedPos.left) floatingBalance.style.right = 'auto';
 
         // Drag & Drop Funktionalität
         let isDragging = false;
-        let currentX;
-        let currentY;
-        let initialX;
-        let initialY;
+        let offsetX = 0;
+        let offsetY = 0;
 
-        const handle = floatingBalance.querySelector('.floating-balance-handle');
-
-        handle.addEventListener('mousedown', dragStart);
-        handle.addEventListener('touchstart', dragStart);
+        floatingBalance.addEventListener('mousedown', dragStart);
+        floatingBalance.addEventListener('touchstart', dragStart, { passive: false });
 
         document.addEventListener('mousemove', drag);
-        document.addEventListener('touchmove', drag);
+        document.addEventListener('touchmove', drag, { passive: false });
 
         document.addEventListener('mouseup', dragEnd);
         document.addEventListener('touchend', dragEnd);
 
         function dragStart(e) {
-            if (e.type === 'touchstart') {
-                initialX = e.touches[0].clientX;
-                initialY = e.touches[0].clientY;
-            } else {
-                initialX = e.clientX;
-                initialY = e.clientY;
-            }
-
-            const rect = floatingBalance.getBoundingClientRect();
-            currentX = rect.left;
-            currentY = rect.top;
-
             isDragging = true;
             floatingBalance.classList.add('dragging');
+
+            const rect = floatingBalance.getBoundingClientRect();
+            
+            if (e.type === 'touchstart') {
+                offsetX = e.touches[0].clientX - rect.left;
+                offsetY = e.touches[0].clientY - rect.top;
+            } else {
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+            }
         }
 
         function drag(e) {
@@ -454,21 +449,18 @@ class AustriaQuiz {
                 clientY = e.clientY;
             }
 
-            const xOffset = clientX - initialX;
-            const yOffset = clientY - initialY;
+            let newX = clientX - offsetX;
+            let newY = clientY - offsetY;
 
-            const newX = currentX + xOffset;
-            const newY = currentY + yOffset;
+            // Begrenze auf Viewport mit Padding
+            const maxX = window.innerWidth - floatingBalance.offsetWidth - 10;
+            const maxY = window.innerHeight - floatingBalance.offsetHeight - 10;
 
-            // Begrenze auf Viewport
-            const maxX = window.innerWidth - floatingBalance.offsetWidth;
-            const maxY = window.innerHeight - floatingBalance.offsetHeight;
+            newX = Math.max(10, Math.min(newX, maxX));
+            newY = Math.max(10, Math.min(newY, maxY));
 
-            const boundedX = Math.max(0, Math.min(newX, maxX));
-            const boundedY = Math.max(0, Math.min(newY, maxY));
-
-            floatingBalance.style.left = boundedX + 'px';
-            floatingBalance.style.top = boundedY + 'px';
+            floatingBalance.style.left = newX + 'px';
+            floatingBalance.style.top = newY + 'px';
             floatingBalance.style.right = 'auto';
         }
 
@@ -479,12 +471,10 @@ class AustriaQuiz {
             floatingBalance.classList.remove('dragging');
 
             // Speichere Position
-            const pos = {
+            localStorage.setItem('floatingBalancePos', JSON.stringify({
                 top: floatingBalance.style.top,
-                left: floatingBalance.style.left || null,
-                right: floatingBalance.style.right === 'auto' ? null : floatingBalance.style.right
-            };
-            localStorage.setItem('floatingBalancePos', JSON.stringify(pos));
+                left: floatingBalance.style.left
+            }));
         }
     }
 
