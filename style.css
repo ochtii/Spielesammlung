@@ -277,6 +277,31 @@ button {
     transform: scale(1.05);
 }
 
+.end-btn {
+    background-color: var(--warning-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.end-btn:hover {
+    background-color: var(--error-color);
+    transform: scale(1.05);
+}
+
+.end-btn:active {
+    transform: scale(0.98);
+}
+
+.header-buttons {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
 .hint-btn {
     display: block;
     margin: 0 auto;
@@ -595,7 +620,13 @@ input[type="text"]::placeholder {
         justify-content: center;
     }
 
-    .back-btn {
+    .header-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .back-btn,
+    .end-btn {
         width: 100%;
         justify-content: center;
     }
