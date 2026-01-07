@@ -226,15 +226,43 @@ class AustriaQuiz {
      * Event Listener Setup
      */
     setupEventListeners() {
+        // Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const menuDropdown = document.getElementById('menuDropdown');
+        
+        if (menuToggle && menuDropdown) {
+            menuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                menuToggle.classList.toggle('active');
+                menuDropdown.classList.toggle('show');
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
+                    menuToggle.classList.remove('active');
+                    menuDropdown.classList.remove('show');
+                }
+            });
+        }
+
         // Theme Toggle
         document.getElementById('themeToggle').addEventListener('click', () => {
             this.toggleTheme();
         });
 
         // Settings Button
-        document.getElementById('settingsBtn').addEventListener('click', () => {
-            this.showSettings();
-        });
+        const settingsBtn = document.getElementById('settingsBtn');
+        if (settingsBtn) {
+            settingsBtn.addEventListener('click', () => {
+                this.showSettings();
+                // Close menu after clicking
+                if (menuToggle && menuDropdown) {
+                    menuToggle.classList.remove('active');
+                    menuDropdown.classList.remove('show');
+                }
+            });
+        }
 
         // Game Selection
         document.querySelectorAll('.game-btn').forEach(btn => {
@@ -393,12 +421,15 @@ class AustriaQuiz {
 
     updateThemeIcon() {
         const icon = document.querySelector('#themeToggle i');
+        const themeText = document.getElementById('themeText');
         if (document.body.classList.contains('dark-mode')) {
             icon.classList.remove('fa-moon');
             icon.classList.add('fa-sun');
+            if (themeText) themeText.textContent = 'Light Mode';
         } else {
             icon.classList.remove('fa-sun');
             icon.classList.add('fa-moon');
+            if (themeText) themeText.textContent = 'Dark Mode';
         }
     }
 
