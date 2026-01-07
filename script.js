@@ -655,12 +655,19 @@ class AustriaQuiz {
             // Multiple-Choice-Optionen immer erstellen (für nationale und internationale Modi)
             const options = [item.capital];
             let allCities = [];
+            
             if (this.currentGame === 'world-capitals' && typeof worldCapitals !== 'undefined') {
                 allCities = worldCapitals.map(w => w.capital).filter(c => c !== item.capital);
+            } else if (this.capitalMode === 'federal') {
+                allCities = capitalsData.map(c => c.capital).filter(c => c !== item.capital);
+            } else if (this.capitalMode === 'district') {
+                allCities = districtCapitals.map(d => d.city).filter(c => c !== item.capital);
             } else {
-                allCities = this.capitalMode === 'federal' 
-                    ? capitalsData.map(c => c.capital).filter(c => c !== item.capital)
-                    : districtCapitals.map(d => d.city).filter(c => c !== item.capital);
+                // Combined mode (federal + district)
+                allCities = [
+                    ...capitalsData.map(c => c.capital),
+                    ...districtCapitals.map(d => d.city)
+                ].filter(c => c !== item.capital);
             }
 
             // Mische und nimm bis zu 3 weitere Optionen
