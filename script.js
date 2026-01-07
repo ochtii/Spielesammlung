@@ -147,6 +147,19 @@ const districtCapitals = [
     { city: 'Innsbruck', state: 'Tirol', district: 'Innsbruck-Land' },
     { city: 'Bregenz', state: 'Vorarlberg', district: 'Bregenz' },
     { city: 'Wien', state: 'Wien', district: 'Wien' },
+    // Zusätzliche Bezirks-Hauptstädte (erweitert)
+    { city: 'Amstetten', state: 'Niederösterreich', district: 'Amstetten' },
+    { city: 'Krems', state: 'Niederösterreich', district: 'Krems an der Donau' },
+    { city: 'Traun', state: 'Oberösterreich', district: 'Linz-Land' },
+    { city: 'Steyr', state: 'Oberösterreich', district: 'Steyr' },
+    { city: 'Kapfenberg', state: 'Steiermark', district: 'Bruck-Mürzzuschlag' },
+    { city: 'Leoben', state: 'Steiermark', district: 'Leoben' },
+    { city: 'Sankt Johann im Pongau', state: 'Salzburg', district: 'Sankt Johann im Pongau' },
+    { city: 'Hallein', state: 'Salzburg', district: 'Hallein' },
+    { city: 'Dornbirn', state: 'Vorarlberg', district: 'Dornbirn' },
+    { city: 'Bludenz', state: 'Vorarlberg', district: 'Bludenz' },
+    { city: 'Kufstein', state: 'Tirol', district: 'Kufstein' },
+    { city: 'Schwaz', state: 'Tirol', district: 'Schwaz' }
 ];
 
 /**
@@ -289,8 +302,8 @@ class AustriaQuiz {
         this.currentGame = game;
         
         if (game === 'capitals') {
-            // Für Hauptstädte: zeige Modus-Auswahl
-            this.showCapitalModeSelection();
+            // Für Hauptstädte: zeige Inline-Modus-Auswahl (Modal bleibt als Fallback)
+            this.showCapitalModeInline();
         } else {
             // Für andere Spiele: zeige direkt Schwierigkeitsgrad
             document.getElementById('gameSelectionSection').style.display = 'none';
@@ -298,6 +311,45 @@ class AustriaQuiz {
             document.getElementById('startGameSection').classList.remove('active');
         }
         window.scrollTo(0, 0);
+    }
+
+    /**
+     * Zeigt eine Inline-Auswahl für Hauptstädte im Difficulty-Abschnitt
+     */
+    showCapitalModeInline() {
+        const difficultySection = document.getElementById('difficultySection');
+        document.getElementById('gameSelectionSection').style.display = 'none';
+        difficultySection.style.display = 'block';
+
+        // Entferne bestehende Auswahl falls vorhanden
+        const existing = document.getElementById('capitalModeInline');
+        if (existing) existing.remove();
+
+        const container = document.createElement('div');
+        container.id = 'capitalModeInline';
+        container.style.margin = '1rem 0 0 0';
+        container.innerHTML = `
+            <h4>Welche Hauptstädte verwenden?</h4>
+            <div class="button-grid">
+                <button class="difficulty-btn" data-capital-mode="federal">Bundesländer</button>
+                <button class="difficulty-btn" data-capital-mode="district">Bezirke</button>
+                <button class="difficulty-btn" data-capital-mode="all">Gemischt</button>
+            </div>
+        `;
+
+        difficultySection.prepend(container);
+
+        container.querySelectorAll('[data-capital-mode]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                this.capitalMode = e.currentTarget.dataset.capitalMode;
+                // Markiere Auswahl
+                container.querySelectorAll('[data-capital-mode]').forEach(b => b.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+                // Zeige Schwierigkeitsgrad und start-Button
+                document.getElementById('difficultySection').style.display = 'block';
+                document.getElementById('startGameSection').classList.remove('active');
+            });
+        });
     }
 
     /**
