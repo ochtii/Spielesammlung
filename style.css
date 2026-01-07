@@ -125,10 +125,11 @@ main {
     align-items: center;
 }
 
-.navbar-title {
+.navbar-brand {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--primary-color);
+    text-decoration: none;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -321,16 +322,6 @@ main {
     color: white;
     border-color: var(--primary-color);
     transform: translateY(-2px);
-}
-
-.navbar-brand {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
 }
 
 /* ============================================
@@ -1381,7 +1372,7 @@ input[type="text"]::placeholder {
         padding: 1rem 0.5rem;
     }
 
-    .navbar-title {
+    .navbar-brand {
         font-size: 1.2rem;
     }
 
@@ -1466,11 +1457,11 @@ input[type="text"]::placeholder {
         gap: 0.5rem;
     }
 
-    .navbar-title {
+    .navbar-brand {
         font-size: 1rem;
     }
 
-    .navbar-title i {
+    .navbar-brand i {
         font-size: 1.3rem;
     }
 
@@ -2231,12 +2222,130 @@ input[type="text"]::placeholder {
 }
 
 /* ============================================
+   Bottom Navigation (Mobile)
+   ============================================ */
+.bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--bg-primary);
+    border-top: 1px solid var(--border-color);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    padding: 0.5rem 0;
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.bottom-nav.active {
+    display: flex;
+}
+
+.bottom-nav-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 0.5rem;
+}
+
+.bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.5rem 0.75rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.7rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    min-width: 60px;
+    position: relative;
+}
+
+.bottom-nav-item i {
+    font-size: 1.3rem;
+    transition: all 0.2s ease;
+}
+
+.bottom-nav-item:hover,
+.bottom-nav-item:active {
+    color: var(--primary-color);
+    background-color: var(--bg-secondary);
+}
+
+.bottom-nav-item.current {
+    color: var(--primary-color);
+}
+
+.bottom-nav-item.current i {
+    transform: scale(1.1);
+}
+
+.bottom-nav-item span {
+    font-size: 0.65rem;
+    text-transform: capitalize;
+}
+
+/* Badge für Punkte-Anzeige */
+.bottom-nav-badge {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 0.6rem;
+    padding: 0.1rem 0.35rem;
+    border-radius: 10px;
+    font-weight: 600;
+    min-width: 16px;
+    text-align: center;
+}
+
+/* Container Padding für Bottom Nav */
+body.bottom-nav-enabled .container {
+    padding-bottom: 80px;
+}
+
+body.bottom-nav-enabled .footer {
+    margin-bottom: 70px;
+}
+
+/* Nur auf mobilen Geräten anzeigen */
+@media (max-width: 768px) {
+    .bottom-nav.active {
+        display: flex;
+    }
+}
+
+@media (min-width: 769px) {
+    .bottom-nav {
+        display: none !important;
+    }
+    
+    body.bottom-nav-enabled .container {
+        padding-bottom: 2rem;
+    }
+    
+    body.bottom-nav-enabled .footer {
+        margin-bottom: 2rem;
+    }
+}
+
+/* ============================================
    Print Styles
    ============================================ */
 @media print {
     .navbar,
     .back-btn,
-    .hint-section {
+    .hint-section,
+    .bottom-nav {
         display: none;
     }
 }

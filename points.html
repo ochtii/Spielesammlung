@@ -4,14 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AUT Quiz - Punkte</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="navbar-content">
-            <a href="index.html" class="navbar-brand">AUT Quiz</a>
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-map-location-dot"></i> AUT Quiz
+            </a>
             <div class="navbar-menu">
                 <button class="menu-toggle" id="menuToggle" aria-label="Menü" type="button">
                     <i class="fas fa-bars"></i>
@@ -86,6 +94,28 @@
         </div>
     </div>
 
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav" id="bottomNav">
+        <div class="bottom-nav-content">
+            <a href="index.html" class="bottom-nav-item">
+                <i class="fas fa-home"></i>
+                <span>Spiel</span>
+            </a>
+            <a href="points.html" class="bottom-nav-item current">
+                <i class="fas fa-coins"></i>
+                <span>Punkte</span>
+            </a>
+            <a href="help.html" class="bottom-nav-item">
+                <i class="fas fa-question-circle"></i>
+                <span>Hilfe</span>
+            </a>
+            <a href="settings.html" class="bottom-nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Einstellungen</span>
+            </a>
+        </div>
+    </nav>
+
     <footer class="footer">
         <div class="footer-content">
             <p id="commitInfo">Version wird geladen...</p>
@@ -99,8 +129,16 @@
             if (theme === 'dark') {
                 document.body.classList.add('dark-mode');
             }
+        }        
+        // Bottom Navigation initialisieren
+        function initBottomNav() {
+            const bottomNavEnabled = localStorage.getItem('bottomNavEnabled') !== 'false';
+            const bottomNav = document.getElementById('bottomNav');
+            if (bottomNavEnabled && bottomNav) {
+                bottomNav.classList.add('active');
+                document.body.classList.add('bottom-nav-enabled');
+            }
         }
-
         // Points Data Management
         function loadPointsData() {
             const pointsData = JSON.parse(localStorage.getItem('pointsData')) || {
@@ -348,8 +386,9 @@
             });
         }
 
-        // Settings Modal (dynamisch erstellen wie in script.js)
-        function showSettings() {
+        // Settings wurden auf eigene Seite ausgelagert (settings.html)
+        // Alte showSettings-Funktion wurde entfernt
+        function showSettings_DEPRECATED() {
             let modal = document.getElementById('settingsModal');
             if (modal) modal.remove();
 
@@ -543,6 +582,7 @@
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             loadTheme();
+            initBottomNav();
             loadPointsData();
             setupMenu();
             loadCommitTime();
