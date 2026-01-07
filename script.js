@@ -1128,14 +1128,36 @@ class AustriaQuiz {
      * Falsche Antworten generieren
      */
     getWrongAnswers(question) {
-        const answers = [];
-
         if (question.type === 'license-plates') {
+            const correctAnswer = question.answer;
+            const firstLetter = correctAnswer.charAt(0).toUpperCase();
+            
+            // Zuerst Bezirke mit gleichem Anfangsbuchstaben suchen
+            const sameLetterDistricts = districtData
+                .filter(d => d.code !== question.code && d.name.charAt(0).toUpperCase() === firstLetter)
+                .sort(() => 0.5 - Math.random());
+            
+            // Dann andere Bezirke als Fallback
             const otherDistricts = districtData
-                .filter(d => d.code !== question.code)
-                .sort(() => 0.5 - Math.random())
-                .slice(0, 3);
-            return otherDistricts.map(d => d.name);
+                .filter(d => d.code !== question.code && d.name.charAt(0).toUpperCase() !== firstLetter)
+                .sort(() => 0.5 - Math.random());
+            
+            // Bevorzugt gleiche Anfangsbuchstaben, Rest auffüllen
+            const wrongAnswers = [];
+            
+            // Zuerst alle mit gleichem Anfangsbuchstaben nehmen (max 3)
+            for (let i = 0; i < Math.min(3, sameLetterDistricts.length); i++) {
+                wrongAnswers.push(sameLetterDistricts[i].name);
+            }
+            
+            // Falls nicht genug, mit anderen auffüllen
+            let otherIndex = 0;
+            while (wrongAnswers.length < 3 && otherIndex < otherDistricts.length) {
+                wrongAnswers.push(otherDistricts[otherIndex].name);
+                otherIndex++;
+            }
+            
+            return wrongAnswers;
         }
 
         return [];
