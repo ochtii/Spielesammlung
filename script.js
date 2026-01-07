@@ -198,12 +198,18 @@ class AustriaQuiz {
         this.currentDifficulty = null;
         this.capitalMode = 'all'; // 'federal', 'district', 'all'
         this.score = 0;
+        this.totalPossiblePoints = 0; // Maximale mögliche Punkte
         this.questions = [];
         this.currentQuestionIndex = 0;
         this.currentQuestion = null;
         this.gameActive = false;
-        this.hintUsed = false;
+        this.hintsUsedThisQuestion = 0; // Anzahl verwendeter Tipps pro Frage
+        this.maxHints = 3; // Maximale Tipps pro Frage
         this.typoTolerance = localStorage.getItem('typoTolerance') === 'true'; // Tippfehler-Toleranz aktivierbar
+        
+        // Punktesystem-Konstanten
+        this.basePoints = 100; // Basispunkte ohne Tipp
+        this.hintPenalty = 30; // Punktabzug pro Tipp
         
         this.init();
     }
@@ -744,7 +750,13 @@ class AustriaQuiz {
      * Nächste Frage laden
      */
     loadNextQuestion() {
-        this.hintUsed = false;
+        // Reset Tipps für neue Frage
+        this.hintsUsedThisQuestion = 0;
+        
+        // Reset Tipp-Button
+        const hintBtn = document.getElementById('hintBtn');
+        hintBtn.innerHTML = `<i class="fas fa-lightbulb"></i> Tipp (${this.maxHints} verfügbar)`;
+        hintBtn.disabled = false;
         
         if (this.currentQuestionIndex >= this.questions.length) {
             this.endGame();
@@ -755,6 +767,7 @@ class AustriaQuiz {
         this.gameActive = true;
 
         document.getElementById('feedbackArea').classList.add('feedback-hidden');
+        document.getElementById('feedbackContent').innerHTML = '';
         document.getElementById('answerArea').innerHTML = '';
 
         this.renderQuestion();
@@ -962,14 +975,16 @@ class AustriaQuiz {
             }
         });
 
-        // Scoring
+        // Dynamisches Punktesystem
+        let earnedPoints = 0;
         if (isCorrect) {
-            this.score += 1;
-        } else if (this.currentDifficulty === 'profi') {
-            this.score = 0;
+            // Punkte basierend auf verwendeten Tipps berechnen
+            earnedPoints = Math.max(10, this.basePoints - (this.hintsUsedThisQuestion * this.hintPenalty));
+            this.score += earnedPoints;
         }
+        this.totalPossiblePoints += this.basePoints;
 
-        this.showFeedback(isCorrect);
+        this.showFeedback(isCorrect, earnedPoints);
         document.getElementById('scoreValue').textContent = this.score;
 
         this.currentQuestionIndex++;
@@ -978,7 +993,7 @@ class AustriaQuiz {
     /**
      * Feedback anzeigen
      */
-    showFeedback(isCorrect) {
+    showFeedback(isCorrect, earnedPoints = 0) {
         const feedbackArea = document.getElementById('feedbackArea');
         const feedbackContent = document.getElementById('feedbackContent');
         feedbackArea.classList.remove('feedback-hidden');
@@ -986,9 +1001,13 @@ class AustriaQuiz {
         let html = '';
 
         if (isCorrect) {
-            html += '<div class="feedback-correct"><i class="fas fa-check-circle"></i> Richtig!</div>';
+            let pointsInfo = `+${earnedPoints} Punkte`;
+            if (this.hintsUsedThisQuestion > 0) {
+                pointsInfo += ` <small>(${this.hintsUsedThisQuestion} Tipp${this.hintsUsedThisQuestion > 1 ? 's' : ''} verwendet)</small>`;
+            }
+            html += `<div class="feedback-correct"><i class="fas fa-check-circle"></i> Richtig! ${pointsInfo}</div>`;
         } else {
-            html += '<div class="feedback-incorrect"><i class="fas fa-times-circle"></i> Falsch!</div>';
+            html += '<div class="feedback-incorrect"><i class="fas fa-times-circle"></i> Falsch! +0 Punkte</div>';
         }
 
         html += `<div class="feedback-answer"><strong>Antwort:</strong> ${this.currentQuestion.answer}`;
@@ -1008,31 +1027,40 @@ class AustriaQuiz {
      * Tipp anzeigen
      */
     showHint() {
-        if (this.hintUsed) {
-            alert('Du hast bereits einen Tipp verwendet!');
+        if (this.hintsUsedThisQuestion >= this.maxHints) {
+            alert('Du hast bereits alle Tipps für diese Frage verwendet!');
             return;
         }
 
-        if (this.score < 10) {
-            alert('Du benötigst mindestens 10 Punkte für einen Tipp!');
-            return;
-        }
-
-        this.hintUsed = true;
-        this.score -= 10;
-        document.getElementById('scoreValue').textContent = this.score;
-
-        const feedbackArea = document.getElementById('feedbackArea');
-        const feedbackContent = document.getElementById('feedbackContent');
-
-        let hintHtml = `<div class="feedback-hint"><i class="fas fa-info-circle"></i> <strong>Tipp:</strong> ${this.currentQuestion.hint}`;
+        this.hintsUsedThisQuestion++;
         
-        // Bei Kennzeichen-Fragen: Wappen als zusätzlichen visuellen Tipp anzeigen
-        if (this.currentQuestion.type === 'license-plates' && this.currentQuestion.coat) {
+        // Berechne aktuelle mögliche Punkte
+        const currentPossiblePoints = Math.max(10, this.basePoints - (this.hintsUsedThisQuestion * this.hintPenalty));
+        
+        // Update Tipp-Button Text
+        const hintBtn = document.getElementById('hintBtn');
+        const remainingHints = this.maxHints - this.hintsUsedThisQuestion;
+        if (remainingHints > 0) {
+            hintBtn.innerHTML = `<i class="fas fa-lightbulb"></i> Tipp (${remainingHints} übrig, dann ${currentPossiblePoints - this.hintPenalty}P)`;
+        } else {
+            hintBtn.innerHTML = `<i class="fas fa-lightbulb"></i> Keine Tipps mehr`;
+            hintBtn.disabled = true;
+        }
+
+        const feedbackContent = document.getElementById('feedbackContent');
+        
+        // Generiere verschiedene Tipps basierend auf Tipp-Nummer
+        let hintText = this.getHintForLevel(this.hintsUsedThisQuestion);
+
+        let hintHtml = `<div class="feedback-hint"><i class="fas fa-info-circle"></i> <strong>Tipp ${this.hintsUsedThisQuestion}:</strong> ${hintText}`;
+        
+        // Bei Kennzeichen-Fragen: Wappen als zusätzlichen visuellen Tipp anzeigen (beim 2. oder 3. Tipp)
+        if (this.hintsUsedThisQuestion >= 2 && this.currentQuestion.type === 'license-plates' && this.currentQuestion.coat) {
             hintHtml += ` <span class="hint-wappen" style="font-size: 1.5rem; margin-left: 0.5rem;">${this.currentQuestion.coat}</span>`;
         }
         
-        hintHtml += '</div>';
+        hintHtml += `</div>`;
+        hintHtml += `<div class="hint-points-info" style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.3rem;"><i class="fas fa-coins"></i> Mögliche Punkte: ${currentPossiblePoints}</div>`;
 
         let existingContent = feedbackContent.innerHTML;
         existingContent += hintHtml;
@@ -1041,24 +1069,49 @@ class AustriaQuiz {
     }
 
     /**
+     * Generiere Tipp basierend auf Level
+     */
+    getHintForLevel(level) {
+        const q = this.currentQuestion;
+        
+        if (q.type === 'license-plates') {
+            if (level === 1) return `Das liegt im Bundesland ${q.state}.`;
+            if (level === 2) return `Der Bezirk beginnt mit "${q.answer.charAt(0)}".`;
+            if (level === 3) return `Die Antwort hat ${q.answer.length} Buchstaben: ${q.answer.substring(0, 2)}...`;
+        } else if (q.type === 'capitals' || q.type === 'world-capitals') {
+            if (level === 1) return `Die Hauptstadt beginnt mit "${q.answer.charAt(0)}".`;
+            if (level === 2) return `Die Antwort hat ${q.answer.length} Buchstaben.`;
+            if (level === 3) return `${q.answer.substring(0, Math.ceil(q.answer.length / 2))}...`;
+        } else if (q.type === 'population') {
+            if (level === 1) return `Denke an die Größe der Bundesländer.`;
+            if (level === 2) return `Einer der Städte ist deutlich größer.`;
+            if (level === 3) return `Der Unterschied beträgt etwa ${Math.abs(q.pop1 - q.pop2).toLocaleString()} Einwohner.`;
+        }
+        
+        return q.hint || 'Kein weiterer Tipp verfügbar.';
+    }
+
+    /**
      * Spiel beenden
      */
     endGame() {
         const finalScore = this.score;
+        const maxScore = this.totalPossiblePoints;
         const totalQuestions = this.currentQuestionIndex;
-        const percentage = Math.round((finalScore / totalQuestions) * 100);
+        const percentage = maxScore > 0 ? Math.round((finalScore / maxScore) * 100) : 0;
 
         let message = `
             <h3>Spiel beendet!</h3>
-            <p>Du hast <strong>${finalScore}</strong> von <strong>${totalQuestions}</strong> Fragen richtig beantwortet.</p>
-            <p>Erfolgsquote: <strong>${percentage}%</strong></p>
+            <p><i class="fas fa-coins"></i> Punkte: <strong>${finalScore}</strong> von <strong>${maxScore}</strong> möglichen</p>
+            <p><i class="fas fa-percentage"></i> Erfolgsquote: <strong>${percentage}%</strong></p>
+            <p><i class="fas fa-list"></i> Fragen: <strong>${totalQuestions}</strong></p>
         `;
 
-        if (percentage === 100) {
+        if (percentage >= 90) {
             message += '<p style="color: var(--success-color); font-size: 1.2rem;"><i class="fas fa-trophy"></i> Perfekt!</p>';
-        } else if (percentage >= 80) {
+        } else if (percentage >= 70) {
             message += '<p style="color: var(--success-color); font-size: 1.2rem;"><i class="fas fa-star"></i> Ausgezeichnet!</p>';
-        } else if (percentage >= 60) {
+        } else if (percentage >= 50) {
             message += '<p style="color: var(--info-color); font-size: 1.2rem;"><i class="fas fa-thumbs-up"></i> Gut gemacht!</p>';
         } else {
             message += '<p style="color: var(--warning-color); font-size: 1.2rem;"><i class="fas fa-smile"></i> Weiter so!</p>';
