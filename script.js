@@ -118,6 +118,21 @@ const capitalsData = [
 ];
 
 /**
+ * Bundesländer-Wappen (Emojis als Fallback)
+ */
+const stateCoats = {
+    'Burgenland': '🦅',
+    'Kärnten': '🏰',
+    'Niederösterreich': '🌾',
+    'Oberösterreich': '🚜',
+    'Salzburg': '🏰',
+    'Steiermark': '🌿',
+    'Tirol': '🏔️',
+    'Vorarlberg': '🌊',
+    'Wien': '🏛️'
+};
+
+/**
  * Bezirks-Hauptstädte (zusätzlich für erweitertes Quiz)
  */
 const districtCapitals = [
@@ -388,6 +403,7 @@ class AustriaQuiz {
                 licensePlate: this.generateRandomPlate(district.code),
                 answer: district.name,
                 state: district.state,
+                coat: stateCoats[district.state] || '',
                 hint: `Das liegt im Bundesland ${district.state}.`,
                 code: district.code,
             });
@@ -510,6 +526,9 @@ class AustriaQuiz {
 
         if (this.currentQuestion.type === 'license-plates') {
             html += this.renderLicensePlate(this.currentQuestion.licensePlate);
+            if (this.currentQuestion.coat) {
+                html += `<div class="plate-meta">${this.currentQuestion.coat} <span class="plate-state">${this.currentQuestion.state}</span></div>`;
+            }
         } else if (this.currentQuestion.type === 'population') {
             html += `<p style="font-size: 1.2rem; margin-top: 1.5rem;">
                 <strong>${this.currentQuestion.city1}</strong> vs <strong>${this.currentQuestion.city2}</strong>
@@ -646,7 +665,13 @@ class AustriaQuiz {
             html += '<div class="feedback-incorrect"><i class="fas fa-times-circle"></i> Falsch!</div>';
         }
 
-        html += `<div class="feedback-answer"><strong>Antwort:</strong> ${this.currentQuestion.answer}</div>`;
+        html += `<div class="feedback-answer"><strong>Antwort:</strong> ${this.currentQuestion.answer}`;
+
+        if (this.currentQuestion.type === 'license-plates' && this.currentQuestion.coat) {
+            html += ` <span class="feedback-wappen">${this.currentQuestion.coat}</span>`;
+        }
+
+        html += `</div>`;
 
         feedbackContent.innerHTML = html;
 
