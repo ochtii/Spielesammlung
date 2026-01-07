@@ -955,7 +955,7 @@ class AustriaQuiz {
         let html = `<h3>${this.currentQuestion.question}</h3>`;
 
         if (this.currentQuestion.type === 'license-plates') {
-            html += this.renderLicensePlate(this.currentQuestion.licensePlate);
+            html += this.renderLicensePlate(this.currentQuestion.code);
         } else if (this.currentQuestion.type === 'population') {
             html += `<p style="font-size: 1.2rem; margin-top: 1.5rem;">
                 <strong>${this.currentQuestion.city1}</strong> vs <strong>${this.currentQuestion.city2}</strong>
@@ -966,16 +966,13 @@ class AustriaQuiz {
     }
 
     /**
-     * Kennzeichen rendern
+     * Kennzeichen rendern - zeigt nur den Bezirkscode
      */
-    renderLicensePlate(plate) {
-        const parts = plate.split(' ');
-        const code = parts[0];
-        const rest = parts.slice(1).join(' ');
+    renderLicensePlate(code) {
         return `
             <div class="license-plate">
                 <div class="plate-eu">AT</div>
-                <div class="plate-content">${code} ${rest}</div>
+                <div class="plate-content">${code}</div>
             </div>
         `;
     }
@@ -986,6 +983,12 @@ class AustriaQuiz {
     renderAnswerArea() {
         const area = document.getElementById('answerArea');
         area.innerHTML = '';
+
+        // Population-Fragen: immer 2 Städte als Buttons
+        if (this.currentQuestion.type === 'population') {
+            this.renderPopulationChoice(area);
+            return;
+        }
 
         // Für Capitals: Quiz-Modus oder Kombiniert/Profi
         if (this.currentQuestion.type === 'capitals') {
@@ -1024,6 +1027,22 @@ class AustriaQuiz {
             btn.className = 'answer-btn';
             btn.textContent = option;
             btn.addEventListener('click', () => this.submitAnswer(option));
+            area.appendChild(btn);
+        });
+    }
+
+    /**
+     * Population-Fragen: 2 Städte zur Auswahl
+     */
+    renderPopulationChoice(area) {
+        const cities = [this.currentQuestion.city1, this.currentQuestion.city2];
+        const shuffled = cities.sort(() => 0.5 - Math.random());
+
+        shuffled.forEach(city => {
+            const btn = document.createElement('button');
+            btn.className = 'answer-btn';
+            btn.textContent = city;
+            btn.addEventListener('click', () => this.submitAnswer(city));
             area.appendChild(btn);
         });
     }
