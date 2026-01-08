@@ -1424,23 +1424,15 @@ class AustriaQuiz {
             return;
         }
 
-        // Für Capitals: Quiz-Modus oder Kombiniert/Profi
-        if (this.currentQuestion.type === 'capitals') {
-            if (this.currentDifficulty === 'quiz') {
-                // Quiz-Modus: immer Multiple Choice
-                this.renderMultipleChoice(area);
-            } else if (this.currentDifficulty === 'kombiniert') {
-                // Kombiniert: Eingabe + Button zum Anzeigen der Optionen
-                this.renderCombinedMode(area);
-            } else {
-                // Profi-Modus: nur Eingabefeld
-                this.renderTextInput(area);
-            }
-        } else if (this.currentDifficulty === 'quiz') {
-            // Andere Spiele im Quiz-Modus: MC
+        // Je nach Schwierigkeit verschiedene Antwortmodi
+        if (this.currentDifficulty === 'quiz') {
+            // Quiz-Modus: immer Multiple Choice
             this.renderMultipleChoice(area);
+        } else if (this.currentDifficulty === 'kombiniert') {
+            // Kombiniert: Eingabe + Button zum Anzeigen der Optionen
+            this.renderCombinedMode(area);
         } else {
-            // Andere Spiele im Profi-Modus: Textfeld
+            // Profi-Modus: nur Eingabefeld
             this.renderTextInput(area);
         }
     }
