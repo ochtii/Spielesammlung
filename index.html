@@ -47,196 +47,56 @@
     <main class="container">
         <!-- Start Screen -->
         <div id="startScreen" class="screen active">
-            <!-- Hero Section -->
-            <div class="hero-section">
-                <div class="hero-content">
-                    <div class="hero-top">
-                        <div class="hero-flag">🇦🇹</div>
-                        <div class="hero-text">
-                            <h1 class="hero-title">Österreich Quiz</h1>
-                            <p class="hero-subtitle">Teste dein Wissen</p>
-                        </div>
-                    </div>
-                    <div class="hero-stats-card">
-                        <div class="stats-grid">
-                            <div class="stat-box" data-stat="points">
-                                <div class="stat-icon-wrapper">
-                                    <i class="fas fa-trophy"></i>
-                                </div>
-                                <div class="stat-content">
-                                    <span class="stat-value" id="heroTotalPoints">0</span>
-                                    <span class="stat-label">Punkte</span>
-                                </div>
-                                <div class="stat-glow"></div>
-                            </div>
-                            <div class="stat-divider"></div>
-                            <div class="stat-box" data-stat="games">
-                                <div class="stat-icon-wrapper">
-                                    <i class="fas fa-gamepad"></i>
-                                </div>
-                                <div class="stat-content">
-                                    <span class="stat-value" id="heroTotalGames">0</span>
-                                    <span class="stat-label">Spiele</span>
-                                </div>
-                                <div class="stat-glow"></div>
-                            </div>
-                            <div class="stat-divider"></div>
-                            <div class="stat-box" data-stat="rate">
-                                <div class="stat-icon-wrapper">
-                                    <i class="fas fa-chart-line"></i>
-                                </div>
-                                <div class="stat-content">
-                                    <span class="stat-value" id="heroWinRate">0%</span>
-                                    <span class="stat-label">Erfolg</span>
-                                </div>
-                                <div class="stat-glow"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="card welcome-card">
+                <h2>Willkommen zum Österreich-Quiz!</h2>
+                <p>Teste dein Wissen über Österreich. Wähle ein Spiel und einen Schwierigkeitsgrad.</p>
             </div>
 
-            <!-- Main Games Section -->
-            <div class="games-section">
-                <h2 class="section-title">
-                    <i class="fas fa-play-circle"></i>
-                    Spiel wählen
-                </h2>
-                <div class="games-grid">
-                    <!-- KFZ-Kennzeichen -->
-                    <div class="game-card featured" data-game="license-plates">
-                        <div class="game-card-badge">Beliebt</div>
-                        <div class="game-card-row">
-                            <div class="game-card-icon">
-                                <i class="fas fa-car"></i>
-                            </div>
-                            <div class="game-card-info">
-                                <h3 class="game-card-title">KFZ-Kennzeichen</h3>
-                                <p class="game-card-description">93 Kennzeichen • 3 Modi</p>
-                            </div>
-                            <button class="game-card-btn-compact" data-game="license-plates">
-                                <i class="fas fa-play"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Hauptstädte Österreich -->
-                    <div class="game-card featured" data-game="capitals">
-                        <div class="game-card-badge">Neu</div>
-                        <div class="game-card-row">
-                            <div class="game-card-icon">
-                                <i class="fas fa-university"></i>
-                            </div>
-                            <div class="game-card-info">
-                                <h3 class="game-card-title">Hauptstädte</h3>
-                                <p class="game-card-description">9 Bundesländer • Mit Wappen</p>
-                            </div>
-                            <button class="game-card-btn-compact" data-game="capitals">
-                                <i class="fas fa-play"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Wappen-Sammlung Teaser -->
-                    <a href="wappen.html" class="game-card info-card link-card">
-                        <div class="game-card-row">
-                            <div class="game-card-icon secondary">
-                                <i class="fas fa-flag"></i>
-                            </div>
-                            <div class="game-card-info">
-                                <h3 class="game-card-title">Wappen-Sammlung</h3>
-                                <p class="game-card-description">54 österreichische Wappen</p>
-                            </div>
-                            <span class="game-card-arrow">
-                                <i class="fas fa-chevron-right"></i>
-                            </span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Bonus Section -->
-            <div class="bonus-section">
-                <div class="game-card bonus-card" data-game="world-capitals">
-                    <div class="game-card-badge bonus">Bonus</div>
-                    <div class="game-card-row">
-                        <div class="game-card-icon bonus">
-                            <i class="fas fa-earth-americas"></i>
-                        </div>
-                        <div class="game-card-info">
-                            <h3 class="game-card-title">Welt-Hauptstädte</h3>
-                            <p class="game-card-description">150+ Städte weltweit</p>
-                        </div>
-                        <button class="game-card-btn-compact bonus-btn" data-game="world-capitals">
-                            <i class="fas fa-play"></i>
-                        </button>
-                    </div>
+            <!-- Game Selection -->
+            <div class="selection-section" id="gameSelectionSection">
+                <h3>Wähle ein Spiel:</h3>
+                <div class="button-grid">
+                    <button class="game-btn" data-game="license-plates">
+                        <i class="fas fa-car"></i>
+                        <span>Kennzeichen raten</span>
+                    </button>
+                    <button class="game-btn" data-game="capitals">
+                        <i class="fas fa-university"></i>
+                        <span>Hauptstädte quizzen</span>
+                    </button>
+                    <button class="game-btn" data-game="world-capitals">
+                        <i class="fas fa-globe"></i>
+                        <span>Internationale Hauptstädte</span>
+                    </button>
+                    <button class="game-btn" data-game="population">
+                        <i class="fas fa-users"></i>
+                        <span>Einwohner vergleichen</span>
+                    </button>
                 </div>
             </div>
 
             <!-- Difficulty Selection -->
-            <div class="selection-section modern-difficulty" id="difficultySection" style="display: none;">
-                <div class="difficulty-header">
-                    <button class="back-btn" id="backToDifficultyBtn">
-                        <i class="fas fa-arrow-left"></i> Zurück
+            <div class="selection-section" id="difficultySection" style="display: none;">
+                <h3>Wähle einen Schwierigkeitsgrad:</h3>
+                <div class="button-grid">
+                    <button class="difficulty-btn" data-difficulty="quiz">
+                        <i class="fas fa-clone"></i>
+                        <span>Quiz-Modus<br><small>4 Antwort-Optionen</small></span>
                     </button>
-                    <h2 class="section-title">Wähle deinen Schwierigkeitsgrad</h2>
-                </div>
-                <div class="difficulty-grid">
-                    <div class="difficulty-card" data-difficulty="quiz">
-                        <div class="difficulty-icon easy">
-                            <i class="fas fa-clone"></i>
-                        </div>
-                        <h3>Quiz-Modus</h3>
-                        <p>4 Antwort-Optionen zur Auswahl</p>
-                        <ul class="difficulty-features">
-                            <li><i class="fas fa-check"></i> Multiple Choice</li>
-                            <li><i class="fas fa-check"></i> Einsteigerfreundlich</li>
-                            <li><i class="fas fa-check"></i> Tipps verfügbar</li>
-                        </ul>
-                        <button class="select-difficulty-btn" data-difficulty="quiz">
-                            Auswählen
-                        </button>
-                    </div>
-
-                    <div class="difficulty-card recommended" data-difficulty="kombiniert" id="combinedBtn" style="display: none;">
-                        <div class="difficulty-badge">Empfohlen</div>
-                        <div class="difficulty-icon medium">
-                            <i class="fas fa-edit"></i>
-                        </div>
-                        <h3>Kombiniert</h3>
-                        <p>Freie Eingabe mit Hilfe-Option</p>
-                        <ul class="difficulty-features">
-                            <li><i class="fas fa-check"></i> Freie Texteingabe</li>
-                            <li><i class="fas fa-check"></i> 4-Optionen-Hilfe (100P)</li>
-                            <li><i class="fas fa-check"></i> Perfekt zum Lernen</li>
-                        </ul>
-                        <button class="select-difficulty-btn" data-difficulty="kombiniert">
-                            Auswählen
-                        </button>
-                    </div>
-
-                    <div class="difficulty-card" data-difficulty="profi">
-                        <div class="difficulty-icon hard">
-                            <i class="fas fa-keyboard"></i>
-                        </div>
-                        <h3>Profi-Modus</h3>
-                        <p>Nur freie Eingabe, keine Hilfe</p>
-                        <ul class="difficulty-features">
-                            <li><i class="fas fa-check"></i> Freie Texteingabe</li>
-                            <li><i class="fas fa-check"></i> Herausfordernd</li>
-                            <li><i class="fas fa-check"></i> Maximale Punkte</li>
-                        </ul>
-                        <button class="select-difficulty-btn" data-difficulty="profi">
-                            Auswählen
-                        </button>
-                    </div>
+                    <button class="difficulty-btn" data-difficulty="kombiniert" id="combinedBtn" style="display: none;">
+                        <i class="fas fa-edit"></i>
+                        <span>Kombiniert<br><small>Eingabe + Hilfe</small></span>
+                    </button>
+                    <button class="difficulty-btn" data-difficulty="profi">
+                        <i class="fas fa-keyboard"></i>
+                        <span>Profi-Modus<br><small>Freie Eingabe</small></span>
+                    </button>
                 </div>
             </div>
 
             <!-- Start Game Button -->
-            <div class="start-game-section" id="startGameSection" style="display: none;">
-                <button class="start-btn modern" id="startBtn">
+            <div class="start-game-section" id="startGameSection">
+                <button class="start-btn" id="startBtn">
                     <i class="fas fa-play"></i> Spiel starten
                 </button>
             </div>

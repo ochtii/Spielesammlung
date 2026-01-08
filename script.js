@@ -614,23 +614,10 @@ class AustriaQuiz {
         }
 
         // Game Selection
-        document.querySelectorAll('.game-btn, .game-card[data-game]').forEach(btn => {
+        document.querySelectorAll('.game-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const game = e.currentTarget.dataset.game;
-                if (game) {
-                    this.selectGame(game);
-                }
-            });
-        });
-
-        // Game Card Buttons (both full and compact)
-        document.querySelectorAll('.game-card-btn, .game-card-btn-compact').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const game = e.currentTarget.dataset.game;
-                if (game) {
-                    this.selectGame(game);
-                }
+                this.selectGame(game);
             });
         });
 
@@ -644,14 +631,6 @@ class AustriaQuiz {
                 }
             });
         });
-
-        // Back to difficulty button
-        const backToDifficultyBtn = document.getElementById('backToDifficultyBtn');
-        if (backToDifficultyBtn) {
-            backToDifficultyBtn.addEventListener('click', () => {
-                this.backToStart();
-            });
-        }
 
         // Start Game Button
         const startBtn = document.getElementById('startBtn');
@@ -997,15 +976,10 @@ class AustriaQuiz {
     selectGame(game) {
         this.currentGame = game;
         
-        // Hide game sections, show difficulty
-        document.querySelectorAll('.games-section, .bonus-section').forEach(section => {
-            section.style.display = 'none';
-        });
-        
         // Toggle "kombiniert" Button für Capitals
         const combinedBtn = document.getElementById('combinedBtn');
         if (game === 'capitals' || game === 'world-capitals') {
-            combinedBtn.style.display = 'flex';
+            combinedBtn.style.display = 'block';
         } else {
             combinedBtn.style.display = 'none';
         }
@@ -1015,12 +989,14 @@ class AustriaQuiz {
             this.showCapitalModeInline();
         } else if (game === 'world-capitals') {
             // Internationaler Modus: direkt Schwierigkeitsgrad anzeigen
+            document.getElementById('gameSelectionSection').style.display = 'none';
             document.getElementById('difficultySection').style.display = 'block';
-            document.getElementById('startGameSection').style.display = 'none';
+            document.getElementById('startGameSection').classList.remove('active');
         } else {
             // Für andere Spiele: zeige direkt Schwierigkeitsgrad
+            document.getElementById('gameSelectionSection').style.display = 'none';
             document.getElementById('difficultySection').style.display = 'block';
-            document.getElementById('startGameSection').style.display = 'none';
+            document.getElementById('startGameSection').classList.remove('active');
         }
         window.scrollTo(0, 0);
     }
@@ -1090,9 +1066,7 @@ class AustriaQuiz {
 
         backBtn.addEventListener('click', () => {
             container.remove();
-            document.querySelectorAll('.games-section, .bonus-section').forEach(section => {
-                section.style.display = 'block';
-            });
+            document.getElementById('gameSelectionSection').style.display = 'block';
         });
 
         nextBtn.addEventListener('click', () => {
@@ -1100,7 +1074,7 @@ class AustriaQuiz {
             container.remove();
             document.getElementById('difficultySection').style.display = 'block';
             // Stelle sicher, dass Start-Button erst nach Difficulty-Auswahl erscheint
-            document.getElementById('startGameSection').style.display = 'none';
+            document.getElementById('startGameSection').classList.remove('active');
             window.scrollTo(0, document.getElementById('difficultySection').offsetTop - 20);
         });
     }
@@ -1159,9 +1133,8 @@ class AustriaQuiz {
     selectDifficulty(difficulty) {
         this.currentDifficulty = difficulty;
         // Zeige den "Spiel starten" Button
-        const startSection = document.getElementById('startGameSection');
-        startSection.style.display = 'block';
-        window.scrollTo(0, startSection.offsetTop - 50);
+        document.getElementById('startGameSection').classList.add('active');
+        window.scrollTo(0, document.getElementById('startGameSection').offsetTop - 50);
     }
 
     /**
@@ -2071,39 +2044,12 @@ class AustriaQuiz {
         this.currentGame = null;
         this.currentDifficulty = null;
         this.capitalMode = 'all';
-        
-        // Hide modern sections
-        document.querySelectorAll('.games-section, .bonus-section').forEach(section => {
-            section.style.display = 'block';
-        });
+        document.getElementById('gameSelectionSection').style.display = 'block';
         document.getElementById('difficultySection').style.display = 'none';
-        document.getElementById('startGameSection').style.display = 'none';
-        
-        // Update hero stats
-        this.updateHeroStats();
-        
+        document.getElementById('startGameSection').classList.remove('active');
         document.getElementById('nextBtn').innerHTML = '<i class="fas fa-forward"></i> Nächste Frage';
         document.getElementById('nextBtn').onclick = () => this.loadNextQuestion();
         window.scrollTo(0, 0);
-    }
-    
-    /**
-     * Update Hero Stats
-     */
-    updateHeroStats() {
-        const stats = this.getGlobalStats();
-        const heroPoints = document.getElementById('heroTotalPoints');
-        const heroGames = document.getElementById('heroTotalGames');
-        const heroWinRate = document.getElementById('heroWinRate');
-        
-        if (heroPoints) heroPoints.textContent = stats.totalPoints.toLocaleString('de-DE');
-        if (heroGames) heroGames.textContent = stats.gamesPlayed.toLocaleString('de-DE');
-        if (heroWinRate) {
-            const winRate = stats.totalQuestions > 0 
-                ? Math.round((stats.correctAnswers / stats.totalQuestions) * 100) 
-                : 0;
-            heroWinRate.textContent = winRate + '%';
-        }
     }
 
     /**
@@ -2266,8 +2212,7 @@ function initZoomReset() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const quiz = new AustriaQuiz();
-    quiz.updateHeroStats();
+    new AustriaQuiz();
     loadCommitTime();
     updateBottomNavPoints();
     applyBottomNavSettings();
