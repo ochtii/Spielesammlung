@@ -223,6 +223,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="settings-option" id="timerVisualOption" style="display: none;">
+                            <div class="settings-option-info">
+                                <span class="settings-option-label">Visueller Timer</span>
+                                <span class="settings-option-desc">Animierter Kreisfortschritt mit modernen Effekten</span>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="timerVisualCheck" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -548,6 +558,7 @@
             const devMode = localStorage.getItem('devMode') === 'true';
             const timerEnabled = localStorage.getItem('timerEnabled') === 'true';
             const timerDuration = parseInt(localStorage.getItem('timerDuration') || '30');
+            const timerVisual = localStorage.getItem('timerVisual') !== 'false'; // Standard: aktiviert
             
             // Bottom Nav Einstellungen
             const bottomNavEnabled = localStorage.getItem('bottomNavEnabled') !== 'false';
@@ -568,6 +579,7 @@
             document.getElementById('timerEnabledCheck').checked = timerEnabled;
             document.getElementById('timerDurationSlider').value = timerDuration;
             document.getElementById('timerDurationValue').textContent = timerDuration;
+            document.getElementById('timerVisualCheck').checked = timerVisual;
             
             // Timer Option anzeigen/verstecken
             toggleTimerDurationOption(timerEnabled);
@@ -726,6 +738,11 @@
                 localStorage.setItem('timerDuration', value);
             });
 
+            // Timer Visual Mode
+            document.getElementById('timerVisualCheck').addEventListener('change', (e) => {
+                localStorage.setItem('timerVisual', e.target.checked);
+            });
+
             // Bottom Navigation Speichern Button
             document.getElementById('saveBottomNavBtn').addEventListener('click', saveBottomNavSettings);
 
@@ -819,8 +836,12 @@
 
         function toggleTimerDurationOption(show) {
             const timerOption = document.getElementById('timerDurationOption');
+            const timerVisualOption = document.getElementById('timerVisualOption');
             if (timerOption) {
                 timerOption.style.display = show ? 'flex' : 'none';
+            }
+            if (timerVisualOption) {
+                timerVisualOption.style.display = show ? 'flex' : 'none';
             }
         }
         

@@ -248,6 +248,14 @@ class AustriaQuiz {
         this.basePoints = 100; // Basispunkte ohne Tipp
         this.hintPenalty = 30; // Punktabzug pro Tipp
         
+        // Timer-Einstellungen
+        this.timerEnabled = localStorage.getItem('timerEnabled') === 'true';
+        this.timerDuration = parseInt(localStorage.getItem('timerDuration') || '30');
+        this.timerVisual = localStorage.getItem('timerVisual') !== 'false'; // Standard: aktiviert
+        this.timerInterval = null;
+        this.timeRemaining = 0;
+        this.timerBonus = 0; // Bonus-Punkte für schnelle Antworten
+        
         // Lade globale Punkte-Daten
         this.loadPointsData();
         
@@ -535,6 +543,200 @@ class AustriaQuiz {
      */
     updateBalanceDisplay() {
         this.updateFloatingBalance();
+    }
+
+    // ============================================
+    // TIMER-FUNKTIONEN
+    // ============================================
+
+    /**
+     * Timer starten für aktuelle Frage
+     */
+    startTimer() {
+        if (!this.timerEnabled) return;
+        
+        // Timer-Einstellungen neu laden (falls in Settings geändert)
+        this.timerEnabled = localStorage.getItem('timerEnabled') === 'true';
+        this.timerDuration = parseInt(localStorage.getItem('timerDuration') || '30');
+        this.timerVisual = localStorage.getItem('timerVisual') !== 'false';
+        
+        if (!this.timerEnabled) return;
+        
+        this.timeRemaining = this.timerDuration;
+        this.initTimerMode();
+        this.updateTimerDisplay();
+        this.showTimerDisplay(true);
+        
+        // Vorherigen Timer stoppen falls noch aktiv
+        this.stopTimer();
+        
+        // Neuen Timer starten
+        this.timerInterval = setInterval(() => {
+            this.timeRemaining--;
+            this.updateTimerDisplay();
+            
+            if (this.timeRemaining <= 0) {
+                this.onTimerExpired();
+            }
+        }, 1000);
+    }
+
+    /**
+     * Timer-Modus initialisieren (visuell oder einfach)
+     */
+    initTimerMode() {
+        const timerDisplay = document.getElementById('timerDisplay');
+        if (!timerDisplay) return;
+        
+        // Modus-Klassen entfernen und neu setzen
+        timerDisplay.classList.remove('visual-mode', 'simple-mode');
+        
+        if (this.timerVisual) {
+            timerDisplay.classList.add('visual-mode');
+            // Ring-Fortschritt initialisieren
+            this.updateTimerRing(1);
+        } else {
+            timerDisplay.classList.add('simple-mode');
+        }
+    }
+
+    /**
+     * Timer-Ring Fortschritt aktualisieren (für visuellen Modus)
+     */
+    updateTimerRing(progress) {
+        const ringProgress = document.getElementById('timerRingProgress');
+        if (!ringProgress) return;
+        
+        // Der Umfang des Kreises ist 2 * PI * r = 2 * 3.14159 * 45 ≈ 283
+        const circumference = 283;
+        const offset = circumference * (1 - progress);
+        ringProgress.style.strokeDashoffset = offset;
+    }
+
+    /**
+     * Timer stoppen
+     */
+    stopTimer() {
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+    }
+
+    /**
+     * Timer-Anzeige aktualisieren
+     */
+    updateTimerDisplay() {
+        const timerValue = document.getElementById('timerValue');
+        const timerDisplay = document.getElementById('timerDisplay');
+        
+        if (timerValue && timerDisplay) {
+            timerValue.textContent = this.timeRemaining;
+            
+            // Fortschritt für visuellen Ring berechnen
+            if (this.timerVisual) {
+                const progress = this.timeRemaining / this.timerDuration;
+                this.updateTimerRing(progress);
+            }
+            
+            // Farb-Klassen basierend auf verbleibender Zeit
+            timerDisplay.classList.remove('warning', 'danger');
+            
+            const warningThreshold = Math.ceil(this.timerDuration * 0.33); // 33% der Zeit
+            const dangerThreshold = Math.ceil(this.timerDuration * 0.15);  // 15% der Zeit
+            
+            if (this.timeRemaining <= dangerThreshold) {
+                timerDisplay.classList.add('danger');
+            } else if (this.timeRemaining <= warningThreshold) {
+                timerDisplay.classList.add('warning');
+            }
+        }
+    }
+
+    /**
+     * Timer-Anzeige ein-/ausblenden
+     */
+    showTimerDisplay(show) {
+        const timerDisplay = document.getElementById('timerDisplay');
+        if (timerDisplay) {
+            timerDisplay.style.display = show && this.timerEnabled ? 'flex' : 'none';
+        }
+    }
+
+    /**
+     * Timer abgelaufen - automatisch als falsch werten
+     */
+    onTimerExpired() {
+        this.stopTimer();
+        
+        if (!this.gameActive) return;
+        
+        // Zeit abgelaufen - als falsche Antwort werten
+        this.gameActive = false;
+        
+        // Markiere alle Buttons als disabled
+        document.querySelectorAll('.answer-btn').forEach(btn => {
+            btn.disabled = true;
+            const btnText = btn.textContent.trim().toLowerCase();
+            const correctText = this.currentQuestion.answer.toLowerCase();
+            
+            if (btnText === correctText) {
+                btn.classList.add('correct');
+            }
+        });
+        
+        // Zeige Zeit-Ablauf-Feedback
+        this.showTimerExpiredFeedback();
+        
+        // Zur Historie hinzufügen
+        this.addGlobalPoints(0, {
+            question: this.currentQuestion.question,
+            answer: this.currentQuestion.answer,
+            userAnswer: '⏱️ Zeit abgelaufen',
+            isCorrect: false
+        });
+        
+        this.totalPossiblePoints += this.basePoints;
+        this.updateStats(false);
+        
+        document.getElementById('scoreValue').textContent = this.score;
+        this.currentQuestionIndex++;
+    }
+
+    /**
+     * Feedback anzeigen wenn Timer abgelaufen
+     */
+    showTimerExpiredFeedback() {
+        const feedbackArea = document.getElementById('feedbackArea');
+        const feedbackContent = document.getElementById('feedbackContent');
+        feedbackArea.classList.remove('feedback-hidden');
+        
+        let html = `
+            <div class="feedback-incorrect feedback-timeout">
+                <i class="fas fa-clock"></i> Zeit abgelaufen! +0 Punkte
+            </div>
+            <div class="feedback-answer"><strong>Richtige Antwort:</strong> ${this.currentQuestion.answer}</div>
+        `;
+        
+        // Spezielle Anzeige für Population-Fragen
+        if (this.currentQuestion.type === 'population') {
+            html += this.renderPopulationComparison(false);
+        }
+        
+        feedbackContent.innerHTML = html;
+        window.scrollTo(0, feedbackArea.offsetTop);
+    }
+
+    /**
+     * Berechne Timer-Bonus Punkte für schnelle Antworten
+     */
+    calculateTimerBonus() {
+        if (!this.timerEnabled || this.timeRemaining <= 0) return 0;
+        
+        // Bonus basierend auf verbleibender Zeit (max 20 Punkte)
+        const percentRemaining = this.timeRemaining / this.timerDuration;
+        const bonus = Math.floor(percentRemaining * 20);
+        return bonus;
     }
 
     /**
@@ -917,8 +1119,15 @@ class AustriaQuiz {
      */
     startGame() {
         this.score = 0;
+        this.totalPossiblePoints = 0;
         this.currentQuestionIndex = 0;
         this.hintUsed = false;
+        this.timerBonus = 0;
+        
+        // Timer-Einstellungen neu laden
+        this.timerEnabled = localStorage.getItem('timerEnabled') === 'true';
+        this.timerDuration = parseInt(localStorage.getItem('timerDuration') || '30');
+        
         this.generateQuestions();
         this.loadNextQuestion();
         this.switchScreen('gameScreen');
@@ -929,6 +1138,8 @@ class AustriaQuiz {
      * Spiel neustarten (mit gleichen Einstellungen)
      */
     restartGame() {
+        // Timer stoppen vor dem Neustart
+        this.stopTimer();
         this.startGame();
     }
 
@@ -1065,6 +1276,7 @@ class AustriaQuiz {
         // Reset Tipps für neue Frage
         this.hintsUsedThisQuestion = 0;
         this.usedHintTypes = [];
+        this.timerBonus = 0; // Timer-Bonus für neue Frage zurücksetzen
         
         // Reset Tipp-Button und Dropdown
         const hintCount = document.getElementById('hintCount');
@@ -1097,6 +1309,10 @@ class AustriaQuiz {
         this.renderQuestion();
         this.renderAnswerArea();
         this.updateAvailableHints();
+        
+        // Timer starten wenn aktiviert
+        this.startTimer();
+        
         window.scrollTo(0, 0);
     }
 
@@ -1346,6 +1562,10 @@ class AustriaQuiz {
     submitAnswer(userAnswer) {
         if (!this.gameActive) return;
         this.gameActive = false;
+        
+        // Timer stoppen und Bonus berechnen
+        this.stopTimer();
+        this.timerBonus = this.calculateTimerBonus();
 
         // Nutze neue Prüfmethode für Multi-Language + Tippfehler-Toleranz
         const isCorrect = this.checkAnswer(userAnswer, this.currentQuestion);
@@ -1367,14 +1587,17 @@ class AustriaQuiz {
         let earnedPoints = 0;
         if (isCorrect) {
             // Punkte basierend auf verwendeten Tipps berechnen
-            earnedPoints = Math.max(10, this.basePoints - (this.hintsUsedThisQuestion * this.hintPenalty));
+            let baseEarned = Math.max(10, this.basePoints - (this.hintsUsedThisQuestion * this.hintPenalty));
+            // Timer-Bonus hinzufügen wenn Timer aktiviert
+            earnedPoints = baseEarned + this.timerBonus;
             this.score += earnedPoints;
             // Füge Punkte zum globalen Konto hinzu mit Frage-Daten
             this.addGlobalPoints(earnedPoints, {
                 question: this.currentQuestion.question,
                 answer: this.currentQuestion.answer,
                 userAnswer: userAnswer,
-                isCorrect: true
+                isCorrect: true,
+                timerBonus: this.timerBonus
             });
         } else {
             // Auch falsche Antworten in Historie aufnehmen (0 Punkte)
@@ -1408,8 +1631,15 @@ class AustriaQuiz {
 
         if (isCorrect) {
             let pointsInfo = `+${earnedPoints} Punkte`;
+            let extraInfo = [];
             if (this.hintsUsedThisQuestion > 0) {
-                pointsInfo += ` <small>(${this.hintsUsedThisQuestion} Tipp${this.hintsUsedThisQuestion > 1 ? 's' : ''} verwendet)</small>`;
+                extraInfo.push(`${this.hintsUsedThisQuestion} Tipp${this.hintsUsedThisQuestion > 1 ? 's' : ''} verwendet`);
+            }
+            if (this.timerBonus > 0) {
+                extraInfo.push(`+${this.timerBonus} Zeitbonus`);
+            }
+            if (extraInfo.length > 0) {
+                pointsInfo += ` <small>(${extraInfo.join(', ')})</small>`;
             }
             html += `<div class="feedback-correct"><i class="fas fa-check-circle"></i> Richtig! ${pointsInfo}</div>`;
         } else {
@@ -1760,6 +1990,10 @@ class AustriaQuiz {
      * Spiel beenden
      */
     endGame() {
+        // Timer stoppen
+        this.stopTimer();
+        this.showTimerDisplay(false);
+        
         // Spiel-Statistik aktualisieren
         this.incrementGamesPlayed();
         
@@ -1796,6 +2030,10 @@ class AustriaQuiz {
      * Zurück zum Start
      */
     backToStart() {
+        // Timer stoppen und ausblenden
+        this.stopTimer();
+        this.showTimerDisplay(false);
+        
         this.switchScreen('startScreen');
         this.currentGame = null;
         this.currentDifficulty = null;
