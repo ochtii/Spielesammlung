@@ -1031,7 +1031,7 @@ main {
 .dev-tools-danger-zone {
     margin-top: 2rem;
     padding: 1.5rem;
-    background: linear-gradient(135deg, rgba(231, 76, 60, 0.05), rgba(192, 57, 43, 0.05));
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(192, 57, 43, 0.08));
     border: 2px solid #e74c3c;
     border-radius: 16px;
 }
@@ -1042,9 +1042,9 @@ main {
 }
 
 .danger-zone-header i {
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: #e74c3c;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     display: block;
     animation: pulse-danger 2s ease-in-out infinite;
 }
@@ -1055,16 +1055,19 @@ main {
 }
 
 .danger-zone-header h4 {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 700;
-    color: #e74c3c;
-    margin: 0 0 0.5rem;
+    color: #c0392b;
+    margin: 0 0 0.75rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .danger-zone-header p {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
+    font-size: 0.95rem;
+    color: var(--text-primary);
     margin: 0;
+    opacity: 0.85;
+    font-weight: 500;
 }
 
 .danger-zone-actions {
@@ -1078,14 +1081,23 @@ main {
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    padding: 1rem;
+    padding: 1rem 1.25rem;
     background: var(--bg-primary);
     border: 2px solid #e74c3c;
-    border-radius: 10px;
-    color: #e74c3c;
+    border-radius: 12px;
+    color: #c0392b;
     font-weight: 600;
+    font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s ease;
+}
+
+.danger-btn i {
+    font-size: 1.1rem;
+}
+
+.danger-btn span {
+    white-space: nowrap;
 }
 
 .danger-btn:hover {
@@ -1097,15 +1109,46 @@ main {
 
 .danger-btn-critical {
     grid-column: 1 / -1;
-    background: #c0392b;
+    background: linear-gradient(135deg, #c0392b, #a93226);
     color: white;
     border-color: #c0392b;
+    font-size: 1rem;
+    padding: 1.1rem 1.5rem;
 }
 
 .danger-btn-critical:hover {
-    background: #a93226;
+    background: linear-gradient(135deg, #a93226, #922b21);
     border-color: #a93226;
     box-shadow: 0 8px 20px rgba(192, 57, 43, 0.4);
+}
+
+/* Dark Mode - Danger Zone */
+body.dark-mode .dev-tools-danger-zone {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.15), rgba(192, 57, 43, 0.12));
+}
+
+body.dark-mode .danger-zone-header h4 {
+    color: #ff6b6b;
+}
+
+body.dark-mode .danger-zone-header p {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .danger-btn {
+    background: rgba(231, 76, 60, 0.1);
+    color: #ff6b6b;
+    border-color: #e74c3c;
+}
+
+body.dark-mode .danger-btn:hover {
+    background: #e74c3c;
+    color: white;
+}
+
+body.dark-mode .danger-btn-critical {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
 }
 
 /* Modern Confirm Modal */
