@@ -1,0 +1,124 @@
+/* ============================================
+   CSS-Variablen für Theme-Management
+   ============================================ */
+:root {
+    /* Light Mode Colors */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f7fa;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --border-color: #e0e0e0;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.12);
+    
+    /* Brand Colors */
+    --primary-color: #ed2939;
+    --primary-light: #ff4757;
+    --secondary-color: #003366;
+    --success-color: #2ecc71;
+    --error-color: #e74c3c;
+    --warning-color: #f39c12;
+    --info-color: #3498db;
+    
+    /* License Plate Colors */
+    --plate-bg: #ffffff;
+    --plate-text: #000000;
+    --plate-eu-bg: #003da5;
+    --plate-eu-text: #ffffff;
+    --plate-border: #cc0000;
+}
+
+/* Dark Mode Variables */
+body.dark-mode {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --border-color: #404040;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Dark Mode - Cards & Containers */
+body.dark-mode .card,
+body.dark-mode .feedback-card,
+body.dark-mode .help-card,
+body.dark-mode .wappen-card,
+body.dark-mode .info-card,
+body.dark-mode .legal-card,
+body.dark-mode .settings-card {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+/* Dark Mode - Hero Sections */
+body.dark-mode .wappen-hero,
+body.dark-mode .dev-info-hero,
+body.dark-mode .impressum-hero {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+    border-color: var(--border-color);
+}
+
+/* Dark Mode - Inputs & Forms */
+body.dark-mode input[type="text"],
+body.dark-mode input[type="number"],
+body.dark-mode select,
+body.dark-mode textarea {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+body.dark-mode input[type="text"]:focus,
+body.dark-mode input[type="number"]:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus {
+    border-color: var(--primary-color);
+    background: var(--bg-secondary);
+}
+
+/* Dark Mode - Tables */
+body.dark-mode table {
+    background: var(--bg-primary);
+}
+
+body.dark-mode th {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode td {
+    border-color: var(--border-color);
+}
+
+body.dark-mode tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Dark Mode - Modals & Overlays */
+body.dark-mode .modal-content,
+body.dark-mode .dropdown-menu {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+/* Dark Mode - Accordion */
+body.dark-mode .accordion-header {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .accordion-header:hover {
+    background: var(--bg-secondary);
+}
+
+body.dark-mode .accordion-content {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+/* Dark Mode - Charts & Stats */
+body.dark-mode .storage-chart {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+}

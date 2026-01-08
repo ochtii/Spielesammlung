@@ -1,0 +1,33 @@
+/* ============================================
+   Main CSS - Import All Modules
+   ============================================
+   
+   This file imports all CSS modules in the correct order.
+   Include this single file in your HTML instead of style.css
+   
+   ============================================ */
+
+/* 1. Variables & Theme - Must be first */
+@import url('variables.css');
+
+/* 2. Base Styles - Global resets and foundations */
+@import url('base.css');
+
+/* 3. Utilities - Helper classes and animations */
+@import url('utilities.css');
+
+/* 4. Components - Reusable UI elements */
+@import url('components.css');
+
+/* 5. Layout - Navigation and structural elements */
+@import url('navbar.css');
+
+/* 6. Feature Modules */
+@import url('settings.css');
+@import url('game.css');
+@import url('points.css');
+@import url('pages.css');
+
+/* 7. Special Features */
+@import url('easter-eggs.css');
+@import url('dev-tools.css');

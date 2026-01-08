@@ -1,0 +1,150 @@
+/* ============================================
+   Navbar
+   ============================================ */
+.navbar {
+    background-color: var(--bg-primary);
+    box-shadow: var(--shadow);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--primary-color);
+}
+
+.navbar-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ============================================
+   Navbar Menu (Hamburger)
+   ============================================ */
+.navbar-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.menu-toggle {
+    background-color: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-toggle:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.menu-toggle.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.menu-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow-hover);
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.menu-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.menu-item:hover {
+    background-color: var(--bg-secondary);
+    color: var(--primary-color);
+}
+
+.menu-item i {
+    width: 20px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.menu-item:not(:last-child) {
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Dark Mode - Navbar */
+body.dark-mode .navbar {
+    background-color: var(--bg-primary);
+    border-bottom-color: var(--primary-color);
+}
+
+body.dark-mode .menu-dropdown {
+    background-color: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .menu-item:hover {
+    background-color: var(--bg-secondary);
+}
+
+body.dark-mode .dev-reload-btn {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+body.dark-mode .dev-reload-btn:hover {
+    background: linear-gradient(135deg, #c0392b, #a93226);
+}
+
+body.dark-mode .cache-cleared-toast {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+}

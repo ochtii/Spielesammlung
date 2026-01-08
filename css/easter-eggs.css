@@ -1,0 +1,664 @@
+/* ============================================
+   Easter Egg System CSS
+   ============================================ */
+
+/* Easter Eggs Counter Card */
+.easter-eggs-counter-card {
+    background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.easter-eggs-counter-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(241, 196, 15, 0.1), transparent 70%);
+    pointer-events: none;
+}
+
+.easter-eggs-counter-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.easter-eggs-icon-wrap {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #f1c40f, #f39c12);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    box-shadow: 0 4px 12px rgba(241, 196, 15, 0.4);
+    animation: eggBounce 2s ease-in-out infinite;
+}
+
+@keyframes eggBounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-3px) rotate(-5deg); }
+    75% { transform: translateY(-3px) rotate(5deg); }
+}
+
+.easter-eggs-info {
+    flex: 1;
+}
+
+.easter-eggs-title {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.easter-eggs-subtitle {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.easter-eggs-count {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.easter-eggs-count span:first-child {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #f1c40f;
+}
+
+.easter-eggs-divider {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+.easter-eggs-count span:last-child {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.easter-eggs-progress {
+    height: 8px;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.easter-eggs-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #f1c40f, #e67e22);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.easter-eggs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.easter-egg-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.easter-egg-item .egg-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-primary);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.easter-egg-item .egg-name {
+    flex: 1;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.easter-egg-item .egg-reward {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.easter-egg-item .egg-reward i {
+    color: #f1c40f;
+}
+
+.easter-egg-item.found {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.15), rgba(39, 174, 96, 0.1));
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.easter-egg-item.found .egg-icon {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: white;
+}
+
+.easter-egg-item.found .egg-name {
+    color: var(--text-primary);
+    font-style: normal;
+    font-weight: 600;
+}
+
+.easter-egg-item.found .egg-reward {
+    color: #2ecc71;
+}
+
+/* Mobile Hint für Easter Eggs */
+.easter-eggs-hint-mobile {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 8px;
+    font-size: 0.75rem;
+    color: var(--info-color);
+}
+
+.easter-eggs-hint-mobile i {
+    font-size: 1rem;
+}
+
+/* Easter Egg Modal */
+.easter-egg-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20000;
+    padding: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.easter-egg-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.easter-egg-content {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 0 60px rgba(102, 126, 234, 0.3),
+        0 0 120px rgba(118, 75, 162, 0.2),
+        inset 0 0 60px rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    animation: easterEggPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes easterEggPop {
+    0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+    50% { transform: scale(1.1) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: -20px;
+    animation: confettiFall linear infinite;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(500px) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.easter-egg-icon {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #ffd700, #ffaa00);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 10px 40px rgba(255, 215, 0, 0.4);
+    animation: iconBounce 1s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.easter-egg-icon i {
+    font-size: 3rem;
+    color: #8B6914;
+}
+
+.easter-egg-content h2 {
+    font-size: 2rem;
+    color: #ffd700;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 10px rgba(255, 215, 0, 0.5);
+}
+
+.easter-egg-message {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1.5rem;
+}
+
+.easter-egg-reward {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 170, 0, 0.2));
+    border: 2px solid #ffd700;
+    border-radius: 16px;
+    padding: 1rem 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    animation: rewardGlow 2s ease-in-out infinite;
+}
+
+@keyframes rewardGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.6); }
+}
+
+.easter-egg-reward i {
+    font-size: 1.5rem;
+    color: #ffd700;
+}
+
+.easter-egg-reward span {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #ffd700;
+}
+
+.easter-egg-submessage {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem;
+}
+
+.easter-egg-submessage strong {
+    color: #667eea;
+}
+
+.easter-egg-close-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.easter-egg-close-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+}
+
+/* Easter Egg Notification (Toast) */
+.easter-egg-notification {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    z-index: 15000;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.easter-egg-notification.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.easter-egg-notification-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, #2c3e50, #1a252f);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 2px solid #f1c40f;
+}
+
+.easter-egg-notification-content > i {
+    font-size: 1.75rem;
+    color: #f1c40f;
+    animation: bounce 0.5s ease infinite;
+}
+
+.easter-egg-notification-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.easter-egg-notification-text strong {
+    font-size: 0.95rem;
+    color: #f1c40f;
+}
+
+.easter-egg-notification-text span {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Easter Egg Hint */
+.easter-egg-hint {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 1rem;
+    opacity: 0.15;
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    cursor: default;
+    user-select: none;
+}
+
+.easter-egg-hint:hover {
+    opacity: 0.3;
+}
+
+/* Cheat Mode Indicator */
+.cheat-mode-indicator {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: linear-gradient(135deg, #ffd700, #ffaa00);
+    color: #8B6914;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    animation: cheatModePulse 2s ease-in-out infinite;
+}
+
+@keyframes cheatModePulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+}
+
+/* Cheat Mode Section */
+.cheat-mode-section {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 170, 0, 0.05));
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.cheat-mode-section h4 {
+    color: #ffd700;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cheat-mode-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cheat-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 215, 0, 0.1);
+    border-radius: 10px;
+    color: var(--text-primary);
+}
+
+.cheat-info i {
+    color: #ffd700;
+    font-size: 1.2rem;
+}
+
+.cheat-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.cheat-btn {
+    flex: 1;
+    min-width: 150px;
+    padding: 0.9rem 1.25rem;
+    background: linear-gradient(135deg, #ffd700, #ffaa00);
+    color: #8B6914;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.cheat-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+}
+
+.cheat-btn-reset {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+.cheat-btn-reset:hover {
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* ============================================
+   Mobile Responsive - Easter Eggs
+   ============================================ */
+@media (max-width: 768px) {
+    .easter-eggs-hint-mobile {
+        display: flex;
+    }
+    
+    .easter-eggs-icon-wrap {
+        cursor: pointer;
+    }
+    
+    /* Easter Eggs Card kompakter für Mobile */
+    .easter-eggs-counter-card {
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 14px;
+    }
+    
+    .easter-eggs-counter-header {
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .easter-eggs-icon-wrap {
+        width: 42px;
+        height: 42px;
+        font-size: 1.25rem;
+        border-radius: 10px;
+    }
+    
+    .easter-eggs-title {
+        font-size: 1rem;
+    }
+    
+    .easter-eggs-subtitle {
+        font-size: 0.75rem;
+    }
+    
+    .easter-eggs-count span:first-child {
+        font-size: 1.5rem;
+    }
+    
+    .easter-eggs-divider {
+        font-size: 1rem;
+    }
+    
+    .easter-eggs-count span:last-child {
+        font-size: 1rem;
+    }
+    
+    .easter-eggs-progress {
+        height: 6px;
+        margin-bottom: 0.75rem;
+    }
+    
+    .easter-eggs-list {
+        gap: 0.375rem;
+    }
+    
+    .easter-egg-item {
+        padding: 0.5rem 0.625rem;
+        gap: 0.5rem;
+        border-radius: 8px;
+    }
+    
+    .easter-egg-item .egg-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+        border-radius: 6px;
+    }
+    
+    .easter-egg-item .egg-name {
+        font-size: 0.8rem;
+    }
+    
+    .easter-egg-item .egg-reward {
+        font-size: 0.75rem;
+    }
+    
+    .easter-eggs-hint-mobile {
+        padding: 0.375rem 0.5rem;
+        font-size: 0.7rem;
+    }
+    
+    .easter-eggs-hint-mobile i {
+        font-size: 0.85rem;
+    }
+    
+    /* Easter Egg Notification */
+    .easter-egg-notification {
+        bottom: 80px;
+        left: 1rem;
+        right: 1rem;
+        transform: translateX(0) translateY(100px);
+    }
+    
+    .easter-egg-notification.show {
+        transform: translateX(0) translateY(0);
+    }
+    
+    .easter-egg-notification-content {
+        padding: 0.875rem 1rem;
+    }
+    
+    .easter-egg-notification-content > i {
+        font-size: 1.5rem;
+    }
+    
+    .easter-egg-notification-text strong {
+        font-size: 0.875rem;
+    }
+    
+    .easter-egg-notification-text span {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .easter-eggs-counter-card {
+        padding: 0.875rem;
+    }
+    
+    .easter-eggs-icon-wrap {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1rem;
+    }
+    
+    .easter-eggs-title {
+        font-size: 0.9rem;
+    }
+    
+    .easter-eggs-count span:first-child {
+        font-size: 1.25rem;
+    }
+}
