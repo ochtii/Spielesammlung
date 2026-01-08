@@ -98,6 +98,9 @@ class GameEngine {
             return;
         }
 
+        // Start timer for this question
+        this.state.questionStartTime = Date.now();
+
         // Update UI
         if (this.elements.questionText) {
             this.elements.questionText.textContent = question.question;
@@ -137,6 +140,7 @@ class GameEngine {
     handleAnswer(selected) {
         const question = this.state.questions[this.state.currentIndex];
         const isCorrect = selected === question.correct;
+        const answerTimeMs = this.state.questionStartTime ? Date.now() - this.state.questionStartTime : null;
 
         // Disable all buttons
         const buttons = this.elements.answersGrid.querySelectorAll('.answer-btn');
@@ -164,12 +168,23 @@ class GameEngine {
 
         this.updateStats();
 
+        // Record answer in Statistics
+        if (typeof Statistics !== 'undefined') {
+            Statistics.recordAnswer({
+                gameId: this.config.id,
+                question: question.question,
+                correct: isCorrect,
+                answerTimeMs: answerTimeMs
+            });
+        }
+
         EventBus.emit(Events.QUESTION_ANSWERED, {
             game: this.config.id,
             correct: isCorrect,
             question: question.question,
             selected,
-            correctAnswer: question.correct
+            correctAnswer: question.correct,
+            answerTimeMs: answerTimeMs
         });
 
         // Next question after delay
@@ -305,7 +320,7 @@ class GameEngine {
 
         Storage.set('gameStats', stats);
 
-        // Per-game type stats
+        // Per-game type stats (legacy)
         const gameTypeStats = Storage.get('gameTypeStats', {});
         if (!gameTypeStats[result.game]) {
             gameTypeStats[result.game] = { plays: 0, correct: 0, wrong: 0 };
@@ -315,7 +330,7 @@ class GameEngine {
         gameTypeStats[result.game].wrong += (result.total - result.score);
         Storage.set('gameTypeStats', gameTypeStats);
 
-        // Recent games history
+        // Recent games history (legacy)
         const recentGames = Storage.get('recentGames', []);
         recentGames.unshift({
             gameId: result.game,
@@ -327,6 +342,20 @@ class GameEngine {
         });
         // Keep only last 50 games
         Storage.set('recentGames', recentGames.slice(0, 50));
+
+        // NEW: Record in Statistics module
+        if (typeof Statistics !== 'undefined') {
+            Statistics.recordGame({
+                gameId: result.game,
+                gameName: this.config.name,
+                score: result.score,
+                total: result.total,
+                percentage: result.percentage,
+                streak: result.streak,
+                timeMs: result.time,
+                points: result.score * 10
+            });
+        }
 
         EventBus.emit(Events.STATS_UPDATE, stats);
     }

@@ -71,12 +71,65 @@
             </div>
         </section>
 
+        <!-- Streaks & Time -->
+        <section class="mb-4">
+            <h2 class="section-title">Streaks & Zeit</h2>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="card stat-card">
+                    <div class="stat-value" id="bestStreak">0</div>
+                    <div class="stat-label">Bester Streak</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-value" id="dailyStreak">0</div>
+                    <div class="stat-label">Täglicher Streak</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-value" id="totalTime">0s</div>
+                    <div class="stat-label">Gesamtspielzeit</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-value" id="avgAccuracy">0%</div>
+                    <div class="stat-label">Ø Genauigkeit</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Daily Stats -->
+        <section class="mb-4">
+            <h2 class="section-title">Heute</h2>
+            <div class="grid grid-cols-3 gap-3">
+                <div class="card stat-card">
+                    <div class="stat-value" id="dailyGames">0</div>
+                    <div class="stat-label">Spiele</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-value" id="dailyCorrect">0</div>
+                    <div class="stat-label">Richtig</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-value" id="dailyPoints">0</div>
+                    <div class="stat-label">Punkte</div>
+                </div>
+            </div>
+        </section>
+
         <!-- Game Type Stats -->
         <section class="mb-4" id="gameTypesSection">
             <h2 class="section-title">Nach Spieltyp</h2>
             <div class="game-stats-list" id="gameTypesList">
                 <!-- Dynamically filled -->
             </div>
+        </section>
+
+        <!-- Achievements -->
+        <section class="mb-4" id="achievementsSection">
+            <h2 class="section-title">Achievements</h2>
+            <div class="achievements-list" id="achievementsList">
+                <!-- Dynamically filled -->
+            </div>
+            <p class="text-muted text-center mt-2" id="noAchievements" style="display: none;">
+                Noch keine Achievements freigeschaltet.
+            </p>
         </section>
 
         <!-- Recent Games -->
@@ -122,6 +175,7 @@
     <script src="js/core/config.js"></script>
     <script src="js/core/cache-buster.js"></script>
     <script src="js/core/storage.js"></script>
+    <script src="js/core/statistics.js"></script>
     <script src="js/core/events.js"></script>
     <script src="js/core/theme.js"></script>
     <script src="js/components/toast.js"></script>

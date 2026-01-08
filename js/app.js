@@ -315,6 +315,19 @@ const App = {
      * Setup points page
      */
     setupPointsPage() {
+        // Use new Statistics module if available
+        if (typeof Statistics !== 'undefined') {
+            const global = Statistics.getGlobal();
+            
+            this.setText('totalPoints', global.totalPointsEarned);
+            this.setText('totalGames', global.totalGamesPlayed);
+            this.setText('totalCorrect', global.totalCorrectAnswers);
+            this.setText('bestStreak', global.bestStreak);
+            this.setText('accuracy', global.averageAccuracy + '%');
+            return;
+        }
+
+        // Fallback to legacy
         const stats = Storage.get('gameStats', {
             totalGames: 0,
             totalCorrect: 0,
@@ -338,6 +351,13 @@ const App = {
      * Setup stats page
      */
     setupStatsPage() {
+        // Use new Statistics module if available
+        if (typeof Statistics !== 'undefined') {
+            this.setupStatsPageNew();
+            return;
+        }
+
+        // Fallback to legacy stats
         const stats = Storage.get('gameStats', {
             totalGames: 0,
             totalCorrect: 0,
@@ -350,20 +370,48 @@ const App = {
         this.setText('totalQuestions', stats.totalCorrect + stats.totalWrong);
         this.setText('correctAnswers', stats.totalCorrect);
         this.setText('wrongAnswers', stats.totalWrong);
+    },
 
-        // Game type stats
+    /**
+     * Setup stats page with new Statistics module
+     */
+    setupStatsPageNew() {
+        const global = Statistics.getGlobal();
+        const daily = Statistics.getDaily();
+        const gameStats = Statistics.getAllGames();
+        const achievements = Statistics.getUnlockedAchievements();
+        const sessions = Statistics.getSessions(10);
+
+        // Overview Stats
+        this.setText('totalGames', global.totalGamesPlayed);
+        this.setText('totalQuestions', global.totalQuestionsAnswered);
+        this.setText('correctAnswers', global.totalCorrectAnswers);
+        this.setText('wrongAnswers', global.totalWrongAnswers);
+
+        // Streaks & Time
+        this.setText('bestStreak', global.bestStreak);
+        this.setText('dailyStreak', global.currentDailyStreak);
+        this.setText('totalTime', Statistics.formatTime(global.totalTimePlayedMs));
+        this.setText('avgAccuracy', global.averageAccuracy + '%');
+
+        // Daily Stats
+        this.setText('dailyGames', daily.gamesPlayed);
+        this.setText('dailyCorrect', daily.correctAnswers);
+        this.setText('dailyPoints', daily.pointsEarned);
+
+        // Game Type Stats
         const gameTypesList = document.getElementById('gameTypesList');
         if (gameTypesList) {
-            const gameStats = Storage.get('gameTypeStats', {});
             const games = GameRegistry.getAll();
+            const hasStats = Object.keys(gameStats).length > 0;
             
-            if (Object.keys(gameStats).length > 0) {
+            if (hasStats) {
                 gameTypesList.innerHTML = games
                     .filter(game => gameStats[game.id])
                     .map(game => {
-                        const gs = gameStats[game.id] || { plays: 0, correct: 0, wrong: 0 };
-                        const total = gs.correct + gs.wrong;
-                        const accuracy = total > 0 ? Math.round((gs.correct / total) * 100) : 0;
+                        const gs = gameStats[game.id];
+                        const total = gs.correctAnswers + gs.wrongAnswers;
+                        const accuracy = total > 0 ? Math.round((gs.correctAnswers / total) * 100) : 0;
                         return `
                             <div class="game-stat-item">
                                 <div class="game-stat-info">
@@ -372,10 +420,13 @@ const App = {
                                     </div>
                                     <div>
                                         <div class="game-stat-name">${game.name}</div>
-                                        <div class="game-stat-plays">${gs.plays} Spiele</div>
+                                        <div class="game-stat-plays">${gs.timesPlayed} Spiele · ${gs.perfectGames}x Perfekt</div>
                                     </div>
                                 </div>
-                                <div class="game-stat-accuracy">${accuracy}%</div>
+                                <div class="game-stat-details">
+                                    <div class="game-stat-accuracy">${accuracy}%</div>
+                                    <div class="game-stat-streak">🔥 ${gs.bestStreak}</div>
+                                </div>
                             </div>
                         `;
                     }).join('');
@@ -384,14 +435,37 @@ const App = {
             }
         }
 
-        // Recent games
+        // Achievements
+        const achievementsList = document.getElementById('achievementsList');
+        const noAchievements = document.getElementById('noAchievements');
+        if (achievementsList) {
+            if (achievements.length > 0) {
+                achievementsList.innerHTML = achievements.map(ach => {
+                    const date = new Date(ach.unlockedAt);
+                    const dateStr = date.toLocaleDateString('de-DE');
+                    return `
+                        <div class="achievement-item">
+                            <div class="achievement-icon">🏆</div>
+                            <div class="achievement-info">
+                                <div class="achievement-name">${ach.name}</div>
+                                <div class="achievement-date">${dateStr}</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                if (noAchievements) noAchievements.style.display = 'none';
+            } else {
+                achievementsList.innerHTML = '';
+                if (noAchievements) noAchievements.style.display = 'block';
+            }
+        }
+
+        // Recent Games
         const recentGamesList = document.getElementById('recentGamesList');
         const noRecentGames = document.getElementById('noRecentGames');
         if (recentGamesList) {
-            const recentGames = Storage.get('recentGames', []);
-            
-            if (recentGames.length > 0) {
-                recentGamesList.innerHTML = recentGames.slice(0, 10).map(game => {
+            if (sessions.length > 0) {
+                recentGamesList.innerHTML = sessions.map(game => {
                     const date = new Date(game.timestamp);
                     const dateStr = date.toLocaleDateString('de-DE', {
                         day: '2-digit',
@@ -399,15 +473,16 @@ const App = {
                         hour: '2-digit',
                         minute: '2-digit'
                     });
+                    const isPerfect = game.percentage === 100;
                     return `
-                        <div class="recent-game-item">
+                        <div class="recent-game-item ${isPerfect ? 'perfect' : ''}">
                             <div class="recent-game-info">
-                                <div class="recent-game-name">${game.name}</div>
+                                <div class="recent-game-name">${game.gameName} ${isPerfect ? '⭐' : ''}</div>
                                 <div class="recent-game-date">${dateStr}</div>
                             </div>
                             <div class="recent-game-score">
-                                <div class="recent-game-points">+${game.points}</div>
-                                <div class="recent-game-result">${game.correct}/${game.total}</div>
+                                <div class="recent-game-points">+${game.points || 0}</div>
+                                <div class="recent-game-result">${game.score}/${game.total}</div>
                             </div>
                         </div>
                     `;
@@ -419,11 +494,13 @@ const App = {
             }
         }
 
-        // Reset stats button
+        // Reset Stats Button
         const resetStatsBtn = document.getElementById('resetStatsBtn');
         if (resetStatsBtn) {
             resetStatsBtn.addEventListener('click', () => {
                 if (confirm('Alle Statistiken zurücksetzen?')) {
+                    Statistics.resetAll();
+                    // Also clear legacy stats
                     Storage.remove('gameStats');
                     Storage.remove('gameTypeStats');
                     Storage.remove('recentGames');

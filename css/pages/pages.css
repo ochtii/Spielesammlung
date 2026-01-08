@@ -197,6 +197,75 @@
     color: var(--text-muted);
 }
 
+/* Perfect Game Highlight */
+.recent-game-item.perfect {
+    background: linear-gradient(135deg, var(--accent-bg), transparent);
+    border-color: var(--accent-color);
+}
+
+/* Game Stat Details */
+.game-stat-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--spacing-1);
+}
+
+.game-stat-streak {
+    font-size: var(--font-sm);
+    color: var(--text-muted);
+}
+
+/* Achievements List */
+.achievements-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--spacing-3);
+}
+
+.achievement-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-3);
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    transition: all var(--transition-fast);
+}
+
+.achievement-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.achievement-icon {
+    font-size: var(--font-2xl);
+}
+
+.achievement-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.achievement-name {
+    font-weight: var(--font-medium);
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.achievement-date {
+    font-size: var(--font-xs);
+    color: var(--text-muted);
+}
+
+/* Grid Layout for 3 columns */
+.grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
 /* Settings specific styles */
 .settings-section {
     margin-bottom: var(--spacing-6);
