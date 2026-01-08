@@ -1653,6 +1653,202 @@ input[type="text"]::placeholder {
     font-style: italic;
 }
 
+/* Population Comparison Styles */
+.population-comparison {
+    background: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.comparison-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.comparison-title i {
+    color: var(--primary-color);
+}
+
+.comparison-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.comparison-item {
+    position: relative;
+}
+
+.comparison-item.winner {
+    background: linear-gradient(90deg, rgba(241, 196, 15, 0.1), transparent);
+    border-radius: 12px;
+    padding: 0.75rem;
+    margin: -0.75rem;
+}
+
+.comparison-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.city-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.winner-icon {
+    color: #f1c40f;
+    font-size: 1.5rem;
+    animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.comparison-bar-container {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    height: 40px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.comparison-bar {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 1rem;
+    border-radius: 8px;
+    transition: width 1s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.comparison-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.bar-label {
+    font-weight: 700;
+    color: white;
+    font-size: 0.95rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+.comparison-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--border-color);
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+}
+
+.stat-item i {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.stat-item span {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.stat-item strong {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.comparison-note {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: var(--info-color);
+}
+
+.comparison-note i {
+    font-size: 1rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .population-comparison {
+        padding: 1.25rem;
+    }
+    
+    .comparison-title {
+        font-size: 1.05rem;
+    }
+    
+    .city-name {
+        font-size: 1rem;
+    }
+    
+    .comparison-bar-container {
+        height: 35px;
+    }
+    
+    .bar-label {
+        font-size: 0.85rem;
+        padding-right: 0.5rem;
+    }
+    
+    .comparison-stats {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .stat-item {
+        font-size: 0.85rem;
+    }
+}
+
 .hint-section {
     text-align: center;
     margin: 2rem 0;

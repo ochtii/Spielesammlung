@@ -1535,9 +1535,80 @@ class AustriaQuiz {
 
         html += `<div class="feedback-answer"><strong>Antwort:</strong> ${this.currentQuestion.answer}</div>`;
 
+        // Spezielle Anzeige für Population-Fragen
+        if (this.currentQuestion.type === 'population') {
+            html += this.renderPopulationComparison(isCorrect);
+        }
+
         feedbackContent.innerHTML = html;
 
         window.scrollTo(0, feedbackArea.offsetTop);
+    }
+
+    /**
+     * Grafischer Vergleich für Population-Fragen
+     */
+    renderPopulationComparison(isCorrect) {
+        const city1 = this.currentQuestion.city1;
+        const city2 = this.currentQuestion.city2;
+        const pop1 = this.currentQuestion.population1;
+        const pop2 = this.currentQuestion.population2;
+        const maxPop = Math.max(pop1, pop2);
+        const percentage1 = (pop1 / maxPop) * 100;
+        const percentage2 = (pop2 / maxPop) * 100;
+        
+        const isCity1Winner = pop1 > pop2;
+        
+        return `
+            <div class="population-comparison">
+                <h4 class="comparison-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Einwohner-Vergleich
+                </h4>
+                
+                <div class="comparison-items">
+                    <div class="comparison-item ${isCity1Winner ? 'winner' : ''}">
+                        <div class="comparison-header">
+                            <span class="city-name">${city1}</span>
+                            ${isCity1Winner ? '<i class="fas fa-crown winner-icon"></i>' : ''}
+                        </div>
+                        <div class="comparison-bar-container">
+                            <div class="comparison-bar" style="width: ${percentage1}%">
+                                <span class="bar-label">${pop1.toLocaleString('de-AT')}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-item ${!isCity1Winner ? 'winner' : ''}">
+                        <div class="comparison-header">
+                            <span class="city-name">${city2}</span>
+                            ${!isCity1Winner ? '<i class="fas fa-crown winner-icon"></i>' : ''}
+                        </div>
+                        <div class="comparison-bar-container">
+                            <div class="comparison-bar" style="width: ${percentage2}%">
+                                <span class="bar-label">${pop2.toLocaleString('de-AT')}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comparison-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <span>Differenz: <strong>${Math.abs(pop1 - pop2).toLocaleString('de-AT')}</strong> Einwohner</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-percentage"></i>
+                        <span>${isCity1Winner ? city1 : city2} ist <strong>${((maxPop / Math.min(pop1, pop2)) - 1).toFixed(1)}x</strong> größer</span>
+                    </div>
+                </div>
+                
+                <div class="comparison-note">
+                    <i class="fas fa-info-circle"></i>
+                    Einwohnerzahlen basieren auf den letzten verfügbaren Daten
+                </div>
+            </div>
+        `;
     }
 
     /**
@@ -1937,6 +2008,7 @@ function applyBottomNavSettings() {
     const showHome = localStorage.getItem('bottomNavShowHome') !== 'false';
     const showPoints = localStorage.getItem('bottomNavShowPoints') !== 'false';
     const showHelp = localStorage.getItem('bottomNavShowHelp') !== 'false';
+    const showFaq = localStorage.getItem('bottomNavShowFaq') === 'true';
     const showSettings = localStorage.getItem('bottomNavShowSettings') !== 'false';
     
     // Enabled/Disabled
@@ -1965,6 +2037,7 @@ function applyBottomNavSettings() {
         if (nav === 'home' && !showHome) item.classList.add('hidden');
         if (nav === 'points' && !showPoints) item.classList.add('hidden');
         if (nav === 'help' && !showHelp) item.classList.add('hidden');
+        if (nav === 'faq' && !showFaq) item.classList.add('hidden');
         if (nav === 'settings' && !showSettings) item.classList.add('hidden');
     });
 }
