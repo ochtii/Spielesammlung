@@ -424,14 +424,15 @@
     </footer>
 
     <script>
-        // Theme laden
+        // Theme laden (vor DOMContentLoaded für flicker-freies Laden)
         const theme = localStorage.getItem('theme') || 'light';
         if (theme === 'dark') {
             document.body.classList.add('dark-mode');
         }
         
-        // Bottom Nav Einstellungen anwenden
-        function applyBottomNavSettings() {
+        document.addEventListener('DOMContentLoaded', () => {
+            // Bottom Nav Einstellungen anwenden
+            function applyBottomNavSettings() {
             const bottomNav = document.getElementById('bottomNav');
             if (!bottomNav) return;
             
@@ -572,26 +573,27 @@
             });
         }
 
-        // Commit Info laden
-        async function loadCommitTime() {
-            const commitInfoEl = document.getElementById('commitInfo');
-            try {
-                const response = await fetch('https://api.github.com/repos/ochtii/Spielesammlung/commits?per_page=1');
-                if (!response.ok) throw new Error('API Error');
-                const data = await response.json();
-                if (data.length > 0) {
-                    const commitDate = new Date(data[0].commit.author.date);
-                    const formattedDate = new Intl.DateTimeFormat('de-AT', {
-                        year: 'numeric', month: '2-digit', day: '2-digit',
-                        hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Vienna'
-                    }).format(commitDate);
-                    commitInfoEl.innerHTML = `<i class="fas fa-clock"></i> ${formattedDate}`;
+            // Commit Info laden
+            async function loadCommitTime() {
+                const commitInfoEl = document.getElementById('commitInfo');
+                try {
+                    const response = await fetch('https://api.github.com/repos/ochtii/Spielesammlung/commits?per_page=1');
+                    if (!response.ok) throw new Error('API Error');
+                    const data = await response.json();
+                    if (data.length > 0) {
+                        const commitDate = new Date(data[0].commit.author.date);
+                        const formattedDate = new Intl.DateTimeFormat('de-AT', {
+                            year: 'numeric', month: '2-digit', day: '2-digit',
+                            hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Vienna'
+                        }).format(commitDate);
+                        commitInfoEl.innerHTML = `<i class="fas fa-clock"></i> ${formattedDate}`;
+                    }
+                } catch (error) {
+                    commitInfoEl.innerHTML = '<i class="fas fa-wifi"></i> Offline';
                 }
-            } catch (error) {
-                commitInfoEl.innerHTML = '<i class="fas fa-wifi"></i> Offline';
             }
-        }
-        loadCommitTime();
+            loadCommitTime();
+        }); // Ende DOMContentLoaded
     </script>
 </body>
 </html>

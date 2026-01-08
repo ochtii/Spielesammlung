@@ -389,14 +389,15 @@
     </footer>
 
     <script>
-        // Theme aus localStorage laden
+        // Theme aus localStorage laden (vor DOMContentLoaded für flicker-freies Laden)
         const theme = localStorage.getItem('theme') || 'light';
         if (theme === 'dark') {
             document.body.classList.add('dark-mode');
         }
         
-        // Bottom Nav Einstellungen anwenden
-        function applyBottomNavSettings() {
+        document.addEventListener('DOMContentLoaded', () => {
+            // Bottom Nav Einstellungen anwenden
+            function applyBottomNavSettings() {
             const bottomNav = document.getElementById('bottomNav');
             if (!bottomNav) return;
             
@@ -643,6 +644,7 @@
                 menuDropdown.classList.remove('show');
             });
         }
+        }); // Ende DOMContentLoaded
     </script>
 </body>
 </html>
