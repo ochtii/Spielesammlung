@@ -531,7 +531,7 @@
 	        localStorage.setItem('bottomNavEnabled', enabled ? 'true' : 'false');
 	        document.body.classList.toggle('bottom-nav-enabled', enabled);
 	        bottomNavElementsContainer.style.display = enabled ? 'block' : 'none';
-	        if (window.applyGlobalSettings) window.applyGlobalSettings();
+	        if (window.applyBottomNavSettings) window.applyBottomNavSettings();
 	    }
 	    bottomNavEnabledToggle.checked = localStorage.getItem('bottomNavEnabled') !== 'false';
 	    updateBottomNavEnabledStatus();
@@ -557,7 +557,8 @@
 	        localStorage.setItem('bottomNavShowFaq', showFaq ? 'true' : 'false');
 	        localStorage.setItem('bottomNavShowSettings', showSettings ? 'true' : 'false');
 
-	        if (window.applyGlobalSettings) window.applyGlobalSettings();
+	        // Bottom Navigation sofort aktualisieren
+	        if (window.applyBottomNavSettings) window.applyBottomNavSettings();
 	    }
 
 	    // Lade gespeicherte Werte
