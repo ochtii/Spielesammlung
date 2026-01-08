@@ -231,6 +231,12 @@ class AustriaQuiz {
         this.paidHints = localStorage.getItem('paidHints') === 'true'; // Kostenpflichtige Tipps
         this.balanceDisplayMode = localStorage.getItem('balanceDisplayMode') || 'widget'; // 'widget' or 'header'
         
+        // Timer-Einstellungen
+        this.timerEnabled = localStorage.getItem('timerEnabled') === 'true';
+        this.timerDuration = parseInt(localStorage.getItem('timerDuration') || '30');
+        this.timerInterval = null;
+        this.timeRemaining = this.timerDuration;
+        
         // Tipp-Preise nach Nützlichkeit
         this.hintPrices = {
             '5050': 30,          // Sehr hilfreich
@@ -886,6 +892,85 @@ class AustriaQuiz {
     }
 
     /**
+     * Timer starten
+     */
+    startTimer() {
+        this.timeRemaining = this.timerDuration;
+        const timerDisplay = document.getElementById('timerDisplay');
+        const timerValue = document.getElementById('timerValue');
+        
+        if (timerDisplay) {
+            timerDisplay.style.display = 'flex';
+            timerDisplay.classList.remove('warning', 'danger');
+            timerValue.textContent = this.timeRemaining;
+        }
+        
+        this.timerInterval = setInterval(() => {
+            this.timeRemaining--;
+            timerValue.textContent = this.timeRemaining;
+            
+            // Warnung bei 10 Sekunden
+            if (this.timeRemaining === 10) {
+                timerDisplay.classList.add('warning');
+            }
+            
+            // Gefahr bei 5 Sekunden
+            if (this.timeRemaining === 5) {
+                timerDisplay.classList.remove('warning');
+                timerDisplay.classList.add('danger');
+            }
+            
+            // Zeit abgelaufen
+            if (this.timeRemaining <= 0) {
+                this.stopTimer();
+                this.handleTimeOut();
+            }
+        }, 1000);
+    }
+
+    /**
+     * Timer stoppen
+     */
+    stopTimer() {
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+        
+        const timerDisplay = document.getElementById('timerDisplay');
+        if (timerDisplay && !this.timerEnabled) {
+            timerDisplay.style.display = 'none';
+        }
+    }
+
+    /**
+     * Zeit abgelaufen
+     */
+    handleTimeOut() {
+        if (!this.gameActive) return;
+        
+        this.gameActive = false;
+        
+        // Keine Punkte bei Zeitablauf
+        const message = `
+            <div class="feedback error">
+                <i class="fas fa-clock"></i>
+                <h3>Zeit abgelaufen!</h3>
+                <p>Die korrekte Antwort war: <strong>${this.currentQuestion.answer}</strong></p>
+                <p style="color: var(--error-color);">+0 Punkte</p>
+            </div>
+        `;
+        
+        document.getElementById('feedbackContent').innerHTML = message;
+        document.getElementById('feedbackArea').classList.remove('feedback-hidden');
+        document.getElementById('answerArea').innerHTML = '';
+        
+        this.currentQuestionIndex++;
+        document.getElementById('nextBtn').innerHTML = '<i class="fas fa-forward"></i> Nächste Frage';
+        document.getElementById('nextBtn').onclick = () => this.loadNextQuestion();
+    }
+
+    /**
      * Spiel auswählen
      */
     selectGame(game) {
@@ -1206,6 +1291,9 @@ class AustriaQuiz {
         this.hintsUsedThisQuestion = 0;
         this.usedHintTypes = [];
         
+        // Timer stoppen wenn aktiv
+        this.stopTimer();
+        
         // Reset Tipp-Button und Dropdown
         const hintCount = document.getElementById('hintCount');
         
@@ -1237,6 +1325,12 @@ class AustriaQuiz {
         this.renderQuestion();
         this.renderAnswerArea();
         this.updateAvailableHints();
+        
+        // Timer starten wenn aktiviert
+        if (this.timerEnabled) {
+            this.startTimer();
+        }
+        
         window.scrollTo(0, 0);
     }
 
@@ -1507,6 +1601,9 @@ class AustriaQuiz {
     submitAnswer(userAnswer) {
         if (!this.gameActive) return;
         this.gameActive = false;
+
+        // Timer stoppen
+        this.stopTimer();
 
         // Nutze neue Prüfmethode für Multi-Language + Tippfehler-Toleranz
         const isCorrect = this.checkAnswer(userAnswer, this.currentQuestion);
@@ -1904,6 +2001,9 @@ class AustriaQuiz {
      * Spiel beenden
      */
     endGame() {
+        // Timer stoppen
+        this.stopTimer();
+        
         // Spiel-Statistik aktualisieren
         this.incrementGamesPlayed();
         

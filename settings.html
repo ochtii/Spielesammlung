@@ -199,6 +199,30 @@
                                 <option value="header">Im Header</option>
                             </select>
                         </div>
+                        <div class="settings-option">
+                            <div class="settings-option-info">
+                                <span class="settings-option-label">Timer aktivieren</span>
+                                <span class="settings-option-desc">Zeitlimit für jede Frage</span>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="timerEnabledCheck">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="settings-option" id="timerDurationOption" style="display: none;">
+                            <div class="settings-option-info">
+                                <span class="settings-option-label">Timer-Dauer</span>
+                                <span class="settings-option-desc">Sekunden pro Frage: <strong id="timerDurationValue">30</strong>s</span>
+                            </div>
+                            <div class="range-slider-container">
+                                <input type="range" id="timerDurationSlider" class="range-slider" min="5" max="120" value="30" step="5">
+                                <div class="range-slider-labels">
+                                    <span>5s</span>
+                                    <span>60s</span>
+                                    <span>120s</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -467,6 +491,8 @@
             const balanceDisplayMode = localStorage.getItem('balanceDisplayMode') || 'widget';
             const historyLimit = localStorage.getItem('historyLimit') || '100';
             const devMode = localStorage.getItem('devMode') === 'true';
+            const timerEnabled = localStorage.getItem('timerEnabled') === 'true';
+            const timerDuration = parseInt(localStorage.getItem('timerDuration') || '30');
             
             // Bottom Nav Einstellungen
             const bottomNavEnabled = localStorage.getItem('bottomNavEnabled') !== 'false';
@@ -484,6 +510,12 @@
             document.getElementById('balanceDisplaySelect').value = balanceDisplayMode;
             document.getElementById('historyLimitSelect').value = historyLimit;
             document.getElementById('devModeCheck').checked = devMode;
+            document.getElementById('timerEnabledCheck').checked = timerEnabled;
+            document.getElementById('timerDurationSlider').value = timerDuration;
+            document.getElementById('timerDurationValue').textContent = timerDuration;
+            
+            // Timer Option anzeigen/verstecken
+            toggleTimerDurationOption(timerEnabled);
             
             // Dev Mode Options anzeigen/verstecken
             toggleDevModeOptions(devMode);
@@ -626,6 +658,19 @@
                 localStorage.setItem('paidHints', e.target.checked);
             });
 
+            // Timer Enabled
+            document.getElementById('timerEnabledCheck').addEventListener('change', (e) => {
+                localStorage.setItem('timerEnabled', e.target.checked);
+                toggleTimerDurationOption(e.target.checked);
+            });
+
+            // Timer Duration
+            document.getElementById('timerDurationSlider').addEventListener('input', (e) => {
+                const value = e.target.value;
+                document.getElementById('timerDurationValue').textContent = value;
+                localStorage.setItem('timerDuration', value);
+            });
+
             // Bottom Navigation Speichern Button
             document.getElementById('saveBottomNavBtn').addEventListener('click', saveBottomNavSettings);
 
@@ -714,6 +759,13 @@
             }
             if (show) {
                 updateStorageStats();
+            }
+        }
+
+        function toggleTimerDurationOption(show) {
+            const timerOption = document.getElementById('timerDurationOption');
+            if (timerOption) {
+                timerOption.style.display = show ? 'flex' : 'none';
             }
         }
         
