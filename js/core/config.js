@@ -5,7 +5,7 @@
 const AppConfig = {
     // App Info
     name: 'AUT Quiz',
-    version: '2.0.0',
+    version: '2.1.0',
     buildDate: '2026-01-08',
     
     // Game Settings
