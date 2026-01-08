@@ -3,26 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entwickler-Informationen - Spielesammlung</title>
+    <title>Entwickler-Informationen - AUT Quiz</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav-bar">
-        <div class="nav-logo">
-            <i class="fas fa-code"></i> Entwickler-Info
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-map-location-dot"></i> AUT Quiz
+            </a>
+            <div class="navbar-menu">
+                <button class="menu-toggle" id="menuToggle" aria-label="Menü" type="button">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="menu-dropdown" id="menuDropdown">
+                    <a href="index.html" class="menu-item">
+                        <i class="fas fa-home"></i> Zurück zum Spiel
+                    </a>
+                    <a href="points.html" class="menu-item">
+                        <i class="fas fa-coins"></i> Punkte
+                    </a>
+                    <a href="help.html" class="menu-item">
+                        <i class="fas fa-question-circle"></i> Hilfe
+                    </a>
+                    <a href="faq.html" class="menu-item">
+                        <i class="fas fa-circle-question"></i> FAQ
+                    </a>
+                    <a href="settings.html" class="menu-item">
+                        <i class="fas fa-cog"></i> Einstellungen
+                    </a>
+                </div>
+            </div>
         </div>
-        <button class="menu-btn" id="menuBtn">
-            <i class="fas fa-bars"></i>
-        </button>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="index.html"><i class="fas fa-home"></i> Startseite</a></li>
-            <li><a href="points.html"><i class="fas fa-trophy"></i> Punkte</a></li>
-            <li><a href="help.html"><i class="fas fa-circle-info"></i> Hilfe</a></li>
-            <li><a href="faq.html"><i class="fas fa-circle-question"></i> FAQ</a></li>
-            <li><a href="settings.html"><i class="fas fa-gear"></i> Einstellungen</a></li>
-        </ul>
     </nav>
 
     <div class="container">
@@ -278,18 +298,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Navigation Toggle
-            const menuBtn = document.getElementById('menuBtn');
-            const navLinks = document.getElementById('navLinks');
-
-            menuBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-            });
-
-            // Bottom Navigation Settings anwenden
+            setupMenu();
             applyBottomNavSettings();
-
-            // Version Info laden
             loadVersionInfo();
             
             // Zoom Reset
@@ -310,6 +320,27 @@
                 });
             }
         });
+
+        function setupMenu() {
+            const menuToggle = document.getElementById('menuToggle');
+            const menuDropdown = document.getElementById('menuDropdown');
+            
+            if (menuToggle && menuDropdown) {
+                menuToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    menuToggle.classList.toggle('active');
+                    menuDropdown.classList.toggle('show');
+                });
+                
+                document.addEventListener('click', (e) => {
+                    if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
+                        menuToggle.classList.remove('active');
+                        menuDropdown.classList.remove('show');
+                    }
+                });
+            }
+        }
 
         function loadVersionInfo() {
             // GitHub API für Commit-Info
