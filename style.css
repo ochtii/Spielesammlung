@@ -1082,22 +1082,24 @@ main {
     justify-content: center;
     gap: 0.75rem;
     padding: 1rem 1.25rem;
-    background: var(--bg-primary);
+    background: #fff5f5;
     border: 2px solid #e74c3c;
     border-radius: 12px;
-    color: #c0392b;
-    font-weight: 600;
-    font-size: 0.9rem;
+    color: #a83232;
+    font-weight: 700;
+    font-size: 0.95rem;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .danger-btn i {
     font-size: 1.1rem;
+    color: #e74c3c;
 }
 
 .danger-btn span {
     white-space: nowrap;
+    color: #8b2525;
 }
 
 .danger-btn:hover {
@@ -1105,6 +1107,11 @@ main {
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(231, 76, 60, 0.3);
+}
+
+.danger-btn:hover i,
+.danger-btn:hover span {
+    color: white;
 }
 
 .danger-btn-critical {
@@ -1136,13 +1143,23 @@ body.dark-mode .danger-zone-header p {
 }
 
 body.dark-mode .danger-btn {
-    background: rgba(231, 76, 60, 0.1);
+    background: rgba(231, 76, 60, 0.15);
     color: #ff6b6b;
     border-color: #e74c3c;
 }
 
+body.dark-mode .danger-btn i,
+body.dark-mode .danger-btn span {
+    color: #ff8a8a;
+}
+
 body.dark-mode .danger-btn:hover {
     background: #e74c3c;
+    color: white;
+}
+
+body.dark-mode .danger-btn:hover i,
+body.dark-mode .danger-btn:hover span {
     color: white;
 }
 
