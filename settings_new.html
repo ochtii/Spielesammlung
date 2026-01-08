@@ -55,13 +55,6 @@
 			<div class="tab-panel active" id="general">
 				<div class="settings-card">
 					<section class="settings-section">
-						<h2><i class="fas fa-user"></i> Account</h2>
-						<div class="account-info">
-							<span><i class="fas fa-user-circle"></i> Gast</span>
-							<span class="account-placeholder">(Login-Funktion in Entwicklung)</span>
-						</div>
-					</section>
-					<section class="settings-section">
 						<h2><i class="fas fa-language"></i> Sprache</h2>
 						<label for="language-select">Sprache wählen:</label>
 						<select id="language-select">
@@ -108,12 +101,13 @@
 					</section>
 					<section class="settings-section">
 						<h2><i class="fas fa-font"></i> Schriftgröße</h2>
-						<label for="font-size-select">Schriftgröße:</label>
-						<select id="font-size-select">
-							<option value="normal">Normal</option>
-							<option value="large">Groß</option>
-							<option value="xlarge">Sehr groß</option>
-						</select>
+						<label for="font-size-slider">Schriftgröße: <span id="font-size-value">100%</span></label>
+						<input type="range" id="font-size-slider" min="80" max="150" step="5" value="100">
+						<div class="slider-info">
+							<span>80%</span>
+							<span>100%</span>
+							<span>150%</span>
+						</div>
 					</section>
 					<section class="settings-section">
 						<h2><i class="fas fa-magic"></i> Animationen</h2>
@@ -202,10 +196,72 @@
 				<div class="settings-card dev-tools-card">
 					<section class="settings-section">
 						<h2><i class="fas fa-tools"></i> Entwickler-Tools</h2>
-						<button id="toggleDevMode" class="dev-btn"><i class="fas fa-terminal"></i> Dev Mode umschalten</button>
-						<button id="showDevReloadBtn" class="dev-btn"><i class="fas fa-sync-alt"></i> Reload-Button anzeigen/verstecken</button>
-						<button id="devHardReloadBtn" class="dev-btn"><i class="fas fa-broom"></i> Hard Reload & Cache leeren</button>
-						<div id="devModeStatus"></div>
+						
+						<div class="dev-option">
+							<label class="switch">
+								<input type="checkbox" id="devDarkMode">
+								<span class="slider round"></span>
+							</label>
+							<span>Dark Mode</span>
+						</div>
+						
+						<div class="dev-option">
+							<label for="devAccentColor">Accent Farbe:</label>
+							<input type="color" id="devAccentColor" value="#ed2939">
+						</div>
+						
+						<div class="dev-option">
+							<label class="switch">
+								<input type="checkbox" id="devBottomNavEnabled">
+								<span class="slider round"></span>
+							</label>
+							<span>Bottom Navigation aktivieren</span>
+						</div>
+						
+						<div class="dev-option">
+							<label class="switch">
+								<input type="checkbox" id="devBottomNavFixed">
+								<span class="slider round"></span>
+							</label>
+							<span>Bottom Navigation fixieren</span>
+						</div>
+						
+						<div class="dev-option">
+							<label class="switch">
+								<input type="checkbox" id="devTimerEnabled">
+								<span class="slider round"></span>
+							</label>
+							<span>Timer aktivieren</span>
+						</div>
+						
+						<div class="dev-option">
+							<label class="switch">
+								<input type="checkbox" id="devTypoTolerance">
+								<span class="slider round"></span>
+							</label>
+							<span>Typo-Toleranz aktivieren</span>
+						</div>
+						
+						<div class="dev-option">
+							<label class="switch">
+								<input type="checkbox" id="devPaidHints">
+								<span class="slider round"></span>
+							</label>
+							<span>Bezahlte Hinweise aktivieren</span>
+						</div>
+						
+						<div class="dev-actions">
+							<button id="devHardReloadBtn" class="dev-btn">
+								<i class="fas fa-broom"></i> Hard Reload & Cache leeren
+							</button>
+							<button id="devSaveSettings" class="dev-btn">
+								<i class="fas fa-save"></i> Einstellungen speichern
+							</button>
+						</div>
+						
+						<div id="devSaveFeedback" class="save-feedback" style="display: none;">
+							<i class="fas fa-check"></i> Einstellungen gespeichert!
+						</div>
 					</section>
 				</div>
 			</div>
@@ -251,17 +307,18 @@
 	    });
 
 	    // Schriftgröße
-	    const fontSizeSelect = document.getElementById('font-size-select');
-	    function applyFontSize(size) {
-	        document.body.classList.remove('font-large', 'font-xlarge');
-	        if (size === 'large') document.body.classList.add('font-large');
-	        if (size === 'xlarge') document.body.classList.add('font-xlarge');
-	        localStorage.setItem('fontSize', size);
+	    const fontSizeSlider = document.getElementById('font-size-slider');
+	    const fontSizeValue = document.getElementById('font-size-value');
+	    function applyFontSize(scale) {
+	        const scaleValue = scale / 100;
+	        document.documentElement.style.setProperty('--font-scale', scaleValue);
+	        localStorage.setItem('fontScale', scale);
+	        fontSizeValue.textContent = scale + '%';
 	    }
-	    const savedFont = localStorage.getItem('fontSize') || 'normal';
-	    fontSizeSelect.value = savedFont;
-	    applyFontSize(savedFont);
-	    fontSizeSelect.addEventListener('change', (e) => {
+	    const savedFontScale = localStorage.getItem('fontScale') || '100';
+	    fontSizeSlider.value = savedFontScale;
+	    applyFontSize(savedFontScale);
+	    fontSizeSlider.addEventListener('input', (e) => {
 	        applyFontSize(e.target.value);
 	    });
 
@@ -309,69 +366,82 @@
 	    resetBtn.addEventListener('click', resetSettings);
 
 	    // Entwickler-Tools
-	    const devModeBtn = document.getElementById('toggleDevMode');
-	    const showDevReloadBtn = document.getElementById('showDevReloadBtn');
-	    const devModeStatus = document.getElementById('devModeStatus');
-	    function updateDevModeStatus() {
-	        const devMode = localStorage.getItem('devMode') === 'true';
-	        const reloadBtn = localStorage.getItem('showDevReloadBtn') !== 'false';
-	        devModeStatus.innerHTML = `<b>Dev Mode:</b> ${devMode ? 'Aktiviert' : 'Deaktiviert'}<br><b>Reload-Button:</b> ${reloadBtn ? 'Sichtbar' : 'Versteckt'}`;
+	    // Dark Mode Toggle
+	    const darkModeToggle = document.getElementById('devDarkMode');
+	    function updateDarkModeStatus() {
+	        const enabled = darkModeToggle.checked;
+	        localStorage.setItem('darkMode', enabled ? 'true' : 'false');
+	        document.body.classList.toggle('dark-mode', enabled);
 	    }
-	    devModeBtn.addEventListener('click', () => {
-	        const current = localStorage.getItem('devMode') === 'true';
-	        localStorage.setItem('devMode', (!current).toString());
-	        updateDevModeStatus();
-	    });
-	    showDevReloadBtn.addEventListener('click', () => {
-	        const current = localStorage.getItem('showDevReloadBtn') !== 'false';
-	        localStorage.setItem('showDevReloadBtn', (!current).toString());
-	        updateDevModeStatus();
-	    });
-	    updateDevModeStatus();
+	    darkModeToggle.checked = localStorage.getItem('darkMode') === 'true';
+	    updateDarkModeStatus();
+	    darkModeToggle.addEventListener('change', updateDarkModeStatus);
 
-	    // Hard Reload & Cache leeren
-	    const devHardReloadBtn = document.getElementById('devHardReloadBtn');
-	    if (devHardReloadBtn) {
-	        devHardReloadBtn.addEventListener('click', async (e) => {
-	            e.preventDefault();
-	            devHardReloadBtn.classList.add('spinning');
-	            devHardReloadBtn.disabled = true;
-	            try {
-	                // Service Worker Cache leeren
-	                if ('caches' in window) {
-	                    const cacheNames = await caches.keys();
-	                    await Promise.all(cacheNames.map(name => caches.delete(name)));
-	                }
-	                // Service Worker deregistrieren
-	                if ('serviceWorker' in navigator) {
-	                    const registrations = await navigator.serviceWorker.getRegistrations();
-	                    await Promise.all(registrations.map(reg => reg.unregister()));
-	                }
-	                sessionStorage.setItem('cacheCleared', 'true');
-	                setTimeout(() => { location.reload(true); }, 500);
-	            } catch (error) {
-	                console.error('Cache clear error:', error);
-	                location.reload(true);
-	            }
-	        });
-	        // Zeige Erfolgs-Toast wenn gerade Cache geleert wurde
-	        if (sessionStorage.getItem('cacheCleared') === 'true') {
-	            sessionStorage.removeItem('cacheCleared');
-	            showCacheClearedToast();
-	        }
+	    // Accent Color Picker
+	    const accentColorPicker = document.getElementById('devAccentColor');
+	    function applyAccentColor(color) {
+	        document.documentElement.style.setProperty('--accent-color', color);
+	        localStorage.setItem('accentColor', color);
 	    }
-	    // Toast-Notification für Cache Clear
-	    function showCacheClearedToast() {
-	        const toast = document.createElement('div');
-	        toast.className = 'cache-cleared-toast';
-	        toast.innerHTML = `<i class=\"fas fa-check-circle\"></i> <span>Cache geleert & neu geladen!</span>`;
-	        document.body.appendChild(toast);
-	        setTimeout(() => toast.classList.add('show'), 10);
+	    const savedAccentColor = localStorage.getItem('accentColor') || '#ed2939';
+	    accentColorPicker.value = savedAccentColor;
+	    applyAccentColor(savedAccentColor);
+	    accentColorPicker.addEventListener('input', (e) => {
+	        applyAccentColor(e.target.value);
+	    });
+
+	    // Bottom Navigation Toggle
+	    const bottomNavToggle = document.getElementById('devBottomNavEnabled');
+	    function updateBottomNavStatus() {
+	        const enabled = bottomNavToggle.checked;
+	        localStorage.setItem('bottomNavEnabled', enabled ? 'true' : 'false');
+	        document.body.classList.toggle('bottom-nav-enabled', enabled);
+	    }
+	    bottomNavToggle.checked = localStorage.getItem('bottomNavEnabled') !== 'false';
+	    updateBottomNavStatus();
+	    bottomNavToggle.addEventListener('change', updateBottomNavStatus);
+
+	    // Timer Toggle
+	    const devTimerToggle = document.getElementById('devTimerEnabled');
+	    function updateDevTimerStatus() {
+	        const enabled = devTimerToggle.checked;
+	        localStorage.setItem('devTimerEnabled', enabled ? 'true' : 'false');
+	    }
+	    devTimerToggle.checked = localStorage.getItem('devTimerEnabled') === 'true';
+	    updateDevTimerStatus();
+	    devTimerToggle.addEventListener('change', updateDevTimerStatus);
+
+	    // Typo Tolerance Toggle
+	    const typoToleranceToggle = document.getElementById('devTypoTolerance');
+	    function updateTypoToleranceStatus() {
+	        const enabled = typoToleranceToggle.checked;
+	        localStorage.setItem('typoToleranceEnabled', enabled ? 'true' : 'false');
+	    }
+	    typoToleranceToggle.checked = localStorage.getItem('typoToleranceEnabled') === 'true';
+	    updateTypoToleranceStatus();
+	    typoToleranceToggle.addEventListener('change', updateTypoToleranceStatus);
+
+	    // Paid Hints Toggle
+	    const paidHintsToggle = document.getElementById('devPaidHints');
+	    function updatePaidHintsStatus() {
+	        const enabled = paidHintsToggle.checked;
+	        localStorage.setItem('paidHintsEnabled', enabled ? 'true' : 'false');
+	    }
+	    paidHintsToggle.checked = localStorage.getItem('paidHintsEnabled') === 'true';
+	    updatePaidHintsStatus();
+	    paidHintsToggle.addEventListener('change', updatePaidHintsStatus);
+
+	    // Save Developer Settings
+	    const saveDevSettingsBtn = document.getElementById('devSaveSettings');
+	    const saveFeedback = document.getElementById('devSaveFeedback');
+	    saveDevSettingsBtn.addEventListener('click', () => {
+	        // Alle Entwickler-Einstellungen sind bereits in localStorage gespeichert
+	        // Zeige Feedback an
+	        saveFeedback.style.display = 'block';
 	        setTimeout(() => {
-	            toast.classList.remove('show');
-	            setTimeout(() => toast.remove(), 300);
-	        }, 2500);
-	    }
+	            saveFeedback.style.display = 'none';
+	        }, 2000);
+	    });
 
 	    // Tab-Funktionalität
 	    const tabBtns = document.querySelectorAll('.tab-btn');

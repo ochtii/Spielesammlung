@@ -2,6 +2,9 @@
    CSS-Variablen für Theme-Management
    ============================================ */
 :root {
+    /* Font Scale */
+    --font-scale: 1;
+    
     /* Light Mode Colors */
     --bg-primary: #ffffff;
     --bg-secondary: #f5f7fa;

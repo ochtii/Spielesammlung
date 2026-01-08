@@ -13,6 +13,7 @@ html {
 
 body {
     font-family: 'Inter', sans-serif;
+    font-size: calc(16px * var(--font-scale));
     background-color: var(--bg-secondary);
     color: var(--text-primary);
     line-height: 1.6;
