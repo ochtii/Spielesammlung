@@ -1249,11 +1249,18 @@ class AustriaQuiz {
         this.currentQuestionIndex = 0;
         this.hintUsed = false;
         this.timerBonus = 0;
+        this.correctThisGame = 0; // Counter für korrekte Antworten in diesem Spiel
+        this.questionStartTime = null; // Für Antwortzeit-Tracking
         
         // Timer-Einstellungen neu laden
         this.timerEnabled = localStorage.getItem('timerEnabled') === 'true';
         this.timerDuration = parseInt(localStorage.getItem('timerDuration') || '30');
         this.timerVisual = localStorage.getItem('timerVisual') !== 'false';
+        
+        // Statistik: Spiel gestartet
+        if (window.statsManager) {
+            window.statsManager.trackGameStart(this.currentGame);
+        }
         
         this.generateQuestions();
         this.loadNextQuestion();
@@ -1404,6 +1411,7 @@ class AustriaQuiz {
         this.hintsUsedThisQuestion = 0;
         this.usedHintTypes = [];
         this.timerBonus = 0; // Timer-Bonus für neue Frage zurücksetzen
+        this.questionStartTime = Date.now(); // Startzeit für Antwortzeit-Tracking
         
         // Reset Tipp-Button und Dropdown
         const hintCount = document.getElementById('hintCount');
@@ -1719,6 +1727,7 @@ class AustriaQuiz {
                 isCorrect: true,
                 timerBonus: this.timerBonus
             });
+            this.correctThisGame++; // Zähler für korrekte Antworten
         } else {
             // Auch falsche Antworten in Historie aufnehmen (0 Punkte)
             this.addGlobalPoints(0, {
@@ -1732,6 +1741,20 @@ class AustriaQuiz {
         
         // Aktualisiere Statistik
         this.updateStats(isCorrect);
+        
+        // Statistik-Manager: Runde tracken
+        if (window.statsManager) {
+            const answerTime = this.questionStartTime ? Date.now() - this.questionStartTime : null;
+            window.statsManager.trackRound(this.currentGame, {
+                question: this.currentQuestion.question,
+                answer: this.currentQuestion.answer,
+                userAnswer: userAnswer,
+                correct: isCorrect,
+                points: earnedPoints,
+                answerTime: answerTime,
+                hintUsed: this.hintsUsedThisQuestion > 0
+            });
+        }
 
         this.showFeedback(isCorrect, earnedPoints);
         document.getElementById('scoreValue').textContent = this.score;
@@ -2108,19 +2131,20 @@ class AustriaQuiz {
         // Spiel-Statistik aktualisieren
         this.incrementGamesPlayed();
         
-        // Detaillierte Statistiken sammeln
-        this.saveGameStatistics({
-            mode: this.currentGame === 'capitals' ? 'Hauptstädte' : 'Wappen',
-            score: finalScore,
-            time: this.timeRemaining || 0,
-            percentage: percentage,
-            questions: totalQuestions
-        });
-        
         const finalScore = this.score;
         const maxScore = this.totalPossiblePoints;
         const totalQuestions = this.currentQuestionIndex;
         const percentage = maxScore > 0 ? Math.round((finalScore / maxScore) * 100) : 0;
+        
+        // Statistik-Manager: Spiel beendet
+        if (window.statsManager) {
+            window.statsManager.trackGameEnd(
+                this.currentGame, 
+                finalScore, 
+                totalQuestions, 
+                this.correctThisGame || 0
+            );
+        }
 
         let message = `
             <h3>Spiel beendet!</h3>

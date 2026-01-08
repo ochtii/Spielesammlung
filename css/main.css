@@ -19,6 +19,7 @@
 @import 'settings.css';
 @import 'points.css';
 @import 'pages.css';
+@import 'stats.css';
 
 /* Features */
 @import 'dev-tools.css';

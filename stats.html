@@ -1,245 +1,253 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Statistik - AUT Quiz</title>
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-	<link rel="stylesheet" href="css/main.css?v=20260109">
-	<link rel="stylesheet" href="css/stats.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUT Quiz - Statistik</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Modular Stylesheets -->
+    <link rel="stylesheet" href="css/main.css?v=20260108">
+    <link rel="stylesheet" href="css/stats.css?v=20260108">
 </head>
 <body>
-	<!-- Navbar -->
-	<nav class="navbar">
-		<div class="navbar-content">
-			<a href="index.html" class="navbar-brand">
-				<i class="fas fa-map-location-dot"></i> AUT Quiz
-			</a>
-			<div class="navbar-menu">
-				<button class="menu-toggle" id="menuToggle" aria-label="Menü" type="button">
-					<i class="fas fa-bars"></i>
-				</button>
-				<div class="menu-dropdown" id="menuDropdown">
-					<a href="points.html" class="menu-item">
-						<i class="fas fa-coins"></i> <span>Punkte: <span id="menuPointsDisplay">0</span></span>
-					</a>
-					<a href="help.html" class="menu-item">
-						<i class="fas fa-question-circle"></i> Hilfe
-					</a>
-					<a href="faq.html" class="menu-item">
-						<i class="fas fa-circle-question"></i> FAQ
-					</a>
-					<a href="stats.html" class="menu-item">
-						<i class="fas fa-chart-bar"></i> Statistik
-					</a>
-					<a href="settings_new.html" class="menu-item">
-						<i class="fas fa-cog"></i> Einstellungen
-					</a>
-				</div>
-			</div>
-		</div>
-	</nav>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-map-location-dot"></i> AUT Quiz
+            </a>
+            <div class="navbar-menu">
+                <button class="menu-toggle" id="menuToggle" aria-label="Menü" type="button">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="menu-dropdown" id="menuDropdown">
+                    <a href="index.html" class="menu-item">
+                        <i class="fas fa-home"></i> Zurück zum Spiel
+                    </a>
+                    <a href="points.html" class="menu-item">
+                        <i class="fas fa-coins"></i> Punkte
+                    </a>
+                    <a href="help.html" class="menu-item">
+                        <i class="fas fa-question-circle"></i> Hilfe
+                    </a>
+                    <a href="settings.html" class="menu-item">
+                        <i class="fas fa-cog"></i> Einstellungen
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-	<main class="container">
-		<h1 class="stats-title"><i class="fas fa-chart-bar"></i> Spielstatistik</h1>
+    <!-- Main Container -->
+    <main class="container stats-container">
+        <!-- Header -->
+        <div class="stats-header">
+            <div class="stats-header-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h1>Deine Statistik</h1>
+            <p>Detaillierte Übersicht deiner Spielergebnisse</p>
+        </div>
 
-		<div class="stats-overview">
-			<div class="stat-card">
-				<div class="stat-icon">
-					<i class="fas fa-trophy"></i>
-				</div>
-				<div class="stat-content">
-					<h3>Gesamt-Punkte</h3>
-					<p class="stat-value" id="totalPoints">0</p>
-				</div>
-			</div>
+        <!-- Quick Stats Overview -->
+        <div class="stats-overview">
+            <div class="overview-card total-games">
+                <div class="overview-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <div class="overview-content">
+                    <span class="overview-value" id="totalGames">0</span>
+                    <span class="overview-label">Spiele gesamt</span>
+                </div>
+            </div>
+            <div class="overview-card total-rounds">
+                <div class="overview-icon">
+                    <i class="fas fa-circle-play"></i>
+                </div>
+                <div class="overview-content">
+                    <span class="overview-value" id="totalRounds">0</span>
+                    <span class="overview-label">Runden gespielt</span>
+                </div>
+            </div>
+            <div class="overview-card correct-answers">
+                <div class="overview-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="overview-content">
+                    <span class="overview-value" id="totalCorrect">0</span>
+                    <span class="overview-label">Richtige Antworten</span>
+                </div>
+            </div>
+            <div class="overview-card wrong-answers">
+                <div class="overview-icon">
+                    <i class="fas fa-times-circle"></i>
+                </div>
+                <div class="overview-content">
+                    <span class="overview-value" id="totalWrong">0</span>
+                    <span class="overview-label">Falsche Antworten</span>
+                </div>
+            </div>
+        </div>
 
-			<div class="stat-card">
-				<div class="stat-icon">
-					<i class="fas fa-gamepad"></i>
-				</div>
-				<div class="stat-content">
-					<h3>Gespielte Runden</h3>
-					<p class="stat-value" id="totalGames">0</p>
-				</div>
-			</div>
+        <!-- Success Rate -->
+        <div class="stats-card success-rate-card">
+            <h3><i class="fas fa-percentage"></i> Erfolgsquote</h3>
+            <div class="success-rate-display">
+                <div class="rate-circle" id="rateCircle">
+                    <svg viewBox="0 0 100 100">
+                        <circle class="rate-bg" cx="50" cy="50" r="45"></circle>
+                        <circle class="rate-progress" id="rateProgress" cx="50" cy="50" r="45" 
+                            stroke-dasharray="283" stroke-dashoffset="283"></circle>
+                    </svg>
+                    <div class="rate-text">
+                        <span class="rate-value" id="successRate">0</span>
+                        <span class="rate-percent">%</span>
+                    </div>
+                </div>
+                <div class="rate-details">
+                    <div class="rate-item correct">
+                        <span class="rate-item-label">Richtig</span>
+                        <span class="rate-item-value" id="correctPercent">0%</span>
+                    </div>
+                    <div class="rate-item wrong">
+                        <span class="rate-item-label">Falsch</span>
+                        <span class="rate-item-value" id="wrongPercent">0%</span>
+                    </div>
+                    <div class="rate-item streak">
+                        <span class="rate-item-label">Beste Serie</span>
+                        <span class="rate-item-value" id="bestStreak">0</span>
+                    </div>
+                    <div class="rate-item current-streak">
+                        <span class="rate-item-label">Aktuelle Serie</span>
+                        <span class="rate-item-value" id="currentStreak">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-			<div class="stat-card">
-				<div class="stat-icon">
-					<i class="fas fa-clock"></i>
-				</div>
-				<div class="stat-content">
-					<h3>Durchschnittszeit</h3>
-					<p class="stat-value" id="averageTime">0s</p>
-				</div>
-			</div>
+        <!-- Game-Specific Stats -->
+        <div class="stats-card game-stats-card">
+            <h3><i class="fas fa-trophy"></i> Statistik nach Spielmodus</h3>
+            <div class="game-stats-tabs">
+                <button class="game-tab active" data-game="all">Alle</button>
+                <button class="game-tab" data-game="license-plates">Kennzeichen</button>
+                <button class="game-tab" data-game="capitals">Hauptstädte</button>
+                <button class="game-tab" data-game="world-capitals">Welt</button>
+                <button class="game-tab" data-game="population">Einwohner</button>
+            </div>
+            <div class="game-stats-content" id="gameStatsContent">
+                <!-- Dynamisch generiert -->
+            </div>
+        </div>
 
-			<div class="stat-card">
-				<div class="stat-icon">
-					<i class="fas fa-egg"></i>
-				</div>
-				<div class="stat-content">
-					<h3>Easter Eggs</h3>
-					<p class="stat-value" id="easterEggs">0</p>
-				</div>
-			</div>
-		</div>
+        <!-- Charts Section -->
+        <div class="stats-charts">
+            <div class="stats-card chart-card">
+                <h3><i class="fas fa-chart-pie"></i> Verteilung nach Spielmodus</h3>
+                <div class="chart-container">
+                    <canvas id="gameDistributionChart"></canvas>
+                </div>
+            </div>
+            <div class="stats-card chart-card">
+                <h3><i class="fas fa-chart-bar"></i> Letzte 7 Tage</h3>
+                <div class="chart-container">
+                    <canvas id="weeklyChart"></canvas>
+                </div>
+            </div>
+        </div>
 
-		<div class="stats-details">
-			<div class="stats-section">
-				<h2><i class="fas fa-list"></i> Letzte Spiele</h2>
-				<div class="recent-games" id="recentGames">
-					<p class="no-data">Noch keine Spiele gespielt</p>
-				</div>
-			</div>
+        <!-- Recent Activity -->
+        <div class="stats-card activity-card">
+            <h3><i class="fas fa-history"></i> Letzte Aktivitäten</h3>
+            <div class="activity-list" id="activityList">
+                <!-- Dynamisch generiert -->
+            </div>
+            <div class="activity-empty" id="activityEmpty" style="display: none;">
+                <i class="fas fa-inbox"></i>
+                <p>Noch keine Aktivitäten vorhanden</p>
+            </div>
+        </div>
 
-			<div class="stats-section">
-				<h2><i class="fas fa-chart-pie"></i> Spielmodi</h2>
-				<div class="game-modes" id="gameModes">
-					<div class="mode-stat">
-						<span class="mode-name">Hauptstädte Quiz</span>
-						<span class="mode-count" id="capitalsGames">0</span>
-					</div>
-					<div class="mode-stat">
-						<span class="mode-name">Wappen Quiz</span>
-						<span class="mode-count" id="coatsGames">0</span>
-					</div>
-				</div>
-			</div>
+        <!-- Records Section -->
+        <div class="stats-card records-card">
+            <h3><i class="fas fa-medal"></i> Persönliche Bestleistungen</h3>
+            <div class="records-grid">
+                <div class="record-item">
+                    <div class="record-icon"><i class="fas fa-star"></i></div>
+                    <div class="record-content">
+                        <span class="record-value" id="highestScore">0</span>
+                        <span class="record-label">Höchste Punktzahl</span>
+                    </div>
+                </div>
+                <div class="record-item">
+                    <div class="record-icon"><i class="fas fa-fire"></i></div>
+                    <div class="record-content">
+                        <span class="record-value" id="longestStreak">0</span>
+                        <span class="record-label">Längste Serie</span>
+                    </div>
+                </div>
+                <div class="record-item">
+                    <div class="record-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="record-content">
+                        <span class="record-value" id="fastestAnswer">-</span>
+                        <span class="record-label">Schnellste Antwort</span>
+                    </div>
+                </div>
+                <div class="record-item">
+                    <div class="record-icon"><i class="fas fa-crown"></i></div>
+                    <div class="record-content">
+                        <span class="record-value" id="perfectGames">0</span>
+                        <span class="record-label">Perfekte Spiele</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-			<div class="stats-section">
-				<h2><i class="fas fa-calendar-alt"></i> Spielverlauf</h2>
-				<div class="game-history" id="gameHistory">
-					<p class="no-data">Noch kein Spielverlauf verfügbar</p>
-				</div>
-			</div>
-		</div>
+        <!-- Reset Button -->
+        <div class="stats-actions">
+            <button class="btn btn-secondary" onclick="statsManager.exportStats()">
+                <i class="fas fa-download"></i> Exportieren
+            </button>
+            <button class="btn btn-danger" onclick="statsManager.confirmReset()">
+                <i class="fas fa-trash"></i> Statistik zurücksetzen
+            </button>
+        </div>
+    </main>
 
-		<div class="stats-actions">
-			<button id="resetStatsBtn" class="reset-btn">
-				<i class="fas fa-trash"></i> Statistiken zurücksetzen
-			</button>
-			<button id="exportStatsBtn" class="export-btn">
-				<i class="fas fa-download"></i> Statistiken exportieren
-			</button>
-		</div>
-	</main>
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <i class="fas fa-home"></i>
+            <span>Start</span>
+        </a>
+        <a href="points.html" class="bottom-nav-item">
+            <i class="fas fa-coins"></i>
+            <span>Punkte</span>
+        </a>
+        <a href="stats.html" class="bottom-nav-item active">
+            <i class="fas fa-chart-bar"></i>
+            <span>Statistik</span>
+        </a>
+        <a href="settings.html" class="bottom-nav-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
 
-	<!-- Footer Container - wird durch footer.js geladen -->
-	<div id="footer-container"></div>
+    <!-- Footer Component -->
+    <div id="footer-container"></div>
 
-	<script src="components/footer.js"></script>
-	<script src="components/dev-tools.js"></script>
-	<script src="script.js"></script>
-	<script>
-	// Statistik-Initialisierung
-	document.addEventListener('DOMContentLoaded', function() {
-	    // Mobiles Menü
-	    const menuToggle = document.getElementById('menuToggle');
-	    const menuDropdown = document.getElementById('menuDropdown');
-	    menuToggle.addEventListener('click', function() {
-	        menuDropdown.classList.toggle('active');
-	    });
-
-	    // Statistiken laden und anzeigen
-	    loadStatistics();
-
-	    // Reset Button
-	    document.getElementById('resetStatsBtn').addEventListener('click', function() {
-	        if (confirm('Möchten Sie wirklich alle Statistiken zurücksetzen? Easter Eggs bleiben erhalten.')) {
-	            localStorage.removeItem('gameStats');
-	            // Easter Eggs und Punkte bleiben erhalten
-	            loadStatistics();
-	            showNotification('Statistiken wurden zurückgesetzt', 'success');
-	        }
-	    });
-
-	    // Export Button
-	    document.getElementById('exportStatsBtn').addEventListener('click', function() {
-	        exportStatistics();
-	    });
-	});
-
-	function loadStatistics() {
-	    const stats = JSON.parse(localStorage.getItem('gameStats') || '{}');
-	    const foundEasterEggs = JSON.parse(localStorage.getItem('foundEasterEggs') || '[]');
-	    const pointsData = JSON.parse(localStorage.getItem('pointsData') || '{}');
-
-	    // Übersicht
-	    document.getElementById('totalPoints').textContent = (pointsData.totalPoints || 0).toLocaleString();
-	    document.getElementById('totalGames').textContent = (stats.totalGames || 0).toLocaleString();
-	    document.getElementById('averageTime').textContent = formatTime(stats.averageTime || 0);
-	    document.getElementById('bestScore').textContent = (stats.bestScore || 0).toLocaleString();
-	    document.getElementById('easterEggs').textContent = foundEasterEggs.length.toLocaleString();
-
-	    // Spielmodi
-	    document.getElementById('capitalsGames').textContent = (stats.capitalsGames || 0).toLocaleString();
-	    document.getElementById('coatsGames').textContent = (stats.coatsGames || 0).toLocaleString();
-
-	    // Letzte Spiele
-	    const recentGamesEl = document.getElementById('recentGames');
-	    if (stats.recentGames && stats.recentGames.length > 0) {
-	        recentGamesEl.innerHTML = stats.recentGames.slice(0, 5).map(game => `
-	            <div class="recent-game">
-	                <div class="game-info">
-	                    <span class="game-mode">${game.mode}</span>
-	                    <span class="game-score">${game.score} Punkte</span>
-	                </div>
-	                <div class="game-time">${formatTime(game.time)}</div>
-	            </div>
-	        `).join('');
-	    }
-
-	    // Spielverlauf (letzte 10 Spiele)
-	    const historyEl = document.getElementById('gameHistory');
-	    if (stats.gameHistory && stats.gameHistory.length > 0) {
-	        historyEl.innerHTML = stats.gameHistory.slice(-10).map(game => `
-	            <div class="history-item">
-	                <span class="history-date">${new Date(game.date).toLocaleDateString('de-DE')}</span>
-	                <span class="history-mode">${game.mode}</span>
-	                <span class="history-score">${game.score} Pkt</span>
-	                <span class="history-time">${formatTime(game.time)}</span>
-	            </div>
-	        `).join('');
-	    }
-	}
-
-	function formatTime(seconds) {
-	    if (seconds < 60) return `${seconds}s`;
-	    const mins = Math.floor(seconds / 60);
-	    const secs = seconds % 60;
-	    return `${mins}m ${secs}s`;
-	}
-
-	function exportStatistics() {
-	    const stats = JSON.parse(localStorage.getItem('gameStats') || '{}');
-	    const dataStr = JSON.stringify(stats, null, 2);
-	    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-
-	    const exportFileDefaultName = `aut-quiz-stats-${new Date().toISOString().split('T')[0]}.json`;
-
-	    const linkElement = document.createElement('a');
-	    linkElement.setAttribute('href', dataUri);
-	    linkElement.setAttribute('download', exportFileDefaultName);
-	    linkElement.click();
-	}
-
-	function showNotification(message, type = 'info') {
-	    const notification = document.createElement('div');
-	    notification.className = `notification ${type}`;
-	    notification.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : 'info'}-circle"></i> ${message}`;
-	    document.body.appendChild(notification);
-
-	    setTimeout(() => {
-	        notification.classList.add('show');
-	    }, 10);
-
-	    setTimeout(() => {
-	        notification.classList.remove('show');
-	        setTimeout(() => notification.remove(), 300);
-	    }, 3000);
-	}
-	</script>
+    <!-- Scripts -->
+    <script src="components/footer.js"></script>
+    <script src="components/stats.js"></script>
 </body>
 </html>
