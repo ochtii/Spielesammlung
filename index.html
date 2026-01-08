@@ -4,18 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AUT Quiz</title>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Modular Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?v=20260109">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar">
         <div class="navbar-content">
             <a href="index.html" class="navbar-brand">
@@ -27,7 +20,7 @@
                 </button>
                 <div class="menu-dropdown" id="menuDropdown">
                     <a href="points.html" class="menu-item">
-                        <i class="fas fa-coins"></i> <span>Punkte: <span id="menuPointsDisplay">0</span></span>
+                        <i class="fas fa-coins"></i> Punkte: <span id="menuPointsDisplay">0</span>
                     </a>
                     <a href="help.html" class="menu-item">
                         <i class="fas fa-question-circle"></i> Hilfe
@@ -38,7 +31,7 @@
                     <a href="stats.html" class="menu-item">
                         <i class="fas fa-chart-bar"></i> Statistik
                     </a>
-                    <a href="settings_new.html" class="menu-item">
+                    <a href="settings.html" class="menu-item">
                         <i class="fas fa-cog"></i> Einstellungen
                     </a>
                 </div>
@@ -46,16 +39,13 @@
         </div>
     </nav>
 
-    <!-- Main Container -->
     <main class="container">
-        <!-- Start Screen -->
         <div id="startScreen" class="screen active">
             <div class="card welcome-card">
                 <h2>Willkommen zum Österreich-Quiz!</h2>
                 <p>Teste dein Wissen über Österreich. Wähle ein Spiel und einen Schwierigkeitsgrad.</p>
             </div>
 
-            <!-- Game Selection -->
             <div class="selection-section" id="gameSelectionSection">
                 <h3>Wähle ein Spiel:</h3>
                 <div class="button-grid">
@@ -78,15 +68,14 @@
                 </div>
             </div>
 
-            <!-- Difficulty Selection -->
-            <div class="selection-section" id="difficultySection" style="display: none;">
+            <div class="selection-section hidden" id="difficultySection">
                 <h3>Wähle einen Schwierigkeitsgrad:</h3>
                 <div class="button-grid">
                     <button class="difficulty-btn" data-difficulty="quiz">
                         <i class="fas fa-clone"></i>
                         <span>Quiz-Modus<br><small>4 Antwort-Optionen</small></span>
                     </button>
-                    <button class="difficulty-btn" data-difficulty="kombiniert" id="combinedBtn" style="display: none;">
+                    <button class="difficulty-btn hidden" data-difficulty="kombiniert" id="combinedBtn">
                         <i class="fas fa-edit"></i>
                         <span>Kombiniert<br><small>Eingabe + Hilfe</small></span>
                     </button>
@@ -97,7 +86,6 @@
                 </div>
             </div>
 
-            <!-- Start Game Button -->
             <div class="start-game-section" id="startGameSection">
                 <button class="start-btn" id="startBtn">
                     <i class="fas fa-play"></i> Spiel starten
@@ -105,9 +93,7 @@
             </div>
         </div>
 
-        <!-- Game Screen -->
         <div id="gameScreen" class="screen">
-            <!-- Laser Border Animation -->
             <div class="laser-border" id="laserBorder">
                 <div class="laser-line laser-top"></div>
                 <div class="laser-line laser-right"></div>
@@ -124,7 +110,7 @@
                     <span class="score-label">Punkte:</span>
                     <span class="score-value" id="scoreValue">0</span>
                 </div>
-                <div class="timer-display" id="timerDisplay" style="display: none;">
+                <div class="timer-display hidden" id="timerDisplay">
                     <div class="timer-visual" id="timerVisual">
                         <svg class="timer-ring" viewBox="0 0 100 100">
                             <circle class="timer-ring-bg" cx="50" cy="50" r="45"></circle>
@@ -140,21 +126,18 @@
                 <button class="restart-btn" id="restartBtn" title="Neustart">
                     <i class="fas fa-rotate-right"></i>
                 </button>
-                <div class="header-balance" id="headerBalance" style="display: none;">
+                <div class="header-balance hidden" id="headerBalance">
                     <i class="fas fa-coins"></i>
                     <span id="headerBalanceAmount">0</span>P
                 </div>
             </div>
 
-            <!-- Question Area -->
             <div class="card question-card">
                 <div id="questionContent"></div>
             </div>
 
-            <!-- Answer Area -->
             <div id="answerArea"></div>
 
-            <!-- Hint Section with Buttons -->
             <div class="hint-section">
                 <div class="hint-header">
                     <i class="fas fa-lightbulb"></i> Tipps <span id="hintCount">(3 verfügbar)</span>
@@ -193,7 +176,6 @@
                 </div>
             </div>
 
-            <!-- Feedback Area -->
             <div id="feedbackArea" class="feedback-hidden">
                 <div class="card feedback-card">
                     <div id="feedbackContent"></div>
@@ -203,7 +185,6 @@
                 </button>
             </div>
 
-            <!-- End Game Button -->
             <div class="end-game-section">
                 <button class="end-game-btn" id="endGameBtn">
                     <i class="fas fa-door-open"></i> Spiel beenden
@@ -212,13 +193,11 @@
         </div>
     </main>
 
-    <!-- Floating Balance Widget -->
-    <div id="floatingBalance" class="floating-balance" style="display: none;">
+    <div id="floatingBalance" class="floating-balance hidden">
         <i class="fas fa-coins"></i>
         <span id="floatingBalanceAmount">0</span>
     </div>
 
-    <!-- Bottom Navigation (Mobile) -->
     <nav class="bottom-nav" id="bottomNav">
         <div class="bottom-nav-content">
             <a href="index.html" class="bottom-nav-item current" data-nav="home">
@@ -238,20 +217,19 @@
                 <i class="fas fa-circle-question"></i>
                 <span>FAQ</span>
             </a>
-            <a href="settings_new.html" class="bottom-nav-item" data-nav="settings">
+            <a href="settings.html" class="bottom-nav-item" data-nav="settings">
                 <i class="fas fa-cog"></i>
                 <span>Einstellungen</span>
             </a>
         </div>
     </nav>
 
-    <!-- Footer Container - wird durch footer.js geladen -->
     <div id="footer-container"></div>
 
     <script src="world_capitals.js"></script>
     <script src="coats_of_arms.js"></script>
+    <script src="components/common.js"></script>
     <script src="components/footer.js"></script>
-    <script src="components/dev-tools.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

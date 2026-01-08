@@ -35,7 +35,7 @@
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 
-/* Font Sizes */
+/* Font Sizes - Skalieren automatisch mit --font-scale */
 .text-xs { font-size: 0.75rem; }
 .text-sm { font-size: 0.875rem; }
 .text-base { font-size: 1rem; }

@@ -4,23 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hilfe - AUT Quiz</title>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Modular Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?v=20260109">
-    <link rel="stylesheet" href="css/pages.css?v=20260109">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar">
         <div class="navbar-content">
             <a href="index.html" class="navbar-brand">
-                <i class="fas fa-question-circle"></i> AUT Quiz - Hilfe
+                <i class="fas fa-map-location-dot"></i> AUT Quiz
             </a>
             <div class="navbar-menu">
                 <button class="menu-toggle" id="menuToggle" aria-label="Menü" type="button">
@@ -39,7 +31,7 @@
                     <a href="stats.html" class="menu-item">
                         <i class="fas fa-chart-bar"></i> Statistik
                     </a>
-                    <a href="settings_new.html" class="menu-item">
+                    <a href="settings.html" class="menu-item">
                         <i class="fas fa-cog"></i> Einstellungen
                     </a>
                 </div>
@@ -47,325 +39,79 @@
         </div>
     </nav>
 
-    <!-- Main Container -->
     <main class="container">
-        <!-- Hero Section -->
-        <div class="help-hero">
-            <div class="help-hero-content">
-                <i class="fas fa-question-circle help-hero-icon"></i>
-                <h1>Hilfe & Anleitung</h1>
-                <p>Alles, was du über die Spielesammlung wissen musst</p>
-            </div>
+        <div class="page-header">
+            <h1><i class="fas fa-question-circle"></i> Hilfe & Anleitung</h1>
+            <p>Alles, was du über die Spielesammlung wissen musst</p>
         </div>
 
-        <!-- Quick Links -->
-        <div class="help-quick-links">
-            <a href="#spielmodi" class="help-quick-link">
-                <i class="fas fa-gamepad"></i>
-                <span>Spielmodi</span>
-            </a>
-            <a href="#schwierigkeit" class="help-quick-link">
-                <i class="fas fa-layer-group"></i>
-                <span>Schwierigkeit</span>
-            </a>
-            <a href="#punkte" class="help-quick-link">
-                <i class="fas fa-star"></i>
-                <span>Punkte</span>
-            </a>
-            <a href="#tipps" class="help-quick-link">
-                <i class="fas fa-lightbulb"></i>
-                <span>Tipps</span>
-            </a>
+        <div class="content-card">
+            <h2><i class="fas fa-gamepad"></i> Spielmodi</h2>
+            
+            <h3>Kennzeichen raten</h3>
+            <p>Erkenne österreichische KFZ-Kennzeichen und ordne sie dem richtigen Bezirk oder Bundesland zu.</p>
+            
+            <h3>Hauptstädte Quiz</h3>
+            <p>Teste dein Wissen über österreichische Bundesländer und Bezirkshauptstädte.</p>
+            
+            <h3>Welthauptstädte</h3>
+            <p>Errate Hauptstädte aus aller Welt – Antworten in mehreren Sprachen möglich!</p>
+            
+            <h3>Einwohner-Vergleich</h3>
+            <p>Vergleiche österreichische Städte und schätze, welche mehr Einwohner hat.</p>
         </div>
 
-        <!-- Spielmodi Section -->
-        <section id="spielmodi" class="help-section-wrapper">
-            <h2 class="help-section-title">
-                <i class="fas fa-gamepad"></i>
-                Spielmodi
-            </h2>
+        <div class="content-card">
+            <h2><i class="fas fa-layer-group"></i> Schwierigkeitsgrade</h2>
             
-            <div class="help-grid">
-                <div class="help-card">
-                    <div class="help-card-icon icon-purple">
-                        <i class="fas fa-car"></i>
-                    </div>
-                    <h3>Kennzeichen raten</h3>
-                    <p>Erkenne österreichische KFZ-Kennzeichen und ordne sie dem richtigen Bezirk oder Bundesland zu.</p>
-                    <div class="help-features">
-                        <div class="help-feature">
-                            <i class="fas fa-check"></i>
-                            <span>Bezirkscodes lernen</span>
-                        </div>
-                        <div class="help-feature">
-                            <i class="fas fa-check"></i>
-                            <span>Wappen als Hinweis</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="help-card">
-                    <div class="help-card-icon icon-pink">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <h3>Hauptstädte Quiz</h3>
-                    <p>Teste dein Wissen über österreichische Bundesländer und Bezirkshauptstädte.</p>
-                    <div class="help-features">
-                        <div class="help-feature">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>9 Landeshauptstädte</span>
-                        </div>
-                        <div class="help-feature">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Bezirkshauptstädte</span>
-                        </div>
-                        <div class="help-feature">
-                            <i class="fas fa-random"></i>
-                            <span>Gemischter Modus</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="help-card">
-                    <div class="help-card-icon icon-blue">
-                        <i class="fas fa-globe-europe"></i>
-                    </div>
-                    <h3>Welthauptstädte</h3>
-                    <p>Errate Hauptstädte aus aller Welt – Antworten in mehreren Sprachen möglich!</p>
-                    <div class="help-features">
-                        <div class="help-feature">
-                            <i class="fas fa-language"></i>
-                            <span>DE, EN & Landessprache</span>
-                        </div>
-                        <div class="help-feature">
-                            <i class="fas fa-globe"></i>
-                            <span>Internationale Städte</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="help-card">
-                    <div class="help-card-icon icon-orange">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Einwohner-Vergleich</h3>
-                    <p>Vergleiche österreichische Städte und schätze, welche mehr Einwohner hat.</p>
-                    <div class="help-features">
-                        <div class="help-feature">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>Städte-Ranking</span>
-                        </div>
-                        <div class="help-feature">
-                            <i class="fas fa-balance-scale"></i>
-                            <span>Direktvergleich</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Schwierigkeitsgrade Section -->
-        <section id="schwierigkeit" class="help-section-wrapper">
-            <h2 class="help-section-title">
-                <i class="fas fa-layer-group"></i>
-                Schwierigkeitsgrade
-            </h2>
+            <h3>Quiz-Modus (Einfach)</h3>
+            <p>Wähle die richtige Antwort aus 4 vorgegebenen Optionen. Perfekt für Einsteiger!</p>
             
-            <div class="help-difficulty-grid">
-                <div class="help-difficulty-card difficulty-easy">
-                    <div class="difficulty-badge">Einfach</div>
-                    <i class="fas fa-clone difficulty-icon"></i>
-                    <h3>Quiz-Modus</h3>
-                    <p>Wähle die richtige Antwort aus 4 vorgegebenen Optionen. Perfekt für Einsteiger!</p>
-                    <div class="difficulty-level">
-                        <span>Schwierigkeit:</span>
-                        <div class="level-bars">
-                            <div class="level-bar active"></div>
-                            <div class="level-bar"></div>
-                            <div class="level-bar"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="help-difficulty-card difficulty-medium">
-                    <div class="difficulty-badge">Mittel</div>
-                    <i class="fas fa-edit difficulty-icon"></i>
-                    <h3>Kombiniert</h3>
-                    <p>Gib die Antwort selbst ein oder lass dir Optionen anzeigen. Flexibel und herausfordernd!</p>
-                    <div class="difficulty-level">
-                        <span>Schwierigkeit:</span>
-                        <div class="level-bars">
-                            <div class="level-bar active"></div>
-                            <div class="level-bar active"></div>
-                            <div class="level-bar"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="help-difficulty-card difficulty-hard">
-                    <div class="difficulty-badge">Schwer</div>
-                    <i class="fas fa-keyboard difficulty-icon"></i>
-                    <h3>Profi-Modus</h3>
-                    <p>Tippe die Antwort komplett selbst ein – ohne jegliche Hilfe. Nur für wahre Experten!</p>
-                    <div class="difficulty-level">
-                        <span>Schwierigkeit:</span>
-                        <div class="level-bars">
-                            <div class="level-bar active"></div>
-                            <div class="level-bar active"></div>
-                            <div class="level-bar active"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Punktesystem Section -->
-        <section id="punkte" class="help-section-wrapper">
-            <h2 class="help-section-title">
-                <i class="fas fa-star"></i>
-                Punktesystem
-            </h2>
+            <h3>Kombiniert (Mittel)</h3>
+            <p>Gib die Antwort selbst ein oder lass dir Optionen anzeigen. Flexibel und herausfordernd!</p>
             
-            <div class="help-points-explainer">
-                <div class="points-info-card">
-                    <i class="fas fa-trophy points-icon"></i>
-                    <h3>Dynamische Punktevergabe</h3>
-                    <p>Je weniger Tipps du nutzt, desto mehr Punkte erhältst du! Zeige dein Können und maximiere deine Punktzahl.</p>
-                </div>
+            <h3>Profi-Modus (Schwer)</h3>
+            <p>Tippe die Antwort komplett selbst ein – ohne jegliche Hilfe. Nur für wahre Experten!</p>
+        </div>
 
-                <div class="points-table">
-                    <div class="points-row points-header">
-                        <span>Tipps verwendet</span>
-                        <span>Punkte</span>
-                    </div>
-                    <div class="points-row points-excellent">
-                        <span><i class="fas fa-star"></i> Ohne Tipp</span>
-                        <span class="points-value">100 <small>(+ bis zu 20 Zeitbonus)</small></span>
-                    </div>
-                    <div class="points-row points-good">
-                        <span><i class="fas fa-lightbulb"></i> 1 Tipp</span>
-                        <span class="points-value">70 <small>(+ Zeitbonus)</small></span>
-                    </div>
-                    <div class="points-row points-ok">
-                        <span><i class="fas fa-lightbulb"></i> 2 Tipps</span>
-                        <span class="points-value">40 <small>(+ Zeitbonus)</small></span>
-                    </div>
-                    <div class="points-row points-low">
-                        <span><i class="fas fa-lightbulb"></i> 3 Tipps</span>
-                        <span class="points-value">10 <small>(+ Zeitbonus)</small></span>
-                    </div>
-                    <div class="points-row points-warning">
-                        <span><i class="fas fa-clock"></i> Zeit abgelaufen</span>
-                        <span class="points-value">0</span>
-                    </div>
-                    <div class="points-row points-wrong">
-                        <span><i class="fas fa-times"></i> Falsche Antwort</span>
-                        <span class="points-value">0</span>
-                    </div>
-                </div>
-            </div>
+        <div class="content-card">
+            <h2><i class="fas fa-star"></i> Punktesystem</h2>
+            <p>Je weniger Tipps du nutzt, desto mehr Punkte erhältst du!</p>
+            <ul>
+                <li><strong>Ohne Tipp:</strong> 100 Punkte (+ bis zu 20 Zeitbonus)</li>
+                <li><strong>1 Tipp:</strong> 70 Punkte (+ Zeitbonus)</li>
+                <li><strong>2 Tipps:</strong> 40 Punkte (+ Zeitbonus)</li>
+                <li><strong>3 Tipps:</strong> 10 Punkte (+ Zeitbonus)</li>
+                <li><strong>Falsche Antwort:</strong> 0 Punkte</li>
+            </ul>
+        </div>
 
-            <div class="help-points-features">
-                <div class="points-feature-card">
-                    <i class="fas fa-wallet"></i>
-                    <h4>Globales Punktekonto</h4>
-                    <p>Alle Punkte werden gespeichert und bleiben dauerhaft erhalten. Verfolge deinen Fortschritt auf der <a href="points.html">Punkte-Seite</a>.</p>
-                </div>
+        <div class="content-card">
+            <h2><i class="fas fa-lightbulb"></i> Tipp-System</h2>
+            <p>Du hast pro Frage mehrere Tipps zur Verfügung:</p>
+            <ul>
+                <li><strong>50/50:</strong> Zwei falsche Antworten werden entfernt</li>
+                <li><strong>Eine weg:</strong> Eine falsche Antwort wird entfernt</li>
+                <li><strong>Anfangsbuchstabe:</strong> Zeigt den ersten Buchstaben</li>
+                <li><strong>Zufälliger Buchstabe:</strong> Zeigt einen zufälligen Buchstaben</li>
+                <li><strong>Länge:</strong> Zeigt die Anzahl der Buchstaben</li>
+                <li><strong>Wappen:</strong> Zeigt das Bezirkswappen (bei Kennzeichen)</li>
+            </ul>
+        </div>
 
-                <div class="points-feature-card">
-                    <i class="fas fa-shopping-cart"></i>
-                    <h4>Kostenpflichtige Tipps</h4>
-                    <p>Optional: Aktiviere diese Funktion in den Einstellungen. Tipps kosten dann Punkte aus deinem Guthaben (je nach Tipp 10-30 Punkte).</p>
-                </div>
-
-                <div class="points-feature-card">
-                    <i class="fas fa-clock"></i>
-                    <h4>Timer & Zeitbonus</h4>
-                    <p>Mit aktiviertem Timer kannst du bis zu <strong>+20 Bonuspunkte</strong> für schnelle Antworten verdienen! Je mehr Zeit übrig bleibt, desto mehr Bonus gibt es. Aktiviere den Timer in den <a href="settings_new.html">Einstellungen</a>.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tipp-System Section -->
-        <section id="tipps" class="help-section-wrapper">
-            <h2 class="help-section-title">
-                <i class="fas fa-lightbulb"></i>
-                Tipp-System
-            </h2>
-            
-            <div class="help-tips-timeline">
-                <div class="tip-timeline-item">
-                    <div class="tip-number">1</div>
-                    <div class="tip-content">
-                        <h4>Allgemeiner Hinweis</h4>
-                        <p>Bundesland, Region oder Anfangsbuchstabe der gesuchten Antwort.</p>
-                    </div>
-                </div>
-
-                <div class="tip-timeline-item">
-                    <div class="tip-number">2</div>
-                    <div class="tip-content">
-                        <h4>Genauerer Hinweis</h4>
-                        <p>Detailliertere Informationen wie Wappen (bei Kennzeichen) oder geografische Lage.</p>
-                    </div>
-                </div>
-
-                <div class="tip-timeline-item">
-                    <div class="tip-number">3</div>
-                    <div class="tip-content">
-                        <h4>Starker Hinweis</h4>
-                        <p>Fast die komplette Antwort: Wortanfang oder mehrere Buchstaben der Lösung.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Weitere Features -->
-        <section class="help-section-wrapper">
-            <h2 class="help-section-title">
-                <i class="fas fa-cog"></i>
-                Weitere Features
-            </h2>
-            
-            <div class="help-extra-features">
-                <div class="extra-feature-card">
-                    <i class="fas fa-spell-check"></i>
-                    <h4>Tippfehler-Toleranz</h4>
-                    <p>Aktiviere diese Option, um kleine Schreibfehler bei der Eingabe zu erlauben – besonders nützlich bei langen Städtenamen!</p>
-                </div>
-
-                <div class="extra-feature-card">
-                    <i class="fas fa-moon"></i>
-                    <h4>Dark Mode</h4>
-                    <p>Wechsle zwischen hellem und dunklem Design für ein angenehmeres Spielerlebnis bei Nacht.</p>
-                </div>
-
-                <div class="extra-feature-card">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h4>Mobile Optimierung</h4>
-                    <p>Spiele unterwegs mit der Bottom Navigation – anpassbar in Größe und Aussehen.</p>
-                </div>
-
-                <div class="extra-feature-card">
-                    <i class="fas fa-chart-line"></i>
-                    <h4>Statistiken</h4>
-                    <p>Verfolge deine Fortschritte, Erfolgsquoten und Punkteentwicklung auf der Punkte-Seite.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <div class="help-cta">
-            <h3>Bereit loszulegen?</h3>
-            <p>Starte jetzt und teste dein Wissen!</p>
-            <a href="index.html" class="help-cta-btn">
-                <i class="fas fa-play"></i>
-                Spiel starten
-            </a>
+        <div class="content-card">
+            <h2><i class="fas fa-cog"></i> Einstellungen</h2>
+            <p>Passe das Spiel an deine Vorlieben an:</p>
+            <ul>
+                <li><strong>Design:</strong> Hell, Dunkel oder Automatisch</li>
+                <li><strong>Schriftgröße:</strong> 80% bis 150%</li>
+                <li><strong>Timer:</strong> Optional mit 15, 30, 45 oder 60 Sekunden</li>
+                <li><strong>Kostenpflichtige Tipps:</strong> Tipps kosten Punkte</li>
+                <li><strong>Tippfehler-Toleranz:</strong> Kleine Schreibfehler werden akzeptiert</li>
+            </ul>
         </div>
     </main>
 
-    <!-- Bottom Navigation (Mobile) -->
     <nav class="bottom-nav" id="bottomNav">
         <div class="bottom-nav-content">
             <a href="index.html" class="bottom-nav-item" data-nav="home">
@@ -385,97 +131,16 @@
                 <i class="fas fa-circle-question"></i>
                 <span>FAQ</span>
             </a>
-            <a href="settings_new.html" class="bottom-nav-item" data-nav="settings">
+            <a href="settings.html" class="bottom-nav-item" data-nav="settings">
                 <i class="fas fa-cog"></i>
                 <span>Einstellungen</span>
             </a>
         </div>
     </nav>
 
-    <!-- Footer Container -->
     <div id="footer-container"></div>
 
+    <script src="components/common.js"></script>
     <script src="components/footer.js"></script>
-    <script src="components/dev-tools.js"></script>
-    <script>
-        // Theme aus localStorage laden (vor DOMContentLoaded für flicker-freies Laden)
-        const theme = localStorage.getItem('theme') || 'light';
-        if (theme === 'dark') {
-            document.body.classList.add('dark-mode');
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            // Bottom Nav Einstellungen anwenden
-            function applyBottomNavSettings() {
-            const bottomNav = document.getElementById('bottomNav');
-            if (!bottomNav) return;
-            
-            const enabled = localStorage.getItem('bottomNavEnabled') !== 'false';
-            const fixed = localStorage.getItem('bottomNavFixed') !== 'false';
-            const size = localStorage.getItem('bottomNavSize') || 'normal';
-            const showHome = localStorage.getItem('bottomNavShowHome') !== 'false';
-            const showPoints = localStorage.getItem('bottomNavShowPoints') !== 'false';
-            const showHelp = localStorage.getItem('bottomNavShowHelp') !== 'false';
-            const showFaq = localStorage.getItem('bottomNavShowFaq') === 'true';
-            const showSettings = localStorage.getItem('bottomNavShowSettings') !== 'false';
-            
-            if (enabled) {
-                bottomNav.style.display = '';
-            } else {
-                bottomNav.style.display = 'none';
-            }
-            
-            bottomNav.classList.remove('position-static');
-            if (!fixed) bottomNav.classList.add('position-static');
-            
-            bottomNav.classList.remove('size-small', 'size-normal', 'size-large');
-            bottomNav.classList.add('size-' + size);
-            
-            const items = bottomNav.querySelectorAll('.bottom-nav-item');
-            items.forEach(item => {
-                const nav = item.getAttribute('data-nav');
-                item.classList.remove('hidden');
-                if (nav === 'home' && !showHome) item.classList.add('hidden');
-                if (nav === 'points' && !showPoints) item.classList.add('hidden');
-                if (nav === 'help' && !showHelp) item.classList.add('hidden');
-                if (nav === 'faq' && !showFaq) item.classList.add('hidden');
-                if (nav === 'settings' && !showSettings) item.classList.add('hidden');
-            });
-        }
-        
-        // Punkteanzeige in Bottom Nav aktualisieren
-        function updateBottomNavPoints() {
-            const pointsDisplay = document.getElementById('bottomNavPoints');
-            if (pointsDisplay) {
-                const pointsData = JSON.parse(localStorage.getItem('pointsData') || '{"totalPoints":0}');
-                const totalPoints = pointsData.totalPoints || 0;
-                pointsDisplay.textContent = totalPoints > 999 ? '999+' : totalPoints;
-            }
-        }
-        
-        applyBottomNavSettings();
-        updateBottomNavPoints();
-
-        // Menu Toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const menuDropdown = document.getElementById('menuDropdown');
-        
-        if (menuToggle && menuDropdown) {
-            menuToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                menuToggle.classList.toggle('active');
-                menuDropdown.classList.toggle('show');
-            });
-            
-            document.addEventListener('click', (e) => {
-                if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
-                    menuToggle.classList.remove('active');
-                    menuDropdown.classList.remove('show');
-                }
-            });
-        }
-
-        }); // Ende DOMContentLoaded
-    </script>
 </body>
 </html>

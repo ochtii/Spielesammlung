@@ -4,17 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AUT Quiz - Punkte</title>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Modular Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?v=20260109">
-    <link rel="stylesheet" href="css/points.css?v=20260109">
-    <link rel="stylesheet" href="css/bottom-nav.css?v=20260109">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <nav class="navbar">
@@ -39,7 +31,7 @@
                     <a href="stats.html" class="menu-item">
                         <i class="fas fa-chart-bar"></i> Statistik
                     </a>
-                    <a href="settings_new.html" class="menu-item">
+                    <a href="settings.html" class="menu-item">
                         <i class="fas fa-cog"></i> Einstellungen
                     </a>
                 </div>
@@ -47,8 +39,7 @@
         </div>
     </nav>
 
-    <div class="container points-container">
-        <!-- Hero Section -->
+    <main class="container points-container">
         <div class="points-hero">
             <div class="points-hero-bg"></div>
             <div class="points-hero-content">
@@ -60,7 +51,6 @@
             </div>
         </div>
 
-        <!-- Main Points Display -->
         <div class="points-main-card">
             <div class="points-main-left">
                 <div class="points-main-icon">
@@ -79,7 +69,6 @@
             </div>
         </div>
 
-        <!-- Quick Stats Grid -->
         <div class="points-stats-grid">
             <div class="stat-card-modern">
                 <div class="stat-modern-header">
@@ -134,27 +123,20 @@
             </div>
         </div>
 
-        <!-- Achievements Section -->
         <div class="points-section">
             <h2 class="section-title">
                 <i class="fas fa-medal"></i> Erfolge
             </h2>
-            <div class="achievements-grid" id="achievementsGrid">
-                <!-- Achievements werden dynamisch eingefügt -->
-            </div>
+            <div class="achievements-grid" id="achievementsGrid"></div>
         </div>
 
-        <!-- Game Mode Stats -->
         <div class="points-section">
             <h2 class="section-title">
                 <i class="fas fa-chart-bar"></i> Spielmodus-Statistiken
             </h2>
-            <div class="gamemode-stats" id="gamemodeStats">
-                <!-- Game mode stats werden dynamisch eingefügt -->
-            </div>
+            <div class="gamemode-stats" id="gamemodeStats"></div>
         </div>
 
-        <!-- History Section -->
         <div class="points-section">
             <div class="section-header">
                 <h2 class="section-title">
@@ -166,12 +148,9 @@
                     <button class="history-filter-btn" data-filter="spent">Ausgegeben</button>
                 </div>
             </div>
-            <div id="historyList" class="history-list-modern">
-                <!-- Historie wird hier eingefügt -->
-            </div>
+            <div id="historyList" class="history-list-modern"></div>
         </div>
 
-        <!-- Points Info & Actions -->
         <div class="points-bottom-section">
             <div class="points-info-modern">
                 <h3><i class="fas fa-info-circle"></i> Punktesystem</h3>
@@ -213,9 +192,8 @@
                 </button>
             </div>
         </div>
-    </div>
+    </main>
 
-    <!-- Bottom Navigation (Mobile) -->
     <nav class="bottom-nav" id="bottomNav">
         <div class="bottom-nav-content">
             <a href="index.html" class="bottom-nav-item" data-nav="home">
@@ -235,630 +213,17 @@
                 <i class="fas fa-circle-question"></i>
                 <span>FAQ</span>
             </a>
-            <a href="settings_new.html" class="bottom-nav-item" data-nav="settings">
+            <a href="settings.html" class="bottom-nav-item" data-nav="settings">
                 <i class="fas fa-cog"></i>
                 <span>Einstellungen</span>
             </a>
         </div>
     </nav>
 
-    <!-- Footer Container -->
     <div id="footer-container"></div>
 
+    <script src="components/common.js"></script>
     <script src="components/footer.js"></script>
-    <script src="components/dev-tools.js"></script>
-    <script>
-        // Theme aus localStorage laden
-        function loadTheme() {
-            const theme = localStorage.getItem('theme') || 'light';
-            if (theme === 'dark') {
-                document.body.classList.add('dark-mode');
-            }
-        }
-        
-        // Bottom Nav Einstellungen anwenden
-        function applyBottomNavSettings() {
-            const bottomNav = document.getElementById('bottomNav');
-            if (!bottomNav) return;
-            
-            const enabled = localStorage.getItem('bottomNavEnabled') !== 'false';
-            const fixed = localStorage.getItem('bottomNavFixed') !== 'false';
-            const size = localStorage.getItem('bottomNavSize') || 'normal';
-            const showHome = localStorage.getItem('bottomNavShowHome') !== 'false';
-            const showPoints = localStorage.getItem('bottomNavShowPoints') !== 'false';
-            const showHelp = localStorage.getItem('bottomNavShowHelp') !== 'false';
-            const showFaq = localStorage.getItem('bottomNavShowFaq') === 'true';
-            const showSettings = localStorage.getItem('bottomNavShowSettings') !== 'false';
-            
-            if (enabled) {
-                bottomNav.style.display = '';
-            } else {
-                bottomNav.style.display = 'none';
-            }
-            
-            bottomNav.classList.remove('position-static');
-            if (!fixed) bottomNav.classList.add('position-static');
-            
-            bottomNav.classList.remove('size-small', 'size-normal', 'size-large');
-            bottomNav.classList.add('size-' + size);
-            
-            const items = bottomNav.querySelectorAll('.bottom-nav-item');
-            items.forEach(item => {
-                const nav = item.getAttribute('data-nav');
-                item.classList.remove('hidden');
-                if (nav === 'home' && !showHome) item.classList.add('hidden');
-                if (nav === 'points' && !showPoints) item.classList.add('hidden');
-                if (nav === 'help' && !showHelp) item.classList.add('hidden');
-                if (nav === 'faq' && !showFaq) item.classList.add('hidden');
-                if (nav === 'settings' && !showSettings) item.classList.add('hidden');
-            });
-        }
-        
-        // Punkteanzeige in Bottom Nav aktualisieren
-        function updateBottomNavPoints() {
-            const pointsDisplay = document.getElementById('bottomNavPoints');
-            if (pointsDisplay) {
-                const pointsData = JSON.parse(localStorage.getItem('pointsData') || '{"totalPoints":0}');
-                const totalPoints = pointsData.totalPoints || 0;
-                pointsDisplay.textContent = totalPoints > 999 ? '999+' : totalPoints;
-            }
-        }
-        
-        // Points Data Management
-        function loadPointsData() {
-            const pointsData = JSON.parse(localStorage.getItem('pointsData')) || {
-                totalPoints: 0,
-                gamesPlayed: 0,
-                correctAnswers: 0,
-                hintsUsed: 0,
-                history: [],
-                currentStreak: 0,
-                bestStreak: 0
-            };
-            
-            // Main Points Display
-            document.getElementById('totalPoints').textContent = pointsData.totalPoints.toLocaleString('de-AT');
-            
-            // Update Rank
-            updateRank(pointsData.totalPoints);
-            
-            // Quick Stats
-            document.getElementById('gamesPlayed').textContent = pointsData.gamesPlayed;
-            document.getElementById('correctAnswers').textContent = pointsData.correctAnswers;
-            document.getElementById('hintsUsed').textContent = pointsData.hintsUsed;
-            document.getElementById('currentStreak').textContent = pointsData.currentStreak || 0;
-            document.getElementById('bestStreak').textContent = 'Beste: ' + (pointsData.bestStreak || 0);
-            
-            // Calculate additional stats
-            const totalQuestions = pointsData.gamesPlayed * 5; // Annahme: 5 Fragen pro Spiel
-            const accuracy = totalQuestions > 0 ? Math.round((pointsData.correctAnswers / totalQuestions) * 100) : 0;
-            const hintsPerGame = pointsData.gamesPlayed > 0 ? (pointsData.hintsUsed / pointsData.gamesPlayed).toFixed(1) : 0;
-            
-            document.getElementById('accuracyRate').textContent = accuracy + '% Genauigkeit';
-            document.getElementById('hintsAvg').textContent = 'Ø ' + hintsPerGame + '/Spiel';
-            
-            // Load Achievements
-            loadAchievements(pointsData);
-            
-            // Load Game Mode Stats
-            loadGameModeStats(pointsData);
-            
-            // Load History
-            loadHistory(pointsData.history || []);
-        }
-        
-        function updateRank(points) {
-            const rankDisplay = document.getElementById('rankDisplay');
-            const rankText = document.getElementById('rankText');
-            
-            let rank = { name: 'Anfänger', icon: 'fa-star', class: 'rank-beginner' };
-            
-            if (points >= 10000) {
-                rank = { name: 'Legende', icon: 'fa-crown', class: 'rank-legend' };
-            } else if (points >= 5000) {
-                rank = { name: 'Meister', icon: 'fa-gem', class: 'rank-master' };
-            } else if (points >= 2500) {
-                rank = { name: 'Experte', icon: 'fa-medal', class: 'rank-expert' };
-            } else if (points >= 1000) {
-                rank = { name: 'Fortgeschritten', icon: 'fa-award', class: 'rank-advanced' };
-            } else if (points >= 500) {
-                rank = { name: 'Geübt', icon: 'fa-trophy', class: 'rank-skilled' };
-            }
-            
-            rankDisplay.className = 'points-rank ' + rank.class;
-            rankDisplay.querySelector('i').className = 'fas ' + rank.icon;
-            rankText.textContent = rank.name;
-        }
-        
-        function loadAchievements(data) {
-            const achievements = [
-                {
-                    id: 'first-game',
-                    title: 'Erste Schritte',
-                    description: 'Erstes Spiel abgeschlossen',
-                    icon: 'fa-flag-checkered',
-                    unlocked: data.gamesPlayed >= 1,
-                    progress: Math.min(data.gamesPlayed, 1),
-                    max: 1
-                },
-                {
-                    id: 'games-10',
-                    title: 'Spielesammler',
-                    description: '10 Spiele gespielt',
-                    icon: 'fa-gamepad',
-                    unlocked: data.gamesPlayed >= 10,
-                    progress: Math.min(data.gamesPlayed, 10),
-                    max: 10
-                },
-                {
-                    id: 'points-1000',
-                    title: 'Punktejäger',
-                    description: '1.000 Punkte erreicht',
-                    icon: 'fa-bullseye',
-                    unlocked: data.totalPoints >= 1000,
-                    progress: Math.min(data.totalPoints, 1000),
-                    max: 1000
-                },
-                {
-                    id: 'correct-50',
-                    title: 'Wissensprofi',
-                    description: '50 richtige Antworten',
-                    icon: 'fa-brain',
-                    unlocked: data.correctAnswers >= 50,
-                    progress: Math.min(data.correctAnswers, 50),
-                    max: 50
-                },
-                {
-                    id: 'streak-5',
-                    title: 'Im Flow',
-                    description: '5er Streak erreicht',
-                    icon: 'fa-fire',
-                    unlocked: (data.bestStreak || 0) >= 5,
-                    progress: Math.min(data.bestStreak || 0, 5),
-                    max: 5
-                },
-                {
-                    id: 'no-hints',
-                    title: 'Selbstständig',
-                    description: 'Spiel ohne Tipps',
-                    icon: 'fa-user-ninja',
-                    unlocked: data.gamesPlayed > 0 && data.hintsUsed === 0,
-                    progress: data.hintsUsed === 0 && data.gamesPlayed > 0 ? 1 : 0,
-                    max: 1
-                }
-            ];
-            
-            const grid = document.getElementById('achievementsGrid');
-            grid.innerHTML = achievements.map(ach => {
-                const progressPercent = (ach.progress / ach.max) * 100;
-                return `
-                    <div class="achievement-card ${ach.unlocked ? 'unlocked' : 'locked'}">
-                        <div class="achievement-icon">
-                            <i class="fas ${ach.icon}"></i>
-                            ${ach.unlocked ? '<div class="achievement-checkmark"><i class="fas fa-check"></i></div>' : ''}
-                        </div>
-                        <div class="achievement-info">
-                            <h4 class="achievement-title">${ach.title}</h4>
-                            <p class="achievement-desc">${ach.description}</p>
-                            ${!ach.unlocked ? `
-                                <div class="achievement-progress">
-                                    <div class="achievement-progress-bar" style="width: ${progressPercent}%"></div>
-                                </div>
-                                <span class="achievement-progress-text">${ach.progress}/${ach.max}</span>
-                            ` : ''}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-        
-        function loadGameModeStats(data) {
-            const history = data.history || [];
-            const gameModes = {};
-            
-            history.forEach(entry => {
-                if (entry.type === 'earned' && entry.game) {
-                    if (!gameModes[entry.game]) {
-                        gameModes[entry.game] = { played: 0, correct: 0, points: 0 };
-                    }
-                    gameModes[entry.game].played++;
-                    if (entry.isCorrect) gameModes[entry.game].correct++;
-                    gameModes[entry.game].points += entry.points || 0;
-                }
-            });
-            
-            const gameModeNames = {
-                'license-plates': { name: 'Kennzeichen', icon: 'fa-car' },
-                'capitals': { name: 'Hauptstädte', icon: 'fa-university' },
-                'world-capitals': { name: 'Welt-Hauptstädte', icon: 'fa-globe' },
-                'population': { name: 'Einwohner', icon: 'fa-users' }
-            };
-            
-            const container = document.getElementById('gamemodeStats');
-            
-            if (Object.keys(gameModes).length === 0) {
-                container.innerHTML = '<p class="no-data">Noch keine Spielmodus-Statistiken verfügbar</p>';
-                return;
-            }
-            
-            container.innerHTML = Object.entries(gameModes).map(([mode, stats]) => {
-                const modeInfo = gameModeNames[mode] || { name: mode, icon: 'fa-gamepad' };
-                const accuracy = stats.played > 0 ? Math.round((stats.correct / stats.played) * 100) : 0;
-                
-                return `
-                    <div class="gamemode-stat-card">
-                        <div class="gamemode-header">
-                            <div class="gamemode-icon">
-                                <i class="fas ${modeInfo.icon}"></i>
-                            </div>
-                            <h4>${modeInfo.name}</h4>
-                        </div>
-                        <div class="gamemode-stats-grid">
-                            <div class="gamemode-stat-item">
-                                <span class="gamemode-stat-label">Gespielt</span>
-                                <span class="gamemode-stat-value">${stats.played}</span>
-                            </div>
-                            <div class="gamemode-stat-item">
-                                <span class="gamemode-stat-label">Richtig</span>
-                                <span class="gamemode-stat-value">${stats.correct}</span>
-                            </div>
-                            <div class="gamemode-stat-item">
-                                <span class="gamemode-stat-label">Genauigkeit</span>
-                                <span class="gamemode-stat-value">${accuracy}%</span>
-                            </div>
-                            <div class="gamemode-stat-item">
-                                <span class="gamemode-stat-label">Punkte</span>
-                                <span class="gamemode-stat-value">${stats.points}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function loadHistory(history) {
-            const historyList = document.getElementById('historyList');
-            
-            if (!history || history.length === 0) {
-                historyList.innerHTML = `
-                    <div class="no-history-modern">
-                        <i class="fas fa-inbox"></i>
-                        <p>Noch keine Aktivitäten</p>
-                        <span>Spiele ein paar Runden, um deinen Verlauf zu sehen!</span>
-                    </div>
-                `;
-                return;
-            }
-
-            // Nur die letzten 20 anzeigen für bessere Performance
-            const recentHistory = history.slice(0, 20);
-            
-            historyList.innerHTML = recentHistory.map((entry, index) => {
-                const date = new Date(entry.timestamp);
-                const timeStr = date.toLocaleString('de-AT', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-
-                const isEarned = entry.type === 'earned';
-                let iconClass, colorClass, title;
-                
-                if (isEarned) {
-                    iconClass = entry.isCorrect ? 'fa-check-circle' : 'fa-times-circle';
-                    colorClass = entry.isCorrect ? 'earned' : 'incorrect';
-                    title = entry.isCorrect ? 'Richtige Antwort' : 'Falsche Antwort';
-                } else {
-                    iconClass = 'fa-lightbulb';
-                    colorClass = 'spent';
-                    const hintNames = {
-                        '5050': '50/50 Tipp',
-                        'removeOne': 'Eine weg Tipp',
-                        'firstLetter': 'Anfangsbuchstabe',
-                        'randomLetter': 'Buchstabe',
-                        'length': 'Länge Tipp',
-                        'coat': 'Wappen Tipp'
-                    };
-                    title = hintNames[entry.hintType] || 'Tipp verwendet';
-                }
-
-                const pointsText = entry.points > 0 ? `+${entry.points}` : entry.points;
-                const gameName = entry.game || 'Quiz';
-
-                return `
-                    <div class="history-item-modern ${colorClass}" data-type="${entry.type}">
-                        <div class="history-modern-icon">
-                            <i class="fas ${iconClass}"></i>
-                        </div>
-                        <div class="history-modern-content">
-                            <div class="history-modern-title">${title}</div>
-                            <div class="history-modern-meta">
-                                <span><i class="fas fa-gamepad"></i> ${gameName}</span>
-                                <span><i class="fas fa-clock"></i> ${timeStr}</span>
-                            </div>
-                        </div>
-                        <div class="history-modern-points ${colorClass}">
-                            ${pointsText}
-                        </div>
-                        <button class="history-modern-detail-btn" onclick="showHistoryDetail(${index})" title="Details">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                `;
-            }).join('');
-            
-            // Filter Buttons
-            setupHistoryFilters();
-        }
-        
-        function setupHistoryFilters() {
-            document.querySelectorAll('.history-filter-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    // Update active state
-                    document.querySelectorAll('.history-filter-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    
-                    const filter = btn.dataset.filter;
-                    const items = document.querySelectorAll('.history-item-modern');
-                    
-                    items.forEach(item => {
-                        if (filter === 'all') {
-                            item.style.display = '';
-                        } else {
-                            const type = item.dataset.type;
-                            item.style.display = type === filter ? '' : 'none';
-                        }
-                    });
-                });
-            });
-        }
-
-        function showHistoryDetail(index) {
-            const pointsData = JSON.parse(localStorage.getItem('pointsData')) || { history: [] };
-            const entry = pointsData.history[index];
-            
-            if (!entry) return;
-
-            const date = new Date(entry.timestamp);
-            const timeStr = date.toLocaleString('de-AT', {
-                weekday: 'long',
-                day: '2-digit',
-                month: 'long',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-
-            const isEarned = entry.type === 'earned';
-            let headerContent = '';
-            let bodyContent = '';
-
-            if (isEarned) {
-                const statusIcon = entry.isCorrect ? 
-                    '<i class="fas fa-check-circle detail-icon-success"></i>' :
-                    '<i class="fas fa-times-circle detail-icon-error"></i>';
-                
-                headerContent = `
-                    ${statusIcon}
-                    <h3>${entry.isCorrect ? 'Richtig beantwortet' : 'Falsch beantwortet'}</h3>
-                `;
-                
-                bodyContent = `
-                    <div class="detail-section">
-                        <strong>Frage</strong>
-                        <p>${entry.question}</p>
-                    </div>
-                    <div class="detail-section">
-                        <strong>Richtige Antwort</strong>
-                        <p class="detail-answer correct">${entry.answer}</p>
-                    </div>
-                    ${!entry.isCorrect && entry.userAnswer ? `
-                        <div class="detail-section">
-                            <strong>Deine Antwort</strong>
-                            <p class="detail-answer incorrect">${entry.userAnswer}</p>
-                        </div>
-                    ` : ''}
-                    <div class="detail-section">
-                        <strong>Erzielte Punkte</strong>
-                        <p class="detail-points ${entry.points > 0 ? 'earned' : 'incorrect'}">
-                            ${entry.points > 0 ? `+${entry.points}` : entry.points} Punkte
-                        </p>
-                    </div>
-                    ${entry.hintsUsed > 0 ? `
-                        <div class="detail-section">
-                            <strong>Verwendete Tipps</strong>
-                            <p><i class="fas fa-lightbulb"></i> ${entry.hintsUsed} Tipp${entry.hintsUsed > 1 ? 's' : ''}</p>
-                        </div>
-                    ` : ''}
-                `;
-            } else {
-                const hintNames = {
-                    '5050': '50/50',
-                    'removeOne': 'Eine weg',
-                    'firstLetter': 'Anfangsbuchstabe',
-                    'randomLetter': 'Zufälliger Buchstabe',
-                    'length': 'Länge',
-                    'coat': 'Wappen'
-                };
-                
-                const hintDescriptions = {
-                    '5050': 'Zwei falsche Antworten entfernen',
-                    'removeOne': 'Eine falsche Antwort entfernen',
-                    'firstLetter': 'Anfangsbuchstabe anzeigen',
-                    'randomLetter': 'Zufälligen Buchstaben anzeigen',
-                    'length': 'Länge der Antwort anzeigen',
-                    'coat': 'Bundesland-Wappen anzeigen'
-                };
-
-                headerContent = `
-                    <i class="fas fa-lightbulb detail-icon-warning"></i>
-                    <h3>Tipp verwendet</h3>
-                `;
-
-                bodyContent = `
-                    <div class="detail-section">
-                        <strong>Tipp-Typ</strong>
-                        <p><strong>${hintNames[entry.hintType] || entry.hintType}</strong></p>
-                        <p class="detail-hint-description">
-                            ${hintDescriptions[entry.hintType] || ''}
-                        </p>
-                    </div>
-                    <div class="detail-section">
-                        <strong>Frage</strong>
-                        <p>${entry.question}</p>
-                    </div>
-                    <div class="detail-section">
-                        <strong>Kosten</strong>
-                        <p class="detail-points spent">${entry.points} Punkte</p>
-                    </div>
-                `;
-            }
-
-            const modal = document.createElement('div');
-            modal.className = 'history-detail-modal';
-            modal.innerHTML = `
-                <div class="history-detail-content">
-                    <button class="modal-close" onclick="this.closest('.history-detail-modal').remove()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <div class="detail-header">
-                        ${headerContent}
-                    </div>
-                    <div class="detail-body">
-                        ${bodyContent}
-                        <div class="detail-footer">
-                            <div class="detail-meta">
-                                <i class="fas fa-gamepad"></i> ${entry.game || 'Quiz'}
-                                ${entry.difficulty ? `· <span class="detail-difficulty">${entry.difficulty}</span>` : ''}
-                            </div>
-                            <div class="detail-time">
-                                <i class="fas fa-clock"></i> ${timeStr}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            document.body.appendChild(modal);
-            setTimeout(() => modal.classList.add('show'), 10);
-
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('show');
-                    setTimeout(() => modal.remove(), 300);
-                }
-            });
-        }
-
-        function resetPoints() {
-            if (confirm('Möchtest du wirklich alle Punkte und Statistiken zurücksetzen?')) {
-                localStorage.setItem('pointsData', JSON.stringify({
-                    totalPoints: 0,
-                    gamesPlayed: 0,
-                    correctAnswers: 0,
-                    hintsUsed: 0,
-                    history: []
-                }));
-                loadPointsData();
-            }
-        }
-
-        // Menu Toggle
-        function setupMenu() {
-            const menuToggle = document.getElementById('menuToggle');
-            const menuDropdown = document.getElementById('menuDropdown');
-            
-            menuToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                menuToggle.classList.toggle('active');
-                menuDropdown.classList.toggle('show');
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!menuDropdown.contains(e.target) && !menuToggle.contains(e.target)) {
-                    menuToggle.classList.remove('active');
-                    menuDropdown.classList.remove('show');
-                }
-            });
-        }
-
-        // Easter Egg: Jackpot (7x auf Münzen-Icon tippen)
-        let jackpotTapCount = 0;
-        let jackpotTapTimer = null;
-        
-        function initJackpotEasterEgg() {
-            const coinsIcon = document.querySelector('.points-main-icon');
-            if (!coinsIcon) return;
-            if (window.EasterEggHelper && window.EasterEggHelper.isEasterEggFound('pointsJackpot')) return;
-            
-            coinsIcon.style.cursor = 'pointer';
-            coinsIcon.addEventListener('click', () => {
-                if (window.EasterEggHelper && window.EasterEggHelper.isEasterEggFound('pointsJackpot')) return;
-                
-                jackpotTapCount++;
-                
-                // Visual Feedback - Münzen rotieren
-                coinsIcon.style.transform = `rotate(${jackpotTapCount * 30}deg) scale(${1 + jackpotTapCount * 0.05})`;
-                
-                clearTimeout(jackpotTapTimer);
-                jackpotTapTimer = setTimeout(() => {
-                    jackpotTapCount = 0;
-                    coinsIcon.style.transform = '';
-                }, 2000);
-                
-                if (jackpotTapCount >= 7) {
-                    if (window.EasterEggHelper) {
-                        window.EasterEggHelper.triggerEasterEgg('pointsJackpot', 777, 'Jackpot!');
-                    }
-                    jackpotTapCount = 0;
-                    coinsIcon.style.transform = '';
-                    // Punkte neu laden
-                    setTimeout(loadPointsData, 500);
-                }
-            });
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            loadTheme();
-            applyBottomNavSettings();
-            updateBottomNavPoints();
-            loadPointsData();
-            setupMenu();
-            initJackpotEasterEgg();
-            
-            // Reset Button
-            document.getElementById('resetPointsBtn').addEventListener('click', resetPoints);
-        });
-    </script>
-
-	<!-- Bottom Navigation (Mobile) -->
-	<nav class="bottom-nav" id="bottomNav">
-		<div class="bottom-nav-content">
-			<a href="index.html" class="bottom-nav-item" data-nav="home">
-				<i class="fas fa-home"></i>
-				<span>Spiel</span>
-			</a>
-			<a href="points.html" class="bottom-nav-item current" data-nav="points">
-				<i class="fas fa-coins"></i>
-				<span>Punkte</span>
-				<span class="bottom-nav-badge" id="bottomNavPoints">0</span>
-			</a>
-			<a href="help.html" class="bottom-nav-item" data-nav="help">
-				<i class="fas fa-question-circle"></i>
-				<span>Hilfe</span>
-			</a>
-			<a href="faq.html" class="bottom-nav-item" data-nav="faq">
-				<i class="fas fa-circle-question"></i>
-				<span>FAQ</span>
-			</a>
-			<a href="settings_new.html" class="bottom-nav-item" data-nav="settings">
-				<i class="fas fa-cog"></i>
-				<span>Einstellungen</span>
-			</a>
-		</div>
-	</nav>
-
+    <script src="components/points.js"></script>
 </body>
 </html>

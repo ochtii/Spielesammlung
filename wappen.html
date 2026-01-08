@@ -4,15 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Österreichische Wappen - AUT Quiz</title>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Modular Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?v=20260109">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <nav class="navbar">
@@ -37,7 +31,7 @@
                     <a href="faq.html" class="menu-item">
                         <i class="fas fa-circle-question"></i> FAQ
                     </a>
-                    <a href="settings_new.html" class="menu-item">
+                    <a href="settings.html" class="menu-item">
                         <i class="fas fa-cog"></i> Einstellungen
                     </a>
                 </div>
@@ -45,39 +39,27 @@
         </div>
     </nav>
 
-    <div class="container">
-        <!-- Hero Section -->
-        <div class="wappen-hero">
-            <div class="wappen-hero-icon">
-                <i class="fas fa-shield-halved"></i>
-            </div>
-            <h1>Österreichische Wappen</h1>
+    <main class="container">
+        <div class="page-header">
+            <h1><i class="fas fa-shield-halved"></i> Österreichische Wappen</h1>
             <p>Vollständige Sammlung aller Bundes- und Stadtwappen</p>
-            <div class="wappen-stats">
-                <div class="wappen-stat">
-                    <strong id="totalCount">0</strong>
-                    <span>Gesamt</span>
-                </div>
-                <div class="wappen-stat">
-                    <strong>9</strong>
-                    <span>Bundesländer</span>
-                </div>
-                <div class="wappen-stat">
-                    <strong>37</strong>
-                    <span>Städte</span>
-                </div>
+        </div>
+
+        <div class="wappen-stats-bar">
+            <div class="wappen-stat">
+                <strong id="totalCount">0</strong>
+                <span>Gesamt</span>
+            </div>
+            <div class="wappen-stat">
+                <strong>9</strong>
+                <span>Bundesländer</span>
+            </div>
+            <div class="wappen-stat">
+                <strong>37</strong>
+                <span>Städte</span>
             </div>
         </div>
 
-        <!-- Alphabet Navigation -->
-        <div class="alphabet-nav" id="alphabetNav">
-            <h3><i class="fas fa-magnifying-glass"></i> Schnellnavigation</h3>
-            <div class="alphabet-buttons" id="alphabetButtons">
-                <!-- Wird dynamisch gefüllt -->
-            </div>
-        </div>
-
-        <!-- Filter Buttons -->
         <div class="wappen-filter">
             <button class="filter-btn active" data-filter="all">
                 <i class="fas fa-globe"></i> Alle
@@ -93,13 +75,14 @@
             </button>
         </div>
 
-        <!-- Wappen Liste -->
-        <div class="wappen-list" id="wappenList">
-            <!-- Wird dynamisch gefüllt -->
+        <div class="alphabet-nav" id="alphabetNav">
+            <h3><i class="fas fa-magnifying-glass"></i> Schnellnavigation</h3>
+            <div class="alphabet-buttons" id="alphabetButtons"></div>
         </div>
-    </div>
 
-    <!-- Bottom Navigation -->
+        <div class="wappen-list" id="wappenList"></div>
+    </main>
+
     <nav class="bottom-nav" id="bottomNav">
         <div class="bottom-nav-content">
             <a href="index.html" class="bottom-nav-item" data-nav="home">
@@ -119,244 +102,18 @@
                 <i class="fas fa-circle-question"></i>
                 <span>FAQ</span>
             </a>
-            <a href="settings_new.html" class="bottom-nav-item" data-nav="settings">
+            <a href="settings.html" class="bottom-nav-item" data-nav="settings">
                 <i class="fas fa-cog"></i>
                 <span>Einstellungen</span>
             </a>
         </div>
     </nav>
 
-    <!-- Footer Container -->
     <div id="footer-container"></div>
 
     <script src="coats_of_arms.js"></script>
+    <script src="components/common.js"></script>
     <script src="components/footer.js"></script>
-    <script src="components/dev-tools.js"></script>
-    <script>
-        // Theme laden
-        function loadTheme() {
-            const theme = localStorage.getItem('theme') || 'light';
-            if (theme === 'dark') {
-                document.body.classList.add('dark-mode');
-            }
-        }
-        
-        // Theme sofort laden (vor DOMContentLoaded)
-        loadTheme();
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            setupMenu();
-            applyBottomNavSettings();
-            loadCoatsOfArms();
-
-            // Filter Event Listeners
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    filterWappen(this.dataset.filter);
-                });
-            });
-        });
-
-        function loadCoatsOfArms() {
-            const all = coatsOfArmsHelpers.getAllCoatsOfArms();
-            const sorted = all.sort((a, b) => a.name.localeCompare(b.name));
-            
-            // Statistik aktualisieren
-            document.getElementById('totalCount').textContent = sorted.length;
-
-            // Alphabet-Navigation erstellen
-            createAlphabetNav(sorted);
-
-            // Wappen anzeigen
-            displayWappen(sorted);
-        }
-
-        function createAlphabetNav(coats) {
-            const letters = new Set();
-            coats.forEach(coat => {
-                const firstLetter = coat.name.charAt(0).toUpperCase();
-                letters.add(firstLetter);
-            });
-
-            const alphabetButtons = document.getElementById('alphabetButtons');
-            alphabetButtons.innerHTML = '';
-
-            Array.from(letters).sort().forEach(letter => {
-                const btn = document.createElement('button');
-                btn.className = 'alphabet-btn';
-                btn.textContent = letter;
-                btn.addEventListener('click', () => scrollToLetter(letter));
-                alphabetButtons.appendChild(btn);
-            });
-        }
-
-        function displayWappen(coats) {
-            const wappenList = document.getElementById('wappenList');
-            wappenList.innerHTML = '';
-
-            let currentLetter = '';
-
-            coats.forEach(coat => {
-                const firstLetter = coat.name.charAt(0).toUpperCase();
-                
-                // Letter Header
-                if (firstLetter !== currentLetter) {
-                    currentLetter = firstLetter;
-                    const letterHeader = document.createElement('div');
-                    letterHeader.className = 'letter-header';
-                    letterHeader.id = `letter-${firstLetter}`;
-                    letterHeader.innerHTML = `<h2>${firstLetter}</h2>`;
-                    wappenList.appendChild(letterHeader);
-                }
-
-                // Wappen Card
-                const card = document.createElement('div');
-                card.className = 'wappen-card';
-                card.dataset.category = coat.kategorie;
-                card.dataset.letter = firstLetter;
-
-                const categoryIcon = {
-                    'Bundesland': '<i class="fas fa-map"></i>',
-                    'Landeshauptstadt': '<i class="fas fa-city"></i>',
-                    'Stadt': '<i class="fas fa-building"></i>'
-                }[coat.kategorie] || '<i class="fas fa-shield"></i>';
-
-                const categoryClass = coat.kategorie.toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue');
-
-                // Erste URL aus dem Array verwenden
-                const wappenUrl = coatsOfArmsHelpers.getWappenUrl(coat.wappen);
-
-                card.innerHTML = `
-                    <div class="wappen-image-container">
-                        <img src="${wappenUrl}" alt="Wappen ${coat.name}" class="wappen-image" loading="lazy">
-                    </div>
-                    <div class="wappen-info">
-                        <h3 class="wappen-name">${coat.name}</h3>
-                        <div class="wappen-category category-${categoryClass}">
-                            ${categoryIcon}
-                            <span>${coat.kategorie}</span>
-                        </div>
-                        ${coat.bundesland ? `<div class="wappen-bundesland"><i class="fas fa-location-dot"></i> ${coat.bundesland}</div>` : ''}
-                    </div>
-                `;
-
-                // Fallback für Bilder einrichten
-                const img = card.querySelector('.wappen-image');
-                if (Array.isArray(coat.wappen)) {
-                    coatsOfArmsHelpers.loadImageWithFallback(img, coat.wappen, `Wappen ${coat.name}`);
-                }
-
-                wappenList.appendChild(card);
-            });
-        }
-
-        function filterWappen(category) {
-            const cards = document.querySelectorAll('.wappen-card');
-            const headers = document.querySelectorAll('.letter-header');
-
-            if (category === 'all') {
-                cards.forEach(card => card.style.display = '');
-                headers.forEach(header => header.style.display = '');
-            } else {
-                cards.forEach(card => {
-                    if (card.dataset.category === category) {
-                        card.style.display = '';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-
-                // Letter Headers nur anzeigen wenn es sichtbare Cards gibt
-                headers.forEach(header => {
-                    const letter = header.id.replace('letter-', '');
-                    const visibleCards = Array.from(cards).filter(card => 
-                        card.dataset.letter === letter && card.style.display !== 'none'
-                    );
-                    header.style.display = visibleCards.length > 0 ? '' : 'none';
-                });
-            }
-        }
-
-        function scrollToLetter(letter) {
-            const element = document.getElementById(`letter-${letter}`);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
-
-        function setupMenu() {
-            const menuToggle = document.getElementById('menuToggle');
-            const menuDropdown = document.getElementById('menuDropdown');
-            
-            if (menuToggle && menuDropdown) {
-                menuToggle.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    menuToggle.classList.toggle('active');
-                    menuDropdown.classList.toggle('show');
-                });
-                
-                document.addEventListener('click', (e) => {
-                    if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
-                        menuToggle.classList.remove('active');
-                        menuDropdown.classList.remove('show');
-                    }
-                });
-            }
-        }
-
-        function applyBottomNavSettings() {
-            const bottomNav = document.getElementById('bottomNav');
-            if (!bottomNav) return;
-
-            const enabled = localStorage.getItem('bottomNavEnabled') !== 'false';
-            const fixed = localStorage.getItem('bottomNavFixed') === 'true';
-            const size = localStorage.getItem('bottomNavSize') || 'medium';
-
-            bottomNav.style.display = enabled ? 'flex' : 'none';
-            
-            if (fixed) {
-                bottomNav.classList.add('fixed');
-            } else {
-                bottomNav.classList.remove('fixed');
-            }
-
-            bottomNav.classList.remove('size-small', 'size-medium', 'size-large');
-            bottomNav.classList.add(`size-${size}`);
-
-            // Button Visibility
-            const buttons = {
-                'home': localStorage.getItem('bottomNavShowHome') !== 'false',
-                'points': localStorage.getItem('bottomNavShowPoints') !== 'false',
-                'help': localStorage.getItem('bottomNavShowHelp') !== 'false',
-                'faq': localStorage.getItem('bottomNavShowFaq') === 'true',
-                'settings': localStorage.getItem('bottomNavShowSettings') !== 'false'
-            };
-
-            Object.entries(buttons).forEach(([key, show]) => {
-                const item = bottomNav.querySelector(`[data-nav="${key}"]`);
-                if (item) {
-                    item.style.display = show ? 'flex' : 'none';
-                }
-            });
-        }
-
-        // Punkteanzeige in Bottom Nav aktualisieren
-        function updateBottomNavPoints() {
-            const pointsDisplay = document.getElementById('bottomNavPoints');
-            if (pointsDisplay) {
-                const pointsData = JSON.parse(localStorage.getItem('pointsData') || '{"totalPoints":0}');
-                const totalPoints = pointsData.totalPoints || 0;
-                pointsDisplay.textContent = totalPoints > 999 ? '999+' : totalPoints;
-            }
-        }
-
-        // Beim Laden aufrufen
-        document.addEventListener('DOMContentLoaded', () => {
-            updateBottomNavPoints();
-        });
-    </script>
+    <script src="components/wappen.js"></script>
 </body>
 </html>

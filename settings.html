@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Einstellungen – AUT Quiz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <title>Einstellungen - AUT Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/main.css?v=20260109">
-    <link rel="stylesheet" href="css/settings.css?v=20260109">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <nav class="navbar">
@@ -21,65 +19,11 @@
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="menu-dropdown" id="menuDropdown">
-                    <a href="index.html" class="menu-item"><i class="fas fa-home"></i> Zurück zum Spiel</a>
-                    <a href="points.html" class="menu-item"><i class="fas fa-coins"></i> Punkte</a>
-                    <a href="help.html" class="menu-item"><i class="fas fa-question-circle"></i> Hilfe</a>
-                    <a href="faq.html" class="menu-item"><i class="fas fa-circle-question"></i> FAQ</a>
-                </div>
-
-                <div>
-                    <span>Timer aktivieren</span>
-                    <label class="switch">
-                        <input type="checkbox" id="timerCheck">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-                <div>
-                    <span>Tippfehler erlauben</span>
-                    <label class="switch">
-                        <input type="checkbox" id="typoCheck">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-                <div>
-                    <span>Kostenpflichtige Tipps</span>
-                    <label class="switch">
-                        <input type="checkbox" id="paidHintsCheck">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-            </section>
-            <section>
-                <h2><i class="fas fa-egg"></i> Easter Eggs</h2>
-                <div id="easterEggsList">
-                    <!-- Easter Eggs werden hier dynamisch angezeigt -->
-                </div>
-                <div>
-                    <i class="fas fa-info-circle"></i> Tipp: Es gibt versteckte Überraschungen in der App!
-                </div>
-            </section>
-        </div>
-        <div>
-            <button id="saveSettingsBtn"><i class="fas fa-save"></i> Einstellungen speichern</button>
-            <span id="settingsSaveFeedback" style="display:none;"><i class="fas fa-check-circle"></i> Gespeichert!</span>
-        </div>
-    </main>
-    <script src="script.js"></script>
-</body>
-</html>
-            <a href="index.html" class="navbar-brand">
-                <i class="fas fa-map-location-dot"></i> AUT Quiz
-            </a>
-            <div class="navbar-menu">
-                <button class="menu-toggle" id="menuToggle" aria-label="Menü" type="button">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="menu-dropdown" id="menuDropdown">
                     <a href="index.html" class="menu-item">
                         <i class="fas fa-home"></i> Zurück zum Spiel
                     </a>
                     <a href="points.html" class="menu-item">
-                        <i class="fas fa-coins"></i> Punkte
+                        <i class="fas fa-coins"></i> Punkte: <span id="menuPointsDisplay">0</span>
                     </a>
                     <a href="help.html" class="menu-item">
                         <i class="fas fa-question-circle"></i> Hilfe
@@ -87,520 +31,321 @@
                     <a href="faq.html" class="menu-item">
                         <i class="fas fa-circle-question"></i> FAQ
                     </a>
+                    <a href="stats.html" class="menu-item">
+                        <i class="fas fa-chart-bar"></i> Statistik
+                    </a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="settings-main">
-        <section class="settings-hero">
-            <i class="fas fa-cog settings-hero-icon"></i>
-            <h1>Einstellungen</h1>
-            <p>Stelle die App nach deinen Wünschen ein</p>
-        </section>
-        <div class="settings-grid">
-            <section class="settings-card">
-                <h2><i class="fas fa-palette"></i> Darstellung</h2>
-                <div class="settings-option-row">
-                    <span>Dark Mode</span>
-                    <label class="switch">
-                        <input type="checkbox" id="darkModeCheck">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-                <div class="settings-option-row">
-                    <span>Akzentfarbe</span>
-                    <input type="color" id="accentColorPicker" value="#339af0" aria-label="Akzentfarbe wählen">
-                </div>
-            </section>
-            <section class="settings-card">
-                <h2><i class="fas fa-bars"></i> Navigation</h2>
-                <div class="settings-option-row">
-                    <span>Bottom Navigation anzeigen</span>
-                    <label class="switch">
-                        <input type="checkbox" id="bottomNavEnabledCheck">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-                <div class="settings-option-row">
-                    <span>Am Bildschirm fixiert</span>
-                    <label class="switch">
-                        <input type="checkbox" id="bottomNavFixedCheck">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-            </section>
-            <section class="settings-card">
-                <h2><i class="fas fa-gamepad"></i> Spieloptionen</h2>
-                <div class="settings-option-row">
-                    <span>Timer aktivieren</span>
-                    <label class="switch">
-                        <input type="checkbox" id="timerCheck">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-                <div class="settings-option-row">
-                    <span>Tippfehler erlauben</span>
-                    <label class="switch">
-                        <input type="checkbox" id="typoCheck">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-                <div class="settings-option-row">
-                    <span>Kostenpflichtige Tipps</span>
-                    <label class="switch">
-                        <input type="checkbox" id="paidHintsCheck">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-            </section>
-            <section class="settings-card easter-eggs-card">
-                <h2><i class="fas fa-egg"></i> Easter Eggs</h2>
-                <div class="easter-eggs-list" id="easterEggsList">
-                    <!-- Easter Eggs werden hier dynamisch angezeigt -->
-                </div>
-                <div class="easter-eggs-hint">
-                    <i class="fas fa-info-circle"></i> Tipp: Es gibt versteckte Überraschungen in der App!
-                </div>
-            </section>
+    <main class="container">
+        <h1 class="settings-title"><i class="fas fa-cog"></i> Einstellungen</h1>
+        
+        <div class="settings-tabs">
+            <button class="tab-btn active" data-tab="general">Allgemein</button>
+            <button class="tab-btn" data-tab="appearance">Erscheinung</button>
+            <button class="tab-btn" data-tab="game">Spieloptionen</button>
+            <button class="tab-btn" data-tab="accessibility">Barrierefreiheit</button>
+            <button class="tab-btn" data-tab="developer">Entwickler</button>
+            <button class="tab-btn danger-tab" data-tab="danger">⚠️ Gefahrenzone</button>
         </div>
-        <div class="settings-actions">
-            <button class="btn btn-primary" id="saveSettingsBtn"><i class="fas fa-save"></i> Einstellungen speichern</button>
-            <span class="save-feedback" id="settingsSaveFeedback" style="display:none;"><i class="fas fa-check-circle"></i> Gespeichert!</span>
+
+        <div class="settings-content">
+            <!-- General Tab -->
+            <div class="tab-panel active" id="general">
+                <div class="settings-card">
+                    <section class="settings-section">
+                        <h2><i class="fas fa-language"></i> Sprache</h2>
+                        <label for="language-select">Sprache wählen:</label>
+                        <select id="language-select">
+                            <option value="de">Deutsch</option>
+                            <option value="en">English</option>
+                        </select>
+                    </section>
+
+                    <section class="settings-section">
+                        <h2><i class="fas fa-volume-up"></i> Sound</h2>
+                        <label class="switch">
+                            <input type="checkbox" id="sound-toggle">
+                            <span class="slider round"></span>
+                        </label>
+                        <span id="sound-status">Sound ist aus</span>
+                    </section>
+
+                    <section class="settings-section">
+                        <h2><i class="fas fa-bell"></i> Benachrichtigungen</h2>
+                        <label class="switch">
+                            <input type="checkbox" id="notifications-toggle">
+                            <span class="slider round"></span>
+                        </label>
+                        <span id="notifications-status">Benachrichtigungen sind aus</span>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Appearance Tab -->
+            <div class="tab-panel" id="appearance">
+                <div class="settings-card">
+                    <section class="settings-section">
+                        <h2><i class="fas fa-palette"></i> Design</h2>
+                        <label for="theme-select">Farbschema:</label>
+                        <select id="theme-select">
+                            <option value="light">Hell</option>
+                            <option value="dark">Dunkel</option>
+                            <option value="auto">Automatisch</option>
+                        </select>
+                    </section>
+
+                    <section class="settings-section">
+                        <h2><i class="fas fa-paint-brush"></i> Akzentfarbe</h2>
+                        <label for="accent-color-picker">Akzentfarbe wählen:</label>
+                        <input type="color" id="accent-color-picker" value="#ed2939">
+                        <div class="color-preview">
+                            <span>Diese Farbe wird für Buttons und Hervorhebungen verwendet.</span>
+                        </div>
+                    </section>
+
+                    <section class="settings-section">
+                        <h2><i class="fas fa-font"></i> Schriftgröße</h2>
+                        <label for="font-size-slider">Schriftgröße: <span id="font-size-value">100%</span></label>
+                        <input type="range" id="font-size-slider" min="80" max="150" step="5" value="100">
+                        <div class="slider-info">
+                            <span>80%</span>
+                            <span>100%</span>
+                            <span>150%</span>
+                        </div>
+                    </section>
+
+                    <section class="settings-section">
+                        <h2><i class="fas fa-magic"></i> Animationen</h2>
+                        <label class="switch">
+                            <input type="checkbox" id="animations-toggle" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        <span id="animations-status">Animationen sind an</span>
+                    </section>
+
+                    <section class="settings-section">
+                        <h2><i class="fas fa-mobile-alt"></i> Bottom Navigation</h2>
+                        <div class="sub-section">
+                            <label class="switch">
+                                <input type="checkbox" id="bottom-nav-enabled-toggle" checked>
+                                <span class="slider round"></span>
+                            </label>
+                            <span id="bottom-nav-enabled-status">Bottom Navigation ist an</span>
+                        </div>
+                        <div id="bottom-nav-elements-container" class="hidden">
+                            <label>Anzuzeigende Elemente:</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="bottom-nav-home-toggle" checked>
+                                    <span class="checkmark"></span>
+                                    Startseite
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="bottom-nav-points-toggle" checked>
+                                    <span class="checkmark"></span>
+                                    Punkte
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="bottom-nav-help-toggle" checked>
+                                    <span class="checkmark"></span>
+                                    Hilfe
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="bottom-nav-faq-toggle">
+                                    <span class="checkmark"></span>
+                                    FAQ
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="bottom-nav-settings-toggle" checked>
+                                    <span class="checkmark"></span>
+                                    Einstellungen
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Game Tab -->
+            <div class="tab-panel" id="game">
+                <div class="settings-card">
+                    <section class="settings-section">
+                        <h2><i class="fas fa-clock"></i> Timer</h2>
+                        <label class="switch">
+                            <input type="checkbox" id="timer-enabled-toggle">
+                            <span class="slider round"></span>
+                        </label>
+                        <span id="timer-enabled-status">Timer ist aus</span>
+                        <div id="timer-duration-container" class="hidden">
+                            <label for="timer-duration-select">Timer-Dauer (Sekunden):</label>
+                            <select id="timer-duration-select">
+                                <option value="15">15</option>
+                                <option value="30" selected>30</option>
+                                <option value="45">45</option>
+                                <option value="60">60</option>
+                            </select>
+                        </div>
+                        <div id="timer-visual-container" class="hidden">
+                            <label class="switch">
+                                <input type="checkbox" id="timer-visual-toggle" checked>
+                                <span class="slider round"></span>
+                            </label>
+                            <span id="timer-visual-status">Visueller Timer ist an</span>
+                        </div>
+                    </section>
+
+                    <section class="settings-section">
+                        <h2><i class="fas fa-map-marker-alt"></i> Hauptstadt-Modus</h2>
+                        <label for="capital-mode-select">Standard-Modus:</label>
+                        <select id="capital-mode-select">
+                            <option value="all">Alle Hauptstädte</option>
+                            <option value="federal">Bundesländer-Hauptstädte</option>
+                            <option value="district">Bezirkshauptstädte</option>
+                        </select>
+                    </section>
+
+                    <section class="settings-section">
+                        <h2><i class="fas fa-coins"></i> Punkte-Anzeige</h2>
+                        <label for="balance-display-select">Anzeige-Modus:</label>
+                        <select id="balance-display-select">
+                            <option value="widget">Widget</option>
+                            <option value="header">Im Header</option>
+                        </select>
+                    </section>
+
+                    <section class="settings-section">
+                        <h2><i class="fas fa-keyboard"></i> Tippfehler-Toleranz</h2>
+                        <label class="switch">
+                            <input type="checkbox" id="typo-tolerance-toggle" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        <span id="typo-tolerance-status">Tippfehler-Toleranz ist an</span>
+                    </section>
+
+                    <section class="settings-section">
+                        <h2><i class="fas fa-money-bill"></i> Kostenpflichtige Tipps</h2>
+                        <label class="switch">
+                            <input type="checkbox" id="paid-hints-toggle">
+                            <span class="slider round"></span>
+                        </label>
+                        <span id="paid-hints-status">Tipps sind kostenlos</span>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Accessibility Tab -->
+            <div class="tab-panel" id="accessibility">
+                <div class="settings-card">
+                    <section class="settings-section">
+                        <h2><i class="fas fa-eye"></i> High Contrast</h2>
+                        <label class="switch">
+                            <input type="checkbox" id="contrast-toggle">
+                            <span class="slider round"></span>
+                        </label>
+                        <span id="contrast-status">High Contrast ist aus</span>
+                    </section>
+
+                    <section class="settings-section">
+                        <h2><i class="fas fa-mouse-pointer"></i> Reduzierte Bewegungen</h2>
+                        <label class="switch">
+                            <input type="checkbox" id="reduced-motion-toggle">
+                            <span class="slider round"></span>
+                        </label>
+                        <span id="reduced-motion-status">Bewegungen sind normal</span>
+                    </section>
+
+                    <section class="settings-section">
+                        <h2><i class="fas fa-volume-off"></i> Screen Reader</h2>
+                        <label class="switch">
+                            <input type="checkbox" id="screen-reader-toggle">
+                            <span class="slider round"></span>
+                        </label>
+                        <span id="screen-reader-status">Screen Reader ist aus</span>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Developer Tab -->
+            <div class="tab-panel" id="developer">
+                <div class="settings-card dev-tools-card">
+                    <section class="settings-section">
+                        <h2><i class="fas fa-tools"></i> Entwickler-Tools</h2>
+
+                        <div class="dev-option">
+                            <label class="switch">
+                                <input type="checkbox" id="footer-settings-toggle">
+                                <span class="slider round"></span>
+                            </label>
+                            <span>Footer-Einstellungen anzeigen</span>
+                        </div>
+
+                        <div class="dev-option">
+                            <label class="switch">
+                                <input type="checkbox" id="resize-button-toggle">
+                                <span class="slider round"></span>
+                            </label>
+                            <span>Resize-Button einblenden</span>
+                        </div>
+
+                        <div class="dev-option">
+                            <label class="switch">
+                                <input type="checkbox" id="hard-reload-button-toggle">
+                                <span class="slider round"></span>
+                            </label>
+                            <span>Hard-Reload-Button anzeigen</span>
+                        </div>
+
+                        <div class="dev-option">
+                            <label class="switch">
+                                <input type="checkbox" id="debug-messages-toggle">
+                                <span class="slider round"></span>
+                            </label>
+                            <span>Debug-Meldungen aktivieren</span>
+                        </div>
+
+                        <div class="dev-actions">
+                            <button id="devHardReloadBtn" class="dev-btn">
+                                <i class="fas fa-broom"></i> Hard Reload & Cache leeren
+                            </button>
+                            <button id="devSaveSettings" class="dev-btn">
+                                <i class="fas fa-save"></i> Einstellungen speichern
+                            </button>
+                        </div>
+
+                        <div id="devSaveFeedback" class="save-feedback hidden">
+                            <i class="fas fa-check"></i> Einstellungen gespeichert!
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Danger Zone Tab -->
+            <div class="tab-panel" id="danger">
+                <div class="settings-card danger-card">
+                    <section class="settings-section">
+                        <h2><i class="fas fa-exclamation-triangle"></i> Gefahrenzone</h2>
+                        <p class="danger-warning">Achtung: Diese Aktionen können nicht rückgängig gemacht werden!</p>
+
+                        <div class="danger-actions">
+                            <button id="resetProgressBtn" class="btn btn-danger">
+                                <i class="fas fa-undo"></i> Fortschritt zurücksetzen
+                            </button>
+                            <button id="resetSettingsBtn" class="btn btn-danger">
+                                <i class="fas fa-cog"></i> Einstellungen zurücksetzen
+                            </button>
+                            <button id="resetAllBtn" class="btn btn-danger-full">
+                                <i class="fas fa-trash"></i> Alle Daten löschen
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </div>
     </main>
-                            <div class="settings-option-info">
-                                <span class="settings-option-label">Größe</span>
-                                <span class="settings-option-desc">Größe der Navigation und Icons</span>
-                            </div>
-                            <select id="bottomNavSizeSelect" class="settings-select">
-                                <option value="small">Klein</option>
-                                <option value="medium">Normal</option>
-                                <option value="large">Groß</option>
-                            </select>
-                        </div>
-                        <div class="settings-option">
-                            <div class="settings-option-info">
-                                <span class="settings-option-label">Angezeigte Schaltflächen</span>
-                                <span class="settings-option-desc">Wähle welche Buttons angezeigt werden</span>
-                            </div>
-                        </div>
-                        <div class="settings-option-checkboxes">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="bottomNavShowHome" checked>
-                                <span><i class="fas fa-home"></i> Spiel</span>
-                            </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="bottomNavShowPoints" checked>
-                                <span><i class="fas fa-coins"></i> Punkte</span>
-                            </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="bottomNavShowHelp" checked>
-                                <span><i class="fas fa-question-circle"></i> Hilfe</span>
-                            </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="bottomNavShowFaq">
-                                <span><i class="fas fa-circle-question"></i> FAQ</span>
-                            </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="bottomNavShowSettings" checked>
-                                <span><i class="fas fa-cog"></i> Einstellungen</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="settings-save-section">
-                        <button class="btn btn-primary" id="saveBottomNavBtn">
-                            <i class="fas fa-save"></i> Bottom Navigation Einstellungen speichern
-                        </button>
-                        <div class="save-feedback" id="bottomNavSaveFeedback" style="display: none;">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Einstellungen erfolgreich gespeichert!</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Accordion Section: Spieloptionen -->
-            <div class="settings-accordion">
-                <button class="accordion-header">
-                    <div class="accordion-title">
-                        <i class="fas fa-gamepad"></i>
-                        <span>Spieloptionen</span>
-                    </div>
-                    <i class="fas fa-chevron-down accordion-icon"></i>
-                </button>
-                <div class="accordion-content">
-                    <div class="settings-card">
-                        <div class="settings-option">
-                            <div class="settings-option-info">
-                                <span class="settings-option-label">Tippfehler akzeptieren</span>
-                                <span class="settings-option-desc">Erlaubt kleine Abweichungen bei Antworten</span>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="typoToleranceCheck">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        <div class="settings-option">
-                            <div class="settings-option-info">
-                                <span class="settings-option-label">Kostenpflichtige Tipps</span>
-                                <span class="settings-option-desc">Tipps kosten gesammelte Punkte</span>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="paidHintsCheck">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        <div class="settings-option">
-                            <div class="settings-option-info">
-                                <span class="settings-option-label">Guthaben-Anzeige</span>
-                                <span class="settings-option-desc">Wo das Guthaben angezeigt wird (wenn kostenpflichtig)</span>
-                            </div>
-                            <select id="balanceDisplaySelect" class="settings-select">
-                                <option value="widget">Floating Widget</option>
-                                <option value="header">Im Header</option>
-                            </select>
-                        </div>
-                        <div class="settings-option">
-                            <div class="settings-option-info">
-                                <span class="settings-option-label">Timer aktivieren</span>
-                                <span class="settings-option-desc">Zeitlimit für jede Frage</span>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="timerEnabledCheck">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        <div class="settings-option" id="timerDurationOption" style="display: none;">
-                            <div class="settings-option-info">
-                                <span class="settings-option-label">Timer-Dauer</span>
-                                <span class="settings-option-desc">Sekunden pro Frage: <strong id="timerDurationValue">30</strong>s</span>
-                            </div>
-                            <div class="range-slider-container">
-                                <input type="range" id="timerDurationSlider" class="range-slider" min="5" max="120" value="30" step="5">
-                                <div class="range-slider-labels">
-                                    <span>5s</span>
-                                    <span>60s</span>
-                                    <span>120s</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="settings-option" id="timerVisualOption" style="display: none;">
-                            <div class="settings-option-info">
-                                <span class="settings-option-label">Visueller Timer</span>
-                                <span class="settings-option-desc">Animierter Kreisfortschritt mit modernen Effekten</span>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="timerVisualCheck" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="settings-save-section">
-                        <button class="btn btn-primary" id="saveSpieloptionenBtn">
-                            <i class="fas fa-save"></i> Spieloptionen speichern
-                        </button>
-                        <div class="save-feedback" id="spieloptionenSaveFeedback" style="display: none;">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Einstellungen erfolgreich gespeichert!</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Accordion Section: Datenspeicherung -->
-            <div class="settings-accordion">
-                <button class="accordion-header">
-                    <div class="accordion-title">
-                        <i class="fas fa-database"></i>
-                        <span>Datenspeicherung</span>
-                    </div>
-                    <i class="fas fa-chevron-down accordion-icon"></i>
-                </button>
-                <div class="accordion-content">
-                    <div class="settings-card">
-                        <div class="settings-option">
-                            <div class="settings-option-info">
-                                <span class="settings-option-label">Historie-Größe</span>
-                                <span class="settings-option-desc">Maximale Anzahl gespeicherter Einträge</span>
-                            </div>
-                            <select id="historyLimitSelect" class="settings-select">
-                                <option value="20">20 Einträge (Minimal)</option>
-                                <option value="50">50 Einträge (Klein)</option>
-                                <option value="100">100 Einträge (Standard)</option>
-                                <option value="200">200 Einträge (Groß)</option>
-                                <option value="500">500 Einträge (Maximal)</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="settings-save-section">
-                        <button class="btn btn-primary" id="saveDatenspeicherungBtn">
-                            <i class="fas fa-save"></i> Datenspeicherung speichern
-                        </button>
-                        <div class="save-feedback" id="datenspeicherungSaveFeedback" style="display: none;">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Einstellungen erfolgreich gespeichert!</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Accordion Section: Wappen-Sammlung -->
-            <div class="settings-accordion">
-                <button class="accordion-header">
-                    <div class="accordion-title">
-                        <i class="fas fa-shield-halved"></i>
-                        <span>Wappen-Sammlung</span>
-                    </div>
-                    <i class="fas fa-chevron-down accordion-icon"></i>
-                </button>
-                <div class="accordion-content">
-                    <div class="settings-card">
-                        <div class="settings-info-box">
-                            <i class="fas fa-shield-alt info-icon"></i>
-                            <div>
-                                <h3>Österreichische Wappen</h3>
-                                <p>Entdecke die vollständige Sammlung aller Bundes- und Stadtwappen Österreichs mit detaillierten Informationen und Suchfunktion.</p>
-                                <a href="wappen.html" class="wappen-link-btn">
-                                    <i class="fas fa-arrow-right"></i> Zur Wappen-Übersicht
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Accordion Section: Entwickler Tools -->
-            <div class="settings-accordion dev-tools-section">
-                <button class="accordion-header">
-                    <div class="accordion-title">
-                        <i class="fas fa-code"></i>
-                        <span>Entwickler Tools</span>
-                    </div>
-                    <i class="fas fa-chevron-down accordion-icon"></i>
-                </button>
-                <div class="accordion-content">
-                    <div class="settings-card dev-tools-card">
-                        <div class="settings-option">
-                            <div class="settings-option-info">
-                                <span class="settings-option-label">Entwickler Tools aktivieren</span>
-                                <span class="settings-option-desc">Zeigt erweiterte Informationen und Debug-Optionen</span>
-                            </div>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="devModeCheck">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
-                    
-                    <div id="devModeOptions" class="dev-mode-options">
-                        <div class="dev-tools-header">
-                            <i class="fas fa-tools" id="easterEggTrigger" title="Tools"></i>
-                            <h3>Debug & Verwaltung</h3>
-                            <p>Erweiterte Tools für Entwickler und fortgeschrittene Benutzer</p>
-                            <!-- Cheat Mode Indicator (hidden until unlocked) -->
-                            <div id="cheatModeIndicator" class="cheat-mode-indicator" style="display: none;">
-                                <i class="fas fa-star"></i>
-                                <span>Cheat Mode</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Cheat Mode Section (hidden until unlocked) -->
-                        <div id="cheatModeSection" class="dev-tools-subsection cheat-mode-section" style="display: none;">
-                            <h4><i class="fas fa-magic"></i> Cheat Mode</h4>
-                            <div class="cheat-mode-content">
-                                <div class="cheat-info">
-                                    <i class="fas fa-trophy"></i>
-                                    <span>Du hast das Easter Egg gefunden!</span>
-                                </div>
-                                <div class="cheat-actions">
-                                    <button class="cheat-btn" id="cheatAddPointsBtn">
-                                        <i class="fas fa-coins"></i>
-                                        <span>+1000 Punkte</span>
-                                    </button>
-                                    <button class="cheat-btn cheat-btn-reset" id="resetEasterEggBtn">
-                                        <i class="fas fa-redo"></i>
-                                        <span>Easter Egg zurücksetzen</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Footer Toggles Section -->
-                        <div class="dev-tools-subsection">
-                            <h4><i class="fas fa-toggle-on"></i> Header & Footer Einstellungen</h4>
-                            <div class="dev-tools-toggles">
-                                <div class="dev-toggle-option">
-                                    <div class="dev-toggle-info">
-                                        <span class="dev-toggle-label">Hard-Reload Button anzeigen</span>
-                                        <span class="dev-toggle-desc">Zeigt den Cache-Leeren Button im Header (nur Dev Mode)</span>
-                                    </div>
-                                    <label class="toggle-switch">
-                                        <input type="checkbox" id="showDevReloadBtn" checked>
-                                        <span class="toggle-slider"></span>
-                                    </label>
-                                </div>
-                                <div class="dev-toggle-option">
-                                    <div class="dev-toggle-info">
-                                        <span class="dev-toggle-label">Zoom-Reset Button anzeigen</span>
-                                        <span class="dev-toggle-desc">Zeigt den "Ansicht zurücksetzen" Button im Footer</span>
-                                    </div>
-                                    <label class="toggle-switch">
-                                        <input type="checkbox" id="showZoomResetBtn" checked>
-                                        <span class="toggle-slider"></span>
-                                    </label>
-                                </div>
-                                <div class="dev-toggle-option">
-                                    <div class="dev-toggle-info">
-                                        <span class="dev-toggle-label">Commit-Info anzeigen</span>
-                                        <span class="dev-toggle-desc">Zeigt die letzte Änderung im Footer</span>
-                                    </div>
-                                    <label class="toggle-switch">
-                                        <input type="checkbox" id="showCommitInfo" checked>
-                                        <span class="toggle-slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Browser Storage Analysis -->
-                        <div class="dev-tools-subsection">
-                            <h4><i class="fas fa-database"></i> Browser-Speicher Analyse</h4>
-                            <div class="dev-storage-info">
-                                <div class="storage-quick-stats">
-                                    <div class="storage-stat-item">
-                                        <i class="fas fa-boxes"></i>
-                                        <div>
-                                            <span class="storage-stat-value" id="storageItemCount">0</span>
-                                            <span class="storage-stat-label">Einträge</span>
-                                        </div>
-                                    </div>
-                                    <div class="storage-stat-item">
-                                        <i class="fas fa-weight-hanging"></i>
-                                        <div>
-                                            <span class="storage-stat-value" id="storageSize">0 KB</span>
-                                            <span class="storage-stat-label">Größe</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button class="dev-tool-btn-secondary" id="showStorageDetailsBtn">
-                                    <i class="fas fa-chart-pie"></i>
-                                    <span>Detaillierte Analyse anzeigen</span>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Tools Grid -->
-                        <div class="dev-tools-subsection">
-                            <h4><i class="fas fa-wrench"></i> Verwaltungstools</h4>
-                            <div class="dev-tools-grid">
-                                <button class="dev-tool-btn dev-tool-info" id="showLocalStorageBtn">
-                                    <div class="dev-tool-icon">
-                                        <i class="fas fa-list"></i>
-                                    </div>
-                                    <div class="dev-tool-content">
-                                        <h4>Storage Liste</h4>
-                                        <p>Alle Daten anzeigen</p>
-                                    </div>
-                                </button>
-                                
-                                <button class="dev-tool-btn dev-tool-success" id="exportDataBtn">
-                                    <div class="dev-tool-icon">
-                                        <i class="fas fa-download"></i>
-                                    </div>
-                                    <div class="dev-tool-content">
-                                        <h4>Export</h4>
-                                        <p>Daten sichern</p>
-                                    </div>
-                                </button>
-                                
-                                <button class="dev-tool-btn dev-tool-warning" id="clearCacheBtn">
-                                    <div class="dev-tool-icon">
-                                        <i class="fas fa-sync-alt"></i>
-                                    </div>
-                                    <div class="dev-tool-content">
-                                        <h4>Cache leeren</h4>
-                                        <p>CSS/JS neu laden</p>
-                                    </div>
-                                </button>
-                                
-                                <button class="dev-tool-btn dev-tool-info" id="toggleFooterInfoBtn">
-                                    <div class="dev-tool-icon">
-                                        <i class="fas fa-info-circle"></i>
-                                    </div>
-                                    <div class="dev-tool-content">
-                                        <h4>Footer</h4>
-                                        <p>Info erweitern</p>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Danger Zone -->
-                        <div class="dev-tools-danger-zone">
-                            <div class="danger-zone-header">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                <h4>Gefahrenbereich</h4>
-                                <p>Vorsicht! Diese Aktionen können nicht rückgängig gemacht werden</p>
-                            </div>
-                            <div class="danger-zone-actions">
-                                <button class="danger-btn" id="resetAllSettingsBtn">
-                                    <i class="fas fa-undo"></i>
-                                    <span>Einstellungen zurücksetzen</span>
-                                </button>
-                                <button class="danger-btn" id="resetPointsBtn">
-                                    <i class="fas fa-eraser"></i>
-                                    <span>Punkte löschen</span>
-                                </button>
-                                <button class="danger-btn" id="clearHistoryBtn">
-                                    <i class="fas fa-trash"></i>
-                                    <span>Historie löschen</span>
-                                </button>
-                                <button class="danger-btn danger-btn-critical" id="clearAllDataBtn">
-                                    <i class="fas fa-bomb"></i>
-                                    <span>Alle Browser-Daten löschen</span>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Easter Egg Hint (sehr versteckt) -->
-                        <div class="easter-egg-hint" id="easterEggHint">
-                            <small>v1.0.0</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-            </div><!-- Ende advanced-settings -->
-
-            <div class="settings-page-actions">
-                <a href="index.html" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i> Zurück
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Easter Egg Surprise Modal -->
-    <div id="easterEggModal" class="easter-egg-modal">
-        <div class="easter-egg-content">
-            <div class="confetti-container" id="confettiContainer"></div>
-            <div class="easter-egg-icon">
-                <i class="fas fa-gift"></i>
-            </div>
-            <h2>🎉 ÜBERRASCHUNG! 🎉</h2>
-            <p class="easter-egg-message">Du hast das geheime Easter Egg gefunden!</p>
-            <div class="easter-egg-reward">
-                <i class="fas fa-coins"></i>
-                <span>+1000 Punkte</span>
-            </div>
-            <p class="easter-egg-submessage">Der <strong>Cheat Mode</strong> wurde freigeschaltet!</p>
-            <button class="easter-egg-close-btn" id="closeEasterEggModal">
-                <i class="fas fa-check"></i> Awesome!
-            </button>
-        </div>
-    </div>
-
-    <!-- Bottom Navigation (Mobile) -->
     <nav class="bottom-nav" id="bottomNav">
         <div class="bottom-nav-content">
             <a href="index.html" class="bottom-nav-item" data-nav="home">
@@ -627,1346 +372,10 @@
         </div>
     </nav>
 
-    <!-- Footer Container -->
     <div id="footer-container"></div>
 
+    <script src="components/common.js"></script>
     <script src="components/footer.js"></script>
-    <script>
-        // Theme laden
-        function loadTheme() {
-            const theme = localStorage.getItem('theme') || 'light';
-            if (theme === 'dark') {
-                document.body.classList.add('dark-mode');
-            }
-        }
-
-        // Settings Mode (simple/advanced) - nur für mobile
-        function initSettingsMode() {
-            const settingsMode = localStorage.getItem('settingsMode') || 'simple';
-            const simpleModeBtn = document.getElementById('simpleModeBtn');
-            const advancedModeBtn = document.getElementById('advancedModeBtn');
-            const quickSettings = document.getElementById('quickSettings');
-            const advancedSettings = document.getElementById('advancedSettings');
-            
-            function setMode(mode) {
-                localStorage.setItem('settingsMode', mode);
-                
-                if (mode === 'simple') {
-                    simpleModeBtn.classList.add('active');
-                    advancedModeBtn.classList.remove('active');
-                    quickSettings.classList.add('active');
-                    advancedSettings.classList.remove('active');
-                } else {
-                    simpleModeBtn.classList.remove('active');
-                    advancedModeBtn.classList.add('active');
-                    quickSettings.classList.remove('active');
-                    advancedSettings.classList.add('active');
-                }
-            }
-            
-            // Initial mode setzen
-            setMode(settingsMode);
-            
-            // Mode Buttons
-            simpleModeBtn.addEventListener('click', () => setMode('simple'));
-            advancedModeBtn.addEventListener('click', () => setMode('advanced'));
-            
-            // Quick Settings synchronisieren
-            syncQuickSettings();
-        }
-        
-        // Quick Settings mit Haupteinstellungen synchronisieren
-        function syncQuickSettings() {
-            const quickDarkMode = document.getElementById('quickDarkModeCheck');
-            const quickTimer = document.getElementById('quickTimerCheck');
-            const quickTypo = document.getElementById('quickTypoCheck');
-            const quickPaidHints = document.getElementById('quickPaidHintsCheck');
-            
-            // Laden
-            quickDarkMode.checked = localStorage.getItem('theme') === 'dark';
-            quickTimer.checked = localStorage.getItem('timerEnabled') === 'true';
-            quickTypo.checked = localStorage.getItem('typoTolerance') !== 'false';
-            quickPaidHints.checked = localStorage.getItem('paidHints') === 'true';
-            
-            // Event Listeners für Quick Settings (Auto-Save)
-            quickDarkMode.addEventListener('change', function() {
-                localStorage.setItem('theme', this.checked ? 'dark' : 'light');
-                document.getElementById('darkModeCheck').checked = this.checked;
-                if (this.checked) {
-                    document.body.classList.add('dark-mode');
-                } else {
-                    document.body.classList.remove('dark-mode');
-                }
-            });
-            
-            quickTimer.addEventListener('change', function() {
-                localStorage.setItem('timerEnabled', this.checked);
-                document.getElementById('timerEnabledCheck').checked = this.checked;
-                toggleTimerDurationOption(this.checked);
-            });
-            
-            quickTypo.addEventListener('change', function() {
-                localStorage.setItem('typoTolerance', this.checked);
-                document.getElementById('typoToleranceCheck').checked = this.checked;
-            });
-            
-            quickPaidHints.addEventListener('change', function() {
-                localStorage.setItem('paidHints', this.checked);
-                document.getElementById('paidHintsCheck').checked = this.checked;
-            });
-        }
-
-        // Einstellungen laden
-        function loadSettings() {
-            const theme = localStorage.getItem('theme') || 'light';
-            const typoTolerance = localStorage.getItem('typoTolerance') !== 'false';
-            const paidHints = localStorage.getItem('paidHints') === 'true';
-            const balanceDisplayMode = localStorage.getItem('balanceDisplayMode') || 'widget';
-            const historyLimit = localStorage.getItem('historyLimit') || '100';
-            const devMode = localStorage.getItem('devMode') === 'true';
-            const timerEnabled = localStorage.getItem('timerEnabled') === 'true';
-            const timerDuration = parseInt(localStorage.getItem('timerDuration') || '30');
-            const timerVisual = localStorage.getItem('timerVisual') !== 'false'; // Standard: aktiviert
-            
-            // Bottom Nav Einstellungen
-            const bottomNavEnabled = localStorage.getItem('bottomNavEnabled') !== 'false';
-            const bottomNavFixed = localStorage.getItem('bottomNavFixed') !== 'false';
-            const bottomNavSize = localStorage.getItem('bottomNavSize') || 'normal';
-            const bottomNavShowHome = localStorage.getItem('bottomNavShowHome') !== 'false';
-            const bottomNavShowPoints = localStorage.getItem('bottomNavShowPoints') !== 'false';
-            const bottomNavShowHelp = localStorage.getItem('bottomNavShowHelp') !== 'false';
-            const bottomNavShowFaq = localStorage.getItem('bottomNavShowFaq') === 'true';
-            const bottomNavShowSettings = localStorage.getItem('bottomNavShowSettings') !== 'false';
-
-            document.getElementById('darkModeCheck').checked = theme === 'dark';
-            document.getElementById('typoToleranceCheck').checked = typoTolerance;
-            document.getElementById('paidHintsCheck').checked = paidHints;
-            document.getElementById('balanceDisplaySelect').value = balanceDisplayMode;
-            document.getElementById('historyLimitSelect').value = historyLimit;
-            document.getElementById('devModeCheck').checked = devMode;
-            document.getElementById('timerEnabledCheck').checked = timerEnabled;
-            document.getElementById('timerDurationSlider').value = timerDuration;
-            document.getElementById('timerDurationValue').textContent = timerDuration;
-            document.getElementById('timerVisualCheck').checked = timerVisual;
-            
-            // Timer Option anzeigen/verstecken
-            toggleTimerDurationOption(timerEnabled);
-            
-            // Dev Mode Options anzeigen/verstecken
-            toggleDevModeOptions(devMode);
-            
-            // Bottom Nav
-            document.getElementById('bottomNavEnabledCheck').checked = bottomNavEnabled;
-            document.getElementById('bottomNavFixedCheck').checked = bottomNavFixed;
-            document.getElementById('bottomNavSizeSelect').value = bottomNavSize;
-            document.getElementById('bottomNavShowHome').checked = bottomNavShowHome;
-            document.getElementById('bottomNavShowPoints').checked = bottomNavShowPoints;
-            document.getElementById('bottomNavShowHelp').checked = bottomNavShowHelp;
-            document.getElementById('bottomNavShowFaq').checked = bottomNavShowFaq;
-            document.getElementById('bottomNavShowSettings').checked = bottomNavShowSettings;
-            
-            // Bottom Nav anwenden
-            applyBottomNavSettings();
-        }
-        
-        // Bottom Nav Einstellungen anwenden
-        function applyBottomNavSettings() {
-            const bottomNav = document.getElementById('bottomNav');
-            if (!bottomNav) return;
-            
-            const enabled = localStorage.getItem('bottomNavEnabled') !== 'false';
-            const fixed = localStorage.getItem('bottomNavFixed') !== 'false';
-            const size = localStorage.getItem('bottomNavSize') || 'normal';
-            const showHome = localStorage.getItem('bottomNavShowHome') !== 'false';
-            const showPoints = localStorage.getItem('bottomNavShowPoints') !== 'false';
-            const showHelp = localStorage.getItem('bottomNavShowHelp') !== 'false';
-            const showFaq = localStorage.getItem('bottomNavShowFaq') === 'true';
-            const showSettings = localStorage.getItem('bottomNavShowSettings') !== 'false';
-            
-            // Enabled/Disabled
-            if (enabled) {
-                bottomNav.style.display = '';
-            } else {
-                bottomNav.style.display = 'none';
-            }
-            
-            // Fixed/Static - wichtig: Klasse entfernen und neu setzen
-            bottomNav.classList.remove('position-static');
-            if (!fixed) {
-                bottomNav.classList.add('position-static');
-            }
-            
-            // Größe
-            bottomNav.classList.remove('size-small', 'size-normal', 'size-large');
-            bottomNav.classList.add('size-' + size);
-            
-            // Items anzeigen/ausblenden
-            const items = bottomNav.querySelectorAll('.bottom-nav-item');
-            items.forEach(item => {
-                const nav = item.getAttribute('data-nav');
-                item.classList.remove('hidden');
-                
-                if (nav === 'home' && !showHome) item.classList.add('hidden');
-                if (nav === 'points' && !showPoints) item.classList.add('hidden');
-                if (nav === 'help' && !showHelp) item.classList.add('hidden');
-                if (nav === 'faq' && !showFaq) item.classList.add('hidden');
-                if (nav === 'settings' && !showSettings) item.classList.add('hidden');
-            });
-        }
-
-        // Punkteanzeige in Bottom Nav aktualisieren
-        function updateBottomNavPoints() {
-            const pointsDisplay = document.getElementById('bottomNavPoints');
-            if (pointsDisplay) {
-                const pointsData = JSON.parse(localStorage.getItem('pointsData') || '{"totalPoints":0}');
-                const totalPoints = pointsData.totalPoints || 0;
-                pointsDisplay.textContent = totalPoints > 999 ? '999+' : totalPoints;
-            }
-        }
-
-        // Accordion Setup
-        function setupAccordion() {
-            const accordionHeaders = document.querySelectorAll('.accordion-header');
-            
-            accordionHeaders.forEach((header) => {
-                // Alle Sektionen standardmäßig eingeklappt
-                
-                header.addEventListener('click', function() {
-                    const content = this.nextElementSibling;
-                    const icon = this.querySelector('.accordion-icon');
-                    
-                    // Toggle active class
-                    this.classList.toggle('active');
-                    
-                    // Toggle content
-                    if (content.style.maxHeight) {
-                        content.style.maxHeight = null;
-                    } else {
-                        content.style.maxHeight = content.scrollHeight + 'px';
-                    }
-                });
-            });
-        }
-
-        // Bottom Nav Einstellungen speichern
-        function saveBottomNavSettings() {
-            // Alle Einstellungen speichern
-            const enabled = document.getElementById('bottomNavEnabledCheck').checked;
-            const fixed = document.getElementById('bottomNavFixedCheck').checked;
-            const size = document.getElementById('bottomNavSizeSelect').value;
-            const showHome = document.getElementById('bottomNavShowHome').checked;
-            const showPoints = document.getElementById('bottomNavShowPoints').checked;
-            const showHelp = document.getElementById('bottomNavShowHelp').checked;
-            const showFaq = document.getElementById('bottomNavShowFaq').checked;
-            const showSettings = document.getElementById('bottomNavShowSettings').checked;
-            
-            localStorage.setItem('bottomNavEnabled', enabled);
-            localStorage.setItem('bottomNavFixed', fixed);
-            localStorage.setItem('bottomNavSize', size);
-            localStorage.setItem('bottomNavShowHome', showHome);
-            localStorage.setItem('bottomNavShowPoints', showPoints);
-            localStorage.setItem('bottomNavShowHelp', showHelp);
-            localStorage.setItem('bottomNavShowFaq', showFaq);
-            localStorage.setItem('bottomNavShowSettings', showSettings);
-            
-            // Einstellungen anwenden
-            applyBottomNavSettings();
-            
-            // Feedback anzeigen
-            const feedback = document.getElementById('bottomNavSaveFeedback');
-            feedback.style.display = 'flex';
-            setTimeout(() => {
-                feedback.style.display = 'none';
-            }, 3000);
-        }
-
-        // Generische Funktion zum Anzeigen von Speicher-Feedback
-        function showSaveFeedback(feedbackId) {
-            const feedback = document.getElementById(feedbackId);
-            if (feedback) {
-                feedback.style.display = 'flex';
-                feedback.classList.add('show');
-                setTimeout(() => {
-                    feedback.classList.remove('show');
-                    setTimeout(() => {
-                        feedback.style.display = 'none';
-                    }, 300);
-                }, 2500);
-            }
-        }
-
-        // Darstellung speichern
-        function saveDarstellungSettings() {
-            const darkMode = document.getElementById('darkModeCheck').checked;
-            localStorage.setItem('theme', darkMode ? 'dark' : 'light');
-            if (darkMode) {
-                document.body.classList.add('dark-mode');
-            } else {
-                document.body.classList.remove('dark-mode');
-            }
-            // Quick Settings synchronisieren
-            document.getElementById('quickDarkModeCheck').checked = darkMode;
-            showSaveFeedback('darstellungSaveFeedback');
-        }
-
-        // Spieloptionen speichern
-        function saveSpieloptionenSettings() {
-            const typoTolerance = document.getElementById('typoToleranceCheck').checked;
-            const paidHints = document.getElementById('paidHintsCheck').checked;
-            const timerEnabled = document.getElementById('timerEnabledCheck').checked;
-            
-            localStorage.setItem('typoTolerance', typoTolerance);
-            localStorage.setItem('paidHints', paidHints);
-            localStorage.setItem('balanceDisplayMode', document.getElementById('balanceDisplaySelect').value);
-            localStorage.setItem('timerEnabled', timerEnabled);
-            localStorage.setItem('timerDuration', document.getElementById('timerDurationSlider').value);
-            localStorage.setItem('timerVisual', document.getElementById('timerVisualCheck').checked);
-            
-            // Quick Settings synchronisieren
-            document.getElementById('quickTypoCheck').checked = typoTolerance;
-            document.getElementById('quickPaidHintsCheck').checked = paidHints;
-            document.getElementById('quickTimerCheck').checked = timerEnabled;
-            
-            showSaveFeedback('spieloptionenSaveFeedback');
-        }
-
-        // Datenspeicherung speichern
-        function saveDatenspeicherungSettings() {
-            localStorage.setItem('historyLimit', document.getElementById('historyLimitSelect').value);
-            showSaveFeedback('datenspeicherungSaveFeedback');
-        }
-
-        // Auto-Save bei Änderungen
-        function setupAutoSave() {
-            // Darstellung Speichern Button
-            document.getElementById('saveDarstellungBtn').addEventListener('click', saveDarstellungSettings);
-
-            // Spieloptionen Speichern Button
-            document.getElementById('saveSpieloptionenBtn').addEventListener('click', saveSpieloptionenSettings);
-
-            // Datenspeicherung Speichern Button
-            document.getElementById('saveDatenspeicherungBtn').addEventListener('click', saveDatenspeicherungSettings);
-
-            // Dark Mode
-            document.getElementById('darkModeCheck').addEventListener('change', (e) => {
-                if (e.target.checked) {
-                    document.body.classList.add('dark-mode');
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    document.body.classList.remove('dark-mode');
-                    localStorage.setItem('theme', 'light');
-                }
-            });
-
-            // Tippfehler-Toleranz
-            document.getElementById('typoToleranceCheck').addEventListener('change', (e) => {
-                localStorage.setItem('typoTolerance', e.target.checked);
-            });
-
-            // Kostenpflichtige Tipps
-            document.getElementById('paidHintsCheck').addEventListener('change', (e) => {
-                localStorage.setItem('paidHints', e.target.checked);
-            });
-
-            // Timer Enabled
-            document.getElementById('timerEnabledCheck').addEventListener('change', (e) => {
-                localStorage.setItem('timerEnabled', e.target.checked);
-                toggleTimerDurationOption(e.target.checked);
-            });
-
-            // Timer Duration
-            document.getElementById('timerDurationSlider').addEventListener('input', (e) => {
-                const value = e.target.value;
-                document.getElementById('timerDurationValue').textContent = value;
-                localStorage.setItem('timerDuration', value);
-            });
-
-            // Timer Visual Mode
-            document.getElementById('timerVisualCheck').addEventListener('change', (e) => {
-                localStorage.setItem('timerVisual', e.target.checked);
-            });
-
-            // Bottom Navigation Speichern Button
-            document.getElementById('saveBottomNavBtn').addEventListener('click', saveBottomNavSettings);
-
-
-            // Balance Display
-            document.getElementById('balanceDisplaySelect').addEventListener('change', (e) => {
-                localStorage.setItem('balanceDisplayMode', e.target.value);
-            });
-
-            // Historie Limit
-            document.getElementById('historyLimitSelect').addEventListener('change', (e) => {
-                localStorage.setItem('historyLimit', e.target.value);
-            });
-            
-            // Entwicklermodus
-            document.getElementById('devModeCheck').addEventListener('change', (e) => {
-                const isEnabled = e.target.checked;
-                localStorage.setItem('devMode', isEnabled);
-                toggleDevModeOptions(isEnabled);
-                // Dev Reload Button im Header aktualisieren
-                if (typeof window.updateDevReloadButton === 'function') {
-                    window.updateDevReloadButton();
-                }
-            });
-            
-            // Bottom Nav Einstellungen
-            document.getElementById('bottomNavEnabledCheck').addEventListener('change', (e) => {
-                localStorage.setItem('bottomNavEnabled', e.target.checked);
-                applyBottomNavSettings();
-            });
-            
-            document.getElementById('bottomNavFixedCheck').addEventListener('change', (e) => {
-                localStorage.setItem('bottomNavFixed', e.target.checked);
-                applyBottomNavSettings();
-            });
-            
-            document.getElementById('bottomNavSizeSelect').addEventListener('change', (e) => {
-                localStorage.setItem('bottomNavSize', e.target.value);
-                applyBottomNavSettings();
-            });
-            
-            document.getElementById('bottomNavShowHome').addEventListener('change', (e) => {
-                localStorage.setItem('bottomNavShowHome', e.target.checked);
-                applyBottomNavSettings();
-            });
-            
-            document.getElementById('bottomNavShowPoints').addEventListener('change', (e) => {
-                localStorage.setItem('bottomNavShowPoints', e.target.checked);
-                applyBottomNavSettings();
-            });
-            
-            document.getElementById('bottomNavShowHelp').addEventListener('change', (e) => {
-                localStorage.setItem('bottomNavShowHelp', e.target.checked);
-                applyBottomNavSettings();
-            });
-            
-            document.getElementById('bottomNavShowSettings').addEventListener('change', (e) => {
-                localStorage.setItem('bottomNavShowSettings', e.target.checked);
-                applyBottomNavSettings();
-            });
-        }
-
-        // Menu Setup
-        function setupMenu() {
-            const menuToggle = document.getElementById('menuToggle');
-            const menuDropdown = document.getElementById('menuDropdown');
-            
-            if (menuToggle && menuDropdown) {
-                menuToggle.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    menuToggle.classList.toggle('active');
-                    menuDropdown.classList.toggle('show');
-                });
-                
-                document.addEventListener('click', (e) => {
-                    if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
-                        menuToggle.classList.remove('active');
-                        menuDropdown.classList.remove('show');
-                    }
-                });
-            }
-        }
-
-        // Entwicklermodus Funktionen
-        function toggleDevModeOptions(show) {
-            const devOptions = document.getElementById('devModeOptions');
-            if (devOptions) {
-                devOptions.style.display = show ? 'block' : 'none';
-            }
-            if (show) {
-                updateStorageStats();
-            }
-        }
-
-        function toggleTimerDurationOption(show) {
-            const timerOption = document.getElementById('timerDurationOption');
-            const timerVisualOption = document.getElementById('timerVisualOption');
-            if (timerOption) {
-                timerOption.style.display = show ? 'flex' : 'none';
-            }
-            if (timerVisualOption) {
-                timerVisualOption.style.display = show ? 'flex' : 'none';
-            }
-        }
-        
-        function updateStorageStats() {
-            // Count items
-            const itemCount = localStorage.length;
-            document.getElementById('storageItemCount').textContent = itemCount;
-            
-            // Calculate size
-            let totalSize = 0;
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                const value = localStorage.getItem(key);
-                totalSize += key.length + (value ? value.length : 0);
-            }
-            const sizeKB = (totalSize / 1024).toFixed(2);
-            document.getElementById('storageSize').textContent = sizeKB + ' KB';
-        }
-        
-        function showModernConfirm(config) {
-            return new Promise((resolve) => {
-                const modal = document.createElement('div');
-                modal.className = 'modern-confirm-modal';
-                
-                const iconClass = config.type === 'danger' ? 'fa-exclamation-triangle' : 
-                                 config.type === 'warning' ? 'fa-exclamation-circle' : 'fa-info-circle';
-                const iconColor = config.type === 'danger' ? '#e74c3c' : 
-                                 config.type === 'warning' ? '#f39c12' : '#3498db';
-                
-                modal.innerHTML = `
-                    <div class="modern-confirm-content">
-                        <div class="modern-confirm-header">
-                            <i class="fas ${iconClass}" style="color: ${iconColor}"></i>
-                        </div>
-                        <h3 class="modern-confirm-title">${config.title}</h3>
-                        <p class="modern-confirm-message">${config.message}</p>
-                        ${config.details ? `<ul class="modern-confirm-details">${config.details.map(d => `<li>${d}</li>`).join('')}</ul>` : ''}
-                        ${config.requireConfirm ? `
-                            <div class="modern-confirm-input">
-                                <label>Gib zur Bestätigung "<strong>${config.confirmText}</strong>" ein:</label>
-                                <input type="text" id="confirmInput" autocomplete="off" placeholder="${config.confirmText}">
-                            </div>
-                        ` : ''}
-                        <div class="modern-confirm-actions">
-                            <button class="modern-btn modern-btn-cancel" id="confirmCancelBtn">
-                                <i class="fas fa-times"></i>
-                                <span>Abbrechen</span>
-                            </button>
-                            <button class="modern-btn modern-btn-confirm ${config.type === 'danger' ? 'modern-btn-danger' : ''}" id="confirmOkBtn" ${config.requireConfirm ? 'disabled' : ''}>
-                                <i class="fas fa-check"></i>
-                                <span>${config.confirmLabel || 'Bestätigen'}</span>
-                            </button>
-                        </div>
-                    </div>
-                `;
-                
-                document.body.appendChild(modal);
-                setTimeout(() => modal.classList.add('show'), 10);
-                
-                const cancelBtn = modal.querySelector('#confirmCancelBtn');
-                const okBtn = modal.querySelector('#confirmOkBtn');
-                const input = modal.querySelector('#confirmInput');
-                
-                if (config.requireConfirm && input) {
-                    input.addEventListener('input', (e) => {
-                        okBtn.disabled = e.target.value !== config.confirmText;
-                    });
-                    input.focus();
-                }
-                
-                const close = (result) => {
-                    modal.classList.remove('show');
-                    setTimeout(() => {
-                        modal.remove();
-                        resolve(result);
-                    }, 300);
-                };
-                
-                cancelBtn.addEventListener('click', () => close(false));
-                okBtn.addEventListener('click', () => close(true));
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) close(false);
-                });
-            });
-        }
-        
-        function showSuccessNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'success-notification';
-            notification.innerHTML = `
-                <i class="fas fa-check-circle"></i>
-                <span>${message}</span>
-            `;
-            document.body.appendChild(notification);
-            setTimeout(() => notification.classList.add('show'), 10);
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-
-        function setupDevTools() {
-            // Header & Footer Toggles
-            const devReloadToggle = document.getElementById('showDevReloadBtn');
-            const zoomResetToggle = document.getElementById('showZoomResetBtn');
-            const commitInfoToggle = document.getElementById('showCommitInfo');
-            
-            // Dev Reload Button Toggle
-            if (devReloadToggle) {
-                devReloadToggle.checked = localStorage.getItem('showDevReloadBtn') !== 'false';
-                devReloadToggle.addEventListener('change', (e) => {
-                    localStorage.setItem('showDevReloadBtn', e.target.checked.toString());
-                    // Button aktualisieren via globale Funktion
-                    if (typeof window.updateDevReloadButton === 'function') {
-                        window.updateDevReloadButton();
-                    }
-                    showSuccessNotification('Einstellung gespeichert!');
-                });
-            }
-            
-            if (zoomResetToggle) {
-                zoomResetToggle.checked = localStorage.getItem('showZoomReset') !== 'false';
-                zoomResetToggle.addEventListener('change', (e) => {
-                    localStorage.setItem('showZoomReset', e.target.checked);
-                    const zoomBtn = document.getElementById('zoomResetBtn');
-                    if (zoomBtn) {
-                        zoomBtn.style.display = e.target.checked ? '' : 'none';
-                    }
-                    showSuccessNotification('Einstellung gespeichert!');
-                });
-            }
-            
-            if (commitInfoToggle) {
-                commitInfoToggle.checked = localStorage.getItem('showCommitInfo') !== 'false';
-                commitInfoToggle.addEventListener('change', (e) => {
-                    localStorage.setItem('showCommitInfo', e.target.checked);
-                    const commitInfo = document.getElementById('commitInfo');
-                    if (commitInfo) {
-                        commitInfo.style.display = e.target.checked ? '' : 'none';
-                    }
-                    showSuccessNotification('Einstellung gespeichert!');
-                });
-            }
-            
-            // Storage Details with Chart
-            document.getElementById('showStorageDetailsBtn')?.addEventListener('click', () => {
-                const data = [];
-                let categoryData = {
-                    points: 0,
-                    settings: 0,
-                    navigation: 0,
-                    history: 0,
-                    other: 0
-                };
-                
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    const value = localStorage.getItem(key);
-                    const size = key.length + (value ? value.length : 0);
-                    data.push({ key, value, size });
-                    
-                    // Categorize
-                    if (key.includes('points') || key.includes('Points')) categoryData.points += size;
-                    else if (key.includes('Nav') || key.includes('theme') || key.includes('Mode')) categoryData.settings += size;
-                    else if (key.includes('bottom')) categoryData.navigation += size;
-                    else if (key.includes('history') || key.includes('History')) categoryData.history += size;
-                    else categoryData.other += size;
-                }
-                
-                // Sort by size
-                data.sort((a, b) => b.size - a.size);
-                
-                const totalSize = data.reduce((sum, item) => sum + item.size, 0);
-                
-                const modal = document.createElement('div');
-                modal.className = 'storage-detail-modal';
-                modal.innerHTML = `
-                    <div class="storage-detail-content">
-                        <div class="storage-detail-header">
-                            <h3><i class="fas fa-database"></i> Browser-Speicher Analyse</h3>
-                            <button class="modal-close-btn" onclick="this.closest('.storage-detail-modal').remove()">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                        <div class="storage-detail-body">
-                            <!-- Stats Overview -->
-                            <div class="storage-overview">
-                                <div class="storage-overview-item">
-                                    <i class="fas fa-boxes"></i>
-                                    <div>
-                                        <strong>${localStorage.length}</strong>
-                                        <span>Gespeicherte Einträge</span>
-                                    </div>
-                                </div>
-                                <div class="storage-overview-item">
-                                    <i class="fas fa-weight-hanging"></i>
-                                    <div>
-                                        <strong>${(totalSize / 1024).toFixed(2)} KB</strong>
-                                        <span>Gesamtgröße</span>
-                                    </div>
-                                </div>
-                                <div class="storage-overview-item">
-                                    <i class="fas fa-chart-pie"></i>
-                                    <div>
-                                        <strong>${((totalSize / (5 * 1024 * 1024)) * 100).toFixed(2)}%</strong>
-                                        <span>von ~5MB Limit</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Chart -->
-                            <div class="storage-chart-section">
-                                <h4><i class="fas fa-chart-bar"></i> Speicherverteilung nach Kategorie</h4>
-                                <div class="storage-chart">
-                                    ${Object.entries(categoryData).map(([cat, size]) => {
-                                        const percentage = (size / totalSize * 100).toFixed(1);
-                                        const colors = {
-                                            points: '#f39c12',
-                                            settings: '#3498db',
-                                            navigation: '#9b59b6',
-                                            history: '#e74c3c',
-                                            other: '#95a5a6'
-                                        };
-                                        const labels = {
-                                            points: 'Punkte & Stats',
-                                            settings: 'Einstellungen',
-                                            navigation: 'Navigation',
-                                            history: 'Verlauf',
-                                            other: 'Sonstiges'
-                                        };
-                                        return `
-                                            <div class="chart-bar-row">
-                                                <span class="chart-label">${labels[cat]}</span>
-                                                <div class="chart-bar-container">
-                                                    <div class="chart-bar" style="width: ${percentage}%; background: ${colors[cat]}"></div>
-                                                </div>
-                                                <span class="chart-value">${percentage}%</span>
-                                            </div>
-                                        `;
-                                    }).join('')}
-                                </div>
-                                <div class="storage-legend">
-                                    ${Object.entries(categoryData).map(([cat, size]) => {
-                                        const colors = {
-                                            points: '#f39c12',
-                                            settings: '#3498db',
-                                            navigation: '#9b59b6',
-                                            history: '#e74c3c',
-                                            other: '#95a5a6'
-                                        };
-                                        const labels = {
-                                            points: 'Punkte & Stats',
-                                            settings: 'Einstellungen',
-                                            navigation: 'Navigation',
-                                            history: 'Verlauf',
-                                            other: 'Sonstiges'
-                                        };
-                                        return `
-                                            <div class="legend-item">
-                                                <span class="legend-color" style="background: ${colors[cat]}"></span>
-                                                <span>${labels[cat]}: ${(size / 1024).toFixed(2)} KB</span>
-                                            </div>
-                                        `;
-                                    }).join('')}
-                                </div>
-                            </div>
-                            
-                            <!-- Data List -->
-                            <div class="storage-list-section">
-                                <h4><i class="fas fa-list"></i> Alle Einträge (${data.length})</h4>
-                                <div class="storage-data-list">
-                                    ${data.map(item => `
-                                        <div class="storage-item">
-                                            <div class="storage-item-header">
-                                                <strong>${item.key}</strong>
-                                                <span class="storage-item-size">${(item.size / 1024).toFixed(3)} KB</span>
-                                            </div>
-                                            <div class="storage-item-value">${item.value.length > 100 ? item.value.substring(0, 100) + '...' : item.value}</div>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                document.body.appendChild(modal);
-                setTimeout(() => modal.classList.add('show'), 10);
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        modal.classList.remove('show');
-                        setTimeout(() => modal.remove(), 300);
-                    }
-                });
-            });
-            
-            // LocalStorage Liste anzeigen (Simple)
-            document.getElementById('showLocalStorageBtn')?.addEventListener('click', () => {
-                const data = [];
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    const value = localStorage.getItem(key);
-                    data.push({ key, value });
-                }
-                
-                let message = '📦 LocalStorage Inhalt:\n\n';
-                data.forEach(item => {
-                    message += `${item.key}: ${item.value}\n`;
-                });
-                
-                alert(message);
-            });
-
-            // Alle Einstellungen zurücksetzen
-            document.getElementById('resetAllSettingsBtn')?.addEventListener('click', async () => {
-                const confirmed = await showModernConfirm({
-                    type: 'warning',
-                    title: 'Einstellungen zurücksetzen?',
-                    message: 'Möchtest du wirklich alle Einstellungen zurücksetzen?',
-                    details: [
-                        'Theme-Einstellungen',
-                        'Spieloptionen',
-                        'Bottom Navigation',
-                        'Historie-Größe',
-                        'Entwicklermodus'
-                    ],
-                    confirmLabel: 'Zurücksetzen'
-                });
-                
-                if (confirmed) {
-                    const pointsData = localStorage.getItem('pointsData');
-                    localStorage.clear();
-                    if (pointsData) localStorage.setItem('pointsData', pointsData);
-                    
-                    showSuccessNotification('Einstellungen zurückgesetzt!');
-                    setTimeout(() => window.location.reload(), 1500);
-                }
-            });
-
-            // Punkte zurücksetzen
-            document.getElementById('resetPointsBtn')?.addEventListener('click', async () => {
-                const confirmed = await showModernConfirm({
-                    type: 'danger',
-                    title: 'Punkte löschen?',
-                    message: 'Diese Aktion löscht alle deine Punkte und Statistiken unwiderruflich!',
-                    details: [
-                        'Gesamtpunkte',
-                        'Spielstatistiken',
-                        'Erfolge',
-                        'Bestenliste'
-                    ],
-                    confirmLabel: 'Löschen',
-                    requireConfirm: true,
-                    confirmText: 'LÖSCHEN'
-                });
-                
-                if (confirmed) {
-                    localStorage.removeItem('pointsData');
-                    localStorage.removeItem('globalPoints');
-                    showSuccessNotification('Punkte wurden gelöscht!');
-                    updateStorageStats();
-                }
-            });
-
-            // Daten exportieren
-            document.getElementById('exportDataBtn')?.addEventListener('click', () => {
-                const data = {};
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    data[key] = localStorage.getItem(key);
-                }
-                
-                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `spielesammlung_backup_${new Date().toISOString().split('T')[0]}.json`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-                
-                showSuccessNotification('Backup heruntergeladen!');
-            });
-
-            // Cache leeren und CSS/JS neu laden
-            document.getElementById('clearCacheBtn')?.addEventListener('click', async () => {
-                const btn = document.getElementById('clearCacheBtn');
-                const icon = btn.querySelector('.dev-tool-icon i');
-                
-                // Animation starten
-                icon.classList.add('fa-spin');
-                btn.disabled = true;
-                
-                try {
-                    // Service Worker Cache löschen (falls vorhanden)
-                    if ('caches' in window) {
-                        const cacheNames = await caches.keys();
-                        await Promise.all(cacheNames.map(name => caches.delete(name)));
-                    }
-                    
-                    // Cache-Bust Timestamp erstellen
-                    const cacheBust = Date.now();
-                    
-                    // Alle CSS-Links mit Cache-Bust neu laden
-                    const cssLinks = document.querySelectorAll('link[rel="stylesheet"]');
-                    cssLinks.forEach(link => {
-                        const href = link.href.split('?')[0];
-                        link.href = href + '?v=' + cacheBust;
-                    });
-                    
-                    // Cache-Bust in localStorage speichern für andere Seiten
-                    localStorage.setItem('cacheBust', cacheBust.toString());
-                    
-                    // Kurz warten für visuelles Feedback
-                    await new Promise(resolve => setTimeout(resolve, 500));
-                    
-                    showSuccessNotification('Cache geleert! Seite wird neu geladen...');
-                    
-                    // Seite mit Cache-Bust neu laden
-                    setTimeout(() => {
-                        window.location.reload(true);
-                    }, 1000);
-                    
-                } catch (error) {
-                    console.error('Cache-Fehler:', error);
-                    showSuccessNotification('Fehler beim Cache leeren');
-                    icon.classList.remove('fa-spin');
-                    btn.disabled = false;
-                }
-            });
-
-            // Historie löschen
-            document.getElementById('clearHistoryBtn')?.addEventListener('click', async () => {
-                const confirmed = await showModernConfirm({
-                    type: 'warning',
-                    title: 'Historie löschen?',
-                    message: 'Möchtest du die komplette Spiel-Historie löschen?',
-                    details: [
-                        'Punkte-Historie',
-                        'Aktivitätsverlauf',
-                        'Spielmodus-Historie'
-                    ],
-                    confirmLabel: 'Löschen'
-                });
-                
-                if (confirmed) {
-                    const pointsData = JSON.parse(localStorage.getItem('pointsData') || '{}');
-                    if (pointsData.history) {
-                        pointsData.history = [];
-                        localStorage.setItem('pointsData', JSON.stringify(pointsData));
-                    }
-                    showSuccessNotification('Historie gelöscht!');
-                    updateStorageStats();
-                }
-            });
-            
-            // Alle Browser-Daten löschen
-            document.getElementById('clearAllDataBtn')?.addEventListener('click', async () => {
-                const confirmed = await showModernConfirm({
-                    type: 'danger',
-                    title: '⚠️ ALLE DATEN LÖSCHEN?',
-                    message: 'Diese Aktion löscht ALLE gespeicherten Daten unwiderruflich!',
-                    details: [
-                        '🎮 Alle Punkte und Statistiken',
-                        '⚙️ Alle Einstellungen',
-                        '📊 Komplette Historie',
-                        '🎨 Theme-Einstellungen',
-                        '📱 Navigation-Einstellungen'
-                    ],
-                    confirmLabel: 'ALLES LÖSCHEN',
-                    requireConfirm: true,
-                    confirmText: 'ALLES LÖSCHEN'
-                });
-                
-                if (confirmed) {
-                    localStorage.clear();
-                    showSuccessNotification('Alle Daten gelöscht! Seite wird neu geladen...');
-                    setTimeout(() => window.location.reload(), 1500);
-                }
-            });
-
-            // Footer-Info erweitern
-            document.getElementById('toggleFooterInfoBtn')?.addEventListener('click', () => {
-                const footer = document.getElementById('commitInfo');
-                if (!footer) return;
-                
-                if (footer.dataset.expanded === 'true') {
-                    loadCommitTime();
-                    footer.dataset.expanded = 'false';
-                } else {
-                    const pointsData = JSON.parse(localStorage.getItem('pointsData') || '{}');
-                    const allData = [];
-                    allData.push(`🎮 Punkte: ${pointsData.totalPoints || 0}`);
-                    allData.push(`📊 Spiele: ${pointsData.gamesPlayed || 0}`);
-                    allData.push(`✅ Richtig: ${pointsData.correctAnswers || 0}`);
-                    allData.push(`💾 Größe: ${(new Blob(Object.values(localStorage)).size / 1024).toFixed(2)} KB`);
-                    allData.push(`🔧 Dev: ${localStorage.getItem('devMode') === 'true' ? 'An' : 'Aus'}`);
-                    
-                    footer.innerHTML = allData.join(' <span class="footer-separator">|</span> ');
-                    footer.dataset.expanded = 'true';
-                }
-            });
-        }
-
-        // ============================================
-        // EASTER EGG SYSTEM - 3 Easter Eggs
-        // ============================================
-        
-        const EASTER_EGGS = {
-            cheatMode: {
-                id: 'cheatMode',
-                name: 'Cheat Mode',
-                icon: 'fas fa-magic',
-                reward: 1000,
-                description: '7x auf das Tools-Icon klicken'
-            },
-            konamiCode: {
-                id: 'konamiCode',
-                name: 'Geheimer Klick',
-                icon: 'fas fa-hand-pointer',
-                reward: 500,
-                description: '5x schnell auf den Fortschrittsbalken tippen'
-            },
-            secretWord: {
-                id: 'secretWord',
-                name: 'Geheimwort',
-                icon: 'fas fa-keyboard',
-                reward: 250,
-                description: '"austria" tippen oder 7x auf das 🥚 Icon tippen'
-            },
-            logoTap: {
-                id: 'logoTap',
-                name: 'Logo Fan',
-                icon: 'fas fa-map-location-dot',
-                reward: 300,
-                description: '10x auf das AUT Quiz Logo tippen'
-            },
-            footerSecret: {
-                id: 'footerSecret',
-                name: 'Footer Finder',
-                icon: 'fas fa-shoe-prints',
-                reward: 200,
-                description: '5x auf das Copyright im Footer tippen'
-            },
-            pointsJackpot: {
-                id: 'pointsJackpot',
-                name: 'Jackpot!',
-                icon: 'fas fa-trophy',
-                reward: 777,
-                description: '7x auf das Münzen-Icon auf der Punkte-Seite tippen'
-            }
-        };
-        
-        let easterEggClicks = 0;
-        let easterEggTimer = null;
-        const EASTER_EGG_CLICKS_REQUIRED = 7;
-        const EASTER_EGG_TIMEOUT = 3000;
-        
-        // Secret Word Tracker
-        let secretWordBuffer = '';
-        const secretWord = 'austria';
-        
-        function getFoundEasterEggs() {
-            return JSON.parse(localStorage.getItem('foundEasterEggs') || '[]');
-        }
-        
-        function setFoundEasterEgg(eggId) {
-            const found = getFoundEasterEggs();
-            if (!found.includes(eggId)) {
-                found.push(eggId);
-                localStorage.setItem('foundEasterEggs', JSON.stringify(found));
-            }
-        }
-        
-        function isEasterEggFound(eggId) {
-            return getFoundEasterEggs().includes(eggId);
-        }
-        
-        function updateEasterEggsCounter() {
-            const found = getFoundEasterEggs();
-            const total = Object.keys(EASTER_EGGS).length;
-            
-            // Update counter
-            document.getElementById('foundEasterEggsCount').textContent = found.length;
-            document.getElementById('totalEasterEggsCount').textContent = total;
-            
-            // Update progress bar
-            const percentage = (found.length / total) * 100;
-            document.getElementById('easterEggsProgressBar').style.width = `${percentage}%`;
-            
-            // Update individual egg items
-            Object.values(EASTER_EGGS).forEach((egg, index) => {
-                const item = document.getElementById(`eggItem${index + 1}`);
-                if (item) {
-                    if (found.includes(egg.id)) {
-                        item.classList.add('found');
-                        item.querySelector('.egg-icon').className = `${egg.icon} egg-icon`;
-                        item.querySelector('.egg-name').textContent = egg.name;
-                    }
-                }
-            });
-            
-            // Cheat Mode anzeigen wenn gefunden
-            if (found.includes('cheatMode')) {
-                showCheatMode();
-            }
-        }
-        
-        function initEasterEgg() {
-            // Update counter on load
-            updateEasterEggsCounter();
-            
-            // Easter Egg 1: Cheat Mode (7x auf Tools-Icon klicken)
-            initCheatModeEasterEgg();
-            
-            // Easter Egg 2: Konami Code
-            initKonamiCodeEasterEgg();
-            
-            // Easter Egg 3: Secret Word
-            initSecretWordEasterEgg();
-            
-            // Modal schließen
-            document.getElementById('closeEasterEggModal')?.addEventListener('click', () => {
-                document.getElementById('easterEggModal').classList.remove('show');
-            });
-            
-            // Cheat Mode Buttons
-            document.getElementById('cheatAddPointsBtn')?.addEventListener('click', () => {
-                addEasterEggPoints(1000, 'Cheat Mode Bonus');
-            });
-            
-            document.getElementById('resetEasterEggBtn')?.addEventListener('click', async () => {
-                const confirmed = await showModernConfirm({
-                    type: 'warning',
-                    title: 'Alle Easter Eggs zurücksetzen?',
-                    message: 'Möchtest du alle Easter Eggs zurücksetzen? Du kannst sie dann erneut finden!',
-                    details: ['Alle 3 Easter Eggs werden zurückgesetzt', 'Cheat Mode wird deaktiviert'],
-                    confirmLabel: 'Zurücksetzen'
-                });
-                
-                if (confirmed) {
-                    localStorage.removeItem('foundEasterEggs');
-                    localStorage.removeItem('cheatModeUnlocked');
-                    hideCheatMode();
-                    updateEasterEggsCounter();
-                    showSuccessNotification('Alle Easter Eggs zurückgesetzt!');
-                }
-            });
-        }
-        
-        // Easter Egg 1: Cheat Mode
-        function initCheatModeEasterEgg() {
-            const trigger = document.getElementById('easterEggTrigger');
-            
-            if (trigger) {
-                trigger.style.cursor = 'default';
-                trigger.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    
-                    if (isEasterEggFound('cheatMode')) return;
-                    
-                    easterEggClicks++;
-                    
-                    // Visual feedback
-                    trigger.style.transform = `scale(${1 + easterEggClicks * 0.05})`;
-                    trigger.style.color = `hsl(${easterEggClicks * 30}, 70%, 50%)`;
-                    
-                    clearTimeout(easterEggTimer);
-                    easterEggTimer = setTimeout(() => {
-                        easterEggClicks = 0;
-                        trigger.style.transform = '';
-                        trigger.style.color = '';
-                    }, EASTER_EGG_TIMEOUT);
-                    
-                    if (easterEggClicks >= EASTER_EGG_CLICKS_REQUIRED) {
-                        triggerEasterEgg('cheatMode');
-                        trigger.style.transform = '';
-                        trigger.style.color = '';
-                    }
-                });
-            }
-        }
-        
-        // Easter Egg 2: Schnelles Tippen auf Fortschrittsbalken (5x in 2 Sekunden)
-        let progressBarTaps = 0;
-        let progressBarTimer = null;
-        
-        function initKonamiCodeEasterEgg() {
-            const progressBar = document.querySelector('.easter-eggs-progress');
-            if (progressBar) {
-                progressBar.style.cursor = 'pointer';
-                progressBar.addEventListener('click', () => {
-                    if (isEasterEggFound('konamiCode')) return;
-                    
-                    progressBarTaps++;
-                    
-                    // Visual feedback
-                    progressBar.style.transform = `scale(${1 + progressBarTaps * 0.02})`;
-                    
-                    clearTimeout(progressBarTimer);
-                    progressBarTimer = setTimeout(() => {
-                        progressBarTaps = 0;
-                        progressBar.style.transform = '';
-                    }, 2000);
-                    
-                    // Bei 5 Taps triggern
-                    if (progressBarTaps >= 5) {
-                        triggerEasterEgg('konamiCode');
-                        progressBarTaps = 0;
-                        progressBar.style.transform = '';
-                    }
-                });
-            }
-        }
-        
-        // Easter Egg 3: Secret Word (Keyboard + Mobile Tap)
-        let secretTapCount = 0;
-        let secretTapTimer = null;
-        
-        function initSecretWordEasterEgg() {
-            // Keyboard für Desktop
-            document.addEventListener('keypress', (e) => {
-                if (isEasterEggFound('secretWord')) return;
-                
-                // Ignoriere wenn in Eingabefeld
-                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-                
-                secretWordBuffer += e.key.toLowerCase();
-                
-                // Buffer auf max. Länge beschränken
-                if (secretWordBuffer.length > secretWord.length) {
-                    secretWordBuffer = secretWordBuffer.slice(-secretWord.length);
-                }
-                
-                if (secretWordBuffer === secretWord) {
-                    triggerEasterEgg('secretWord');
-                    secretWordBuffer = '';
-                }
-            });
-            
-            // Mobile: 7x auf das Easter Eggs Icon tippen
-            const eggIconWrap = document.querySelector('.easter-eggs-icon-wrap');
-            if (eggIconWrap) {
-                eggIconWrap.addEventListener('click', () => {
-                    if (isEasterEggFound('secretWord')) return;
-                    
-                    secretTapCount++;
-                    
-                    // Visual feedback
-                    eggIconWrap.style.transform = `scale(${1 + secretTapCount * 0.05}) rotate(${secretTapCount * 10}deg)`;
-                    
-                    clearTimeout(secretTapTimer);
-                    secretTapTimer = setTimeout(() => {
-                        secretTapCount = 0;
-                        eggIconWrap.style.transform = '';
-                    }, 2000);
-                    
-                    // Bei 7 Taps triggern
-                    if (secretTapCount >= 7) {
-                        triggerEasterEgg('secretWord');
-                        secretTapCount = 0;
-                        eggIconWrap.style.transform = '';
-                    }
-                });
-            }
-        }
-        
-        function triggerEasterEgg(eggId) {
-            const egg = EASTER_EGGS[eggId];
-            if (!egg || isEasterEggFound(eggId)) return;
-            
-            // Als gefunden markieren
-            setFoundEasterEgg(eggId);
-            
-            // Für Cheat Mode auch alten Key setzen (Kompatibilität)
-            if (eggId === 'cheatMode') {
-                localStorage.setItem('cheatModeUnlocked', 'true');
-            }
-            
-            // Punkte hinzufügen
-            addEasterEggPoints(egg.reward, egg.name);
-            
-            // Modal anzeigen
-            showEasterEggModal(egg);
-            
-            // Counter updaten
-            updateEasterEggsCounter();
-        }
-        
-        function showEasterEggModal(egg) {
-            const modal = document.getElementById('easterEggModal');
-            const icon = modal.querySelector('.easter-egg-icon i');
-            const reward = modal.querySelector('.easter-egg-reward span');
-            const message = modal.querySelector('.easter-egg-message');
-            const submessage = modal.querySelector('.easter-egg-submessage');
-            
-            // Modal anpassen
-            if (icon) icon.className = egg.icon;
-            if (reward) reward.textContent = `+${egg.reward} Punkte`;
-            if (message) message.textContent = `Du hast "${egg.name}" gefunden!`;
-            
-            const found = getFoundEasterEggs();
-            const total = Object.keys(EASTER_EGGS).length;
-            if (submessage) {
-                if (found.length === total) {
-                    submessage.innerHTML = '🏆 <strong>Alle Easter Eggs gefunden!</strong> Du bist ein wahrer Entdecker!';
-                } else {
-                    submessage.innerHTML = `Easter Egg <strong>${found.length}/${total}</strong> gefunden. Weiter suchen!`;
-                }
-            }
-            
-            modal.classList.add('show');
-            createConfetti();
-        }
-        
-        function createConfetti() {
-            const container = document.getElementById('confettiContainer');
-            container.innerHTML = '';
-            
-            const colors = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#9b59b6', '#e74c3c', '#f39c12'];
-            
-            for (let i = 0; i < 100; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti-piece';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.animationDelay = Math.random() * 2 + 's';
-                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                container.appendChild(confetti);
-            }
-        }
-        
-        function showCheatMode() {
-            const indicator = document.getElementById('cheatModeIndicator');
-            const section = document.getElementById('cheatModeSection');
-            
-            if (indicator) indicator.style.display = 'flex';
-            if (section) section.style.display = 'block';
-        }
-        
-        function hideCheatMode() {
-            const indicator = document.getElementById('cheatModeIndicator');
-            const section = document.getElementById('cheatModeSection');
-            
-            if (indicator) indicator.style.display = 'none';
-            if (section) section.style.display = 'none';
-        }
-        
-        function addEasterEggPoints(amount, source) {
-            let pointsData = JSON.parse(localStorage.getItem('pointsData') || '{}');
-            pointsData.totalPoints = (pointsData.totalPoints || 0) + amount;
-            
-            // Zum Verlauf hinzufügen
-            if (!pointsData.history) pointsData.history = [];
-            pointsData.history.unshift({
-                type: '🎁 Easter Egg',
-                points: amount,
-                timestamp: new Date().toISOString(),
-                details: source
-            });
-            
-            localStorage.setItem('pointsData', JSON.stringify(pointsData));
-            showSuccessNotification(`+${amount} Punkte!`);
-            updateBottomNavPoints();
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            loadTheme();
-            loadSettings();
-            setupAutoSave();
-            setupMenu();
-            setupDevTools();
-            setupAccordion();
-            initEasterEgg();
-            initSettingsMode();
-            updateBottomNavPoints();
-        });
-    </script>
+    <script src="components/settings.js"></script>
 </body>
 </html>

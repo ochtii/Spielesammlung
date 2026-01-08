@@ -4,15 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entwickler-Informationen - AUT Quiz</title>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Modular Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?v=20260109">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <nav class="navbar">
@@ -37,7 +31,7 @@
                     <a href="faq.html" class="menu-item">
                         <i class="fas fa-circle-question"></i> FAQ
                     </a>
-                    <a href="settings_new.html" class="menu-item">
+                    <a href="settings.html" class="menu-item">
                         <i class="fas fa-cog"></i> Einstellungen
                     </a>
                 </div>
@@ -45,208 +39,75 @@
         </div>
     </nav>
 
-    <div class="container">
-        <!-- Hero Section -->
-        <div class="dev-info-hero">
-            <div class="dev-info-icon">
-                <i class="fas fa-laptop-code"></i>
-            </div>
-            <h1>Entwickler-Informationen</h1>
+    <main class="container">
+        <div class="page-header">
+            <h1><i class="fas fa-laptop-code"></i> Entwickler-Informationen</h1>
             <p>Technische Details und verwendete Technologien</p>
         </div>
 
-        <!-- Projekt Info -->
-        <div class="info-section">
+        <div class="content-card">
             <h2><i class="fas fa-info-circle"></i> Über das Projekt</h2>
-            <div class="info-card">
-                <div class="info-grid">
-                    <div class="info-item">
-                        <strong>Projektname:</strong>
-                        <span>Österreich Spielesammlung</span>
-                    </div>
-                    <div class="info-item">
-                        <strong>Version:</strong>
-                        <span id="versionInfo">Wird geladen...</span>
-                    </div>
-                    <div class="info-item">
-                        <strong>Letztes Update:</strong>
-                        <span id="lastUpdate">Wird geladen...</span>
-                    </div>
-                    <div class="info-item">
-                        <strong>Repository:</strong>
-                        <a href="https://github.com/ochtii/Spielesammlung" target="_blank" rel="noopener">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                    </div>
-                </div>
-                <p class="info-description">
-                    Eine interaktive Web-Anwendung zum Lernen österreichischer Geographie, Hauptstädte, 
-                    Kennzeichen und mehr. Entwickelt mit modernen Web-Technologien.
-                </p>
-            </div>
+            <p><strong>Projektname:</strong> Österreich Spielesammlung</p>
+            <p><strong>Version:</strong> <span id="versionInfo">Wird geladen...</span></p>
+            <p><strong>Letztes Update:</strong> <span id="lastUpdate">Wird geladen...</span></p>
+            <p><strong>Repository:</strong> <a href="https://github.com/ochtii/Spielesammlung" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a></p>
+            <p>Eine interaktive Web-Anwendung zum Lernen österreichischer Geographie, Hauptstädte, Kennzeichen und mehr.</p>
         </div>
 
-        <!-- Technologien -->
-        <div class="info-section">
+        <div class="content-card">
             <h2><i class="fas fa-layer-group"></i> Verwendete Technologien</h2>
-            <div class="tech-grid">
-                <div class="tech-card">
-                    <div class="tech-icon html">
-                        <i class="fab fa-html5"></i>
-                    </div>
-                    <h3>HTML5</h3>
-                    <p>Semantisches Markup für moderne Webanwendungen</p>
-                </div>
-                <div class="tech-card">
-                    <div class="tech-icon css">
-                        <i class="fab fa-css3-alt"></i>
-                    </div>
-                    <h3>CSS3</h3>
-                    <p>Modernes Design mit CSS-Variablen, Grid und Flexbox</p>
-                </div>
-                <div class="tech-card">
-                    <div class="tech-icon js">
-                        <i class="fab fa-js"></i>
-                    </div>
-                    <h3>JavaScript ES6+</h3>
-                    <p>Vanilla JavaScript mit modernen Features</p>
-                </div>
-                <div class="tech-card">
-                    <div class="tech-icon api">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>LocalStorage API</h3>
-                    <p>Persistente Datenspeicherung im Browser</p>
-                </div>
-                <div class="tech-card">
-                    <div class="tech-icon fontawesome">
-                        <i class="fas fa-icons"></i>
-                    </div>
-                    <h3>Font Awesome</h3>
-                    <p>Icon-Bibliothek für moderne UI-Elemente</p>
-                </div>
-                <div class="tech-card">
-                    <div class="tech-icon wikimedia">
-                        <i class="fas fa-image"></i>
-                    </div>
-                    <h3>Wikimedia Commons</h3>
-                    <p>Wappen-Bilder aus freier Bildquelle</p>
-                </div>
+            <div class="tech-stack">
+                <span class="tech-badge"><i class="fab fa-html5"></i> HTML5</span>
+                <span class="tech-badge"><i class="fab fa-css3-alt"></i> CSS3</span>
+                <span class="tech-badge"><i class="fab fa-js"></i> JavaScript ES6+</span>
+                <span class="tech-badge"><i class="fas fa-database"></i> LocalStorage API</span>
+                <span class="tech-badge"><i class="fas fa-icons"></i> Font Awesome</span>
+                <span class="tech-badge"><i class="fas fa-image"></i> Wikimedia Commons</span>
             </div>
         </div>
 
-        <!-- Features -->
-        <div class="info-section">
+        <div class="content-card">
             <h2><i class="fas fa-star"></i> Hauptfunktionen</h2>
-            <div class="features-grid">
-                <div class="feature-item">
-                    <i class="fas fa-gamepad"></i>
-                    <h4>5 Spielmodi</h4>
-                    <p>Hauptstädte, Kennzeichen, Einwohner-Vergleich, Wappen und Welthaupt­städte</p>
-                </div>
-                <div class="feature-item">
-                    <i class="fas fa-chart-line"></i>
-                    <h4>Punktesystem</h4>
-                    <p>Detaillierte Statistiken mit Rang-System und Erfolgen</p>
-                </div>
-                <div class="feature-item">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h4>Responsive Design</h4>
-                    <p>Optimiert für Desktop, Tablet und Mobile</p>
-                </div>
-                <div class="feature-item">
-                    <i class="fas fa-palette"></i>
-                    <h4>Dark Mode</h4>
-                    <p>Automatische Anpassung an System-Einstellungen</p>
-                </div>
-                <div class="feature-item">
-                    <i class="fas fa-cog"></i>
-                    <h4>Anpassbar</h4>
-                    <p>Umfangreiche Einstellungsmöglichkeiten</p>
-                </div>
-                <div class="feature-item">
-                    <i class="fas fa-save"></i>
-                    <h4>Offline-fähig</h4>
-                    <p>Funktioniert ohne Internetverbindung</p>
-                </div>
-            </div>
+            <ul>
+                <li><strong>5 Spielmodi:</strong> Hauptstädte, Kennzeichen, Einwohner-Vergleich, Wappen und Welthauptstädte</li>
+                <li><strong>Punktesystem:</strong> Detaillierte Statistiken mit Rang-System und Erfolgen</li>
+                <li><strong>Responsive Design:</strong> Optimiert für Desktop, Tablet und Mobile</li>
+                <li><strong>Dark Mode:</strong> Automatische Anpassung an System-Einstellungen</li>
+                <li><strong>Anpassbar:</strong> Umfangreiche Einstellungsmöglichkeiten</li>
+                <li><strong>Offline-fähig:</strong> Funktioniert ohne Internetverbindung</li>
+            </ul>
         </div>
 
-        <!-- Datenschutz -->
-        <div class="info-section">
+        <div class="content-card">
             <h2><i class="fas fa-shield-alt"></i> Datenschutz & Speicherung</h2>
-            <div class="info-card">
-                <div class="privacy-info">
-                    <div class="privacy-item">
-                        <i class="fas fa-check-circle"></i>
-                        <div>
-                            <strong>Lokale Speicherung</strong>
-                            <p>Alle Daten werden ausschließlich lokal im Browser gespeichert (LocalStorage)</p>
-                        </div>
-                    </div>
-                    <div class="privacy-item">
-                        <i class="fas fa-check-circle"></i>
-                        <div>
-                            <strong>Keine Server-Kommunikation</strong>
-                            <p>Es werden keine Daten an externe Server übertragen</p>
-                        </div>
-                    </div>
-                    <div class="privacy-item">
-                        <i class="fas fa-check-circle"></i>
-                        <div>
-                            <strong>Kein Tracking</strong>
-                            <p>Keine Analyse-Tools oder Tracking-Scripte</p>
-                        </div>
-                    </div>
-                    <div class="privacy-item">
-                        <i class="fas fa-check-circle"></i>
-                        <div>
-                            <strong>Volle Kontrolle</strong>
-                            <p>Daten können jederzeit über die Entwickler-Tools gelöscht werden</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <ul>
+                <li><strong>Lokale Speicherung:</strong> Alle Daten werden ausschließlich lokal im Browser gespeichert</li>
+                <li><strong>Keine Server-Kommunikation:</strong> Es werden keine Daten an externe Server übertragen</li>
+                <li><strong>Kein Tracking:</strong> Keine Analyse-Tools oder Tracking-Scripte</li>
+                <li><strong>Volle Kontrolle:</strong> Daten können jederzeit über die Entwickler-Tools gelöscht werden</li>
+            </ul>
         </div>
 
-        <!-- Browser Kompatibilität -->
-        <div class="info-section">
-            <h2><i class="fas fa-browser"></i> Browser-Kompatibilität</h2>
-            <div class="browser-grid">
-                <div class="browser-item">
-                    <i class="fab fa-chrome"></i>
-                    <span>Chrome 90+</span>
-                </div>
-                <div class="browser-item">
-                    <i class="fab fa-firefox"></i>
-                    <span>Firefox 88+</span>
-                </div>
-                <div class="browser-item">
-                    <i class="fab fa-safari"></i>
-                    <span>Safari 14+</span>
-                </div>
-                <div class="browser-item">
-                    <i class="fab fa-edge"></i>
-                    <span>Edge 90+</span>
-                </div>
-            </div>
+        <div class="content-card">
+            <h2><i class="fas fa-globe"></i> Browser-Kompatibilität</h2>
+            <ul>
+                <li>Chrome 90+</li>
+                <li>Firefox 88+</li>
+                <li>Safari 14+</li>
+                <li>Edge 90+</li>
+            </ul>
         </div>
 
-        <!-- Credits -->
-        <div class="info-section">
+        <div class="content-card">
             <h2><i class="fas fa-heart"></i> Danksagungen</h2>
-            <div class="info-card">
-                <ul class="credits-list">
-                    <li><strong>Wappen-Bilder:</strong> <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></li>
-                    <li><strong>Icons:</strong> <a href="https://fontawesome.com" target="_blank" rel="noopener">Font Awesome</a></li>
-                    <li><strong>Schriftarten:</strong> <a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a> (Roboto, Roboto Condensed)</li>
-                    <li><strong>Datenquellen:</strong> Öffentliche Daten zu österreichischen Bundesländern und Städten</li>
-                </ul>
-            </div>
+            <ul>
+                <li><strong>Wappen-Bilder:</strong> <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></li>
+                <li><strong>Icons:</strong> <a href="https://fontawesome.com" target="_blank" rel="noopener">Font Awesome</a></li>
+                <li><strong>Schriftarten:</strong> <a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a></li>
+            </ul>
         </div>
-    </div>
+    </main>
 
-    <!-- Bottom Navigation -->
     <nav class="bottom-nav" id="bottomNav">
         <div class="bottom-nav-content">
             <a href="index.html" class="bottom-nav-item" data-nav="home">
@@ -266,148 +127,17 @@
                 <i class="fas fa-circle-question"></i>
                 <span>FAQ</span>
             </a>
-            <a href="settings_new.html" class="bottom-nav-item" data-nav="settings">
+            <a href="settings.html" class="bottom-nav-item" data-nav="settings">
                 <i class="fas fa-cog"></i>
                 <span>Einstellungen</span>
             </a>
         </div>
     </nav>
 
-    <!-- Footer Container -->
     <div id="footer-container"></div>
 
+    <script src="components/common.js"></script>
     <script src="components/footer.js"></script>
-    <script src="components/dev-tools.js"></script>
-    <script>
-        // Theme laden
-        function loadTheme() {
-            const theme = localStorage.getItem('theme') || 'light';
-            if (theme === 'dark') {
-                document.body.classList.add('dark-mode');
-            }
-        }
-        
-        // Theme sofort laden (vor DOMContentLoaded)
-        loadTheme();
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            setupMenu();
-            applyBottomNavSettings();
-            loadVersionInfo();
-        });
-
-        function setupMenu() {
-            const menuToggle = document.getElementById('menuToggle');
-            const menuDropdown = document.getElementById('menuDropdown');
-            
-            if (menuToggle && menuDropdown) {
-                menuToggle.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    menuToggle.classList.toggle('active');
-                    menuDropdown.classList.toggle('show');
-                });
-                
-                document.addEventListener('click', (e) => {
-                    if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
-                        menuToggle.classList.remove('active');
-                        menuDropdown.classList.remove('show');
-                    }
-                });
-            }
-        }
-
-        function initZoomReset() {
-            const zoomBtn = document.getElementById('zoomResetBtn');
-            if (zoomBtn) {
-                zoomBtn.addEventListener('click', () => {
-                    const viewport = document.querySelector('meta[name="viewport"]');
-                    if (viewport) {
-                        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
-                        setTimeout(() => {
-                            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
-                        }, 100);
-                    }
-                    zoomBtn.innerHTML = '<i class="fas fa-check"></i><span>Zurückgesetzt!</span>';
-                    setTimeout(() => {
-                        zoomBtn.innerHTML = '<i class="fas fa-search-minus"></i><span>Ansicht auf 100% zurücksetzen</span>';
-                    }, 2000);
-                });
-            }
-        }
-
-        function loadVersionInfo() {
-            // GitHub API für Commit-Info
-            fetch('https://api.github.com/repos/ochtii/Spielesammlung/commits/main')
-                .then(response => response.json())
-                .then(data => {
-                    const commitDate = new Date(data.commit.author.date);
-                    const sha = data.sha.substring(0, 7);
-                    
-                    document.getElementById('versionInfo').textContent = sha;
-                    document.getElementById('lastUpdate').textContent = commitDate.toLocaleDateString('de-AT', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    });
-                })
-                .catch(() => {
-                    document.getElementById('versionInfo').textContent = 'Nicht verfügbar';
-                    document.getElementById('lastUpdate').textContent = 'Nicht verfügbar';
-                });
-        }
-
-        function applyBottomNavSettings() {
-            const bottomNav = document.getElementById('bottomNav');
-            if (!bottomNav) return;
-
-            const enabled = localStorage.getItem('bottomNavEnabled') !== 'false';
-            const fixed = localStorage.getItem('bottomNavFixed') !== 'false';
-            const size = localStorage.getItem('bottomNavSize') || 'medium';
-
-            bottomNav.style.display = enabled ? 'flex' : 'none';
-            
-            if (fixed) {
-                bottomNav.classList.add('fixed');
-            } else {
-                bottomNav.classList.remove('fixed');
-            }
-
-            bottomNav.classList.remove('size-small', 'size-medium', 'size-large');
-            bottomNav.classList.add(`size-${size}`);
-
-            const buttons = {
-                'home': localStorage.getItem('bottomNavShowHome') !== 'false',
-                'points': localStorage.getItem('bottomNavShowPoints') !== 'false',
-                'help': localStorage.getItem('bottomNavShowHelp') !== 'false',
-                'faq': localStorage.getItem('bottomNavShowFaq') === 'true',
-                'settings': localStorage.getItem('bottomNavShowSettings') !== 'false'
-            };
-
-            Object.entries(buttons).forEach(([key, show]) => {
-                const item = bottomNav.querySelector(`[data-nav="${key}"]`);
-                if (item) {
-                    item.style.display = show ? 'flex' : 'none';
-                }
-            });
-        }
-
-        // Punkteanzeige in Bottom Nav aktualisieren
-        function updateBottomNavPoints() {
-            const pointsDisplay = document.getElementById('bottomNavPoints');
-            if (pointsDisplay) {
-                const pointsData = JSON.parse(localStorage.getItem('pointsData') || '{"totalPoints":0}');
-                const totalPoints = pointsData.totalPoints || 0;
-                pointsDisplay.textContent = totalPoints > 999 ? '999+' : totalPoints;
-            }
-        }
-
-        // Beim Laden aufrufen
-        document.addEventListener('DOMContentLoaded', () => {
-            updateBottomNavPoints();
-        });
-    </script>
+    <script src="components/entwickler.js"></script>
 </body>
 </html>
