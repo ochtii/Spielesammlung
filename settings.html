@@ -50,6 +50,70 @@
                 <p class="settings-subtitle">Passe die App nach deinen Wünschen an</p>
             </div>
 
+            <!-- Simple/Advanced Mode Toggle (nur mobil sichtbar) -->
+            <div class="settings-mode-toggle" id="settingsModeToggle">
+                <button class="mode-btn active" data-mode="simple" id="simpleModeBtn">
+                    <i class="fas fa-bolt"></i>
+                    <span>Einfach</span>
+                </button>
+                <button class="mode-btn" data-mode="advanced" id="advancedModeBtn">
+                    <i class="fas fa-sliders-h"></i>
+                    <span>Erweitert</span>
+                </button>
+            </div>
+
+            <!-- Quick Settings für Simple Mode (nur mobil) -->
+            <div class="quick-settings" id="quickSettings">
+                <div class="quick-settings-card">
+                    <div class="quick-setting-item" id="quickDarkMode">
+                        <div class="quick-setting-icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <span class="quick-setting-label">Dark Mode</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="quickDarkModeCheck">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="quick-setting-item" id="quickTimer">
+                        <div class="quick-setting-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <span class="quick-setting-label">Timer</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="quickTimerCheck">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="quick-setting-item" id="quickTypo">
+                        <div class="quick-setting-icon">
+                            <i class="fas fa-spell-check"></i>
+                        </div>
+                        <span class="quick-setting-label">Tippfehler erlauben</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="quickTypoCheck">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="quick-setting-item" id="quickPaidHints">
+                        <div class="quick-setting-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <span class="quick-setting-label">Kostenpflichtige Tipps</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="quickPaidHintsCheck">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="quick-settings-footer">
+                    <span class="quick-settings-hint"><i class="fas fa-info-circle"></i> Für mehr Optionen wechsle zu "Erweitert"</span>
+                </div>
+            </div>
+
+            <!-- Advanced Settings Container -->
+            <div class="advanced-settings" id="advancedSettings">
+
             <!-- Accordion Section: Darstellung -->
             <div class="settings-accordion">
                 <button class="accordion-header">
@@ -507,6 +571,8 @@
                 </div>
             </div>
             </div>
+            
+            </div><!-- Ende advanced-settings -->
 
             <div class="settings-page-actions">
                 <a href="index.html" class="btn btn-secondary">
@@ -573,6 +639,82 @@
             if (theme === 'dark') {
                 document.body.classList.add('dark-mode');
             }
+        }
+
+        // Settings Mode (simple/advanced) - nur für mobile
+        function initSettingsMode() {
+            const settingsMode = localStorage.getItem('settingsMode') || 'simple';
+            const simpleModeBtn = document.getElementById('simpleModeBtn');
+            const advancedModeBtn = document.getElementById('advancedModeBtn');
+            const quickSettings = document.getElementById('quickSettings');
+            const advancedSettings = document.getElementById('advancedSettings');
+            
+            function setMode(mode) {
+                localStorage.setItem('settingsMode', mode);
+                
+                if (mode === 'simple') {
+                    simpleModeBtn.classList.add('active');
+                    advancedModeBtn.classList.remove('active');
+                    quickSettings.classList.add('active');
+                    advancedSettings.classList.remove('active');
+                } else {
+                    simpleModeBtn.classList.remove('active');
+                    advancedModeBtn.classList.add('active');
+                    quickSettings.classList.remove('active');
+                    advancedSettings.classList.add('active');
+                }
+            }
+            
+            // Initial mode setzen
+            setMode(settingsMode);
+            
+            // Mode Buttons
+            simpleModeBtn.addEventListener('click', () => setMode('simple'));
+            advancedModeBtn.addEventListener('click', () => setMode('advanced'));
+            
+            // Quick Settings synchronisieren
+            syncQuickSettings();
+        }
+        
+        // Quick Settings mit Haupteinstellungen synchronisieren
+        function syncQuickSettings() {
+            const quickDarkMode = document.getElementById('quickDarkModeCheck');
+            const quickTimer = document.getElementById('quickTimerCheck');
+            const quickTypo = document.getElementById('quickTypoCheck');
+            const quickPaidHints = document.getElementById('quickPaidHintsCheck');
+            
+            // Laden
+            quickDarkMode.checked = localStorage.getItem('theme') === 'dark';
+            quickTimer.checked = localStorage.getItem('timerEnabled') === 'true';
+            quickTypo.checked = localStorage.getItem('typoTolerance') !== 'false';
+            quickPaidHints.checked = localStorage.getItem('paidHints') === 'true';
+            
+            // Event Listeners für Quick Settings (Auto-Save)
+            quickDarkMode.addEventListener('change', function() {
+                localStorage.setItem('theme', this.checked ? 'dark' : 'light');
+                document.getElementById('darkModeCheck').checked = this.checked;
+                if (this.checked) {
+                    document.body.classList.add('dark-mode');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                }
+            });
+            
+            quickTimer.addEventListener('change', function() {
+                localStorage.setItem('timerEnabled', this.checked);
+                document.getElementById('timerEnabledCheck').checked = this.checked;
+                toggleTimerDurationOption(this.checked);
+            });
+            
+            quickTypo.addEventListener('change', function() {
+                localStorage.setItem('typoTolerance', this.checked);
+                document.getElementById('typoToleranceCheck').checked = this.checked;
+            });
+            
+            quickPaidHints.addEventListener('change', function() {
+                localStorage.setItem('paidHints', this.checked);
+                document.getElementById('paidHintsCheck').checked = this.checked;
+            });
         }
 
         // Einstellungen laden
@@ -753,17 +895,29 @@
             } else {
                 document.body.classList.remove('dark-mode');
             }
+            // Quick Settings synchronisieren
+            document.getElementById('quickDarkModeCheck').checked = darkMode;
             showSaveFeedback('darstellungSaveFeedback');
         }
 
         // Spieloptionen speichern
         function saveSpieloptionenSettings() {
-            localStorage.setItem('typoTolerance', document.getElementById('typoToleranceCheck').checked);
-            localStorage.setItem('paidHints', document.getElementById('paidHintsCheck').checked);
+            const typoTolerance = document.getElementById('typoToleranceCheck').checked;
+            const paidHints = document.getElementById('paidHintsCheck').checked;
+            const timerEnabled = document.getElementById('timerEnabledCheck').checked;
+            
+            localStorage.setItem('typoTolerance', typoTolerance);
+            localStorage.setItem('paidHints', paidHints);
             localStorage.setItem('balanceDisplayMode', document.getElementById('balanceDisplaySelect').value);
-            localStorage.setItem('timerEnabled', document.getElementById('timerEnabledCheck').checked);
+            localStorage.setItem('timerEnabled', timerEnabled);
             localStorage.setItem('timerDuration', document.getElementById('timerDurationSlider').value);
             localStorage.setItem('timerVisual', document.getElementById('timerVisualCheck').checked);
+            
+            // Quick Settings synchronisieren
+            document.getElementById('quickTypoCheck').checked = typoTolerance;
+            document.getElementById('quickPaidHintsCheck').checked = paidHints;
+            document.getElementById('quickTimerCheck').checked = timerEnabled;
+            
             showSaveFeedback('spieloptionenSaveFeedback');
         }
 
@@ -1589,6 +1743,7 @@
             setupDevTools();
             setupAccordion();
             initEasterEgg();
+            initSettingsMode();
         });
     </script>
 </body>
