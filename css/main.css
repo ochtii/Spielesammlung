@@ -2,26 +2,25 @@
    Main CSS - Import All Modules
    =========================================== */
 
-/* Base & Foundation */
+/* Foundation */
 @import 'variables.css';
 @import 'base.css';
+
+/* Utilities & Layout */
 @import 'utilities.css';
+@import 'layout.css';
 
-/* Layout Components */
-@import 'navbar.css';
-@import 'bottom-nav.css';
-
-/* UI Components */
+/* Components */
 @import 'components.css';
 
-/* Page-specific Styles */
+/* Pages */
 @import 'game.css';
 @import 'settings.css';
 @import 'points.css';
-@import 'pages.css';
 @import 'stats.css';
+@import 'pages.css';
 
-/* Features */
+/* Special Features */
 @import 'dev-tools.css';
 @import 'easter-eggs.css';
 

@@ -1,78 +1,74 @@
 /* ===========================================
-   Static Pages Styles (Help, FAQ, Impressum, etc.)
+   Static Pages (Help, FAQ, Impressum, etc.)
    =========================================== */
 
 /* Page Header */
 .page-header {
     text-align: center;
-    padding: var(--spacing-xl) 0;
-    margin-bottom: var(--spacing-xl);
+    padding: var(--space-5) 0;
+    margin-bottom: var(--space-5);
 }
 
 .page-header h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-md);
-    font-size: 2rem;
-    color: var(--text-primary);
-    margin-bottom: var(--spacing-sm);
+    gap: var(--space-3);
+    font-size: 1.5rem;
+    margin-bottom: var(--space-2);
 }
 
 .page-header h1 i {
-    color: var(--accent-color);
+    color: var(--primary);
 }
 
 .page-header p {
     color: var(--text-secondary);
-    font-size: 1.1rem;
+    margin: 0;
 }
 
 /* Content Card */
 .content-card {
     background: var(--bg-primary);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-xl);
-    margin-bottom: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    margin-bottom: var(--space-4);
     box-shadow: var(--shadow);
 }
 
 .content-card h2 {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    font-size: 1.25rem;
-    color: var(--text-primary);
-    margin-bottom: var(--spacing-lg);
-    padding-bottom: var(--spacing-md);
+    gap: var(--space-2);
+    font-size: 1.125rem;
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-3);
     border-bottom: 1px solid var(--border-color);
 }
 
 .content-card h2 i {
-    color: var(--accent-color);
+    color: var(--primary);
 }
 
 .content-card h3 {
-    font-size: 1.1rem;
-    color: var(--text-primary);
-    margin: var(--spacing-lg) 0 var(--spacing-md);
+    font-size: 1rem;
+    margin: var(--space-4) 0 var(--space-3);
 }
 
 .content-card p {
     color: var(--text-secondary);
     line-height: 1.7;
-    margin-bottom: var(--spacing-md);
 }
 
 .content-card ul,
 .content-card ol {
-    margin: var(--spacing-md) 0;
-    padding-left: var(--spacing-xl);
+    margin: var(--space-3) 0;
+    padding-left: var(--space-5);
     color: var(--text-secondary);
 }
 
 .content-card li {
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--space-2);
     line-height: 1.6;
 }
 
@@ -80,12 +76,12 @@
 .faq-list {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-sm);
+    gap: var(--space-2);
 }
 
 .faq-item {
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius);
     overflow: hidden;
 }
 
@@ -94,14 +90,14 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: var(--space-4);
     background: var(--bg-secondary);
     border: none;
     color: var(--text-primary);
     font-weight: 500;
     text-align: left;
     cursor: pointer;
-    transition: background var(--transition-fast);
+    transition: background var(--transition);
 }
 
 .faq-question:hover {
@@ -109,7 +105,7 @@
 }
 
 .faq-question i {
-    transition: transform var(--transition-fast);
+    transition: transform var(--transition);
 }
 
 .faq-item.active .faq-question i {
@@ -119,7 +115,7 @@
 .faq-answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height var(--transition-normal);
+    transition: max-height 0.3s ease;
 }
 
 .faq-item.active .faq-answer {
@@ -127,8 +123,7 @@
 }
 
 .faq-answer-content {
-    padding: var(--spacing-lg);
-    background: var(--bg-primary);
+    padding: var(--space-4);
     color: var(--text-secondary);
     line-height: 1.7;
 }
@@ -136,145 +131,109 @@
 /* Help Topics */
 .help-topics {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-lg);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
 }
 
 .help-topic {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: var(--spacing-xl);
+    padding: var(--space-5);
     background: var(--bg-secondary);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     text-align: center;
-    transition: all var(--transition-bounce);
+    transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .help-topic:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .help-topic-icon {
-    width: 60px;
-    height: 60px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--bg-primary);
     border-radius: var(--radius-full);
-    font-size: 1.5rem;
-    color: var(--accent-color);
-    margin-bottom: var(--spacing-md);
+    font-size: 1.25rem;
+    color: var(--primary);
+    margin-bottom: var(--space-3);
 }
 
 .help-topic h3 {
-    font-size: 1rem;
-    margin-bottom: var(--spacing-sm);
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-2);
 }
 
 .help-topic p {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
+    margin: 0;
 }
 
-/* Info Grid */
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--spacing-md);
-}
-
-.info-item {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-    padding: var(--spacing-md);
-    background: var(--bg-secondary);
-    border-radius: var(--radius-md);
-}
-
-.info-item i {
-    font-size: 1.2rem;
-    color: var(--accent-color);
-}
-
-.info-item-content strong {
-    display: block;
-    font-weight: 500;
-    color: var(--text-primary);
-    margin-bottom: 2px;
-}
-
-.info-item-content span {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-}
-
-.info-item-content a {
-    color: var(--accent-color);
-}
-
-/* Developer Section */
+/* Developer Profile */
 .dev-profile {
     display: flex;
     align-items: center;
-    gap: var(--spacing-xl);
-    padding: var(--spacing-xl);
+    gap: var(--space-5);
+    padding: var(--space-5);
     background: var(--bg-secondary);
-    border-radius: var(--radius-lg);
-    margin-bottom: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-4);
 }
 
 .dev-avatar {
-    width: 120px;
-    height: 120px;
+    width: 80px;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--accent-color), var(--primary-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
     border-radius: var(--radius-full);
-    font-size: 3rem;
+    font-size: 2rem;
     color: white;
     flex-shrink: 0;
 }
 
 .dev-info h2 {
-    font-size: 1.5rem;
-    margin-bottom: var(--spacing-xs);
+    font-size: 1.25rem;
+    margin-bottom: var(--space-1);
     border: none;
     padding: 0;
 }
 
 .dev-info p {
     color: var(--text-secondary);
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--space-3);
 }
 
 .dev-social {
     display: flex;
-    gap: var(--spacing-sm);
+    gap: var(--space-2);
 }
 
 .dev-social a {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--bg-primary);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius);
     color: var(--text-secondary);
-    transition: all var(--transition-fast);
+    transition: all var(--transition);
 }
 
 .dev-social a:hover {
-    background: var(--accent-color);
+    background: var(--primary);
     color: white;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 500px) {
     .dev-profile {
         flex-direction: column;
         text-align: center;
@@ -289,87 +248,20 @@
 .tech-stack {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-sm);
+    gap: var(--space-2);
 }
 
 .tech-badge {
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
-    padding: var(--spacing-sm) var(--spacing-md);
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
     background: var(--bg-secondary);
     border-radius: var(--radius-full);
-    font-size: 0.85rem;
-    color: var(--text-primary);
+    font-size: 0.8rem;
 }
 
 .tech-badge i {
-    color: var(--accent-color);
-}
-
-/* Version Info */
-.version-info {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-    padding: var(--spacing-md);
-    background: var(--bg-secondary);
-    border-radius: var(--radius-md);
-}
-
-.version-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    background: var(--accent-color);
-    color: white;
-    border-radius: var(--radius-sm);
-    font-size: 0.8rem;
-    font-weight: 600;
-}
-
-/* Legal Text */
-.legal-text {
-    font-size: 0.9rem;
-    line-height: 1.8;
-    color: var(--text-secondary);
-}
-
-.legal-text h4 {
-    font-size: 1rem;
-    color: var(--text-primary);
-    margin: var(--spacing-lg) 0 var(--spacing-sm);
-}
-
-/* Back to Top */
-.back-to-top {
-    position: fixed;
-    bottom: 100px;
-    right: var(--spacing-lg);
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: var(--radius-full);
-    box-shadow: var(--shadow-lg);
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: all var(--transition-fast);
-    z-index: 100;
-}
-
-.back-to-top.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-.back-to-top:hover {
-    transform: translateY(-4px);
+    color: var(--primary);
 }
 
