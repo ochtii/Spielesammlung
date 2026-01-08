@@ -57,18 +57,40 @@
                             <p class="hero-subtitle">Teste dein Wissen</p>
                         </div>
                     </div>
-                    <div class="hero-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-trophy"></i>
-                            <span><strong id="heroTotalPoints">0</strong></span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-gamepad"></i>
-                            <span><strong id="heroTotalGames">0</strong></span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-chart-line"></i>
-                            <span><strong id="heroWinRate">0%</strong></span>
+                    <div class="hero-stats-card">
+                        <div class="stats-grid">
+                            <div class="stat-box" data-stat="points">
+                                <div class="stat-icon-wrapper">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-value" id="heroTotalPoints">0</span>
+                                    <span class="stat-label">Punkte</span>
+                                </div>
+                                <div class="stat-glow"></div>
+                            </div>
+                            <div class="stat-divider"></div>
+                            <div class="stat-box" data-stat="games">
+                                <div class="stat-icon-wrapper">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-value" id="heroTotalGames">0</span>
+                                    <span class="stat-label">Spiele</span>
+                                </div>
+                                <div class="stat-glow"></div>
+                            </div>
+                            <div class="stat-divider"></div>
+                            <div class="stat-box" data-stat="rate">
+                                <div class="stat-icon-wrapper">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-value" id="heroWinRate">0%</span>
+                                    <span class="stat-label">Erfolg</span>
+                                </div>
+                                <div class="stat-glow"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
