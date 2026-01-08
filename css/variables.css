@@ -46,7 +46,6 @@ body.dark-mode .help-card,
 body.dark-mode .wappen-card,
 body.dark-mode .info-card,
 body.dark-mode .legal-card,
-body.dark-mode .settings-card {
     background: var(--bg-primary);
     border-color: var(--border-color);
 }

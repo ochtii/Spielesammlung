@@ -24,7 +24,6 @@
 @import url('bottom-nav.css');
 
 /* 6. Feature Modules */
-@import url('settings.css');
 @import url('game.css');
 @import url('points.css');
 @import url('pages.css');
