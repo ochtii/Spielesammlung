@@ -12,6 +12,11 @@ const Theme = {
      * Initialize theme settings
      */
     init() {
+        // Beim ersten Besuch: Dark Theme als Standard setzen und speichern
+        if (Storage.get(this.STORAGE_KEYS.theme) === null) {
+            Storage.set(this.STORAGE_KEYS.theme, 'dark');
+        }
+        
         this.applyTheme();
         this.applyFontScale();
         this.applyAccentColor();
