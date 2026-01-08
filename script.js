@@ -1844,12 +1844,10 @@ class AustriaQuiz {
                 // Nur bei Multiple Choice (Quiz-Modus) oder Population
                 return isQuizMode || q.type === 'population';
             case 'firstLetter':
-                // Immer verfügbar
-                return true;
             case 'randomLetter':
             case 'length':
-                // Nur bei Eingabe-Modus
-                return isInputMode || q.type === 'population' === false;
+                // Nur bei Eingabe-Modus (nicht im Auswahl/Quiz-Modus)
+                return isInputMode;
             case 'coat':
                 // Nur bei Kennzeichen oder Hauptstädten mit verfügbarem Wappen
                 // Prüfe dynamisch ob Wappen verfügbar ist
