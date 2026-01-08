@@ -20,7 +20,7 @@ class GameEngine {
         // Game Settings
         this.settings = {
             timer: { enabled: false, seconds: 30 },
-            joker: { enabled: true, count: 2, used: 0 },
+            joker: { enabled: true },
             hardcore: false
         };
 
@@ -58,11 +58,7 @@ class GameEngine {
     setSettings(settings) {
         this.settings = {
             timer: settings.timer || { enabled: false, seconds: 30 },
-            joker: { 
-                enabled: settings.joker?.enabled ?? true, 
-                count: settings.joker?.count || 2,
-                used: 0
-            },
+            joker: { enabled: settings.joker?.enabled ?? true },
             hardcore: settings.hardcore || false
         };
 
@@ -108,8 +104,9 @@ class GameEngine {
             hintCost: document.getElementById('hintCost'),
             timerDisplay: document.getElementById('timerDisplay'),
             timerBar: document.getElementById('timerBar'),
-            jokerButton: document.getElementById('jokerButton'),
-            jokerCount: document.getElementById('jokerCount')
+            timerContainer: document.getElementById('timerContainer'),
+            jokerBar: document.getElementById('jokerBar'),
+            hintDisplay: document.getElementById('hintDisplay')
         };
     }
 
@@ -144,7 +141,6 @@ class GameEngine {
 
         // Update UI elements based on settings
         this.updateHintButton();
-        this.updateJokerButton();
         this.updateTimerDisplay();
 
         EventBus.emit(Events.GAME_START, { game: this.config.id, mode: this.mode.id, settings: this.settings });
@@ -162,51 +158,163 @@ class GameEngine {
     }
 
     /**
-     * Update joker button
+     * Render Joker Bar mit verfügbaren Jokern
      */
-    updateJokerButton() {
-        const jokerBtn = this.elements.jokerButton;
-        if (!jokerBtn) return;
+    renderJokerBar() {
+        const jokerBar = this.elements.jokerBar;
+        if (!jokerBar) return;
 
-        const remaining = this.settings.joker.count - this.settings.joker.used;
-        
-        if (this.settings.joker.enabled && remaining > 0 && this.mode.inputType === 'choice') {
-            jokerBtn.classList.remove('hidden');
-            const countEl = this.elements.jokerCount;
-            if (countEl) countEl.textContent = remaining;
-            jokerBtn.disabled = false;
-        } else {
-            jokerBtn.classList.add('hidden');
+        // Keine Joker im Hardcore-Modus oder wenn deaktiviert
+        if (this.settings.hardcore || !this.settings.joker.enabled) {
+            jokerBar.classList.add('hidden');
+            return;
         }
+
+        // Joker für aktuellen Modus holen
+        const jokers = JokerSystem.getJokersForMode(this.mode);
+        const currentPoints = Storage.get('totalPoints', 0);
+
+        // Joker-Buttons rendern
+        jokerBar.innerHTML = Object.values(jokers).map(joker => {
+            const isUsed = JokerSystem.isUsed(joker.id);
+            const canAfford = currentPoints >= joker.cost;
+            const priceClass = joker.cost <= 20 ? 'cheap' : (joker.cost >= 50 ? 'expensive' : 'medium');
+            
+            return `
+                <button class="joker-btn ${isUsed ? 'used' : ''} ${!canAfford ? 'cant-afford' : ''}" 
+                        data-joker="${joker.id}"
+                        title="${joker.description}"
+                        ${isUsed || !canAfford ? 'disabled' : ''}>
+                    <div class="joker-btn-icon" style="background: ${joker.color}">
+                        <i class="fas ${joker.icon}"></i>
+                    </div>
+                    <span class="joker-btn-name">${joker.name}</span>
+                    <span class="joker-btn-price ${priceClass}">
+                        <i class="fas fa-coins"></i>${joker.cost}
+                    </span>
+                </button>
+            `;
+        }).join('');
+
+        jokerBar.classList.remove('hidden');
+
+        // Event Listeners für Joker-Buttons
+        jokerBar.querySelectorAll('.joker-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (!btn.disabled) {
+                    this.useJoker(btn.dataset.joker);
+                }
+            });
+        });
     }
 
     /**
-     * Use 50:50 Joker
+     * Joker verwenden
+     * @param {string} jokerId 
      */
-    useJoker() {
-        if (!this.settings.joker.enabled) return;
-        if (this.settings.joker.used >= this.settings.joker.count) return;
-        if (this.mode.inputType !== 'choice') return;
+    useJoker(jokerId) {
+        if (JokerSystem.isUsed(jokerId)) return;
+
+        const jokers = JokerSystem.getJokersForMode(this.mode);
+        const joker = jokers[jokerId];
+        if (!joker) return;
+
+        // Punkte prüfen und abziehen
+        if (!JokerSystem.canAfford(joker.cost)) {
+            Toast.error('Nicht genug Punkte!');
+            return;
+        }
+
+        if (!JokerSystem.deductPoints(joker.cost)) {
+            Toast.error('Fehler beim Abziehen der Punkte');
+            return;
+        }
 
         const question = this.state.questions[this.state.currentIndex];
-        const buttons = this.elements.answersGrid.querySelectorAll('.answer-btn:not(.joker-removed)');
-        
-        // Finde falsche Antworten
-        const wrongButtons = Array.from(buttons).filter(btn => 
-            btn.dataset.answer !== question.correct && !btn.classList.contains('joker-removed')
-        );
+        let result = null;
+        let hintHtml = '';
 
-        // Entferne 2 falsche Antworten
-        const toRemove = wrongButtons.sort(() => Math.random() - 0.5).slice(0, 2);
-        toRemove.forEach(btn => {
-            btn.classList.add('joker-removed');
-            btn.disabled = true;
+        // Joker ausführen basierend auf Typ
+        if (this.mode.inputType === 'choice') {
+            // Amateur-Modus Joker
+            switch (jokerId) {
+                case 'fiftyFifty':
+                    JokerSystem.useFiftyFifty(this.elements.answersGrid, question.correct);
+                    Toast.show('50:50 - 2 Antworten entfernt!', { type: 'success' });
+                    break;
+                case 'removeOne':
+                    JokerSystem.useRemoveOne(this.elements.answersGrid, question.correct);
+                    Toast.show('1 falsche Antwort entfernt!', { type: 'success' });
+                    break;
+                case 'randomHint':
+                    result = JokerSystem.useRandomHintAmateur(question.correct, question);
+                    hintHtml = JokerSystem.formatHintDisplay('randomHint', result, question.correct);
+                    break;
+            }
+        } else {
+            // Pro-Modus Joker
+            switch (jokerId) {
+                case 'firstLetter':
+                    result = JokerSystem.useFirstLetter(question.correct);
+                    hintHtml = JokerSystem.formatHintDisplay('firstLetter', result, question.correct);
+                    break;
+                case 'length':
+                    result = JokerSystem.useLength(question.correct);
+                    hintHtml = JokerSystem.formatHintDisplay('length', result, question.correct);
+                    break;
+                case 'oneLetter':
+                    result = JokerSystem.useOneLetter(question.correct);
+                    hintHtml = JokerSystem.formatHintDisplay('oneLetter', result, question.correct);
+                    break;
+                case 'twoLetters':
+                    result = JokerSystem.useTwoLetters(question.correct);
+                    hintHtml = JokerSystem.formatHintDisplay('twoLetters', result, question.correct);
+                    break;
+                case 'randomHint':
+                    result = JokerSystem.useRandomHintPro(question.correct, question);
+                    hintHtml = JokerSystem.formatHintDisplay('randomHint', result, question.correct);
+                    break;
+            }
+        }
+
+        // Hinweis anzeigen falls vorhanden
+        if (hintHtml) {
+            this.showHint(hintHtml);
+        }
+
+        // Joker als verwendet markieren
+        JokerSystem.markUsed(jokerId);
+        
+        // Joker-Bar aktualisieren
+        this.renderJokerBar();
+        
+        // Punkte-Anzeige aktualisieren
+        EventBus.emit(Events.POINTS_UPDATE, { 
+            points: Storage.get('totalPoints', 0) 
         });
+    }
 
-        this.settings.joker.used++;
-        this.updateJokerButton();
-        
-        Toast.show('50:50 Joker eingesetzt!', { type: 'info' });
+    /**
+     * Hinweis im Hint-Display anzeigen
+     * @param {string} html 
+     */
+    showHint(html) {
+        const hintDisplay = this.elements.hintDisplay;
+        if (!hintDisplay) return;
+
+        hintDisplay.innerHTML += html;
+        hintDisplay.classList.remove('hidden');
+    }
+
+    /**
+     * Hint-Display zurücksetzen
+     */
+    clearHints() {
+        const hintDisplay = this.elements.hintDisplay;
+        if (hintDisplay) {
+            hintDisplay.innerHTML = '';
+            hintDisplay.classList.add('hidden');
+        }
     }
 
     /**
@@ -352,7 +460,11 @@ class GameEngine {
         // Reset hint for new question (Rainbow mode)
         this.hintPurchased = false;
         this.updateHintButton();
-        this.updateJokerButton();
+
+        // Reset Joker für neue Frage und Joker-Bar rendern
+        JokerSystem.resetForQuestion();
+        this.renderJokerBar();
+        this.clearHints();
 
         // Start timer for this question
         this.state.questionStartTime = Date.now();

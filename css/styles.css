@@ -2843,6 +2843,261 @@ body.modal-open {
     color: var(--text-secondary);
     margin-bottom: var(--spacing-4);
 }
+/**
+ * Joker Bar & Joker Buttons CSS
+ * Erweitertes Joker-System mit Preismarken
+ */
+
+/* Joker Bar Container */
+.joker-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+    justify-content: center;
+    padding: var(--spacing-3);
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-4);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+}
+
+.joker-bar.hidden {
+    display: none;
+}
+
+/* Einzelner Joker Button */
+.joker-btn {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-1);
+    padding: var(--spacing-2) var(--spacing-3);
+    min-width: 70px;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.joker-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.joker-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.joker-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.joker-btn.used {
+    opacity: 0.3;
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+.joker-btn.used::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: var(--font-xl);
+    color: var(--success-color);
+    opacity: 0.8;
+}
+
+/* Joker Icon */
+.joker-btn-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-base);
+    color: white;
+}
+
+/* Joker Name */
+.joker-btn-name {
+    font-size: var(--font-xs);
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Preismarke */
+.joker-btn-price {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 2px 6px;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #1a1a1a;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: var(--radius-full);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.joker-btn-price i {
+    font-size: 8px;
+}
+
+/* Preismarke Varianten je nach Kosten */
+.joker-btn-price.cheap {
+    background: linear-gradient(135deg, #34d399, #10b981);
+}
+
+.joker-btn-price.medium {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+.joker-btn-price.expensive {
+    background: linear-gradient(135deg, #f87171, #ef4444);
+    color: white;
+}
+
+/* Nicht leistbar */
+.joker-btn.cant-afford .joker-btn-price {
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
+    color: white;
+}
+
+.joker-btn.cant-afford {
+    opacity: 0.6;
+}
+
+/* Tooltip */
+.joker-btn[title] {
+    position: relative;
+}
+
+.joker-btn::before {
+    content: attr(title);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: var(--spacing-2) var(--spacing-3);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: var(--font-xs);
+    white-space: nowrap;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.joker-btn:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Hint Display Area */
+.hint-display {
+    padding: var(--spacing-3);
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.1));
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-4);
+}
+
+.hint-display.hidden {
+    display: none;
+}
+
+.hint-reveal {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2);
+    font-size: var(--font-sm);
+    color: var(--text-primary);
+    animation: hint-appear 0.3s ease;
+}
+
+.hint-reveal + .hint-reveal {
+    margin-top: var(--spacing-2);
+    padding-top: var(--spacing-2);
+    border-top: 1px dashed rgba(251, 191, 36, 0.3);
+}
+
+.hint-reveal i {
+    color: #f59e0b;
+    font-size: var(--font-base);
+}
+
+.hint-reveal strong {
+    color: var(--accent-color);
+    font-weight: 700;
+}
+
+@keyframes hint-appear {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .joker-bar {
+        gap: var(--spacing-1);
+        padding: var(--spacing-2);
+    }
+    
+    .joker-btn {
+        min-width: 60px;
+        padding: var(--spacing-2);
+    }
+    
+    .joker-btn-icon {
+        width: 28px;
+        height: 28px;
+        font-size: var(--font-sm);
+    }
+    
+    .joker-btn-name {
+        font-size: 10px;
+    }
+    
+    .joker-btn-price {
+        font-size: 9px;
+        padding: 2px 4px;
+    }
+}
+
+/* Dark Mode Anpassungen */
+[data-theme="dark"] .joker-btn {
+    background: var(--bg-tertiary);
+}
+
+[data-theme="dark"] .hint-display {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.05), rgba(245, 158, 11, 0.05));
+}
 /* ===========================================
    Game Styles
    =========================================== */

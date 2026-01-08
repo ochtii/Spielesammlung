@@ -120,19 +120,14 @@
                 </div>
             </div>
 
-            <!-- Game Actions Row (Hint + Joker) -->
-            <div class="game-actions-row">
-                <!-- Hint Button (Rainbow Mode) -->
-                <button id="hintButton" class="hint-button hidden" title="Hinweis kaufen">
-                    <i class="fas fa-lightbulb"></i>
-                    <span>Hinweis für <span id="hintCost">100</span>P</span>
-                </button>
+            <!-- Joker Bar -->
+            <div id="jokerBar" class="joker-bar hidden">
+                <!-- Joker werden dynamisch eingefügt -->
+            </div>
 
-                <!-- Joker Button (50:50) -->
-                <button id="jokerButton" class="joker-button hidden" title="50:50 Joker">
-                    <i class="fas fa-magic"></i>
-                    <span>50:50 (<span id="jokerCount">2</span>)</span>
-                </button>
+            <!-- Hint Display Area -->
+            <div id="hintDisplay" class="hint-display hidden">
+                <!-- Hinweise werden hier angezeigt -->
             </div>
 
             <!-- Question -->
@@ -220,6 +215,7 @@
     <script src="js/components/modal.js"></script>
     <script src="js/components/game-settings-dialog.js"></script>
     <script src="js/games/GameModes.js"></script>
+    <script src="js/games/JokerSystem.js"></script>
     <script src="js/games/GameEngine.js"></script>
     <script src="js/games/QuizGame.js"></script>
     <script src="js/games/registry.js"></script>
