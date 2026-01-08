@@ -41,73 +41,124 @@
 
 	<main class="container">
 		<h1 class="settings-title"><i class="fas fa-cog"></i> Einstellungen</h1>
-		<div class="settings-grid">
-			<div class="settings-card">
-				<section class="settings-section">
-					<h2><i class="fas fa-user"></i> Account</h2>
-					<div class="account-info">
-						<span><i class="fas fa-user-circle"></i> Gast</span>
-						<span class="account-placeholder">(Login-Funktion in Entwicklung)</span>
-					</div>
-				</section>
-				<section class="settings-section">
-					<h2><i class="fas fa-language"></i> Sprache</h2>
-					<label for="language-select">Sprache wählen:</label>
-					<select id="language-select">
-						<option value="de">Deutsch</option>
-						<option value="en">English</option>
-					</select>
-				</section>
-				<section class="settings-section">
-					<h2><i class="fas fa-font"></i> Schriftgröße</h2>
-					<label for="font-size-select">Schriftgröße:</label>
-					<select id="font-size-select">
-						<option value="normal">Normal</option>
-						<option value="large">Groß</option>
-						<option value="xlarge">Sehr groß</option>
-					</select>
-				</section>
-				<section class="settings-section">
-					<h2><i class="fas fa-volume-up"></i> Sound</h2>
-					<label class="switch">
-						<input type="checkbox" id="sound-toggle">
-						<span class="slider round"></span>
-					</label>
-					<span id="sound-status">Sound ist aus</span>
-				</section>
-				<section class="settings-section">
-					<h2><i class="fas fa-palette"></i> Design</h2>
-					<label for="theme-select">Farbschema:</label>
-					<select id="theme-select">
-						<option value="light">Hell</option>
-						<option value="dark">Dunkel</option>
-					</select>
-				</section>
-				<section class="settings-section">
-					<h2><i class="fas fa-bell"></i> Benachrichtigungen</h2>
-					<label class="switch">
-						<input type="checkbox" id="notifications-toggle">
-						<span class="slider round"></span>
-					</label>
-					<span id="notifications-status">Benachrichtigungen sind aus</span>
-				</section>
-				<section class="settings-section">
-					<h2><i class="fas fa-history"></i> Fortschritt</h2>
-					<button id="reset-progress-btn" class="reset-btn"><i class="fas fa-eraser"></i> Fortschritt zurücksetzen</button>
-				</section>
-				<section class="settings-section">
-					<h2><i class="fas fa-undo"></i> Zurücksetzen</h2>
-					<button id="reset-btn" class="reset-btn"><i class="fas fa-trash-restore"></i> Alle Einstellungen zurücksetzen</button>
-				</section>
+		<div class="settings-tabs">
+			<button class="tab-btn active" data-tab="general">Allgemein</button>
+			<button class="tab-btn" data-tab="appearance">Erscheinung</button>
+			<button class="tab-btn" data-tab="accessibility">Barrierefreiheit</button>
+			<button class="tab-btn" data-tab="developer">Entwickler</button>
+		</div>
+		<div class="settings-content">
+			<div class="tab-panel active" id="general">
+				<div class="settings-card">
+					<section class="settings-section">
+						<h2><i class="fas fa-user"></i> Account</h2>
+						<div class="account-info">
+							<span><i class="fas fa-user-circle"></i> Gast</span>
+							<span class="account-placeholder">(Login-Funktion in Entwicklung)</span>
+						</div>
+					</section>
+					<section class="settings-section">
+						<h2><i class="fas fa-language"></i> Sprache</h2>
+						<label for="language-select">Sprache wählen:</label>
+						<select id="language-select">
+							<option value="de">Deutsch</option>
+							<option value="en">English</option>
+						</select>
+					</section>
+					<section class="settings-section">
+						<h2><i class="fas fa-volume-up"></i> Sound</h2>
+						<label class="switch">
+							<input type="checkbox" id="sound-toggle">
+							<span class="slider round"></span>
+						</label>
+						<span id="sound-status">Sound ist aus</span>
+					</section>
+					<section class="settings-section">
+						<h2><i class="fas fa-bell"></i> Benachrichtigungen</h2>
+						<label class="switch">
+							<input type="checkbox" id="notifications-toggle">
+							<span class="slider round"></span>
+						</label>
+						<span id="notifications-status">Benachrichtigungen sind aus</span>
+					</section>
+					<section class="settings-section">
+						<h2><i class="fas fa-history"></i> Fortschritt</h2>
+						<button id="reset-progress-btn" class="reset-btn"><i class="fas fa-eraser"></i> Fortschritt zurücksetzen</button>
+					</section>
+					<section class="settings-section">
+						<h2><i class="fas fa-undo"></i> Zurücksetzen</h2>
+						<button id="reset-btn" class="reset-btn"><i class="fas fa-trash-restore"></i> Alle Einstellungen zurücksetzen</button>
+					</section>
+				</div>
 			</div>
-			<div class="settings-card dev-tools-card">
-				<section class="settings-section">
-					<h2><i class="fas fa-tools"></i> Entwickler-Tools</h2>
-					<button id="toggleDevMode" class="dev-btn"><i class="fas fa-terminal"></i> Dev Mode umschalten</button>
-					<button id="showDevReloadBtn" class="dev-btn"><i class="fas fa-sync-alt"></i> Reload-Button anzeigen/verstecken</button>
-					<button id="devHardReloadBtn" class="dev-btn"><i class="fas fa-broom"></i> Hard Reload & Cache leeren</button>
-					<div id="devModeStatus"></div>
-				</section>
+			<div class="tab-panel" id="appearance">
+				<div class="settings-card">
+					<section class="settings-section">
+						<h2><i class="fas fa-palette"></i> Design</h2>
+						<label for="theme-select">Farbschema:</label>
+						<select id="theme-select">
+							<option value="light">Hell</option>
+							<option value="dark">Dunkel</option>
+							<option value="auto">Automatisch</option>
+						</select>
+					</section>
+					<section class="settings-section">
+						<h2><i class="fas fa-font"></i> Schriftgröße</h2>
+						<label for="font-size-select">Schriftgröße:</label>
+						<select id="font-size-select">
+							<option value="normal">Normal</option>
+							<option value="large">Groß</option>
+							<option value="xlarge">Sehr groß</option>
+						</select>
+					</section>
+					<section class="settings-section">
+						<h2><i class="fas fa-magic"></i> Animationen</h2>
+						<label class="switch">
+							<input type="checkbox" id="animations-toggle">
+							<span class="slider round"></span>
+						</label>
+						<span id="animations-status">Animationen sind an</span>
+					</section>
+				</div>
+			</div>
+			<div class="tab-panel" id="accessibility">
+				<div class="settings-card">
+					<section class="settings-section">
+						<h2><i class="fas fa-eye"></i> High Contrast</h2>
+						<label class="switch">
+							<input type="checkbox" id="contrast-toggle">
+							<span class="slider round"></span>
+						</label>
+						<span id="contrast-status">High Contrast ist aus</span>
+					</section>
+					<section class="settings-section">
+						<h2><i class="fas fa-mouse-pointer"></i> Reduzierte Bewegungen</h2>
+						<label class="switch">
+							<input type="checkbox" id="reduced-motion-toggle">
+							<span class="slider round"></span>
+						</label>
+						<span id="reduced-motion-status">Bewegungen sind normal</span>
+					</section>
+					<section class="settings-section">
+						<h2><i class="fas fa-volume-off"></i> Screen Reader</h2>
+						<label class="switch">
+							<input type="checkbox" id="screen-reader-toggle">
+							<span class="slider round"></span>
+						</label>
+						<span id="screen-reader-status">Screen Reader ist aus</span>
+					</section>
+				</div>
+			</div>
+			<div class="tab-panel" id="developer">
+				<div class="settings-card dev-tools-card">
+					<section class="settings-section">
+						<h2><i class="fas fa-tools"></i> Entwickler-Tools</h2>
+						<button id="toggleDevMode" class="dev-btn"><i class="fas fa-terminal"></i> Dev Mode umschalten</button>
+						<button id="showDevReloadBtn" class="dev-btn"><i class="fas fa-sync-alt"></i> Reload-Button anzeigen/verstecken</button>
+						<button id="devHardReloadBtn" class="dev-btn"><i class="fas fa-broom"></i> Hard Reload & Cache leeren</button>
+						<div id="devModeStatus"></div>
+					</section>
+				</div>
 			</div>
 		</div>
 	</main>
@@ -285,6 +336,88 @@
 	            toast.classList.remove('show');
 	            setTimeout(() => toast.remove(), 300);
 	        }, 2500);
+	    }
+
+	    // Tab-Funktionalität
+	    const tabBtns = document.querySelectorAll('.tab-btn');
+	    const tabPanels = document.querySelectorAll('.tab-panel');
+	    tabBtns.forEach(btn => {
+	        btn.addEventListener('click', () => {
+	            const targetTab = btn.dataset.tab;
+	            tabBtns.forEach(b => b.classList.remove('active'));
+	            tabPanels.forEach(p => p.classList.remove('active'));
+	            btn.classList.add('active');
+	            document.getElementById(targetTab).classList.add('active');
+	            localStorage.setItem('activeTab', targetTab);
+	        });
+	    });
+	    // Aktiven Tab wiederherstellen
+	    const savedTab = localStorage.getItem('activeTab') || 'general';
+	    document.querySelector(`[data-tab="${savedTab}"]`).classList.add('active');
+	    document.getElementById(savedTab).classList.add('active');
+
+	    // Animationen
+	    const animationsToggle = document.getElementById('animations-toggle');
+	    const animationsStatus = document.getElementById('animations-status');
+	    function updateAnimationsStatus() {
+	        const enabled = animationsToggle.checked;
+	        animationsStatus.textContent = enabled ? 'Animationen sind an' : 'Animationen sind aus';
+	        localStorage.setItem('animationsEnabled', enabled ? 'true' : 'false');
+	        document.body.classList.toggle('no-animations', !enabled);
+	    }
+	    animationsToggle.checked = localStorage.getItem('animationsEnabled') !== 'false';
+	    updateAnimationsStatus();
+	    animationsToggle.addEventListener('change', updateAnimationsStatus);
+
+	    // High Contrast
+	    const contrastToggle = document.getElementById('contrast-toggle');
+	    const contrastStatus = document.getElementById('contrast-status');
+	    function updateContrastStatus() {
+	        const enabled = contrastToggle.checked;
+	        contrastStatus.textContent = enabled ? 'High Contrast ist an' : 'High Contrast ist aus';
+	        localStorage.setItem('highContrast', enabled ? 'true' : 'false');
+	        document.body.classList.toggle('high-contrast', enabled);
+	    }
+	    contrastToggle.checked = localStorage.getItem('highContrast') === 'true';
+	    updateContrastStatus();
+	    contrastToggle.addEventListener('change', updateContrastStatus);
+
+	    // Reduzierte Bewegungen
+	    const reducedMotionToggle = document.getElementById('reduced-motion-toggle');
+	    const reducedMotionStatus = document.getElementById('reduced-motion-status');
+	    function updateReducedMotionStatus() {
+	        const enabled = reducedMotionToggle.checked;
+	        reducedMotionStatus.textContent = enabled ? 'Bewegungen sind reduziert' : 'Bewegungen sind normal';
+	        localStorage.setItem('reducedMotion', enabled ? 'true' : 'false');
+	        document.body.classList.toggle('reduced-motion', enabled);
+	    }
+	    reducedMotionToggle.checked = localStorage.getItem('reducedMotion') === 'true';
+	    updateReducedMotionStatus();
+	    reducedMotionToggle.addEventListener('change', updateReducedMotionStatus);
+
+	    // Screen Reader
+	    const screenReaderToggle = document.getElementById('screen-reader-toggle');
+	    const screenReaderStatus = document.getElementById('screen-reader-status');
+	    function updateScreenReaderStatus() {
+	        const enabled = screenReaderToggle.checked;
+	        screenReaderStatus.textContent = enabled ? 'Screen Reader ist an' : 'Screen Reader ist aus';
+	        localStorage.setItem('screenReader', enabled ? 'true' : 'false');
+	        document.body.classList.toggle('screen-reader-active', enabled);
+	    }
+	    screenReaderToggle.checked = localStorage.getItem('screenReader') === 'true';
+	    updateScreenReaderStatus();
+	    screenReaderToggle.addEventListener('change', updateScreenReaderStatus);
+
+	    // Theme Auto-Modus
+	    function applyTheme(theme) {
+	        document.body.classList.remove('light-mode', 'dark-mode');
+	        if (theme === 'auto') {
+	            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+	            document.body.classList.add(prefersDark ? 'dark-mode' : 'light-mode');
+	        } else {
+	            document.body.classList.add(theme + '-mode');
+	        }
+	        localStorage.setItem('theme', theme);
 	    }
 	});
 	</script>
