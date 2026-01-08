@@ -413,6 +413,7 @@
 	<div id="footer-container"></div>
 
 	<script src="components/footer.js"></script>
+	<script src="components/dev-tools.js"></script>
 	<script src="script.js"></script>
 	<script>
 	// Settings-Initialisierung in EINEM DOMContentLoaded-Block
@@ -505,94 +506,44 @@
 	    updateNotificationStatus();
 	    notificationsToggle.addEventListener('change', updateNotificationStatus);
 
-	    // Neue Entwickler-Tools
-	    // Globale Funktionen für Entwickler-Settings
-	    function applyFooterSettings(enabled) {
+	    // Entwickler-Tools Funktionen sind jetzt in components/dev-tools.js definiert
 	        const footer = document.getElementById('footer-container');
 	        if (footer) {
-	            // Footer-Details ein/ausschalten
-	            const footerDetails = footer.querySelectorAll('.footer-detail');
+	            // Footer-Details ein/ausschalten - zeige versteckte Informationen
+	            const footerDetails = footer.querySelectorAll('.footer-detail, #commitInfo, .footer-links, .footer-copyright');
 	            footerDetails.forEach(detail => {
-	                detail.style.display = enabled ? 'block' : 'none';
-	            });
-	        }
-	    }
-
-	    function applyResizeButtonSettings(enabled) {
-	        let resizeBtn = document.getElementById('resizeBtn');
-	        if (!resizeBtn && enabled) {
-	            // Resize-Button erstellen falls er nicht existiert
-	            resizeBtn = document.createElement('button');
-	            resizeBtn.id = 'resizeBtn';
-	            resizeBtn.className = 'resize-btn';
-	            resizeBtn.innerHTML = '<i class="fas fa-expand"></i>';
-	            resizeBtn.title = 'Seite zoomen';
-	            resizeBtn.addEventListener('click', () => {
-	                // Zoom-Funktionalität hier implementieren
-	                const currentZoom = parseFloat(localStorage.getItem('pageZoom') || '1');
-	                const newZoom = currentZoom >= 1.5 ? 1 : currentZoom + 0.25;
-	                document.body.style.zoom = newZoom;
-	                localStorage.setItem('pageZoom', newZoom);
-	            });
-	            document.body.appendChild(resizeBtn);
-	        } else if (resizeBtn && !enabled) {
-	            resizeBtn.remove();
-	        }
-	    }
-
-	    function applyHardReloadButtonSettings(enabled) {
-	        let hardReloadBtn = document.getElementById('hardReloadBtn');
-	        if (!hardReloadBtn && enabled) {
-	            // Hard Reload Button erstellen
-	            hardReloadBtn = document.createElement('button');
-	            hardReloadBtn.id = 'hardReloadBtn';
-	            hardReloadBtn.className = 'hard-reload-btn';
-	            hardReloadBtn.innerHTML = '<i class="fas fa-redo-alt"></i>';
-	            hardReloadBtn.title = 'Hard Reload';
-	            hardReloadBtn.addEventListener('click', () => {
-	                // Cache leeren und neu laden
-	                if ('serviceWorker' in navigator) {
-	                    navigator.serviceWorker.getRegistrations().then(registrations => {
-	                        registrations.forEach(registration => registration.unregister());
-	                    });
+	                if (enabled) {
+	                    detail.style.display = detail.dataset.originalDisplay || 'block';
+	                } else {
+	                    // Verstecke Details, aber zeige immer das Copyright
+	                    if (detail.classList.contains('footer-copyright')) {
+	                        detail.style.display = 'block';
+	                    } else {
+	                        detail.dataset.originalDisplay = detail.style.display || window.getComputedStyle(detail).display;
+	                        detail.style.display = 'none';
+	                    }
 	                }
-	                localStorage.clear();
-	                sessionStorage.clear();
-	                window.location.reload(true);
 	            });
-	            document.body.appendChild(hardReloadBtn);
-	        } else if (hardReloadBtn && !enabled) {
-	            hardReloadBtn.remove();
+
+	            // Zusätzliche Debug-Info anzeigen wenn aktiviert
+	            if (enabled && !footer.querySelector('.footer-debug-info')) {
+	                const debugInfo = document.createElement('div');
+	                debugInfo.className = 'footer-debug-info footer-detail';
+	                debugInfo.innerHTML = `
+	                    <small style="color: var(--text-secondary); font-size: 0.8rem;">
+	                        Debug: Footer-Details aktiviert | Theme: ${localStorage.getItem('theme') || 'auto'} |
+	                        Zoom: ${localStorage.getItem('pageZoom') || '1'}x
+	                    </small>
+	                `;
+	                footer.appendChild(debugInfo);
+	            } else if (!enabled) {
+	                const debugInfo = footer.querySelector('.footer-debug-info');
+	                if (debugInfo) debugInfo.remove();
+	            }
 	        }
 	    }
 
-	    function applyDebugSettings(enabled) {
-	        if (enabled) {
-	            // Debug-System initialisieren falls es nicht existiert
-	            if (!window.debugSystem) {
-	                window.debugSystem = {
-	                    level: localStorage.getItem('debugLevel') || 'error',
-	                    consoleOutput: localStorage.getItem('debugConsoleOutputEnabled') === 'true',
-	                    log: function(level, message, ...args) {
-	                        const levels = { 'error': 0, 'warn': 1, 'info': 2, 'debug': 3 };
-	                        if (levels[level] <= levels[this.level]) {
-	                            if (this.consoleOutput) {
-	                                console[level](`[${level.toUpperCase()}]`, message, ...args);
-	                            }
-	                            // Hier könnte auch eine UI-Anzeige implementiert werden
-	                        }
-	                    },
-	                    setLevel: function(level) { this.level = level; },
-	                    setConsoleOutput: function(enabled) { this.consoleOutput = enabled; }
-	                };
-	            }
-	        } else {
-	            // Debug-System deaktivieren
-	            if (window.debugSystem) {
-	                window.debugSystem = null;
-	            }
-	        }
-	    }
+	    // Entwickler-Tools Event Handler
 
 	    // Footer Settings Toggle
 	    const footerSettingsToggle = document.getElementById('footer-settings-toggle');
@@ -1021,22 +972,8 @@
 	        localStorage.setItem('theme', theme);
 	    }
 
-	    // Entwickler-Settings beim Laden anwenden
-	    const footerEnabled = localStorage.getItem('footerSettingsEnabled') === 'true';
-	    const resizeEnabled = localStorage.getItem('resizeButtonEnabled') === 'true';
-	    const hardReloadEnabled = localStorage.getItem('hardReloadButtonEnabled') === 'true';
-	    const debugEnabled = localStorage.getItem('debugMessagesEnabled') === 'true';
-
-	    applyFooterSettings(footerEnabled);
-	    applyResizeButtonSettings(resizeEnabled);
-	    applyHardReloadButtonSettings(hardReloadEnabled);
-	    applyDebugSettings(debugEnabled);
-
-	    // Zoom wiederherstellen falls gespeichert
-	    const savedZoom = localStorage.getItem('pageZoom');
-	    if (savedZoom) {
-	        document.body.style.zoom = savedZoom;
-	    }
+	    // Entwickler-Settings beim Laden anwenden (bereits durch dev-tools.js initialisiert)
+	    // Zusätzliche Initialisierung für Settings-spezifische Elemente
 	});
 	</script>
 </body>
