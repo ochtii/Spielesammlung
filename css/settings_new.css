@@ -148,39 +148,136 @@ select, input[type="text"], input[type="email"], input[type="password"] {
 .reset-btn:hover, .dev-btn:hover {
     background: var(--primary-light);
 }
-/* Switch (Toggle) Styles */
+/* Switch (Toggle) Styles - Modern Design */
 .switch {
     position: relative;
     display: inline-block;
-    width: 48px;
-    height: 28px;
+    width: 56px;
+    height: 32px;
     margin-right: 1rem;
+    vertical-align: middle;
 }
-.switch input {display:none;}
+
+.switch input {
+    display: none;
+}
+
 .slider {
     position: absolute;
     cursor: pointer;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: #ccc;
-    transition: .4s;
-    border-radius: 28px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #e0e0e0 0%, #c0c0c0 100%);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 32px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
+
 .slider:before {
     position: absolute;
     content: "";
-    height: 22px;
-    width: 22px;
-    left: 3px;
-    bottom: 3px;
-    background: white;
-    transition: .4s;
+    height: 24px;
+    width: 24px;
+    left: 2px;
+    bottom: 2px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 50%;
+    transform: translateX(0);
 }
+
+.slider:hover {
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.15);
+    transform: scale(1.02);
+}
+
+.slider:hover:before {
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
 input:checked + .slider {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 20px rgba(237, 41, 57, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
 }
+
 input:checked + .slider:before {
-    transform: translateX(20px);
+    transform: translateX(22px);
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+input:checked + .slider:hover {
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.25), 0 0 25px rgba(237, 41, 57, 0.4);
+}
+
+/* Status Anzeigen - Modern Design */
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    margin-left: 0.5rem;
+}
+
+.status-indicator.enabled {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(39, 174, 96, 0.1) 100%);
+    color: #27ae60;
+    border: 1px solid rgba(46, 204, 113, 0.2);
+}
+
+.status-indicator.disabled {
+    background: linear-gradient(135deg, rgba(149, 165, 166, 0.1) 0%, rgba(127, 140, 141, 0.1) 100%);
+    color: #7f8c8d;
+    border: 1px solid rgba(149, 165, 166, 0.2);
+}
+
+.status-indicator::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 6px currentColor;
+}
+
+/* Update existing status spans to use new class */
+#sound-status, #notifications-status, #animations-status, #contrast-status, #reduced-motion-status, #screen-reader-status, #timer-enabled-status, #timer-visual-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    margin-left: 0.5rem;
+    background: linear-gradient(135deg, rgba(149, 165, 166, 0.1) 0%, rgba(127, 140, 141, 0.1) 100%);
+    color: #7f8c8d;
+    border: 1px solid rgba(149, 165, 166, 0.2);
+}
+
+#sound-status.enabled, #notifications-status.enabled, #animations-status.enabled, #contrast-status.enabled, #reduced-motion-status.enabled, #screen-reader-status.enabled, #timer-enabled-status.enabled, #timer-visual-status.enabled {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(39, 174, 96, 0.1) 100%);
+    color: #27ae60;
+    border: 1px solid rgba(46, 204, 113, 0.2);
+}
+
+#sound-status::before, #notifications-status::before, #animations-status::before, #contrast-status::before, #reduced-motion-status::before, #screen-reader-status::before, #timer-enabled-status::before, #timer-visual-status::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 6px currentColor;
 }
 #notifications-status {
     font-size: 0.95rem;

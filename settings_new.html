@@ -285,6 +285,7 @@
 	    function updateSoundStatus() {
 	        const enabled = soundToggle.checked;
 	        soundStatus.textContent = enabled ? 'Sound ist an' : 'Sound ist aus';
+	        soundStatus.classList.toggle('enabled', enabled);
 	        localStorage.setItem('soundEnabled', enabled ? 'true' : 'false');
 	    }
 	    soundToggle.checked = localStorage.getItem('soundEnabled') === 'true';
@@ -297,6 +298,7 @@
 	    function updateNotificationStatus() {
 	        const enabled = notificationsToggle.checked;
 	        notificationsStatus.textContent = enabled ? 'Benachrichtigungen sind an' : 'Benachrichtigungen sind aus';
+	        notificationsStatus.classList.toggle('enabled', enabled);
 	        localStorage.setItem('notificationsEnabled', enabled ? 'true' : 'false');
 	    }
 	    notificationsToggle.checked = localStorage.getItem('notificationsEnabled') === 'true';
@@ -409,6 +411,7 @@
 	    function updateAnimationsStatus() {
 	        const enabled = animationsToggle.checked;
 	        animationsStatus.textContent = enabled ? 'Animationen sind an' : 'Animationen sind aus';
+	        animationsStatus.classList.toggle('enabled', enabled);
 	        localStorage.setItem('animationsEnabled', enabled ? 'true' : 'false');
 	        document.body.classList.toggle('no-animations', !enabled);
 	    }
@@ -422,6 +425,7 @@
 	    function updateContrastStatus() {
 	        const enabled = contrastToggle.checked;
 	        contrastStatus.textContent = enabled ? 'High Contrast ist an' : 'High Contrast ist aus';
+	        contrastStatus.classList.toggle('enabled', enabled);
 	        localStorage.setItem('highContrast', enabled ? 'true' : 'false');
 	        document.body.classList.toggle('high-contrast', enabled);
 	    }
@@ -435,6 +439,7 @@
 	    function updateReducedMotionStatus() {
 	        const enabled = reducedMotionToggle.checked;
 	        reducedMotionStatus.textContent = enabled ? 'Bewegungen sind reduziert' : 'Bewegungen sind normal';
+	        reducedMotionStatus.classList.toggle('enabled', enabled);
 	        localStorage.setItem('reducedMotion', enabled ? 'true' : 'false');
 	        document.body.classList.toggle('reduced-motion', enabled);
 	    }
@@ -448,6 +453,7 @@
 	    function updateScreenReaderStatus() {
 	        const enabled = screenReaderToggle.checked;
 	        screenReaderStatus.textContent = enabled ? 'Screen Reader ist an' : 'Screen Reader ist aus';
+	        screenReaderStatus.classList.toggle('enabled', enabled);
 	        localStorage.setItem('screenReader', enabled ? 'true' : 'false');
 	        document.body.classList.toggle('screen-reader-active', enabled);
 	    }
@@ -464,6 +470,7 @@
 	    function updateTimerEnabledStatus() {
 	        const enabled = timerEnabledToggle.checked;
 	        timerEnabledStatus.textContent = enabled ? 'Timer ist an' : 'Timer ist aus';
+	        timerEnabledStatus.classList.toggle('enabled', enabled);
 	        localStorage.setItem('timerEnabled', enabled ? 'true' : 'false');
 	        timerDurationContainer.style.display = enabled ? 'block' : 'none';
 	        timerVisualContainer.style.display = enabled ? 'block' : 'none';
@@ -489,6 +496,7 @@
 	    function updateTimerVisualStatus() {
 	        const enabled = timerVisualToggle.checked;
 	        timerVisualStatus.textContent = enabled ? 'Visueller Timer ist an' : 'Visueller Timer ist aus';
+	        timerVisualStatus.classList.toggle('enabled', enabled);
 	        localStorage.setItem('timerVisual', enabled ? 'true' : 'false');
 	    }
 	    timerVisualToggle.checked = localStorage.getItem('timerVisual') !== 'false';
