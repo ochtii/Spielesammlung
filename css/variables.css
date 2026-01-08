@@ -16,6 +16,7 @@
     
     /* Brand Colors */
     --primary-color: #ed2939;
+    --accent-color: #ed2939; /* Akzentfarbe für UI-Elemente */
     --primary-light: #ff4757;
     --secondary-color: #003366;
     --success-color: #2ecc71;

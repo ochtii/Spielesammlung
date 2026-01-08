@@ -93,6 +93,14 @@
 						</select>
 					</section>
 					<section class="settings-section">
+						<h2><i class="fas fa-paint-brush"></i> Akzentfarbe</h2>
+						<label for="accent-color-picker">Akzentfarbe wählen:</label>
+						<input type="color" id="accent-color-picker" value="#ed2939">
+						<div class="color-preview">
+							<span>Diese Farbe wird für Buttons und Hervorhebungen verwendet.</span>
+						</div>
+					</section>
+					<section class="settings-section">
 						<h2><i class="fas fa-font"></i> Schriftgröße</h2>
 						<label for="font-size-slider">Schriftgröße: <span id="font-size-value">100%</span></label>
 						<input type="range" id="font-size-slider" min="80" max="150" step="5" value="100">
@@ -111,12 +119,44 @@
 						<span id="animations-status">Animationen sind an</span>
 					</section>
 					<section class="settings-section">
-						<h2><i class="fas fa-mobile-alt"></i> Navigation</h2>
-						<label class="switch">
-							<input type="checkbox" id="bottom-nav-enabled-toggle">
-							<span class="slider round"></span>
-						</label>
-						<span id="bottom-nav-enabled-status">Bottom Navigation ist an</span>
+						<h2><i class="fas fa-mobile-alt"></i> Bottom Navigation</h2>
+						<div class="sub-section">
+							<label class="switch">
+								<input type="checkbox" id="bottom-nav-enabled-toggle">
+								<span class="slider round"></span>
+							</label>
+							<span id="bottom-nav-enabled-status">Bottom Navigation ist an</span>
+						</div>
+						<div id="bottom-nav-elements-container" style="display: none; margin-top: 1rem;">
+							<label>Anzuzeigende Elemente:</label>
+							<div class="checkbox-group">
+								<label class="checkbox-item">
+									<input type="checkbox" id="bottom-nav-home-toggle" checked>
+									<span class="checkmark"></span>
+									Startseite
+								</label>
+								<label class="checkbox-item">
+									<input type="checkbox" id="bottom-nav-points-toggle" checked>
+									<span class="checkmark"></span>
+									Punkte
+								</label>
+								<label class="checkbox-item">
+									<input type="checkbox" id="bottom-nav-help-toggle" checked>
+									<span class="checkmark"></span>
+									Hilfe
+								</label>
+								<label class="checkbox-item">
+									<input type="checkbox" id="bottom-nav-faq-toggle">
+									<span class="checkmark"></span>
+									FAQ
+								</label>
+								<label class="checkbox-item">
+									<input type="checkbox" id="bottom-nav-settings-toggle" checked>
+									<span class="checkmark"></span>
+									Einstellungen
+								</label>
+							</div>
+						</div>
 					</section>
 				</div>
 			</div>
@@ -197,19 +237,6 @@
 				<div class="settings-card dev-tools-card">
 					<section class="settings-section">
 						<h2><i class="fas fa-tools"></i> Entwickler-Tools</h2>
-						
-						<div class="dev-option">
-							<label class="switch">
-								<input type="checkbox" id="devDarkMode">
-								<span class="slider round"></span>
-							</label>
-							<span>Dark Mode</span>
-						</div>
-						
-						<div class="dev-option">
-							<label for="devAccentColor">Accent Farbe:</label>
-							<input type="color" id="devAccentColor" value="#ed2939">
-						</div>
 						
 						<div class="dev-option">
 							<label class="switch">
@@ -402,33 +429,6 @@
 	    notificationsToggle.addEventListener('change', updateNotificationStatus);
 
 	    // Entwickler-Tools
-	    // Dark Mode Toggle
-	    const darkModeToggle = document.getElementById('devDarkMode');
-	    function updateDarkModeStatus() {
-	        const enabled = darkModeToggle.checked;
-	        localStorage.setItem('darkMode', enabled ? 'true' : 'false');
-	        document.body.classList.toggle('dark-mode', enabled);
-	        if (window.applyGlobalSettings) window.applyGlobalSettings();
-	    }
-	    darkModeToggle.checked = localStorage.getItem('darkMode') === 'true';
-	    updateDarkModeStatus();
-	    darkModeToggle.addEventListener('change', updateDarkModeStatus);
-
-	    // Accent Color Picker
-	    const accentColorPicker = document.getElementById('devAccentColor');
-	    function applyAccentColor(color) {
-	        document.documentElement.style.setProperty('--accent-color', color);
-	        document.documentElement.style.setProperty('--primary-color', color);
-	        localStorage.setItem('accentColor', color);
-	        if (window.applyGlobalSettings) window.applyGlobalSettings();
-	    }
-	    const savedAccentColor = localStorage.getItem('accentColor') || '#ed2939';
-	    accentColorPicker.value = savedAccentColor;
-	    applyAccentColor(savedAccentColor);
-	    accentColorPicker.addEventListener('input', (e) => {
-	        applyAccentColor(e.target.value);
-	    });
-
 	    // Timer Toggle
 	    const devTimerToggle = document.getElementById('devTimerEnabled');
 	    function updateDevTimerStatus() {
@@ -503,6 +503,75 @@
 	    animationsToggle.checked = localStorage.getItem('animationsEnabled') !== 'false';
 	    updateAnimationsStatus();
 	    animationsToggle.addEventListener('change', updateAnimationsStatus);
+
+	    // Akzentfarbe
+	    const accentColorPicker = document.getElementById('accent-color-picker');
+	    function applyAccentColor(color) {
+	        document.documentElement.style.setProperty('--accent-color', color);
+	        document.documentElement.style.setProperty('--primary-color', color);
+	        localStorage.setItem('accentColor', color);
+	        if (window.applyGlobalSettings) window.applyGlobalSettings();
+	    }
+	    const savedAccentColor = localStorage.getItem('accentColor') || '#ed2939';
+	    accentColorPicker.value = savedAccentColor;
+	    applyAccentColor(savedAccentColor);
+	    accentColorPicker.addEventListener('input', (e) => {
+	        applyAccentColor(e.target.value);
+	    });
+
+	    // Bottom Navigation
+	    const bottomNavEnabledToggle = document.getElementById('bottom-nav-enabled-toggle');
+	    const bottomNavEnabledStatus = document.getElementById('bottom-nav-enabled-status');
+	    const bottomNavElementsContainer = document.getElementById('bottom-nav-elements-container');
+	    function updateBottomNavEnabledStatus() {
+	        const enabled = bottomNavEnabledToggle.checked;
+	        bottomNavEnabledStatus.textContent = enabled ? 'Bottom Navigation ist an' : 'Bottom Navigation ist aus';
+	        bottomNavEnabledStatus.classList.toggle('enabled', enabled);
+	        localStorage.setItem('bottomNavEnabled', enabled ? 'true' : 'false');
+	        document.body.classList.toggle('bottom-nav-enabled', enabled);
+	        bottomNavElementsContainer.style.display = enabled ? 'block' : 'none';
+	        if (window.applyGlobalSettings) window.applyGlobalSettings();
+	    }
+	    bottomNavEnabledToggle.checked = localStorage.getItem('bottomNavEnabled') !== 'false';
+	    updateBottomNavEnabledStatus();
+	    bottomNavEnabledToggle.addEventListener('change', updateBottomNavEnabledStatus);
+
+	    // Bottom Nav Elemente
+	    const bottomNavHomeToggle = document.getElementById('bottom-nav-home-toggle');
+	    const bottomNavPointsToggle = document.getElementById('bottom-nav-points-toggle');
+	    const bottomNavHelpToggle = document.getElementById('bottom-nav-help-toggle');
+	    const bottomNavFaqToggle = document.getElementById('bottom-nav-faq-toggle');
+	    const bottomNavSettingsToggle = document.getElementById('bottom-nav-settings-toggle');
+
+	    function updateBottomNavElements() {
+	        const showHome = bottomNavHomeToggle.checked;
+	        const showPoints = bottomNavPointsToggle.checked;
+	        const showHelp = bottomNavHelpToggle.checked;
+	        const showFaq = bottomNavFaqToggle.checked;
+	        const showSettings = bottomNavSettingsToggle.checked;
+
+	        localStorage.setItem('bottomNavShowHome', showHome ? 'true' : 'false');
+	        localStorage.setItem('bottomNavShowPoints', showPoints ? 'true' : 'false');
+	        localStorage.setItem('bottomNavShowHelp', showHelp ? 'true' : 'false');
+	        localStorage.setItem('bottomNavShowFaq', showFaq ? 'true' : 'false');
+	        localStorage.setItem('bottomNavShowSettings', showSettings ? 'true' : 'false');
+
+	        if (window.applyGlobalSettings) window.applyGlobalSettings();
+	    }
+
+	    // Lade gespeicherte Werte
+	    bottomNavHomeToggle.checked = localStorage.getItem('bottomNavShowHome') !== 'false';
+	    bottomNavPointsToggle.checked = localStorage.getItem('bottomNavShowPoints') !== 'false';
+	    bottomNavHelpToggle.checked = localStorage.getItem('bottomNavShowHelp') !== 'false';
+	    bottomNavFaqToggle.checked = localStorage.getItem('bottomNavShowFaq') === 'true';
+	    bottomNavSettingsToggle.checked = localStorage.getItem('bottomNavShowSettings') !== 'false';
+
+	    // Event Listener
+	    bottomNavHomeToggle.addEventListener('change', updateBottomNavElements);
+	    bottomNavPointsToggle.addEventListener('change', updateBottomNavElements);
+	    bottomNavHelpToggle.addEventListener('change', updateBottomNavElements);
+	    bottomNavFaqToggle.addEventListener('change', updateBottomNavElements);
+	    bottomNavSettingsToggle.addEventListener('change', updateBottomNavElements);
 
 	    // High Contrast
 	    const contrastToggle = document.getElementById('contrast-toggle');
@@ -613,20 +682,7 @@
 	        applyBalanceDisplayMode(e.target.value);
 	    });
 
-	    // Bottom Navigation
-	    const bottomNavEnabledToggle = document.getElementById('bottom-nav-enabled-toggle');
-	    const bottomNavEnabledStatus = document.getElementById('bottom-nav-enabled-status');
-	    function updateBottomNavEnabledStatus() {
-	        const enabled = bottomNavEnabledToggle.checked;
-	        bottomNavEnabledStatus.textContent = enabled ? 'Bottom Navigation ist an' : 'Bottom Navigation ist aus';
-	        bottomNavEnabledStatus.classList.toggle('enabled', enabled);
-	        localStorage.setItem('bottomNavEnabled', enabled ? 'true' : 'false');
-	        document.body.classList.toggle('bottom-nav-enabled', enabled);
-	        if (window.applyGlobalSettings) window.applyGlobalSettings();
-	    }
-	    bottomNavEnabledToggle.checked = localStorage.getItem('bottomNavEnabled') !== 'false';
-	    updateBottomNavEnabledStatus();
-	    bottomNavEnabledToggle.addEventListener('change', updateBottomNavEnabledStatus);
+
 
 	    // ============================================
 	    // GEFahrenzone - Gefährliche Funktionen
