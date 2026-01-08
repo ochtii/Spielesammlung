@@ -7222,6 +7222,113 @@ body.dark-mode .tech-badge {
     font-family: monospace;
     font-size: 0.9rem;
     color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.license-box p:last-child {
+    margin-bottom: 0;
+}
+
+.license-box .license-disclaimer {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* Legal Notice Box */
+.legal-notice {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.05));
+    border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.legal-notice > i {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+}
+
+.legal-notice p {
+    margin: 0;
+}
+
+/* Update Notice */
+.update-notice {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.update-notice > i {
+    color: #10b981;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.update-notice p {
+    margin: 0;
+}
+
+.update-notice small {
+    opacity: 0.8;
+}
+
+/* Contact Link */
+.contact-link {
+    margin-top: 1rem;
+}
+
+.contact-link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.contact-link a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Authority Box */
+.authority-box {
+    background: var(--bg-primary);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-top: 1rem;
+    border-left: 4px solid #10b981;
+    line-height: 1.8;
+}
+
+.authority-box strong {
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.authority-box a {
+    color: var(--primary-color);
+}
+
+/* Legal List with small text */
+.legal-list small {
+    display: block;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+.legal-list small a {
+    color: var(--primary-color);
 }
 
 /* Footer Links */
