@@ -97,7 +97,7 @@
 
 /* Font Scale Modifier */
 html {
-    font-size: calc(var(--font-size-base) * var(--font-scale));
+    font-size: 16px;
 }
 
 /* Semantic Variable Aliases */
