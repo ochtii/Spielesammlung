@@ -1,3 +1,42 @@
+.settings-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    align-items: flex-start;
+}
+.account-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+}
+.account-placeholder {
+    font-size: 0.95rem;
+    color: var(--warning-color);
+}
+@media (max-width: 900px) {
+    .settings-grid {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .settings-card, .dev-tools-card {
+        max-width: 100%;
+    }
+}
+label[for="language-select"], label[for="font-size-select"] {
+    margin-right: 0.7rem;
+}
+select {
+    padding: 0.3rem 0.7rem;
+    border-radius: 0.4rem;
+    border: 1px solid var(--border-color);
+    font-size: 1rem;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
 .settings-title {
     text-align: center;
     margin-top: 2rem;

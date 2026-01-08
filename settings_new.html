@@ -41,35 +41,73 @@
 
 	<main class="container">
 		<h1 class="settings-title"><i class="fas fa-cog"></i> Einstellungen</h1>
-		<div class="settings-card">
-			<section class="settings-section">
-				<h2><i class="fas fa-palette"></i> Design</h2>
-				<label for="theme-select">Farbschema:</label>
-				<select id="theme-select">
-					<option value="light">Hell</option>
-					<option value="dark">Dunkel</option>
-				</select>
-			</section>
-			<section class="settings-section">
-				<h2><i class="fas fa-bell"></i> Benachrichtigungen</h2>
-				<label class="switch">
-					<input type="checkbox" id="notifications-toggle">
-					<span class="slider round"></span>
-				</label>
-				<span id="notifications-status">Benachrichtigungen sind aus</span>
-			</section>
-			<section class="settings-section">
-				<h2><i class="fas fa-undo"></i> Zurücksetzen</h2>
-				<button id="reset-btn" class="reset-btn"><i class="fas fa-trash-restore"></i> Alle Einstellungen zurücksetzen</button>
-			</section>
-		</div>
-		<div class="settings-card dev-tools-card">
-			<section class="settings-section">
-				<h2><i class="fas fa-tools"></i> Entwickler-Tools</h2>
-				<button id="toggleDevMode" class="dev-btn"><i class="fas fa-terminal"></i> Dev Mode umschalten</button>
-				<button id="showDevReloadBtn" class="dev-btn"><i class="fas fa-sync-alt"></i> Reload-Button anzeigen/verstecken</button>
-				<div id="devModeStatus"></div>
-			</section>
+		<div class="settings-grid">
+			<div class="settings-card">
+				<section class="settings-section">
+					<h2><i class="fas fa-user"></i> Account</h2>
+					<div class="account-info">
+						<span><i class="fas fa-user-circle"></i> Gast</span>
+						<span class="account-placeholder">(Login-Funktion in Entwicklung)</span>
+					</div>
+				</section>
+				<section class="settings-section">
+					<h2><i class="fas fa-language"></i> Sprache</h2>
+					<label for="language-select">Sprache wählen:</label>
+					<select id="language-select">
+						<option value="de">Deutsch</option>
+						<option value="en">English</option>
+					</select>
+				</section>
+				<section class="settings-section">
+					<h2><i class="fas fa-font"></i> Schriftgröße</h2>
+					<label for="font-size-select">Schriftgröße:</label>
+					<select id="font-size-select">
+						<option value="normal">Normal</option>
+						<option value="large">Groß</option>
+						<option value="xlarge">Sehr groß</option>
+					</select>
+				</section>
+				<section class="settings-section">
+					<h2><i class="fas fa-volume-up"></i> Sound</h2>
+					<label class="switch">
+						<input type="checkbox" id="sound-toggle">
+						<span class="slider round"></span>
+					</label>
+					<span id="sound-status">Sound ist aus</span>
+				</section>
+				<section class="settings-section">
+					<h2><i class="fas fa-palette"></i> Design</h2>
+					<label for="theme-select">Farbschema:</label>
+					<select id="theme-select">
+						<option value="light">Hell</option>
+						<option value="dark">Dunkel</option>
+					</select>
+				</section>
+				<section class="settings-section">
+					<h2><i class="fas fa-bell"></i> Benachrichtigungen</h2>
+					<label class="switch">
+						<input type="checkbox" id="notifications-toggle">
+						<span class="slider round"></span>
+					</label>
+					<span id="notifications-status">Benachrichtigungen sind aus</span>
+				</section>
+				<section class="settings-section">
+					<h2><i class="fas fa-history"></i> Fortschritt</h2>
+					<button id="reset-progress-btn" class="reset-btn"><i class="fas fa-eraser"></i> Fortschritt zurücksetzen</button>
+				</section>
+				<section class="settings-section">
+					<h2><i class="fas fa-undo"></i> Zurücksetzen</h2>
+					<button id="reset-btn" class="reset-btn"><i class="fas fa-trash-restore"></i> Alle Einstellungen zurücksetzen</button>
+				</section>
+			</div>
+			<div class="settings-card dev-tools-card">
+				<section class="settings-section">
+					<h2><i class="fas fa-tools"></i> Entwickler-Tools</h2>
+					<button id="toggleDevMode" class="dev-btn"><i class="fas fa-terminal"></i> Dev Mode umschalten</button>
+					<button id="showDevReloadBtn" class="dev-btn"><i class="fas fa-sync-alt"></i> Reload-Button anzeigen/verstecken</button>
+					<div id="devModeStatus"></div>
+				</section>
+			</div>
 		</div>
 	</main>
 
@@ -78,7 +116,7 @@
 
 	<script src="components/footer.js"></script>
 	<script>
-	// Theme-Umschaltfunktion
+	// Theme
 	const themeSelect = document.getElementById('theme-select');
 	function applyTheme(theme) {
 		if (theme === 'dark') {
@@ -87,6 +125,31 @@
 			document.body.classList.remove('dark-mode');
 		}
 		localStorage.setItem('theme', theme);
+	}
+
+	// Sprache
+	const languageSelect = document.getElementById('language-select');
+	function applyLanguage(lang) {
+		localStorage.setItem('language', lang);
+		// Platzhalter für spätere Übersetzungsfunktion
+	}
+
+	// Schriftgröße
+	const fontSizeSelect = document.getElementById('font-size-select');
+	function applyFontSize(size) {
+		document.body.classList.remove('font-large', 'font-xlarge');
+		if (size === 'large') document.body.classList.add('font-large');
+		if (size === 'xlarge') document.body.classList.add('font-xlarge');
+		localStorage.setItem('fontSize', size);
+	}
+
+	// Sound
+	const soundToggle = document.getElementById('sound-toggle');
+	const soundStatus = document.getElementById('sound-status');
+	function updateSoundStatus() {
+		const enabled = soundToggle.checked;
+		soundStatus.textContent = enabled ? 'Sound ist an' : 'Sound ist aus';
+		localStorage.setItem('soundEnabled', enabled ? 'true' : 'false');
 	}
 
 	// Benachrichtigungen
@@ -98,13 +161,18 @@
 		localStorage.setItem('notificationsEnabled', enabled ? 'true' : 'false');
 	}
 
+	// Fortschritt zurücksetzen
+	const resetProgressBtn = document.getElementById('reset-progress-btn');
+	function resetProgress() {
+		localStorage.removeItem('pointsData');
+		localStorage.removeItem('foundEasterEggs');
+		alert('Fortschritt wurde zurückgesetzt!');
+	}
+
 	// Einstellungen zurücksetzen
 	const resetBtn = document.getElementById('reset-btn');
 	function resetSettings() {
-		localStorage.removeItem('theme');
-		localStorage.removeItem('notificationsEnabled');
-		localStorage.removeItem('devMode');
-		localStorage.removeItem('showDevReloadBtn');
+		localStorage.clear();
 		location.reload();
 	}
 
@@ -137,10 +205,29 @@
 		themeSelect.addEventListener('change', (e) => {
 			applyTheme(e.target.value);
 		});
+		// Sprache
+		const savedLang = localStorage.getItem('language') || 'de';
+		languageSelect.value = savedLang;
+		languageSelect.addEventListener('change', (e) => {
+			applyLanguage(e.target.value);
+		});
+		// Schriftgröße
+		const savedFont = localStorage.getItem('fontSize') || 'normal';
+		fontSizeSelect.value = savedFont;
+		applyFontSize(savedFont);
+		fontSizeSelect.addEventListener('change', (e) => {
+			applyFontSize(e.target.value);
+		});
+		// Sound
+		soundToggle.checked = localStorage.getItem('soundEnabled') === 'true';
+		updateSoundStatus();
+		soundToggle.addEventListener('change', updateSoundStatus);
 		// Benachrichtigungen
 		notificationsToggle.checked = localStorage.getItem('notificationsEnabled') === 'true';
 		updateNotificationStatus();
 		notificationsToggle.addEventListener('change', updateNotificationStatus);
+		// Fortschritt
+		resetProgressBtn.addEventListener('click', resetProgress);
 		// Reset
 		resetBtn.addEventListener('click', resetSettings);
 		// Dev Tools
