@@ -231,8 +231,12 @@
 }
 
 /* Advanced Settings Container */
+/* Advanced Settings Container */
 .advanced-settings {
     display: block;
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 /* ============================================
