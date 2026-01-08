@@ -668,6 +668,68 @@ main {
     }
 }
 
+/* Developer Tools */
+.dev-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.dev-tool-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.dev-tool-btn:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    background: var(--bg-secondary);
+}
+
+.dev-tool-btn:active {
+    transform: translateY(-1px);
+}
+
+.dev-tool-btn i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.dev-tool-btn span {
+    text-align: center;
+    line-height: 1.3;
+}
+
+@media (max-width: 768px) {
+    .dev-tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .dev-tools-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dev-tool-btn {
+        flex-direction: row;
+        justify-content: flex-start;
+        text-align: left;
+    }
+}
+
 /* ============================================
    Container & Layout
    ============================================ */
