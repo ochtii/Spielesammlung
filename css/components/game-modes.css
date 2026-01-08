@@ -1,0 +1,339 @@
+/* ===========================================
+   Game Modes - Mode Selection & Input Styles
+   =========================================== */
+
+/* Mode Selection Grid */
+.mode-selection {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.mode-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+/* Mode Card */
+.mode-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    background: var(--color-surface);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.mode-card:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-border-strong);
+    transform: translateX(4px);
+}
+
+.mode-card.selected {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+}
+
+/* Mode Card Icon */
+.mode-card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-xl);
+    flex-shrink: 0;
+}
+
+.mode-card-icon.amateur {
+    background: rgba(48, 209, 88, 0.15);
+    color: #30d158;
+}
+
+.mode-card-icon.pro {
+    background: rgba(255, 149, 0, 0.15);
+    color: #ff9500;
+}
+
+.mode-card-icon.rainbow {
+    background: linear-gradient(135deg, 
+        rgba(255, 59, 48, 0.1), 
+        rgba(255, 149, 0, 0.1), 
+        rgba(255, 204, 0, 0.1), 
+        rgba(52, 199, 89, 0.1), 
+        rgba(0, 122, 255, 0.1), 
+        rgba(175, 82, 222, 0.1)
+    );
+    color: #af52de;
+}
+
+/* Mode Card Content */
+.mode-card-content {
+    flex: 1;
+}
+
+.mode-card-title {
+    font-weight: var(--font-semibold);
+    color: var(--color-text);
+    margin-bottom: var(--space-1);
+}
+
+.mode-card-desc {
+    font-size: var(--font-sm);
+    color: var(--color-text-secondary);
+}
+
+/* Mode Card Badge */
+.mode-card-badge {
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-full);
+    font-size: var(--font-xs);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.mode-card-badge.easy {
+    background: rgba(48, 209, 88, 0.15);
+    color: #30d158;
+}
+
+.mode-card-badge.hard {
+    background: rgba(255, 149, 0, 0.15);
+    color: #ff9500;
+}
+
+.mode-card-badge.special {
+    background: rgba(175, 82, 222, 0.15);
+    color: #af52de;
+}
+
+/* Mode Actions */
+.mode-actions {
+    display: flex;
+    gap: var(--space-3);
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.mode-actions .btn {
+    flex: 1;
+}
+
+/* ===========================================
+   Text Input Mode Styles
+   =========================================== */
+
+.text-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: 400px;
+    margin: 0 auto;
+    padding: var(--space-4);
+}
+
+.answer-input {
+    width: 100%;
+    padding: var(--space-4);
+    font-size: var(--font-lg);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    color: var(--color-text);
+    text-align: center;
+    transition: all var(--transition-fast);
+}
+
+.answer-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px var(--color-primary-light);
+}
+
+.answer-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.answer-input:disabled {
+    background: var(--color-surface-hover);
+    cursor: not-allowed;
+}
+
+.btn-submit {
+    padding: var(--space-4);
+    font-size: var(--font-md);
+}
+
+/* Text Feedback */
+.text-feedback {
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    font-size: var(--font-md);
+    font-weight: var(--font-medium);
+    animation: fadeIn 0.3s ease;
+}
+
+.text-feedback.correct {
+    background: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.text-feedback.wrong {
+    background: var(--color-error-light);
+    color: var(--color-error);
+}
+
+.text-feedback i {
+    margin-right: var(--space-2);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===========================================
+   Hint Button (Rainbow Mode)
+   =========================================== */
+
+.hint-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    width: 100%;
+    max-width: 300px;
+    margin: var(--space-3) auto;
+    padding: var(--space-3) var(--space-4);
+    background: linear-gradient(135deg, #af52de, #5856d6);
+    border: none;
+    border-radius: var(--radius-lg);
+    color: white;
+    font-size: var(--font-sm);
+    font-weight: var(--font-semibold);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: 0 4px 15px rgba(175, 82, 222, 0.3);
+}
+
+.hint-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(175, 82, 222, 0.4);
+}
+
+.hint-button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.hint-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.hint-button i {
+    font-size: var(--font-lg);
+}
+
+.hint-button.hidden {
+    display: none;
+}
+
+/* Pulse animation for hint button */
+.hint-button:not(:disabled) {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 4px 15px rgba(175, 82, 222, 0.3);
+    }
+    50% {
+        box-shadow: 0 4px 25px rgba(175, 82, 222, 0.5);
+    }
+    100% {
+        box-shadow: 0 4px 15px rgba(175, 82, 222, 0.3);
+    }
+}
+
+/* ===========================================
+   Dark Mode Adjustments
+   =========================================== */
+
+[data-theme="dark"] .mode-card-icon.amateur {
+    background: rgba(48, 209, 88, 0.2);
+}
+
+[data-theme="dark"] .mode-card-icon.pro {
+    background: rgba(255, 149, 0, 0.2);
+}
+
+[data-theme="dark"] .mode-card-icon.rainbow {
+    background: linear-gradient(135deg, 
+        rgba(255, 59, 48, 0.15), 
+        rgba(255, 149, 0, 0.15), 
+        rgba(255, 204, 0, 0.15), 
+        rgba(52, 199, 89, 0.15), 
+        rgba(0, 122, 255, 0.15), 
+        rgba(175, 82, 222, 0.15)
+    );
+}
+
+[data-theme="dark"] .mode-card-badge.easy {
+    background: rgba(48, 209, 88, 0.2);
+}
+
+[data-theme="dark"] .mode-card-badge.hard {
+    background: rgba(255, 149, 0, 0.2);
+}
+
+[data-theme="dark"] .mode-card-badge.special {
+    background: rgba(175, 82, 222, 0.2);
+}
+
+/* ===========================================
+   Responsive Adjustments
+   =========================================== */
+
+@media (max-width: 480px) {
+    .mode-card {
+        padding: var(--space-3);
+        gap: var(--space-3);
+    }
+
+    .mode-card-icon {
+        width: 48px;
+        height: 48px;
+        font-size: var(--font-lg);
+    }
+
+    .mode-card-title {
+        font-size: var(--font-sm);
+    }
+
+    .mode-card-desc {
+        font-size: var(--font-xs);
+    }
+
+    .mode-actions {
+        flex-direction: column;
+    }
+
+    .answer-input {
+        padding: var(--space-3);
+        font-size: var(--font-md);
+    }
+}

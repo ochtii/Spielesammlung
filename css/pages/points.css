@@ -1,0 +1,426 @@
+/* ===========================================
+   Points Page - History & Transactions
+   =========================================== */
+
+/* Points Hero Card */
+.points-hero {
+    background: linear-gradient(135deg, var(--color-primary), #c41e30);
+    color: white;
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: var(--space-4);
+}
+
+.points-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5;
+}
+
+.points-hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.points-hero-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--space-3);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-2xl);
+}
+
+.points-hero-value {
+    font-size: 3rem;
+    font-weight: var(--font-bold);
+    line-height: 1;
+    margin-bottom: var(--space-1);
+}
+
+.points-hero-label {
+    font-size: var(--font-sm);
+    opacity: 0.9;
+}
+
+/* Quick Stats Bar */
+.points-quick-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.quick-stat {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    text-align: center;
+}
+
+.quick-stat-value {
+    font-size: var(--font-xl);
+    font-weight: var(--font-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-1);
+}
+
+.quick-stat-value.positive {
+    color: var(--color-success);
+}
+
+.quick-stat-label {
+    font-size: var(--font-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* History Section */
+.history-section {
+    margin-top: var(--space-6);
+}
+
+.history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+}
+
+.history-title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-text);
+    margin: 0;
+}
+
+.history-title i {
+    color: var(--color-primary);
+}
+
+.history-filter {
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-size: var(--font-sm);
+    cursor: pointer;
+}
+
+.history-filter:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+/* History List */
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.history-item:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-border-strong);
+    transform: translateX(4px);
+}
+
+.history-item:active {
+    transform: translateX(2px);
+}
+
+/* Transaction Type Icon */
+.history-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-md);
+    flex-shrink: 0;
+}
+
+.history-icon.game_win {
+    background: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.history-icon.game_bonus {
+    background: var(--color-info-light);
+    color: var(--color-info);
+}
+
+.history-icon.achievement {
+    background: var(--color-warning-light);
+    color: #b89700;
+}
+
+.history-icon.daily_bonus {
+    background: rgba(147, 51, 234, 0.1);
+    color: #9333ea;
+}
+
+.history-icon.streak_bonus {
+    background: rgba(236, 72, 153, 0.1);
+    color: #ec4899;
+}
+
+.history-icon.spent {
+    background: var(--color-error-light);
+    color: var(--color-error);
+}
+
+.history-icon.correction {
+    background: var(--color-surface-active);
+    color: var(--color-text-secondary);
+}
+
+.history-icon.import {
+    background: rgba(20, 184, 166, 0.1);
+    color: #14b8a6;
+}
+
+/* History Item Content */
+.history-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.history-source {
+    font-weight: var(--font-medium);
+    color: var(--color-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: var(--font-sm);
+}
+
+.history-time {
+    font-size: var(--font-xs);
+    color: var(--color-text-muted);
+    margin-top: 2px;
+}
+
+/* History Item Amount */
+.history-amount {
+    font-weight: var(--font-bold);
+    font-size: var(--font-md);
+    white-space: nowrap;
+}
+
+.history-amount.positive {
+    color: var(--color-success);
+}
+
+.history-amount.negative {
+    color: var(--color-error);
+}
+
+/* Info Button */
+.history-info {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.history-info:hover {
+    background: var(--color-surface-active);
+    color: var(--color-primary);
+}
+
+/* Empty State */
+.history-empty {
+    text-align: center;
+    padding: var(--space-8) var(--space-4);
+    color: var(--color-text-muted);
+}
+
+.history-empty-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-3);
+    opacity: 0.5;
+}
+
+.history-empty-text {
+    font-size: var(--font-md);
+    margin-bottom: var(--space-2);
+}
+
+.history-empty-hint {
+    font-size: var(--font-sm);
+}
+
+/* Load More Button */
+.history-load-more {
+    display: block;
+    width: 100%;
+    padding: var(--space-3);
+    margin-top: var(--space-3);
+    background: transparent;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    color: var(--color-text-secondary);
+    font-size: var(--font-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.history-load-more:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-border-strong);
+    color: var(--color-text);
+}
+
+/* Today's Summary Card */
+.today-summary {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    margin-bottom: var(--space-4);
+}
+
+.today-summary-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+    font-size: var(--font-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-text-secondary);
+}
+
+.today-summary-header i {
+    color: var(--color-primary);
+}
+
+.today-summary-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.today-earned {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.today-earned-value {
+    font-size: var(--font-xl);
+    font-weight: var(--font-bold);
+    color: var(--color-success);
+}
+
+.today-earned-label {
+    font-size: var(--font-xs);
+    color: var(--color-text-muted);
+}
+
+.today-transactions {
+    text-align: right;
+}
+
+.today-transactions-value {
+    font-size: var(--font-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-text);
+}
+
+.today-transactions-label {
+    font-size: var(--font-xs);
+    color: var(--color-text-muted);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .points-hero {
+        padding: var(--space-5);
+    }
+    
+    .points-hero-value {
+        font-size: 2.5rem;
+    }
+    
+    .history-item {
+        padding: var(--space-3);
+    }
+    
+    .history-icon {
+        width: 36px;
+        height: 36px;
+        font-size: var(--font-sm);
+    }
+}
+
+/* Animation for new items */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.history-item.new {
+    animation: slideInRight 0.3s ease;
+}
+
+/* Date Separators */
+.history-date-separator {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) 0;
+    font-size: var(--font-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.history-date-separator::before,
+.history-date-separator::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+}

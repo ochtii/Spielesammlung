@@ -1,80 +1,298 @@
 /* ===========================================
-   Modal Component
+   Modal Component - Modern Glass Design
    =========================================== */
 
+/* Overlay */
 .modal-overlay {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: var(--space-4);
-    z-index: 200;
+    z-index: 1000;
     opacity: 0;
     visibility: hidden;
-    transition: all var(--transition-fast);
+    transition: opacity var(--transition-normal), visibility var(--transition-normal);
 }
 
 .modal-overlay.open {
-    opacity: 1;
     visibility: visible;
 }
 
+.modal-overlay.visible {
+    opacity: 1;
+}
+
+.modal-overlay.visible .modal {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+/* Prevent body scroll when modal is open */
+body.modal-open {
+    overflow: hidden;
+}
+
+/* Modal Container */
 .modal {
-    width: 100%;
-    max-width: 420px;
-    max-height: 90vh;
     background: var(--color-surface);
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-lg), 0 0 0 1px var(--color-border);
+    width: 100%;
+    max-height: 85vh;
     overflow: hidden;
-    transform: scale(0.95);
-    transition: transform var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+    transition: transform var(--transition-normal), opacity var(--transition-normal);
 }
 
-.modal-overlay.open .modal {
-    transform: scale(1);
-}
+/* Modal Sizes */
+.modal-sm { max-width: 320px; }
+.modal-md { max-width: 420px; }
+.modal-lg { max-width: 560px; }
+.modal-xl { max-width: 700px; }
 
+/* Modal Header */
 .modal-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: var(--space-4) var(--space-5);
+    gap: var(--space-3);
+    padding: var(--space-5);
     border-bottom: 1px solid var(--color-border);
 }
 
+.modal-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-xl);
+    flex-shrink: 0;
+}
+
+.modal-icon.text-info {
+    background: var(--color-info-light);
+    color: var(--color-info);
+}
+
+.modal-icon.text-success {
+    background: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.modal-icon.text-error {
+    background: var(--color-error-light);
+    color: var(--color-error);
+}
+
+.modal-icon.text-warning {
+    background: var(--color-warning-light);
+    color: #b89700;
+}
+
+.modal-icon.text-primary {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
 .modal-title {
-    font-size: var(--font-size-lg);
-    font-weight: 600;
+    flex: 1;
+    font-size: var(--font-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-text);
+    margin: 0;
 }
 
 .modal-close {
     width: 32px;
     height: 32px;
+    border: none;
+    background: var(--color-surface-hover);
+    border-radius: var(--radius-full);
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--radius-full);
     color: var(--color-text-secondary);
     transition: all var(--transition-fast);
 }
 
 .modal-close:hover {
-    background: var(--color-surface-hover);
+    background: var(--color-surface-active);
     color: var(--color-text);
 }
 
+/* Modal Body */
 .modal-body {
     padding: var(--space-5);
     overflow-y: auto;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
 }
 
+.modal-body p {
+    margin: 0;
+}
+
+.modal-message {
+    font-size: var(--font-md);
+    text-align: center;
+}
+
+/* Modal Footer */
 .modal-footer {
     display: flex;
     justify-content: flex-end;
-    gap: var(--space-2);
+    gap: var(--space-3);
     padding: var(--space-4) var(--space-5);
     border-top: 1px solid var(--color-border);
+    background: var(--color-surface-hover);
+}
+
+/* Transaction Detail Modal Specific Styles */
+.transaction-detail {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.transaction-amount {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    background: var(--color-surface-hover);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-2);
+}
+
+.transaction-amount-value {
+    font-size: var(--font-3xl);
+    font-weight: var(--font-bold);
+}
+
+.transaction-amount.positive .transaction-amount-value {
+    color: var(--color-success);
+}
+
+.transaction-amount.negative .transaction-amount-value {
+    color: var(--color-error);
+}
+
+.transaction-amount-label {
+    font-size: var(--font-sm);
+    color: var(--color-text-muted);
+}
+
+.transaction-info-grid {
+    display: grid;
+    gap: var(--space-3);
+}
+
+.transaction-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3);
+    background: var(--color-surface-hover);
+    border-radius: var(--radius-md);
+}
+
+.transaction-info-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-text-secondary);
+    font-size: var(--font-sm);
+}
+
+.transaction-info-label i {
+    width: 16px;
+    text-align: center;
+    opacity: 0.7;
+}
+
+.transaction-info-value {
+    font-weight: var(--font-medium);
+    color: var(--color-text);
+    font-size: var(--font-sm);
+}
+
+.transaction-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-xs);
+    font-weight: var(--font-medium);
+}
+
+.transaction-badge.game_win {
+    background: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.transaction-badge.game_bonus {
+    background: var(--color-info-light);
+    color: var(--color-info);
+}
+
+.transaction-badge.achievement {
+    background: var(--color-warning-light);
+    color: #b89700;
+}
+
+.transaction-badge.daily_bonus {
+    background: rgba(147, 51, 234, 0.1);
+    color: #9333ea;
+}
+
+.transaction-badge.streak_bonus {
+    background: rgba(236, 72, 153, 0.1);
+    color: #ec4899;
+}
+
+.transaction-badge.spent {
+    background: var(--color-error-light);
+    color: var(--color-error);
+}
+
+.transaction-badge.correction {
+    background: var(--color-surface-active);
+    color: var(--color-text-secondary);
+}
+
+.transaction-badge.import {
+    background: rgba(20, 184, 166, 0.1);
+    color: #14b8a6;
+}
+
+/* Balance indicator */
+.balance-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--font-xs);
+    color: var(--color-text-muted);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-border);
+}
+
+/* Dark Theme Adjustments */
+[data-theme="dark"] .modal-overlay {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .modal {
+    box-shadow: var(--shadow-lg), 0 0 0 1px var(--color-border), 0 0 80px rgba(0, 0, 0, 0.5);
 }

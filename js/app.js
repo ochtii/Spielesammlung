@@ -149,7 +149,8 @@ const App = {
     setupGamePage() {
         const gameGrid = document.getElementById('gameGrid');
         const startBtn = document.getElementById('startBtn');
-        let selectedGame = null;
+        this.selectedGame = null;
+        this.selectedMode = null;
 
         // Render game selection cards (only if games exist)
         if (gameGrid) {
@@ -174,21 +175,28 @@ const App = {
                     gameGrid.querySelectorAll('.selection-card').forEach(c => 
                         c.classList.remove('selected'));
                     card.classList.add('selected');
-                    selectedGame = card.dataset.game;
+                    this.selectedGame = card.dataset.game;
                     if (startBtn) startBtn.disabled = false;
                 });
             });
         }
 
-        // Start button
+        // Start button - check if game supports modes
         if (startBtn) {
             startBtn.disabled = true;
             startBtn.addEventListener('click', () => {
-                if (selectedGame) {
-                    this.startGame(selectedGame);
+                if (this.selectedGame) {
+                    if (gameSupportsMode(this.selectedGame)) {
+                        this.showModeSelection();
+                    } else {
+                        this.startGame(this.selectedGame);
+                    }
                 }
             });
         }
+
+        // Setup mode selection
+        this.setupModeSelection();
 
         // Restart button
         const restartBtn = document.getElementById('restartBtn');
@@ -208,6 +216,100 @@ const App = {
                 }
             });
         }
+
+        // Hint button for Rainbow mode
+        const hintBtn = document.getElementById('hintButton');
+        if (hintBtn) {
+            hintBtn.addEventListener('click', () => {
+                if (this.currentGame) {
+                    this.currentGame.purchaseHint();
+                }
+            });
+        }
+    },
+
+    /**
+     * Setup mode selection screen
+     */
+    setupModeSelection() {
+        const modeGrid = document.getElementById('modeGrid');
+        const startModeBtn = document.getElementById('startModeBtn');
+        const backBtn = document.getElementById('backToGames');
+
+        if (modeGrid) {
+            modeGrid.querySelectorAll('.mode-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    modeGrid.querySelectorAll('.mode-card').forEach(c => 
+                        c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    this.selectedMode = card.dataset.mode;
+                    if (startModeBtn) startModeBtn.disabled = false;
+                });
+            });
+        }
+
+        if (startModeBtn) {
+            startModeBtn.addEventListener('click', () => {
+                if (this.selectedGame && this.selectedMode) {
+                    this.startGameWithMode(this.selectedGame, this.selectedMode);
+                }
+            });
+        }
+
+        if (backBtn) {
+            backBtn.addEventListener('click', () => {
+                this.showScreen('startScreen');
+            });
+        }
+    },
+
+    /**
+     * Show mode selection screen
+     */
+    showModeSelection() {
+        const game = GameRegistry.get(this.selectedGame);
+        const titleEl = document.getElementById('modeTitle');
+        const subtitleEl = document.getElementById('modeSubtitle');
+        
+        if (titleEl && game) {
+            titleEl.textContent = `${game.name} - Modus wählen`;
+        }
+        if (subtitleEl) {
+            subtitleEl.textContent = 'Wie schwer soll es sein?';
+        }
+
+        // Reset mode selection
+        this.selectedMode = null;
+        const modeGrid = document.getElementById('modeGrid');
+        const startModeBtn = document.getElementById('startModeBtn');
+        if (modeGrid) {
+            modeGrid.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
+        }
+        if (startModeBtn) startModeBtn.disabled = true;
+
+        this.showScreen('modeScreen');
+    },
+
+    /**
+     * Start a game with a specific mode
+     * @param {string} gameId 
+     * @param {string} modeId 
+     */
+    startGameWithMode(gameId, modeId) {
+        const game = GameRegistry.get(gameId);
+        if (!game) {
+            Toast.error('Spiel nicht gefunden');
+            return;
+        }
+
+        // Set the mode
+        const mode = GameModes[modeId.toUpperCase()] || GameModes.AMATEUR;
+        game.setMode(mode);
+
+        this.currentGame = game;
+        game.init();
+        game.start();
+        this.showScreen('gameScreen');
     },
 
     /**

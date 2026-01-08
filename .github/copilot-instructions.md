@@ -127,6 +127,25 @@ EventBus.emit(event, data)
 
 ### Spiel-System
 
+#### Spielmodi (`js/games/GameModes.js`)
+Für Hauptstädte-Quizze verfügbare Modi:
+
+| Modus | ID | Beschreibung | Punkte |
+|-------|-----|--------------|--------|
+| Amateur Quizzer | `amateur` | 4 Auswahlmöglichkeiten | 10 + Streak |
+| Pro Quizzer | `pro` | Texteingabe ohne Hilfe | 20 + Streak |
+| Regenbogen Quizzer | `rainbow` | Texteingabe, Hinweise für 100P kaufbar | 10 + Streak |
+
+```javascript
+// Modus setzen
+game.setMode(GameModes.PRO);
+
+// Prüfen ob Spiel Modi unterstützt
+if (gameSupportsMode('hauptstaedte')) { ... }
+
+// Unterstützte Spiele: hauptstaedte, welthauptstaedte
+```
+
 #### Neues Spiel hinzufügen
 1. Daten in `js/data/` erstellen
 2. In `js/app.js` → `registerGames()` registrieren:

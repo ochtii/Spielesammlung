@@ -42,43 +42,66 @@
 
     <!-- Main Content -->
     <main class="container page">
-        <div class="page-header text-center">
-            <h1 class="page-title">
-                <i class="fas fa-coins"></i> Deine Punkte
-            </h1>
+        <!-- Points Hero -->
+        <div class="points-hero">
+            <div class="points-hero-content">
+                <div class="points-hero-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <div class="points-hero-value" id="totalPoints">0</div>
+                <div class="points-hero-label">Gesamtpunkte</div>
+            </div>
         </div>
 
-        <!-- Total Points -->
-        <div class="card text-center mb-4">
-            <div class="card-icon mx-auto">
-                <i class="fas fa-trophy"></i>
+        <!-- Quick Stats -->
+        <div class="points-quick-stats">
+            <div class="quick-stat">
+                <div class="quick-stat-value positive" id="todayEarned">+0</div>
+                <div class="quick-stat-label">Heute verdient</div>
             </div>
-            <div class="stat-value text-3xl" id="totalPoints">0</div>
-            <div class="stat-label">Gesamtpunkte</div>
+            <div class="quick-stat">
+                <div class="quick-stat-value" id="totalGames">0</div>
+                <div class="quick-stat-label">Spiele gespielt</div>
+            </div>
+            <div class="quick-stat">
+                <div class="quick-stat-value" id="totalEarned">0</div>
+                <div class="quick-stat-label">Gesamt verdient</div>
+            </div>
+            <div class="quick-stat">
+                <div class="quick-stat-value" id="bestStreak">0</div>
+                <div class="quick-stat-label">Beste Serie</div>
+            </div>
         </div>
 
-        <!-- Stats Grid -->
-        <div class="grid grid-cols-2 gap-3 mb-4">
-            <div class="card stat-card">
-                <div class="stat-value" id="totalGames">0</div>
-                <div class="stat-label">Spiele</div>
-            </div>
-            <div class="card stat-card">
-                <div class="stat-value" id="accuracy">0%</div>
-                <div class="stat-label">Genauigkeit</div>
-            </div>
-            <div class="card stat-card">
-                <div class="stat-value" id="totalCorrect">0</div>
-                <div class="stat-label">Richtig</div>
-            </div>
-            <div class="card stat-card">
-                <div class="stat-value" id="bestStreak">0</div>
-                <div class="stat-label">Beste Serie</div>
-            </div>
+        <!-- Today Summary -->
+        <div class="today-summary" id="todaySummary">
+            <!-- Wird dynamisch gefüllt -->
         </div>
+
+        <!-- History Section -->
+        <section class="history-section">
+            <div class="history-header">
+                <h2 class="history-title">
+                    <i class="fas fa-history"></i>
+                    Transaktionen
+                </h2>
+                <select class="history-filter" id="historyFilter">
+                    <option value="all">Alle</option>
+                    <option value="game_win">Spielgewinne</option>
+                    <option value="game_bonus">Boni</option>
+                    <option value="achievement">Achievements</option>
+                    <option value="streak_bonus">Streak-Boni</option>
+                    <option value="spent">Ausgegeben</option>
+                </select>
+            </div>
+            
+            <div class="history-list" id="historyList">
+                <!-- Wird dynamisch gefüllt -->
+            </div>
+        </section>
 
         <!-- Action -->
-        <div class="text-center">
+        <div class="text-center mt-6">
             <a href="index.html" class="btn btn-primary">
                 <i class="fas fa-play"></i> Weiterspielen
             </a>
@@ -110,15 +133,18 @@
     <script src="js/core/cache-buster.js"></script>
     <script src="js/core/storage.js"></script>
     <script src="js/core/statistics.js"></script>
+    <script src="js/core/points-history.js"></script>
     <script src="js/core/events.js"></script>
     <script src="js/core/theme.js"></script>
     <script src="js/components/toast.js"></script>
+    <script src="js/components/modal.js"></script>
     <script src="js/components/navbar.js"></script>
     <script src="js/components/bottom-nav.js"></script>
     <script src="js/games/GameEngine.js"></script>
     <script src="js/games/QuizGame.js"></script>
     <script src="js/games/registry.js"></script>
     <script src="js/data/austria.js"></script>
+    <script src="js/pages/points.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

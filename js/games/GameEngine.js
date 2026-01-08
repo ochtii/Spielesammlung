@@ -13,6 +13,10 @@ class GameEngine {
             ...config
         };
 
+        // Game Mode (default: Amateur/Multiple Choice)
+        this.mode = GameModes ? GameModes.AMATEUR : { id: 'amateur', inputType: 'choice' };
+        this.hintPurchased = false; // Für Rainbow-Modus
+
         this.state = {
             status: 'idle', // idle, playing, paused, finished
             questions: [],
@@ -25,6 +29,15 @@ class GameEngine {
         };
 
         this.elements = {};
+    }
+
+    /**
+     * Set game mode
+     * @param {Object} mode - GameModes.AMATEUR, GameModes.PRO, or GameModes.RAINBOW
+     */
+    setMode(mode) {
+        this.mode = mode;
+        this.hintPurchased = false;
     }
 
     /**
@@ -57,7 +70,9 @@ class GameEngine {
             currentQuestion: document.getElementById('currentQuestion'),
             totalQuestions: document.getElementById('totalQuestions'),
             scoreDisplay: document.getElementById('scoreDisplay'),
-            streakDisplay: document.getElementById('streakDisplay')
+            streakDisplay: document.getElementById('streakDisplay'),
+            hintButton: document.getElementById('hintButton'),
+            hintCost: document.getElementById('hintCost')
         };
     }
 
@@ -79,13 +94,72 @@ class GameEngine {
         this.state.bestStreak = 0;
         this.state.startTime = Date.now();
         this.state.status = 'playing';
+        this.hintPurchased = false;
 
         if (this.elements.totalQuestions) {
             this.elements.totalQuestions.textContent = this.state.questions.length;
         }
 
-        EventBus.emit(Events.GAME_START, { game: this.config.id });
+        // Update hint button visibility for rainbow mode
+        this.updateHintButton();
+
+        EventBus.emit(Events.GAME_START, { game: this.config.id, mode: this.mode.id });
         this.showQuestion();
+    }
+
+    /**
+     * Update hint button for Rainbow mode
+     */
+    updateHintButton() {
+        const hintBtn = this.elements.hintButton;
+        if (!hintBtn) return;
+
+        if (this.mode.inputType === 'rainbow' && !this.hintPurchased) {
+            hintBtn.classList.remove('hidden');
+            const costEl = this.elements.hintCost;
+            if (costEl) costEl.textContent = this.mode.hintCost || 100;
+            
+            // Check if player can afford hint
+            const currentPoints = Storage.get('totalPoints', 0);
+            hintBtn.disabled = currentPoints < (this.mode.hintCost || 100);
+        } else {
+            hintBtn.classList.add('hidden');
+        }
+    }
+
+    /**
+     * Purchase hint (Rainbow mode)
+     */
+    purchaseHint() {
+        if (this.mode.inputType !== 'rainbow' || this.hintPurchased) return;
+
+        const cost = this.mode.hintCost || 100;
+        const currentPoints = Storage.get('totalPoints', 0);
+
+        if (currentPoints < cost) {
+            Toast.error('Nicht genug Punkte!');
+            return;
+        }
+
+        // Deduct points
+        Storage.set('totalPoints', currentPoints - cost);
+        
+        // Log in PointsHistory
+        if (typeof PointsHistory !== 'undefined') {
+            PointsHistory.logSpent({
+                amount: cost,
+                reason: 'Hinweis gekauft (Regenbogen-Modus)',
+                item: 'Hinweis'
+            });
+        }
+
+        this.hintPurchased = true;
+        Toast.show('Hinweis freigeschaltet!', { type: 'success' });
+
+        // Re-render answers as multiple choice
+        const question = this.state.questions[this.state.currentIndex];
+        this.renderAnswers(question.options);
+        this.updateHintButton();
     }
 
     /**
@@ -97,6 +171,10 @@ class GameEngine {
             this.finish();
             return;
         }
+
+        // Reset hint for new question (Rainbow mode)
+        this.hintPurchased = false;
+        this.updateHintButton();
 
         // Start timer for this question
         this.state.questionStartTime = Date.now();
@@ -111,7 +189,13 @@ class GameEngine {
         }
 
         this.updateProgress();
-        this.renderAnswers(question.options);
+        
+        // Render based on mode
+        if (this.mode.inputType === 'choice') {
+            this.renderAnswers(question.options);
+        } else if (this.mode.inputType === 'text' || this.mode.inputType === 'rainbow') {
+            this.renderTextInput(question);
+        }
     }
 
     /**
@@ -131,6 +215,135 @@ class GameEngine {
         this.elements.answersGrid.querySelectorAll('.answer-btn').forEach(btn => {
             btn.addEventListener('click', () => this.handleAnswer(btn.dataset.answer));
         });
+    }
+
+    /**
+     * Render text input for Pro/Rainbow mode
+     * @param {Object} question 
+     */
+    renderTextInput(question) {
+        if (!this.elements.answersGrid) return;
+
+        this.elements.answersGrid.innerHTML = `
+            <div class="text-input-container">
+                <input 
+                    type="text" 
+                    id="answerInput" 
+                    class="answer-input" 
+                    placeholder="Antwort eingeben..."
+                    autocomplete="off"
+                    autocapitalize="words"
+                    spellcheck="false"
+                >
+                <button id="submitAnswer" class="btn btn-primary btn-submit">
+                    <i class="fas fa-check"></i> Bestätigen
+                </button>
+            </div>
+            <div id="textFeedback" class="text-feedback hidden"></div>
+        `;
+
+        const input = document.getElementById('answerInput');
+        const submitBtn = document.getElementById('submitAnswer');
+
+        // Focus input
+        setTimeout(() => input.focus(), 100);
+
+        // Submit on Enter
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.handleTextAnswer(input.value);
+            }
+        });
+
+        // Submit on button click
+        submitBtn.addEventListener('click', () => {
+            this.handleTextAnswer(input.value);
+        });
+    }
+
+    /**
+     * Handle text answer (Pro/Rainbow mode)
+     * @param {string} userAnswer 
+     */
+    handleTextAnswer(userAnswer) {
+        const question = this.state.questions[this.state.currentIndex];
+        const normalizedUser = this.normalizeAnswer(userAnswer);
+        const normalizedCorrect = this.normalizeAnswer(question.correct);
+        
+        const isCorrect = normalizedUser === normalizedCorrect;
+        const answerTimeMs = this.state.questionStartTime ? Date.now() - this.state.questionStartTime : null;
+
+        // Show feedback
+        const feedback = document.getElementById('textFeedback');
+        const input = document.getElementById('answerInput');
+        const submitBtn = document.getElementById('submitAnswer');
+
+        if (input) input.disabled = true;
+        if (submitBtn) submitBtn.disabled = true;
+
+        if (feedback) {
+            feedback.classList.remove('hidden');
+            if (isCorrect) {
+                feedback.className = 'text-feedback correct';
+                feedback.innerHTML = `<i class="fas fa-check-circle"></i> Richtig!`;
+            } else {
+                feedback.className = 'text-feedback wrong';
+                feedback.innerHTML = `<i class="fas fa-times-circle"></i> Falsch! Richtig: <strong>${question.correct}</strong>`;
+            }
+        }
+
+        // Update score and streak
+        if (isCorrect) {
+            this.state.score++;
+            this.state.streak++;
+            if (this.state.streak > this.state.bestStreak) {
+                this.state.bestStreak = this.state.streak;
+            }
+            // Pro mode: more points for text input
+            const basePoints = this.mode.inputType === 'text' ? 20 : 10;
+            this.addPoints(basePoints + this.state.streak);
+        } else {
+            this.state.streak = 0;
+        }
+
+        this.updateStats();
+
+        // Record answer in Statistics
+        if (typeof Statistics !== 'undefined') {
+            Statistics.recordAnswer({
+                gameId: this.config.id,
+                question: question.question,
+                correct: isCorrect,
+                answerTimeMs: answerTimeMs
+            });
+        }
+
+        EventBus.emit(Events.QUESTION_ANSWERED, {
+            game: this.config.id,
+            correct: isCorrect,
+            question: question.question,
+            selected: userAnswer,
+            correctAnswer: question.correct,
+            answerTimeMs: answerTimeMs,
+            mode: this.mode.id
+        });
+
+        // Next question after delay
+        setTimeout(() => this.nextQuestion(), 1500);
+    }
+
+    /**
+     * Normalize answer for comparison
+     * @param {string} answer 
+     * @returns {string}
+     */
+    normalizeAnswer(answer) {
+        return answer
+            .toLowerCase()
+            .trim()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
+            .replace(/[^a-z0-9]/g, ''); // Remove special chars
     }
 
     /**
@@ -355,6 +568,50 @@ class GameEngine {
                 timeMs: result.time,
                 points: result.score * 10
             });
+        }
+
+        // NEW: Log in Points History
+        if (typeof PointsHistory !== 'undefined') {
+            const basePoints = result.score * 10;
+            
+            // Log game win points
+            if (basePoints > 0) {
+                PointsHistory.logGamePoints({
+                    gameId: result.game,
+                    gameName: this.config.name,
+                    score: result.score,
+                    total: result.total,
+                    percentage: result.percentage,
+                    streak: result.streak,
+                    timeMs: result.time,
+                    points: basePoints
+                });
+            }
+            
+            // Log streak bonus (if streak > 3)
+            if (result.streak >= 5) {
+                const streakBonus = result.streak * 2;
+                PointsHistory.logBonus({
+                    type: PointsHistory.TYPES.STREAK_BONUS,
+                    amount: streakBonus,
+                    gameId: result.game,
+                    gameName: this.config.name,
+                    streak: result.streak,
+                    reason: `${result.streak}er Streak Bonus`
+                });
+            }
+            
+            // Log perfect game bonus
+            if (result.percentage === 100 && result.total >= 5) {
+                const perfectBonus = 50;
+                PointsHistory.logBonus({
+                    type: PointsHistory.TYPES.GAME_BONUS,
+                    amount: perfectBonus,
+                    gameId: result.game,
+                    gameName: this.config.name,
+                    reason: 'Perfektes Spiel!'
+                });
+            }
         }
 
         EventBus.emit(Events.STATS_UPDATE, stats);
