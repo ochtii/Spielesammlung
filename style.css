@@ -7431,76 +7431,323 @@ body.dark-mode .bonus-card {
     background: rgba(243,156,18,0.1);
 }
 
+/* Mobile Hero Layout */
+.hero-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.hero-text {
+    text-align: left;
+}
+
+/* Mobile Game Card Row Layout */
+.game-card-row {
+    display: none;
+}
+
+.game-card-info {
+    flex: 1;
+    text-align: left;
+}
+
+.game-card-btn-compact {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.game-card-btn-compact:hover {
+    background: var(--primary-light);
+    transform: scale(1.1);
+}
+
+.game-card-btn-compact.bonus-btn {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+.game-card-arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.link-card {
+    text-decoration: none;
+    color: inherit;
+}
+
+.link-card:hover .game-card-arrow {
+    background: var(--primary-color);
+    color: white;
+    transform: translateX(4px);
+}
+
 /* Responsive - Modern Homepage */
 @media (max-width: 768px) {
+    /* Kompakte Hero-Section */
+    .hero-section {
+        padding: 1.25rem 1rem;
+        margin-bottom: 1.5rem;
+        border-radius: 12px;
+    }
+    
+    .hero-top {
+        margin-bottom: 1rem;
+    }
+    
+    .hero-flag {
+        font-size: 2.5rem;
+        margin-bottom: 0;
+        animation: none;
+    }
+    
     .hero-title {
-        font-size: 2.2rem;
+        font-size: 1.5rem;
+        margin-bottom: 0.25rem;
     }
     
     .hero-subtitle {
-        font-size: 1.1rem;
+        font-size: 0.9rem;
+        margin-bottom: 0;
     }
     
     .hero-stats {
-        gap: 1rem;
+        flex-direction: row;
+        gap: 0.5rem;
+        justify-content: center;
     }
     
     .stat-item {
-        padding: 0.6rem 1rem;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+        gap: 0.4rem;
+        flex: 1;
+        justify-content: center;
+    }
+    
+    .stat-item i {
         font-size: 0.9rem;
+    }
+    
+    /* Kompakte Games-Section */
+    .games-section {
+        margin-bottom: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
     }
     
     .games-grid {
         grid-template-columns: 1fr;
+        gap: 0.75rem;
     }
     
-    .section-title {
-        font-size: 1.5rem;
+    /* Horizontale Game Cards */
+    .game-card {
+        padding: 1rem;
+        border-radius: 12px;
+    }
+    
+    .game-card .game-card-icon,
+    .game-card .game-card-title:not(.game-card-row .game-card-title),
+    .game-card .game-card-description:not(.game-card-row .game-card-description),
+    .game-card .game-card-stats,
+    .game-card .game-card-btn:not(.game-card-btn-compact) {
+        display: none;
+    }
+    
+    .game-card-row {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .game-card-row .game-card-icon {
+        display: flex;
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        margin-bottom: 0;
+    }
+    
+    .game-card-row .game-card-icon i {
+        font-size: 1.4rem;
+    }
+    
+    .game-card-row .game-card-title {
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
+    }
+    
+    .game-card-row .game-card-description {
+        font-size: 0.8rem;
+        margin-bottom: 0;
+        color: var(--text-secondary);
+    }
+    
+    .game-card-badge {
+        top: -8px;
+        right: 12px;
+        padding: 0.25rem 0.6rem;
+        font-size: 0.65rem;
+    }
+    
+    .game-card:hover {
+        transform: translateY(-2px);
+    }
+    
+    /* Kompakte Bonus-Section */
+    .bonus-section {
+        padding: 0;
+        background: transparent;
+        margin-bottom: 1rem;
+    }
+    
+    .bonus-section .section-title {
+        display: none;
+    }
+    
+    .bonus-section .games-grid.single {
+        max-width: none;
+    }
+    
+    .bonus-card {
+        background: linear-gradient(135deg, rgba(243,156,18,0.1) 0%, rgba(230,126,34,0.1) 100%);
+    }
+    
+    /* Kompakte Difficulty Selection */
+    .modern-difficulty {
+        padding: 1rem;
+        border-radius: 12px;
     }
     
     .difficulty-header {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+    }
+    
+    .difficulty-header .section-title {
+        font-size: 1rem;
+        margin: 0;
+    }
+    
+    .difficulty-header .back-btn {
+        width: 36px;
+        height: 36px;
     }
     
     .difficulty-grid {
         grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .difficulty-card {
+        padding: 1rem;
+        border-radius: 12px;
+    }
+    
+    .difficulty-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .difficulty-card p {
+        font-size: 0.85rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .difficulty-icon {
+        width: 45px;
+        height: 45px;
+        margin-bottom: 0.75rem;
+    }
+    
+    .difficulty-icon i {
+        font-size: 1.3rem;
+    }
+    
+    .difficulty-features {
+        margin: 0.75rem 0;
+    }
+    
+    .difficulty-features li {
+        padding: 0.3rem 0;
+        font-size: 0.85rem;
+    }
+    
+    .select-difficulty-btn {
+        padding: 0.75rem 1rem;
+    }
+    
+    .difficulty-badge {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.75rem;
+    }
+    
+    /* Start Button */
+    .start-btn.modern {
+        padding: 1rem 2rem;
+        font-size: 1rem;
     }
 }
 
 @media (max-width: 576px) {
     .hero-section {
-        padding: 2rem 1.5rem;
+        padding: 1rem;
     }
     
     .hero-flag {
-        font-size: 3rem;
+        font-size: 2rem;
     }
     
     .hero-title {
-        font-size: 1.8rem;
+        font-size: 1.3rem;
     }
     
     .hero-subtitle {
-        font-size: 1rem;
-    }
-    
-    .hero-stats {
-        flex-direction: column;
-        gap: 0.75rem;
+        font-size: 0.85rem;
     }
     
     .stat-item {
-        width: 100%;
-        justify-content: center;
+        padding: 0.4rem 0.5rem;
+        font-size: 0.75rem;
     }
     
     .game-card {
-        padding: 1.5rem;
+        padding: 0.85rem;
     }
     
-    .bonus-section {
-        padding: 1.5rem;
+    .game-card-row .game-card-icon {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .game-card-btn-compact {
+        width: 44px;
+        height: 44px;
     }
 }
 

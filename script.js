@@ -623,13 +623,12 @@ class AustriaQuiz {
             });
         });
 
-        // Game Card Buttons
-        document.querySelectorAll('.game-card-btn').forEach(btn => {
+        // Game Card Buttons (both full and compact)
+        document.querySelectorAll('.game-card-btn, .game-card-btn-compact').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                const card = e.currentTarget.closest('.game-card[data-game]');
-                if (card) {
-                    const game = card.dataset.game;
+                const game = e.currentTarget.dataset.game;
+                if (game) {
                     this.selectGame(game);
                 }
             });
