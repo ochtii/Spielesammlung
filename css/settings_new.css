@@ -45,19 +45,38 @@ select {
     color: var(--primary-color);
 }
 .settings-card {
-    background: var(--bg-secondary);
+    background: rgba(255, 255, 255, 0.18);
     border-radius: 1.2rem;
-    box-shadow: var(--shadow);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    backdrop-filter: blur(12px) saturate(120%);
+    -webkit-backdrop-filter: blur(12px) saturate(120%);
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
     max-width: 500px;
     margin: 2rem auto 2rem auto;
     padding: 2rem 2.5rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    transition: box-shadow 0.2s, background 0.2s;
 }
 .dev-tools-card {
     border: 2px dashed var(--primary-color);
-    background: rgba(237,41,57,0.05);
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+}
+body {
+    background: linear-gradient(135deg, rgba(237,41,57,0.12) 0%, rgba(52,152,219,0.10) 100%), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80') no-repeat center center fixed;
+    background-size: cover;
+}
+/* Glassmorphism für Inputs und Selects */
+select, input[type="text"], input[type="email"], input[type="password"] {
+    background: rgba(255,255,255,0.35);
+    border: 1px solid rgba(255,255,255,0.25);
+    box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.08);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    color: var(--text-primary);
 }
 .settings-section {
     margin-bottom: 1.5rem;
