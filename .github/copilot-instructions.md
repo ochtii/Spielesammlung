@@ -33,9 +33,12 @@ Eine modulare Quiz-App für österreichisches Wissen mit erweitertem Statistik-S
 │   ├── components/        # UI-Komponenten
 │   │   ├── toast.js
 │   │   ├── navbar.js
-│   │   └── bottom-nav.js
+│   │   ├── bottom-nav.js
+│   │   ├── modal.js
+│   │   └── game-settings-dialog.js
 │   ├── games/             # Spiel-Engine
-│   │   ├── GameEngine.js  # Basis-Klasse
+│   │   ├── GameEngine.js  # Basis-Klasse (Timer, Joker, Hardcore)
+│   │   ├── GameModes.js   # Spielmodi (Amateur/Pro/Rainbow)
 │   │   ├── QuizGame.js    # Quiz-Erweiterung
 │   │   └── registry.js    # Spiel-Registry
 │   ├── data/              # Spiel-Daten
@@ -221,9 +224,49 @@ cd css && cat variables.css base.css layout.css utilities.css components/*.css p
 5. **Mobile-First** - Responsive Design für alle Bildschirmgrößen
 6. **Accessibility** - ARIA-Labels, semantisches HTML
 
-### Version
-- Aktuelle Version: `2.0.0`
+### Version & Cache-Busting
+- Aktuelle Version: `2.1.0`
 - Build-Datum: in `js/core/config.js` und `js/app.js`
+
+#### Cache-Busting System
+Alle CSS-Dateien werden mit Versionsparameter eingebunden:
+```html
+<link rel="stylesheet" href="css/styles.css?v=2.1.0">
+```
+
+**Bei Version-Updates:**
+```bash
+./update-version.sh 2.2.0
+git add -A && git commit -m "chore: bump to v2.2.0" && git push
+```
+
+Das Script aktualisiert:
+- Alle `?v=X.X.X` Parameter in HTML-Dateien
+- `BUILD_VERSION` in `js/core/cache-buster.js`
+
+**CacheBuster (`js/core/cache-buster.js`):**
+- Erkennt Versionsänderungen automatisch
+- Löscht Service Worker Caches bei Updates
+- Patcht `fetch()` für dynamische Requests
+
+### Game Settings Dialog
+Interaktiver Dialog beim Klick auf ein Spiel (`js/components/game-settings-dialog.js`):
+
+| Feature | Beschreibung |
+|---------|--------------|
+| Modus-Auswahl | Amateur/Pro/Rainbow (nur für Hauptstädte-Quiz) |
+| Timer | Ein/Aus + Zeit (15s/30s/45s/60s) |
+| Joker | 50:50 Joker (2x pro Spiel) |
+| Hardcore | 10s Timer, keine Joker, verzögerte Antworten, 2x Punkte |
+
+**GameEngine Settings:**
+```javascript
+game.setSettings({
+    timer: { enabled: true, seconds: 30 },
+    joker: { enabled: true, count: 2 },
+    hardcore: false
+});
+```
 
 ### Achievements (18 Stück)
 | ID | Name | Bedingung |
