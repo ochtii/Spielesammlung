@@ -458,8 +458,20 @@
 	        document.documentElement.style.setProperty('--font-scale', scaleValue);
 	        localStorage.setItem('fontScale', scale);
 	        fontSizeValue.textContent = scale + '%';
-	        if (window.applyGlobalSettings) window.applyGlobalSettings();
+	        // Globaler Call für Schriftgröße
+	        if (window.applyFontSizeSettings) window.applyFontSizeSettings(scale);
 	    }
+
+	    // Globale Schriftgröße-Funktionen
+	    window.applyFontSizeSettings = function(scale) {
+	        const scaleValue = scale / 100;
+	        document.documentElement.style.setProperty('--font-scale', scaleValue);
+	    };
+
+	    window.getFontSizeSettings = function() {
+	        return localStorage.getItem('fontScale') || '100';
+	    };
+
 	    const savedFontScale = localStorage.getItem('fontScale') || '100';
 	    fontSizeSlider.value = savedFontScale;
 	    applyFontSize(savedFontScale);
@@ -494,12 +506,101 @@
 	    notificationsToggle.addEventListener('change', updateNotificationStatus);
 
 	    // Neue Entwickler-Tools
+	    // Globale Funktionen für Entwickler-Settings
+	    function applyFooterSettings(enabled) {
+	        const footer = document.getElementById('footer-container');
+	        if (footer) {
+	            // Footer-Details ein/ausschalten
+	            const footerDetails = footer.querySelectorAll('.footer-detail');
+	            footerDetails.forEach(detail => {
+	                detail.style.display = enabled ? 'block' : 'none';
+	            });
+	        }
+	    }
+
+	    function applyResizeButtonSettings(enabled) {
+	        let resizeBtn = document.getElementById('resizeBtn');
+	        if (!resizeBtn && enabled) {
+	            // Resize-Button erstellen falls er nicht existiert
+	            resizeBtn = document.createElement('button');
+	            resizeBtn.id = 'resizeBtn';
+	            resizeBtn.className = 'resize-btn';
+	            resizeBtn.innerHTML = '<i class="fas fa-expand"></i>';
+	            resizeBtn.title = 'Seite zoomen';
+	            resizeBtn.addEventListener('click', () => {
+	                // Zoom-Funktionalität hier implementieren
+	                const currentZoom = parseFloat(localStorage.getItem('pageZoom') || '1');
+	                const newZoom = currentZoom >= 1.5 ? 1 : currentZoom + 0.25;
+	                document.body.style.zoom = newZoom;
+	                localStorage.setItem('pageZoom', newZoom);
+	            });
+	            document.body.appendChild(resizeBtn);
+	        } else if (resizeBtn && !enabled) {
+	            resizeBtn.remove();
+	        }
+	    }
+
+	    function applyHardReloadButtonSettings(enabled) {
+	        let hardReloadBtn = document.getElementById('hardReloadBtn');
+	        if (!hardReloadBtn && enabled) {
+	            // Hard Reload Button erstellen
+	            hardReloadBtn = document.createElement('button');
+	            hardReloadBtn.id = 'hardReloadBtn';
+	            hardReloadBtn.className = 'hard-reload-btn';
+	            hardReloadBtn.innerHTML = '<i class="fas fa-redo-alt"></i>';
+	            hardReloadBtn.title = 'Hard Reload';
+	            hardReloadBtn.addEventListener('click', () => {
+	                // Cache leeren und neu laden
+	                if ('serviceWorker' in navigator) {
+	                    navigator.serviceWorker.getRegistrations().then(registrations => {
+	                        registrations.forEach(registration => registration.unregister());
+	                    });
+	                }
+	                localStorage.clear();
+	                sessionStorage.clear();
+	                window.location.reload(true);
+	            });
+	            document.body.appendChild(hardReloadBtn);
+	        } else if (hardReloadBtn && !enabled) {
+	            hardReloadBtn.remove();
+	        }
+	    }
+
+	    function applyDebugSettings(enabled) {
+	        if (enabled) {
+	            // Debug-System initialisieren falls es nicht existiert
+	            if (!window.debugSystem) {
+	                window.debugSystem = {
+	                    level: localStorage.getItem('debugLevel') || 'error',
+	                    consoleOutput: localStorage.getItem('debugConsoleOutputEnabled') === 'true',
+	                    log: function(level, message, ...args) {
+	                        const levels = { 'error': 0, 'warn': 1, 'info': 2, 'debug': 3 };
+	                        if (levels[level] <= levels[this.level]) {
+	                            if (this.consoleOutput) {
+	                                console[level](`[${level.toUpperCase()}]`, message, ...args);
+	                            }
+	                            // Hier könnte auch eine UI-Anzeige implementiert werden
+	                        }
+	                    },
+	                    setLevel: function(level) { this.level = level; },
+	                    setConsoleOutput: function(enabled) { this.consoleOutput = enabled; }
+	                };
+	            }
+	        } else {
+	            // Debug-System deaktivieren
+	            if (window.debugSystem) {
+	                window.debugSystem = null;
+	            }
+	        }
+	    }
+
 	    // Footer Settings Toggle
 	    const footerSettingsToggle = document.getElementById('footer-settings-toggle');
 	    function updateFooterSettingsStatus() {
 	        const enabled = footerSettingsToggle.checked;
 	        localStorage.setItem('footerSettingsEnabled', enabled ? 'true' : 'false');
-	        // Hier könnte Footer-Logik implementiert werden
+	        // Footer-Settings sofort anwenden
+	        applyFooterSettings(enabled);
 	    }
 	    footerSettingsToggle.checked = localStorage.getItem('footerSettingsEnabled') === 'true';
 	    updateFooterSettingsStatus();
@@ -510,7 +611,8 @@
 	    function updateResizeButtonStatus() {
 	        const enabled = resizeButtonToggle.checked;
 	        localStorage.setItem('resizeButtonEnabled', enabled ? 'true' : 'false');
-	        // Hier könnte Resize-Button Logik implementiert werden
+	        // Resize-Button sofort ein/ausschalten
+	        applyResizeButtonSettings(enabled);
 	    }
 	    resizeButtonToggle.checked = localStorage.getItem('resizeButtonEnabled') === 'true';
 	    updateResizeButtonStatus();
@@ -521,7 +623,8 @@
 	    function updateHardReloadButtonStatus() {
 	        const enabled = hardReloadButtonToggle.checked;
 	        localStorage.setItem('hardReloadButtonEnabled', enabled ? 'true' : 'false');
-	        // Hier könnte Hard Reload Button Logik implementiert werden
+	        // Hard Reload Button sofort ein/ausschalten
+	        applyHardReloadButtonSettings(enabled);
 	    }
 	    hardReloadButtonToggle.checked = localStorage.getItem('hardReloadButtonEnabled') === 'true';
 	    updateHardReloadButtonStatus();
@@ -534,6 +637,8 @@
 	        const enabled = debugMessagesToggle.checked;
 	        localStorage.setItem('debugMessagesEnabled', enabled ? 'true' : 'false');
 	        debugSettingsContainer.style.display = enabled ? 'block' : 'none';
+	        // Debug-System sofort aktivieren/deaktivieren
+	        applyDebugSettings(enabled);
 	    }
 	    debugMessagesToggle.checked = localStorage.getItem('debugMessagesEnabled') === 'true';
 	    updateDebugMessagesStatus();
@@ -543,6 +648,10 @@
 	    const debugLevelSelect = document.getElementById('debug-level-select');
 	    function applyDebugLevel(level) {
 	        localStorage.setItem('debugLevel', level);
+	        // Debug-Level sofort anwenden
+	        if (window.debugSystem) {
+	            window.debugSystem.setLevel(level);
+	        }
 	    }
 	    const savedDebugLevel = localStorage.getItem('debugLevel') || 'error';
 	    debugLevelSelect.value = savedDebugLevel;
@@ -555,6 +664,10 @@
 	    function updateDebugConsoleOutputStatus() {
 	        const enabled = debugConsoleOutputToggle.checked;
 	        localStorage.setItem('debugConsoleOutputEnabled', enabled ? 'true' : 'false');
+	        // Konsole-Ausgabe sofort aktivieren/deaktivieren
+	        if (window.debugSystem) {
+	            window.debugSystem.setConsoleOutput(enabled);
+	        }
 	    }
 	    debugConsoleOutputToggle.checked = localStorage.getItem('debugConsoleOutputEnabled') === 'true';
 	    updateDebugConsoleOutputStatus();
@@ -906,6 +1019,23 @@
 	            document.body.classList.add(theme + '-mode');
 	        }
 	        localStorage.setItem('theme', theme);
+	    }
+
+	    // Entwickler-Settings beim Laden anwenden
+	    const footerEnabled = localStorage.getItem('footerSettingsEnabled') === 'true';
+	    const resizeEnabled = localStorage.getItem('resizeButtonEnabled') === 'true';
+	    const hardReloadEnabled = localStorage.getItem('hardReloadButtonEnabled') === 'true';
+	    const debugEnabled = localStorage.getItem('debugMessagesEnabled') === 'true';
+
+	    applyFooterSettings(footerEnabled);
+	    applyResizeButtonSettings(resizeEnabled);
+	    applyHardReloadButtonSettings(hardReloadEnabled);
+	    applyDebugSettings(debugEnabled);
+
+	    // Zoom wiederherstellen falls gespeichert
+	    const savedZoom = localStorage.getItem('pageZoom');
+	    if (savedZoom) {
+	        document.body.style.zoom = savedZoom;
 	    }
 	});
 	</script>
