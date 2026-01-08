@@ -121,6 +121,15 @@
                         </label>
                     </div>
                 </div>
+                <div class="settings-save-section">
+                    <button class="btn btn-primary" id="saveBottomNavBtn">
+                        <i class="fas fa-save"></i> Bottom Navigation Einstellungen speichern
+                    </button>
+                    <div class="save-feedback" id="bottomNavSaveFeedback" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Einstellungen erfolgreich gespeichert!</span>
+                    </div>
+                </div>
             </div>
 
             <div class="settings-page-section">
@@ -283,7 +292,7 @@
                 bottomNav.style.display = 'none';
             }
             
-            // Fixed/Static
+            // Fixed/Static - wichtig: Klasse entfernen und neu setzen
             bottomNav.classList.remove('position-static');
             if (!fixed) {
                 bottomNav.classList.add('position-static');
@@ -304,6 +313,36 @@
                 if (nav === 'help' && !showHelp) item.classList.add('hidden');
                 if (nav === 'settings' && !showSettings) item.classList.add('hidden');
             });
+        }
+
+        // Bottom Nav Einstellungen speichern
+        function saveBottomNavSettings() {
+            // Alle Einstellungen speichern
+            const enabled = document.getElementById('bottomNavEnabledCheck').checked;
+            const fixed = document.getElementById('bottomNavFixedCheck').checked;
+            const size = document.getElementById('bottomNavSizeSelect').value;
+            const showHome = document.getElementById('bottomNavShowHome').checked;
+            const showPoints = document.getElementById('bottomNavShowPoints').checked;
+            const showHelp = document.getElementById('bottomNavShowHelp').checked;
+            const showSettings = document.getElementById('bottomNavShowSettings').checked;
+            
+            localStorage.setItem('bottomNavEnabled', enabled);
+            localStorage.setItem('bottomNavFixed', fixed);
+            localStorage.setItem('bottomNavSize', size);
+            localStorage.setItem('bottomNavShowHome', showHome);
+            localStorage.setItem('bottomNavShowPoints', showPoints);
+            localStorage.setItem('bottomNavShowHelp', showHelp);
+            localStorage.setItem('bottomNavShowSettings', showSettings);
+            
+            // Einstellungen anwenden
+            applyBottomNavSettings();
+            
+            // Feedback anzeigen
+            const feedback = document.getElementById('bottomNavSaveFeedback');
+            feedback.style.display = 'flex';
+            setTimeout(() => {
+                feedback.style.display = 'none';
+            }, 3000);
         }
 
         // Auto-Save bei Änderungen
@@ -328,6 +367,10 @@
             document.getElementById('paidHintsCheck').addEventListener('change', (e) => {
                 localStorage.setItem('paidHints', e.target.checked);
             });
+
+            // Bottom Navigation Speichern Button
+            document.getElementById('saveBottomNavBtn').addEventListener('click', saveBottomNavSettings);
+
 
             // Balance Display
             document.getElementById('balanceDisplaySelect').addEventListener('change', (e) => {
