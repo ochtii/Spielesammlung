@@ -1241,6 +1241,10 @@ input:focus, select:focus, textarea:focus {
     border-radius: var(--radius-md);
     color: var(--color-text-secondary);
     transition: all var(--transition-fast);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
 }
 
 .menu-toggle:hover {
