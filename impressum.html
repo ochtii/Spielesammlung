@@ -202,28 +202,30 @@
     </div>
 
     <!-- Bottom Navigation -->
-    <div class="bottom-nav" id="bottomNav">
-        <a href="index.html" class="bottom-nav-item" data-nav="home">
-            <i class="fas fa-home"></i>
-            <span>Start</span>
-        </a>
-        <a href="points.html" class="bottom-nav-item" data-nav="points">
-            <i class="fas fa-trophy"></i>
-            <span>Punkte</span>
-        </a>
-        <a href="help.html" class="bottom-nav-item" data-nav="help">
-            <i class="fas fa-circle-info"></i>
-            <span>Hilfe</span>
-        </a>
-        <a href="faq.html" class="bottom-nav-item" data-nav="faq">
-            <i class="fas fa-circle-question"></i>
-            <span>FAQ</span>
-        </a>
-        <a href="settings.html" class="bottom-nav-item" data-nav="settings">
-            <i class="fas fa-gear"></i>
-            <span>Einstellungen</span>
-        </a>
-    </div>
+    <nav class="bottom-nav" id="bottomNav">
+        <div class="bottom-nav-content">
+            <a href="index.html" class="bottom-nav-item" data-nav="home">
+                <i class="fas fa-home"></i>
+                <span>Spiel</span>
+            </a>
+            <a href="points.html" class="bottom-nav-item" data-nav="points">
+                <i class="fas fa-coins"></i>
+                <span>Punkte</span>
+            </a>
+            <a href="help.html" class="bottom-nav-item" data-nav="help">
+                <i class="fas fa-circle-info"></i>
+                <span>Hilfe</span>
+            </a>
+            <a href="faq.html" class="bottom-nav-item" data-nav="faq">
+                <i class="fas fa-circle-question"></i>
+                <span>FAQ</span>
+            </a>
+            <a href="settings.html" class="bottom-nav-item" data-nav="settings">
+                <i class="fas fa-cog"></i>
+                <span>Einstellungen</span>
+            </a>
+        </div>
+    </nav>
 
     <footer class="footer">
         <div class="footer-content">
@@ -255,39 +257,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             setupMenu();
             applyBottomNavSettings();
-            
-            // Zoom Reset
-            const zoomBtn = document.getElementById('zoomResetBtn');
-            if (zoomBtn) {
-                zoomBtn.addEventListener('click', () => {
-                    const viewport = document.querySelector('meta[name="viewport"]');
-                    if (viewport) {
-                        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
-                        setTimeout(() => {
-                            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
-                        }, 100);
-                    }
-                    zoomBtn.innerHTML = '<i class="fas fa-check"></i><span>Zurückgesetzt!</span>';
-                    setTimeout(() => {
-                        zoomBtn.innerHTML = '<i class="fas fa-search-minus"></i><span>Ansicht auf 100% zurücksetzen</span>';
-                    }, 2000);
-                });
-            }
-            
-            // Commit Info laden
-            fetch('https://api.github.com/repos/ochtii/Spielesammlung/commits/main')
-                .then(response => response.json())
-                .then(data => {
-                    const commitDate = new Date(data.commit.author.date);
-                    const commitInfo = document.getElementById('commitInfo');
-                    if (commitInfo) {
-                        commitInfo.textContent = `Letzter Commit: ${commitDate.toLocaleDateString('de-AT')} um ${commitDate.toLocaleTimeString('de-AT', {hour: '2-digit', minute: '2-digit'})} Uhr`;
-                    }
-                })
-                .catch(() => {
-                    const commitInfo = document.getElementById('commitInfo');
-                    if (commitInfo) commitInfo.textContent = 'Version-Info nicht verfügbar';
-                });
+            initZoomReset();
+            loadCommitInfo();
         });
 
         function setupMenu() {
@@ -311,12 +282,90 @@
             }
         }
 
+        function initZoomReset() {
+            const zoomBtn = document.getElementById('zoomResetBtn');
+            if (zoomBtn) {
+                zoomBtn.addEventListener('click', () => {
+                    const viewport = document.querySelector('meta[name="viewport"]');
+                    if (viewport) {
+                        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                        setTimeout(() => {
+                            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+                        }, 100);
+                    }
+                    zoomBtn.innerHTML = '<i class="fas fa-check"></i><span>Zurückgesetzt!</span>';
+                    setTimeout(() => {
+                        zoomBtn.innerHTML = '<i class="fas fa-search-minus"></i><span>Ansicht auf 100% zurücksetzen</span>';
+                    }, 2000);
+                });
+            }
+        }
+
+        async function loadCommitInfo() {
+            const commitInfoEl = document.getElementById('commitInfo');
+            
+            try {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 5000);
+                
+                const response = await fetch(
+                    'https://api.github.com/repos/ochtii/Spielesammlung/commits?per_page=1',
+                    { signal: controller.signal }
+                );
+                clearTimeout(timeout);
+                
+                if (!response.ok) throw new Error('API Error');
+                
+                const data = await response.json();
+                if (data.length > 0) {
+                    const commit = data[0];
+                    const commitDate = new Date(commit.commit.author.date);
+                    const options = {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        timeZone: 'Europe/Vienna'
+                    };
+                    const formattedDate = new Intl.DateTimeFormat('de-AT', options).format(commitDate);
+                    
+                    const commitDetailResponse = await fetch(
+                        `https://api.github.com/repos/ochtii/Spielesammlung/commits/${commit.sha}`,
+                        { signal: controller.signal }
+                    );
+                    
+                    let filesChanged = '';
+                    if (commitDetailResponse.ok) {
+                        const commitDetail = await commitDetailResponse.json();
+                        if (commitDetail.files && commitDetail.files.length > 0) {
+                            const fileNames = commitDetail.files.map(f => f.filename).slice(0, 3);
+                            filesChanged = fileNames.join(', ');
+                            if (commitDetail.files.length > 3) {
+                                filesChanged += ` (+${commitDetail.files.length - 3})`;
+                            }
+                        }
+                    }
+                    
+                    let infoText = `<i class="fas fa-clock"></i> ${formattedDate}`;
+                    if (filesChanged) {
+                        infoText += ` <span class="footer-separator">|</span> <i class="fas fa-file-code"></i> ${filesChanged}`;
+                    }
+                    
+                    commitInfoEl.innerHTML = infoText;
+                    return;
+                }
+            } catch (error) {
+                commitInfoEl.innerHTML = '<i class="fas fa-wifi"></i> Offline';
+            }
+        }
+
         function applyBottomNavSettings() {
             const bottomNav = document.getElementById('bottomNav');
             if (!bottomNav) return;
 
             const enabled = localStorage.getItem('bottomNavEnabled') !== 'false';
-            const fixed = localStorage.getItem('bottomNavFixed') === 'true';
+            const fixed = localStorage.getItem('bottomNavFixed') !== 'false';
             const size = localStorage.getItem('bottomNavSize') || 'medium';
 
             bottomNav.style.display = enabled ? 'flex' : 'none';
