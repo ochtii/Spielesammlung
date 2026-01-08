@@ -639,20 +639,33 @@
 	    // Tab-Funktionalität
 	    const tabBtns = document.querySelectorAll('.tab-btn');
 	    const tabPanels = document.querySelectorAll('.tab-panel');
+
+	    function switchTab(targetTab) {
+	        // Entferne active Klasse von allen Buttons und Panels
+	        tabBtns.forEach(btn => btn.classList.remove('active'));
+	        tabPanels.forEach(panel => panel.classList.remove('active'));
+
+	        // Füge active Klasse zum gewählten Button und Panel hinzu
+	        const activeBtn = document.querySelector(`[data-tab="${targetTab}"]`);
+	        const activePanel = document.getElementById(targetTab);
+
+	        if (activeBtn) activeBtn.classList.add('active');
+	        if (activePanel) activePanel.classList.add('active');
+
+	        // Speichere aktiven Tab
+	        localStorage.setItem('activeTab', targetTab);
+	    }
+
 	    tabBtns.forEach(btn => {
 	        btn.addEventListener('click', () => {
 	            const targetTab = btn.dataset.tab;
-	            tabBtns.forEach(b => b.classList.remove('active'));
-	            tabPanels.forEach(p => p.classList.remove('active'));
-	            btn.classList.add('active');
-	            document.getElementById(targetTab).classList.add('active');
-	            localStorage.setItem('activeTab', targetTab);
+	            switchTab(targetTab);
 	        });
 	    });
+
 	    // Aktiven Tab wiederherstellen
 	    const savedTab = localStorage.getItem('activeTab') || 'general';
-	    document.querySelector(`[data-tab="${savedTab}"]`).classList.add('active');
-	    document.getElementById(savedTab).classList.add('active');
+	    switchTab(savedTab);
 
 	    // Animationen
 	    const animationsToggle = document.getElementById('animations-toggle');

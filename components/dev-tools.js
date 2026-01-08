@@ -295,6 +295,11 @@
         applyHardReloadButtonSettings(hardReloadEnabled);
         applyDebugSettings(debugEnabled);
 
+        // Schriftgröße wiederherstellen
+        const savedFontScale = localStorage.getItem('fontScale') || '100';
+        const scaleValue = parseInt(savedFontScale) / 100;
+        document.documentElement.style.setProperty('--font-scale', scaleValue);
+
         // Zoom wiederherstellen falls gespeichert
         const savedZoom = localStorage.getItem('pageZoom');
         if (savedZoom && savedZoom !== '1') {

@@ -2,6 +2,16 @@
    Settings Layout - Modern & Clean
    ============================================ */
 
+/* Stelle sicher, dass Schriftgröße überall angewendet wird */
+.settings-tabs,
+.settings-content,
+.settings-card,
+.tab-btn,
+.dev-option,
+.status-indicator {
+    font-size: inherit;
+}
+
 .settings-tabs {
     display: flex;
     justify-content: center;
@@ -47,7 +57,6 @@
     border-radius: 1.5rem;
     color: var(--text-primary);
     font-size: 1.1rem;
-    font-weight: 600;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -107,6 +116,23 @@
     transition: all 0.1s ease;
 }
 
+/* Responsive Tab-Buttons */
+@media (max-width: 768px) {
+    .tab-btn {
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tab-btn {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+        min-width: 100px;
+    }
+}
+
 .tab-btn.danger-tab {
     background: linear-gradient(135deg, rgba(231, 76, 60, 0.8) 0%, rgba(192, 57, 43, 0.9) 100%);
     color: white;
@@ -142,9 +168,7 @@
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+
 .settings-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
@@ -236,6 +260,21 @@ select {
     opacity: 1;
 }
 
+/* Responsive Cards */
+@media (max-width: 600px) {
+    .settings-card, .dev-tools-card {
+        padding: 2rem 2rem;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .settings-card, .dev-tools-card {
+        padding: 1.5rem 1.5rem;
+        gap: 1.5rem;
+    }
+}
+
 .dev-tools-card {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
     border: 2px dashed var(--primary-color);
@@ -282,9 +321,7 @@ select {
 .dev-tools-card:hover::before {
     opacity: 1;
 }
-body {
-    background: var(--bg-primary);
-}
+
 /* Glassmorphism für Inputs und Selects - Futuristic */
 select, input[type="text"], input[type="email"], input[type="password"], input[type="range"], input[type="color"] {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
