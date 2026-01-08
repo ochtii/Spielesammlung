@@ -2500,7 +2500,7 @@ body.dark-mode .bottom-nav {
 /* Nur auf mobilen Geräten anzeigen */
 @media (max-width: 768px) {
     .bottom-nav {
-        display: flex;
+        display: flex !important;
     }
 }
 
