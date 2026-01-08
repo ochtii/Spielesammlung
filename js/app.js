@@ -148,7 +148,6 @@ const App = {
      */
     setupGamePage() {
         const gameGrid = document.getElementById('gameGrid');
-        const startBtn = document.getElementById('startBtn');
         this.selectedGame = null;
         this.selectedMode = null;
 
@@ -169,34 +168,17 @@ const App = {
                 `).join('');
             }
 
-            // Handle game selection
+            // Handle game selection - öffne direkt den Dialog
             gameGrid.querySelectorAll('.selection-card').forEach(card => {
                 card.addEventListener('click', () => {
-                    gameGrid.querySelectorAll('.selection-card').forEach(c => 
-                        c.classList.remove('selected'));
-                    card.classList.add('selected');
-                    this.selectedGame = card.dataset.game;
-                    if (startBtn) startBtn.disabled = false;
+                    const gameId = card.dataset.game;
+                    const game = GameRegistry.get(gameId);
+                    if (game) {
+                        this.showGameSettingsDialog(game);
+                    }
                 });
             });
         }
-
-        // Start button - check if game supports modes
-        if (startBtn) {
-            startBtn.disabled = true;
-            startBtn.addEventListener('click', () => {
-                if (this.selectedGame) {
-                    if (gameSupportsMode(this.selectedGame)) {
-                        this.showModeSelection();
-                    } else {
-                        this.startGame(this.selectedGame);
-                    }
-                }
-            });
-        }
-
-        // Setup mode selection
-        this.setupModeSelection();
 
         // Restart button
         const restartBtn = document.getElementById('restartBtn');
@@ -226,78 +208,83 @@ const App = {
                 }
             });
         }
-    },
 
-    /**
-     * Setup mode selection screen
-     */
-    setupModeSelection() {
-        const modeGrid = document.getElementById('modeGrid');
-        const startModeBtn = document.getElementById('startModeBtn');
-        const backBtn = document.getElementById('backToGames');
-
-        if (modeGrid) {
-            modeGrid.querySelectorAll('.mode-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    modeGrid.querySelectorAll('.mode-card').forEach(c => 
-                        c.classList.remove('selected'));
-                    card.classList.add('selected');
-                    this.selectedMode = card.dataset.mode;
-                    if (startModeBtn) startModeBtn.disabled = false;
-                });
-            });
-        }
-
-        if (startModeBtn) {
-            startModeBtn.addEventListener('click', () => {
-                if (this.selectedGame && this.selectedMode) {
-                    this.startGameWithMode(this.selectedGame, this.selectedMode);
+        // Joker button
+        const jokerBtn = document.getElementById('jokerButton');
+        if (jokerBtn) {
+            jokerBtn.addEventListener('click', () => {
+                if (this.currentGame) {
+                    this.currentGame.useJoker();
                 }
             });
         }
-
-        if (backBtn) {
-            backBtn.addEventListener('click', () => {
-                this.showScreen('startScreen');
-            });
-        }
     },
 
     /**
-     * Show mode selection screen
+     * Show game settings dialog
+     * @param {Object} game 
+     */
+    showGameSettingsDialog(game) {
+        GameSettingsDialog.show(game, (selectedGame, settings) => {
+            this.startGameWithSettings(selectedGame, settings);
+        });
+    },
+
+    /**
+     * Start game with settings from dialog
+     * @param {Object} game 
+     * @param {Object} settings 
+     */
+    startGameWithSettings(game, settings) {
+        // Set mode if supported
+        if (gameSupportsMode(game.id)) {
+            const mode = GameModes[settings.mode.toUpperCase()] || GameModes.AMATEUR;
+            game.setMode(mode);
+        }
+
+        // Set other settings
+        game.setSettings(settings);
+
+        this.currentGame = game;
+        game.init();
+        game.start();
+        this.showScreen('gameScreen');
+    },
+
+    /**
+     * Setup mode selection screen (legacy - jetzt durch Dialog ersetzt)
+     */
+    setupModeSelection() {
+        // Wird nicht mehr verwendet, Dialog übernimmt
+    },
+
+    /**
+     * Show mode selection screen (legacy)
      */
     showModeSelection() {
-        const game = GameRegistry.get(this.selectedGame);
-        const titleEl = document.getElementById('modeTitle');
-        const subtitleEl = document.getElementById('modeSubtitle');
-        
-        if (titleEl && game) {
-            titleEl.textContent = `${game.name} - Modus wählen`;
-        }
-        if (subtitleEl) {
-            subtitleEl.textContent = 'Wie schwer soll es sein?';
-        }
-
-        // Reset mode selection
-        this.selectedMode = null;
-        const modeGrid = document.getElementById('modeGrid');
-        const startModeBtn = document.getElementById('startModeBtn');
-        if (modeGrid) {
-            modeGrid.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
-        }
-        if (startModeBtn) startModeBtn.disabled = true;
-
-        this.showScreen('modeScreen');
+        // Wird nicht mehr verwendet
     },
 
     /**
-     * Start a game with a specific mode
+     * Start a game with a specific mode (legacy)
      * @param {string} gameId 
      * @param {string} modeId 
      */
     startGameWithMode(gameId, modeId) {
         const game = GameRegistry.get(gameId);
         if (!game) {
+            Toast.error('Spiel nicht gefunden');
+            return;
+        }
+
+        const mode = GameModes[modeId.toUpperCase()] || GameModes.AMATEUR;
+        game.setMode(mode);
+
+        this.currentGame = game;
+        game.init();
+        game.start();
+        this.showScreen('gameScreen');
+    },
             Toast.error('Spiel nicht gefunden');
             return;
         }

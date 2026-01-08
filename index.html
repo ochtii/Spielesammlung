@@ -79,63 +79,9 @@
                 </div>
             </div>
 
-            <div class="text-center mt-6">
-                <button id="startBtn" class="btn btn-primary btn-xl btn-block" disabled>
-                    <i class="fas fa-play"></i> Spiel starten
-                </button>
-            </div>
-        </section>
-
-        <!-- Mode Selection Screen -->
-        <section id="modeScreen" class="game-screen">
-            <div class="page-header text-center">
-                <h1 class="page-title" id="modeTitle">Wähle einen Modus</h1>
-                <p class="page-subtitle" id="modeSubtitle">Wie schwer soll es sein?</p>
-            </div>
-
-            <div class="mode-selection">
-                <div id="modeGrid" class="mode-grid">
-                    <div class="mode-card" data-mode="amateur">
-                        <div class="mode-card-icon amateur">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <div class="mode-card-content">
-                            <div class="mode-card-title">Amateur Quizzer</div>
-                            <div class="mode-card-desc">4 Antwortmöglichkeiten</div>
-                        </div>
-                        <div class="mode-card-badge easy">Leicht</div>
-                    </div>
-                    <div class="mode-card" data-mode="pro">
-                        <div class="mode-card-icon pro">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <div class="mode-card-content">
-                            <div class="mode-card-title">Pro Quizzer</div>
-                            <div class="mode-card-desc">Texteingabe ohne Hilfe</div>
-                        </div>
-                        <div class="mode-card-badge hard">Schwer</div>
-                    </div>
-                    <div class="mode-card" data-mode="rainbow">
-                        <div class="mode-card-icon rainbow">
-                            <i class="fas fa-rainbow"></i>
-                        </div>
-                        <div class="mode-card-content">
-                            <div class="mode-card-title">Regenbogen Quizzer</div>
-                            <div class="mode-card-desc">Texteingabe, Hinweise für 100P</div>
-                        </div>
-                        <div class="mode-card-badge special">Flexibel</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mode-actions mt-6">
-                <button id="backToGames" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i> Zurück
-                </button>
-                <button id="startModeBtn" class="btn btn-primary btn-xl" disabled>
-                    <i class="fas fa-play"></i> Starten
-                </button>
-            </div>
+            <p class="text-center text-secondary mt-4">
+                <i class="fas fa-hand-pointer"></i> Klicke auf ein Spiel um zu starten
+            </p>
         </section>
 
         <!-- Game Screen -->
@@ -163,11 +109,31 @@
                 </div>
             </div>
 
-            <!-- Hint Button (Rainbow Mode) -->
-            <button id="hintButton" class="hint-button hidden" title="Hinweis kaufen">
-                <i class="fas fa-lightbulb"></i>
-                <span>Hinweis für <span id="hintCost">100</span>P</span>
-            </button>
+            <!-- Timer Container -->
+            <div id="timerContainer" class="timer-container hidden">
+                <div class="timer-bar-wrapper">
+                    <div id="timerBar" class="timer-bar"></div>
+                </div>
+                <div class="timer-display">
+                    <i class="fas fa-clock"></i>
+                    <span id="timerDisplay">30</span>
+                </div>
+            </div>
+
+            <!-- Game Actions Row (Hint + Joker) -->
+            <div class="game-actions-row">
+                <!-- Hint Button (Rainbow Mode) -->
+                <button id="hintButton" class="hint-button hidden" title="Hinweis kaufen">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Hinweis für <span id="hintCost">100</span>P</span>
+                </button>
+
+                <!-- Joker Button (50:50) -->
+                <button id="jokerButton" class="joker-button hidden" title="50:50 Joker">
+                    <i class="fas fa-magic"></i>
+                    <span>50:50 (<span id="jokerCount">2</span>)</span>
+                </button>
+            </div>
 
             <!-- Question -->
             <div class="question-card">
@@ -251,6 +217,8 @@
     <script src="js/components/toast.js"></script>
     <script src="js/components/navbar.js"></script>
     <script src="js/components/bottom-nav.js"></script>
+    <script src="js/components/modal.js"></script>
+    <script src="js/components/game-settings-dialog.js"></script>
     <script src="js/games/GameModes.js"></script>
     <script src="js/games/GameEngine.js"></script>
     <script src="js/games/QuizGame.js"></script>

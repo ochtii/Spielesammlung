@@ -17,6 +17,17 @@ class GameEngine {
         this.mode = GameModes ? GameModes.AMATEUR : { id: 'amateur', inputType: 'choice' };
         this.hintPurchased = false; // Für Rainbow-Modus
 
+        // Game Settings
+        this.settings = {
+            timer: { enabled: false, seconds: 30 },
+            joker: { enabled: true, count: 2, used: 0 },
+            hardcore: false
+        };
+
+        // Timer
+        this.timerInterval = null;
+        this.timeRemaining = 0;
+
         this.state = {
             status: 'idle', // idle, playing, paused, finished
             questions: [],
@@ -38,6 +49,28 @@ class GameEngine {
     setMode(mode) {
         this.mode = mode;
         this.hintPurchased = false;
+    }
+
+    /**
+     * Set game settings
+     * @param {Object} settings 
+     */
+    setSettings(settings) {
+        this.settings = {
+            timer: settings.timer || { enabled: false, seconds: 30 },
+            joker: { 
+                enabled: settings.joker?.enabled ?? true, 
+                count: settings.joker?.count || 2,
+                used: 0
+            },
+            hardcore: settings.hardcore || false
+        };
+
+        // Hardcore überschreibt andere Settings
+        if (this.settings.hardcore) {
+            this.settings.timer = { enabled: true, seconds: 10 };
+            this.settings.joker = { enabled: false, count: 0, used: 0 };
+        }
     }
 
     /**
@@ -72,7 +105,11 @@ class GameEngine {
             scoreDisplay: document.getElementById('scoreDisplay'),
             streakDisplay: document.getElementById('streakDisplay'),
             hintButton: document.getElementById('hintButton'),
-            hintCost: document.getElementById('hintCost')
+            hintCost: document.getElementById('hintCost'),
+            timerDisplay: document.getElementById('timerDisplay'),
+            timerBar: document.getElementById('timerBar'),
+            jokerButton: document.getElementById('jokerButton'),
+            jokerCount: document.getElementById('jokerCount')
         };
     }
 
@@ -95,16 +132,156 @@ class GameEngine {
         this.state.startTime = Date.now();
         this.state.status = 'playing';
         this.hintPurchased = false;
+        
+        // Reset joker
+        if (this.settings.joker) {
+            this.settings.joker.used = 0;
+        }
 
         if (this.elements.totalQuestions) {
             this.elements.totalQuestions.textContent = this.state.questions.length;
         }
 
-        // Update hint button visibility for rainbow mode
+        // Update UI elements based on settings
         this.updateHintButton();
+        this.updateJokerButton();
+        this.updateTimerDisplay();
 
-        EventBus.emit(Events.GAME_START, { game: this.config.id, mode: this.mode.id });
+        EventBus.emit(Events.GAME_START, { game: this.config.id, mode: this.mode.id, settings: this.settings });
         this.showQuestion();
+    }
+
+    /**
+     * Update timer display visibility
+     */
+    updateTimerDisplay() {
+        const timerEl = document.getElementById('timerContainer');
+        if (timerEl) {
+            timerEl.classList.toggle('hidden', !this.settings.timer.enabled);
+        }
+    }
+
+    /**
+     * Update joker button
+     */
+    updateJokerButton() {
+        const jokerBtn = this.elements.jokerButton;
+        if (!jokerBtn) return;
+
+        const remaining = this.settings.joker.count - this.settings.joker.used;
+        
+        if (this.settings.joker.enabled && remaining > 0 && this.mode.inputType === 'choice') {
+            jokerBtn.classList.remove('hidden');
+            const countEl = this.elements.jokerCount;
+            if (countEl) countEl.textContent = remaining;
+            jokerBtn.disabled = false;
+        } else {
+            jokerBtn.classList.add('hidden');
+        }
+    }
+
+    /**
+     * Use 50:50 Joker
+     */
+    useJoker() {
+        if (!this.settings.joker.enabled) return;
+        if (this.settings.joker.used >= this.settings.joker.count) return;
+        if (this.mode.inputType !== 'choice') return;
+
+        const question = this.state.questions[this.state.currentIndex];
+        const buttons = this.elements.answersGrid.querySelectorAll('.answer-btn:not(.joker-removed)');
+        
+        // Finde falsche Antworten
+        const wrongButtons = Array.from(buttons).filter(btn => 
+            btn.dataset.answer !== question.correct && !btn.classList.contains('joker-removed')
+        );
+
+        // Entferne 2 falsche Antworten
+        const toRemove = wrongButtons.sort(() => Math.random() - 0.5).slice(0, 2);
+        toRemove.forEach(btn => {
+            btn.classList.add('joker-removed');
+            btn.disabled = true;
+        });
+
+        this.settings.joker.used++;
+        this.updateJokerButton();
+        
+        Toast.show('50:50 Joker eingesetzt!', { type: 'info' });
+    }
+
+    /**
+     * Start timer for current question
+     */
+    startTimer() {
+        if (!this.settings.timer.enabled) return;
+
+        this.stopTimer();
+        this.timeRemaining = this.settings.timer.seconds;
+        
+        const timerDisplay = this.elements.timerDisplay;
+        const timerBar = this.elements.timerBar;
+        
+        if (timerDisplay) timerDisplay.textContent = this.timeRemaining;
+        if (timerBar) timerBar.style.width = '100%';
+
+        this.timerInterval = setInterval(() => {
+            this.timeRemaining--;
+            
+            if (timerDisplay) timerDisplay.textContent = this.timeRemaining;
+            if (timerBar) {
+                const percent = (this.timeRemaining / this.settings.timer.seconds) * 100;
+                timerBar.style.width = `${percent}%`;
+                
+                // Farbe ändern bei wenig Zeit
+                if (this.timeRemaining <= 5) {
+                    timerBar.classList.add('danger');
+                } else if (this.timeRemaining <= 10) {
+                    timerBar.classList.add('warning');
+                } else {
+                    timerBar.classList.remove('warning', 'danger');
+                }
+            }
+
+            if (this.timeRemaining <= 0) {
+                this.stopTimer();
+                this.handleTimeout();
+            }
+        }, 1000);
+    }
+
+    /**
+     * Stop timer
+     */
+    stopTimer() {
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+    }
+
+    /**
+     * Handle timeout (no answer given in time)
+     */
+    handleTimeout() {
+        const question = this.state.questions[this.state.currentIndex];
+        
+        // Zeige richtige Antwort
+        const buttons = this.elements.answersGrid.querySelectorAll('.answer-btn');
+        buttons.forEach(btn => {
+            btn.disabled = true;
+            if (btn.dataset.answer === question.correct) {
+                btn.classList.add('correct');
+            }
+        });
+
+        // Streak zurücksetzen
+        this.state.streak = 0;
+        this.updateStats();
+
+        Toast.error('Zeit abgelaufen!');
+
+        // Nächste Frage
+        setTimeout(() => this.nextQuestion(), 1500);
     }
 
     /**
@@ -175,6 +352,7 @@ class GameEngine {
         // Reset hint for new question (Rainbow mode)
         this.hintPurchased = false;
         this.updateHintButton();
+        this.updateJokerButton();
 
         // Start timer for this question
         this.state.questionStartTime = Date.now();
@@ -192,10 +370,50 @@ class GameEngine {
         
         // Render based on mode
         if (this.mode.inputType === 'choice') {
-            this.renderAnswers(question.options);
+            // Hardcore: Verzögerte Antworten
+            if (this.settings.hardcore) {
+                this.renderDelayedAnswers(question.options);
+            } else {
+                this.renderAnswers(question.options);
+            }
         } else if (this.mode.inputType === 'text' || this.mode.inputType === 'rainbow') {
             this.renderTextInput(question);
         }
+
+        // Start timer after rendering
+        if (this.settings.timer.enabled) {
+            this.startTimer();
+        }
+    }
+
+    /**
+     * Render delayed answers (Hardcore mode)
+     * @param {string[]} options 
+     */
+    renderDelayedAnswers(options) {
+        if (!this.elements.answersGrid) return;
+
+        // Zeige Platzhalter
+        this.elements.answersGrid.innerHTML = `
+            <div class="answers-loading">
+                <div class="answers-loading-spinner"></div>
+                <span>Antworten laden...</span>
+                <div class="answers-loading-countdown" id="answersCountdown">4</div>
+            </div>
+        `;
+
+        let countdown = 4;
+        const countdownEl = document.getElementById('answersCountdown');
+        
+        const countdownInterval = setInterval(() => {
+            countdown--;
+            if (countdownEl) countdownEl.textContent = countdown;
+            
+            if (countdown <= 0) {
+                clearInterval(countdownInterval);
+                this.renderAnswers(options);
+            }
+        }, 1000);
     }
 
     /**
@@ -266,6 +484,9 @@ class GameEngine {
      * @param {string} userAnswer 
      */
     handleTextAnswer(userAnswer) {
+        // Timer stoppen
+        this.stopTimer();
+
         const question = this.state.questions[this.state.currentIndex];
         const normalizedUser = this.normalizeAnswer(userAnswer);
         const normalizedCorrect = this.normalizeAnswer(question.correct);
@@ -300,8 +521,13 @@ class GameEngine {
                 this.state.bestStreak = this.state.streak;
             }
             // Pro mode: more points for text input
-            const basePoints = this.mode.inputType === 'text' ? 20 : 10;
-            this.addPoints(basePoints + this.state.streak);
+            let basePoints = this.mode.inputType === 'text' ? 20 : 10;
+            basePoints += this.state.streak;
+            // Hardcore: 2x Punkte
+            if (this.settings.hardcore) {
+                basePoints *= 2;
+            }
+            this.addPoints(basePoints);
         } else {
             this.state.streak = 0;
         }
@@ -351,6 +577,9 @@ class GameEngine {
      * @param {string} selected 
      */
     handleAnswer(selected) {
+        // Timer stoppen
+        this.stopTimer();
+
         const question = this.state.questions[this.state.currentIndex];
         const isCorrect = selected === question.correct;
         const answerTimeMs = this.state.questionStartTime ? Date.now() - this.state.questionStartTime : null;
@@ -374,7 +603,12 @@ class GameEngine {
             if (this.state.streak > this.state.bestStreak) {
                 this.state.bestStreak = this.state.streak;
             }
-            this.addPoints(10 + this.state.streak);
+            // Berechne Punkte: Hardcore = 2x
+            let basePoints = 10 + this.state.streak;
+            if (this.settings.hardcore) {
+                basePoints *= 2;
+            }
+            this.addPoints(basePoints);
         } else {
             this.state.streak = 0;
         }
