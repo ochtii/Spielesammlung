@@ -21,6 +21,7 @@
 
 /* 5. Layout - Navigation and structural elements */
 @import url('navbar.css');
+@import url('bottom-nav.css');
 
 /* 6. Feature Modules */
 @import url('settings.css');
