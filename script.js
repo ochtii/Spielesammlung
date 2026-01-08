@@ -1403,7 +1403,20 @@ class AustriaQuiz {
             const optionsCost = 100;
             
             if (currentPoints < optionsCost) {
-                this.showFeedback('Nicht genug Punkte! Du benötigst 100 Punkte, um die Optionen anzuzeigen.', false);
+                // Zeige Fehler-Nachricht
+                const feedbackArea = document.getElementById('feedbackArea');
+                const feedbackContent = document.getElementById('feedbackContent');
+                feedbackArea.classList.remove('feedback-hidden');
+                feedbackContent.innerHTML = `
+                    <div class="feedback-incorrect">
+                        <i class="fas fa-coins"></i> Nicht genug Punkte! 
+                        Du benötigst 100 Punkte, um die Optionen anzuzeigen.
+                    </div>
+                    <div class="feedback-answer">
+                        <strong>Deine Punkte:</strong> ${currentPoints}
+                    </div>
+                `;
+                window.scrollTo(0, feedbackArea.offsetTop);
                 return;
             }
             
@@ -1415,8 +1428,16 @@ class AustriaQuiz {
             optionsSection.style.display = 'block';
             this.renderMultipleChoice(optionsSection);
             
-            // Feedback über Punkteabzug
-            this.showFeedback(`${optionsCost} Punkte abgezogen. Wähle eine der 4 Optionen.`, true);
+            // Zeige Info-Nachricht
+            const feedbackArea = document.getElementById('feedbackArea');
+            const feedbackContent = document.getElementById('feedbackContent');
+            feedbackArea.classList.remove('feedback-hidden');
+            feedbackContent.innerHTML = `
+                <div class="feedback-hint">
+                    <i class="fas fa-info-circle"></i> ${optionsCost} Punkte abgezogen. Wähle eine der 4 Optionen.
+                </div>
+            `;
+            window.scrollTo(0, feedbackArea.offsetTop);
         });
 
         inputSection.appendChild(input);
