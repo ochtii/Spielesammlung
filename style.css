@@ -2578,98 +2578,111 @@ input[type="text"]::placeholder {
    ============================================ */
 @media (max-width: 480px) {
     .points-page {
-        padding: 0;
+        padding: 0 1rem;
         max-width: 100%;
-        margin: 0;
+        margin: 1rem 0 5rem;
     }
     
     .points-header {
-        margin-bottom: 1.25rem;
-        padding: 1rem;
+        margin-bottom: 1.5rem;
+        padding: 0;
     }
     
     .points-icon {
-        font-size: 3rem;
-        margin-bottom: 0.5rem;
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
     }
     
     .points-header h1 {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
     }
     
     .points-display-card {
-        margin: 0 0.5rem 1rem;
-        padding: 1.75rem 1rem;
+        margin: 0 0 1.5rem;
+        padding: 2rem 1.5rem;
         border-radius: 20px;
         background: linear-gradient(135deg, var(--warning-color), #e67e22);
-        box-shadow: 0 8px 24px rgba(246, 156, 18, 0.25);
+        box-shadow: 0 10px 30px rgba(246, 156, 18, 0.3);
     }
     
     .points-value {
-        font-size: 3rem;
-        letter-spacing: -2px;
+        font-size: 3.5rem;
+        letter-spacing: -1px;
     }
     
     .points-label {
-        font-size: 0.9rem;
-        margin-top: 0.35rem;
+        font-size: 1rem;
+        margin-top: 0.5rem;
         font-weight: 500;
     }
     
-    /* Kompaktere Stats in 3 Spalten */
+    /* Stats in 1 Spalte für bessere Lesbarkeit */
     .points-stats {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.4rem;
-        margin: 0 0.5rem 1rem;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin: 0 0 1.5rem;
     }
     
     .stat-card {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        text-align: center;
-        padding: 0.875rem 0.5rem;
-        border-radius: 12px;
+        text-align: left;
+        padding: 1.25rem 1.5rem;
+        border-radius: 16px;
         background: var(--bg-primary);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        gap: 1rem;
     }
     
     .stat-card:active {
-        transform: scale(0.97);
+        transform: scale(0.98);
     }
     
     .stat-card i {
-        margin-bottom: 0.4rem;
-        font-size: 1.5rem;
+        margin-bottom: 0;
+        font-size: 2rem;
+        flex-shrink: 0;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-secondary);
+        border-radius: 12px;
+    }
+    
+    .stat-card > div {
+        flex: 1;
     }
     
     .stat-value {
-        font-size: 1.35rem;
-        margin-bottom: 0.15rem;
+        font-size: 1.75rem;
+        margin-bottom: 0.25rem;
     }
     
     .stat-label {
-        font-size: 0.65rem;
-        line-height: 1.2;
+        font-size: 0.85rem;
+        line-height: 1.3;
     }
     
     /* Info & History Cards */
     .points-info,
     .points-history {
-        margin: 0 0.5rem 1rem;
-        padding: 1rem;
+        margin: 0 0 1.5rem;
+        padding: 1.25rem;
         border-radius: 16px;
     }
     
     .points-info h2,
     .points-history h2 {
-        font-size: 0.95rem;
-        margin-bottom: 0.875rem;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
     }
     
     .points-info h2 i,
     .points-history h2 i {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
     
     .points-info ul {
@@ -2677,30 +2690,30 @@ input[type="text"]::placeholder {
     }
     
     .points-info li {
-        font-size: 0.8rem;
-        padding: 0.625rem 0;
-        line-height: 1.4;
+        font-size: 0.9rem;
+        padding: 0.875rem 0;
+        line-height: 1.5;
     }
     
-    /* Kompaktere Historie Liste */
+    /* Historie Liste */
     .history-list {
-        max-height: 350px;
+        max-height: 400px;
     }
     
     .history-item {
-        padding: 0.75rem 0;
-        font-size: 0.85rem;
+        padding: 1rem 0;
+        font-size: 0.9rem;
     }
     
     /* Actions Button */
     .points-actions {
-        margin: 0 0.5rem 1rem;
+        margin: 0 0 2rem;
     }
     
     .btn-danger {
         width: 100%;
-        padding: 0.875rem 1.5rem;
-        font-size: 0.9rem;
+        padding: 1rem;
+        font-size: 1rem;
         border-radius: 12px;
     }
 }
