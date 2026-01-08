@@ -612,6 +612,7 @@
             <a href="points.html" class="bottom-nav-item" data-nav="points">
                 <i class="fas fa-coins"></i>
                 <span>Punkte</span>
+                <span class="bottom-nav-badge" id="bottomNavPoints">0</span>
             </a>
             <a href="help.html" class="bottom-nav-item" data-nav="help">
                 <i class="fas fa-question-circle"></i>
@@ -813,6 +814,16 @@
                 if (nav === 'faq' && !showFaq) item.classList.add('hidden');
                 if (nav === 'settings' && !showSettings) item.classList.add('hidden');
             });
+        }
+
+        // Punkteanzeige in Bottom Nav aktualisieren
+        function updateBottomNavPoints() {
+            const pointsDisplay = document.getElementById('bottomNavPoints');
+            if (pointsDisplay) {
+                const pointsData = JSON.parse(localStorage.getItem('pointsData') || '{"totalPoints":0}');
+                const totalPoints = pointsData.totalPoints || 0;
+                pointsDisplay.textContent = totalPoints > 999 ? '999+' : totalPoints;
+            }
         }
 
         // Accordion Setup
@@ -1744,6 +1755,7 @@
             setupAccordion();
             initEasterEgg();
             initSettingsMode();
+            updateBottomNavPoints();
         });
     </script>
 </body>

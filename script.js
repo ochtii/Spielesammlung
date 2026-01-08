@@ -2193,8 +2193,9 @@ async function loadCommitTime() {
 function updateBottomNavPoints() {
     const pointsDisplay = document.getElementById('bottomNavPoints');
     if (pointsDisplay) {
-        const globalPoints = parseInt(localStorage.getItem('globalPoints') || '0');
-        pointsDisplay.textContent = globalPoints > 999 ? '999+' : globalPoints;
+        const pointsData = JSON.parse(localStorage.getItem('pointsData') || '{"totalPoints":0}');
+        const totalPoints = pointsData.totalPoints || 0;
+        pointsDisplay.textContent = totalPoints > 999 ? '999+' : totalPoints;
     }
 }
 
