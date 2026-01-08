@@ -5,6 +5,7 @@
 const CacheBuster = {
     STORAGE_KEY: 'cacheBusterEnabled',
     VERSION_KEY: 'appVersion',
+    BUILD_VERSION: '2.1.0', // Sync with AppConfig.version
     
     /**
      * Check if cache busting is enabled
@@ -35,23 +36,62 @@ const CacheBuster = {
     },
     
     /**
-     * Get current version (timestamp-based)
+     * Get current version
      */
     getVersion() {
-        return Date.now().toString(36);
+        return this.BUILD_VERSION + '_' + Date.now().toString(36);
+    },
+    
+    /**
+     * Get stable version for URLs (based on build version)
+     */
+    getStableVersion() {
+        return this.BUILD_VERSION;
     },
     
     /**
      * Initialize cache buster
      */
     init() {
+        // Always add version to dynamically loaded resources
+        this.patchFetch();
+        
+        // Check for version change
+        const storedVersion = localStorage.getItem(this.VERSION_KEY);
+        if (storedVersion !== this.BUILD_VERSION) {
+            console.log('CacheBuster: Version change detected', storedVersion, '->', this.BUILD_VERSION);
+            localStorage.setItem(this.VERSION_KEY, this.BUILD_VERSION);
+            this.bustCache();
+        }
+        
         if (!this.isEnabled()) {
             console.log('CacheBuster: Disabled');
             return;
         }
         
-        console.log('CacheBuster: Active - clearing caches...');
-        this.bustCache();
+        console.log('CacheBuster: Active, version:', this.BUILD_VERSION);
+    },
+    
+    /**
+     * Patch fetch to add version params
+     */
+    patchFetch() {
+        const originalFetch = window.fetch;
+        const self = this;
+        
+        window.fetch = function(url, options) {
+            if (typeof url === 'string' && self.isLocalUrl(url)) {
+                url = self.versionUrl(url);
+            }
+            return originalFetch.call(this, url, options);
+        };
+    },
+    
+    /**
+     * Check if URL is local (not CDN)
+     */
+    isLocalUrl(url) {
+        return !url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('//');
     },
     
     /**
