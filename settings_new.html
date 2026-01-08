@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Einstellungen</title>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="css/main.css?v=20260109">
+	<link rel="stylesheet" href="css/settings_new.css">
+</head>
+<body>
+	<!-- Navbar -->
+	<nav class="navbar">
+		<div class="navbar-content">
+			<a href="index.html" class="navbar-brand">
+				<i class="fas fa-map-location-dot"></i> AUT Quiz
+			</a>
+			<div class="navbar-menu">
+				<button class="menu-toggle" id="menuToggle" aria-label="Menü" type="button">
+					<i class="fas fa-bars"></i>
+				</button>
+				<div class="menu-dropdown" id="menuDropdown">
+					<a href="points.html" class="menu-item">
+						<i class="fas fa-coins"></i> <span>Punkte: <span id="menuPointsDisplay">0</span></span>
+					</a>
+					<a href="help.html" class="menu-item">
+						<i class="fas fa-question-circle"></i> Hilfe
+					</a>
+					<a href="faq.html" class="menu-item">
+						<i class="fas fa-circle-question"></i> FAQ
+					</a>
+					<a href="settings_new.html" class="menu-item">
+						<i class="fas fa-cog"></i> Einstellungen
+					</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<main class="container">
+		<h1>Einstellungen</h1>
+		<!-- Hier können zukünftige Einstellungen eingefügt werden -->
+	</main>
+
+	<!-- Footer Container - wird durch footer.js geladen -->
+	<div id="footer-container"></div>
+
+	<script src="components/footer.js"></script>
+</body>
+</html>
