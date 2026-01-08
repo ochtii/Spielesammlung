@@ -547,7 +547,54 @@ main {
 }
 
 /* ============================================
+   Settings Checkboxes
+   ============================================ */
+.settings-option-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.checkbox-label:hover {
+    background-color: var(--bg-secondary);
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+.checkbox-label span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.checkbox-label span i {
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+/* ============================================
    Container & Layout
+   ============================================ */
    ============================================ */
 .container {
     max-width: 1000px;
@@ -2486,6 +2533,59 @@ body.dark-mode .bottom-nav {
     50% {
         transform: scale(1.05);
     }
+}
+
+/* Bottom Nav Größen-Varianten */
+.bottom-nav.size-small {
+    padding: 0.3rem 0 0.4rem 0;
+    padding-bottom: calc(0.4rem + env(safe-area-inset-bottom));
+}
+
+.bottom-nav.size-small .bottom-nav-item {
+    padding: 0.4rem 0.75rem;
+    gap: 0.2rem;
+    min-width: 56px;
+}
+
+.bottom-nav.size-small .bottom-nav-item i {
+    font-size: 1.2rem;
+}
+
+.bottom-nav.size-small .bottom-nav-item span {
+    font-size: 0.6rem;
+}
+
+.bottom-nav.size-large {
+    padding: 0.6rem 0 0.8rem 0;
+    padding-bottom: calc(0.8rem + env(safe-area-inset-bottom));
+}
+
+.bottom-nav.size-large .bottom-nav-item {
+    padding: 0.8rem 1.25rem;
+    gap: 0.4rem;
+    min-width: 72px;
+}
+
+.bottom-nav.size-large .bottom-nav-item i {
+    font-size: 1.6rem;
+}
+
+.bottom-nav.size-large .bottom-nav-item span {
+    font-size: 0.75rem;
+}
+
+/* Bottom Nav Position Varianten */
+.bottom-nav.position-static {
+    position: static;
+    animation: none;
+}
+
+/* Bottom Nav Items ausblenden */
+.bottom-nav-item[data-nav="home"].hidden,
+.bottom-nav-item[data-nav="points"].hidden,
+.bottom-nav-item[data-nav="help"].hidden,
+.bottom-nav-item[data-nav="settings"].hidden {
+    display: none;
 }
 
 /* Container Padding für Bottom Nav */

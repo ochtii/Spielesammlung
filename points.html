@@ -97,19 +97,19 @@
     <!-- Bottom Navigation (Mobile) -->
     <nav class="bottom-nav" id="bottomNav">
         <div class="bottom-nav-content">
-            <a href="index.html" class="bottom-nav-item">
+            <a href="index.html" class="bottom-nav-item" data-nav="home">
                 <i class="fas fa-home"></i>
                 <span>Spiel</span>
             </a>
-            <a href="points.html" class="bottom-nav-item current">
+            <a href="points.html" class="bottom-nav-item current" data-nav="points">
                 <i class="fas fa-coins"></i>
                 <span>Punkte</span>
             </a>
-            <a href="help.html" class="bottom-nav-item">
+            <a href="help.html" class="bottom-nav-item" data-nav="help">
                 <i class="fas fa-question-circle"></i>
                 <span>Hilfe</span>
             </a>
-            <a href="settings.html" class="bottom-nav-item">
+            <a href="settings.html" class="bottom-nav-item" data-nav="settings">
                 <i class="fas fa-cog"></i>
                 <span>Einstellungen</span>
             </a>
@@ -129,16 +129,44 @@
             if (theme === 'dark') {
                 document.body.classList.add('dark-mode');
             }
-        }        
-        // Bottom Navigation initialisieren
-        function initBottomNav() {
-            const bottomNavEnabled = localStorage.getItem('bottomNavEnabled') !== 'false';
-            const bottomNav = document.getElementById('bottomNav');
-            if (bottomNavEnabled && bottomNav) {
-                bottomNav.classList.add('active');
-                document.body.classList.add('bottom-nav-enabled');
-            }
         }
+        
+        // Bottom Nav Einstellungen anwenden
+        function applyBottomNavSettings() {
+            const bottomNav = document.getElementById('bottomNav');
+            if (!bottomNav) return;
+            
+            const enabled = localStorage.getItem('bottomNavEnabled') !== 'false';
+            const fixed = localStorage.getItem('bottomNavFixed') !== 'false';
+            const size = localStorage.getItem('bottomNavSize') || 'normal';
+            const showHome = localStorage.getItem('bottomNavShowHome') !== 'false';
+            const showPoints = localStorage.getItem('bottomNavShowPoints') !== 'false';
+            const showHelp = localStorage.getItem('bottomNavShowHelp') !== 'false';
+            const showSettings = localStorage.getItem('bottomNavShowSettings') !== 'false';
+            
+            if (enabled) {
+                bottomNav.style.display = '';
+            } else {
+                bottomNav.style.display = 'none';
+            }
+            
+            bottomNav.classList.remove('position-static');
+            if (!fixed) bottomNav.classList.add('position-static');
+            
+            bottomNav.classList.remove('size-small', 'size-normal', 'size-large');
+            bottomNav.classList.add('size-' + size);
+            
+            const items = bottomNav.querySelectorAll('.bottom-nav-item');
+            items.forEach(item => {
+                const nav = item.getAttribute('data-nav');
+                item.classList.remove('hidden');
+                if (nav === 'home' && !showHome) item.classList.add('hidden');
+                if (nav === 'points' && !showPoints) item.classList.add('hidden');
+                if (nav === 'help' && !showHelp) item.classList.add('hidden');
+                if (nav === 'settings' && !showSettings) item.classList.add('hidden');
+            });
+        }
+        
         // Points Data Management
         function loadPointsData() {
             const pointsData = JSON.parse(localStorage.getItem('pointsData')) || {
@@ -582,6 +610,7 @@
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             loadTheme();
+            applyBottomNavSettings();
             loadPointsData();
             setupMenu();
             loadCommitTime();

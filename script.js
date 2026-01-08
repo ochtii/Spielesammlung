@@ -1926,8 +1926,52 @@ function updateBottomNavPoints() {
     }
 }
 
+// Bottom Nav Einstellungen anwenden
+function applyBottomNavSettings() {
+    const bottomNav = document.getElementById('bottomNav');
+    if (!bottomNav) return;
+    
+    const enabled = localStorage.getItem('bottomNavEnabled') !== 'false';
+    const fixed = localStorage.getItem('bottomNavFixed') !== 'false';
+    const size = localStorage.getItem('bottomNavSize') || 'normal';
+    const showHome = localStorage.getItem('bottomNavShowHome') !== 'false';
+    const showPoints = localStorage.getItem('bottomNavShowPoints') !== 'false';
+    const showHelp = localStorage.getItem('bottomNavShowHelp') !== 'false';
+    const showSettings = localStorage.getItem('bottomNavShowSettings') !== 'false';
+    
+    // Enabled/Disabled
+    if (enabled) {
+        bottomNav.style.display = '';
+    } else {
+        bottomNav.style.display = 'none';
+    }
+    
+    // Fixed/Static
+    bottomNav.classList.remove('position-static');
+    if (!fixed) {
+        bottomNav.classList.add('position-static');
+    }
+    
+    // Größe
+    bottomNav.classList.remove('size-small', 'size-normal', 'size-large');
+    bottomNav.classList.add('size-' + size);
+    
+    // Items anzeigen/ausblenden
+    const items = bottomNav.querySelectorAll('.bottom-nav-item');
+    items.forEach(item => {
+        const nav = item.getAttribute('data-nav');
+        item.classList.remove('hidden');
+        
+        if (nav === 'home' && !showHome) item.classList.add('hidden');
+        if (nav === 'points' && !showPoints) item.classList.add('hidden');
+        if (nav === 'help' && !showHelp) item.classList.add('hidden');
+        if (nav === 'settings' && !showSettings) item.classList.add('hidden');
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     new AustriaQuiz();
     loadCommitTime();
     updateBottomNavPoints();
+    applyBottomNavSettings();
 });
