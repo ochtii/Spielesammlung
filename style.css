@@ -3639,7 +3639,7 @@ input[type="text"]::placeholder {
     font-style: italic;
 }
 
-/* Population Comparison Styles */
+/* Population Comparison Styles - Unified Bar */
 .population-comparison {
     background: var(--bg-primary);
     border: 2px solid var(--border-color);
@@ -3664,6 +3664,163 @@ input[type="text"]::placeholder {
     color: var(--primary-color);
 }
 
+/* Unified Bar - Side A vs Side B */
+.comparison-bar-unified {
+    display: flex;
+    align-items: stretch;
+    height: 80px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.bar-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    position: relative;
+    transition: width 1s ease-out;
+    min-width: 80px;
+}
+
+.bar-side-left {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    align-items: flex-start;
+    text-align: left;
+    border-radius: 12px 0 0 12px;
+}
+
+.bar-side-right {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    align-items: flex-end;
+    text-align: right;
+    border-radius: 0 12px 12px 0;
+}
+
+.bar-side.winner {
+    box-shadow: inset 0 0 20px rgba(241, 196, 15, 0.4);
+}
+
+.bar-side.winner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.bar-divider {
+    width: 4px;
+    background: var(--bg-primary);
+    flex-shrink: 0;
+}
+
+.bar-city-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bar-population {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
+}
+
+.bar-crown {
+    position: absolute;
+    top: -8px;
+    color: #f1c40f;
+    font-size: 1.25rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    animation: bounce 1s ease infinite;
+}
+
+.bar-side-left .bar-crown {
+    left: 10px;
+}
+
+.bar-side-right .bar-crown {
+    right: 10px;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* Percentage Labels */
+.comparison-percentages {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.75rem;
+    padding: 0 0.5rem;
+}
+
+.percentage-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.percentage-vs {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+}
+
+/* Compact Stats */
+.comparison-stats-compact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--border-color);
+    justify-content: center;
+}
+
+.stat-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.stat-chip i {
+    font-size: 1rem;
+    color: var(--primary-color);
+}
+
+.stat-chip strong {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+/* Legacy styles for backward compatibility */
 .comparison-items {
     display: flex;
     flex-direction: column;
@@ -3701,11 +3858,6 @@ input[type="text"]::placeholder {
     animation: bounce 1s ease infinite;
 }
 
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
-
 .comparison-bar-container {
     background: var(--bg-secondary);
     border-radius: 8px;
@@ -3737,11 +3889,6 @@ input[type="text"]::placeholder {
     bottom: 0;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
 }
 
 .bar-label {
@@ -3810,6 +3957,37 @@ input[type="text"]::placeholder {
     
     .comparison-title {
         font-size: 1.05rem;
+    }
+    
+    .comparison-bar-unified {
+        height: 70px;
+    }
+    
+    .bar-side {
+        padding: 0.5rem 0.75rem;
+        min-width: 60px;
+    }
+    
+    .bar-city-name {
+        font-size: 0.9rem;
+    }
+    
+    .bar-population {
+        font-size: 0.75rem;
+    }
+    
+    .bar-crown {
+        font-size: 1rem;
+        top: -6px;
+    }
+    
+    .percentage-label {
+        font-size: 1rem;
+    }
+    
+    .stat-chip {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.8rem;
     }
     
     .city-name {

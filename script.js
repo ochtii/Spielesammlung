@@ -1729,11 +1729,15 @@ class AustriaQuiz {
         const city2 = this.currentQuestion.city2;
         const pop1 = this.currentQuestion.population1;
         const pop2 = this.currentQuestion.population2;
-        const maxPop = Math.max(pop1, pop2);
-        const percentage1 = (pop1 / maxPop) * 100;
-        const percentage2 = (pop2 / maxPop) * 100;
+        const totalPop = pop1 + pop2;
+        const percentage1 = (pop1 / totalPop) * 100;
+        const percentage2 = (pop2 / totalPop) * 100;
         
         const isCity1Winner = pop1 > pop2;
+        const winnerCity = isCity1Winner ? city1 : city2;
+        const winnerPop = isCity1Winner ? pop1 : pop2;
+        const loserPop = isCity1Winner ? pop2 : pop1;
+        const multiplier = (winnerPop / loserPop).toFixed(1);
         
         return `
             <div class="population-comparison">
@@ -1742,46 +1746,35 @@ class AustriaQuiz {
                     Einwohner-Vergleich
                 </h4>
                 
-                <div class="comparison-items">
-                    <div class="comparison-item ${isCity1Winner ? 'winner' : ''}">
-                        <div class="comparison-header">
-                            <span class="city-name">${city1}</span>
-                            ${isCity1Winner ? '<i class="fas fa-crown winner-icon"></i>' : ''}
-                        </div>
-                        <div class="comparison-bar-container">
-                            <div class="comparison-bar" style="width: ${percentage1}%">
-                                <span class="bar-label">${pop1.toLocaleString('de-AT')}</span>
-                            </div>
-                        </div>
+                <div class="comparison-bar-unified">
+                    <div class="bar-side bar-side-left ${isCity1Winner ? 'winner' : ''}" style="width: ${percentage1}%">
+                        <span class="bar-city-name">${city1}</span>
+                        <span class="bar-population">${pop1.toLocaleString('de-AT')}</span>
+                        ${isCity1Winner ? '<i class="fas fa-crown bar-crown"></i>' : ''}
                     </div>
-                    
-                    <div class="comparison-item ${!isCity1Winner ? 'winner' : ''}">
-                        <div class="comparison-header">
-                            <span class="city-name">${city2}</span>
-                            ${!isCity1Winner ? '<i class="fas fa-crown winner-icon"></i>' : ''}
-                        </div>
-                        <div class="comparison-bar-container">
-                            <div class="comparison-bar" style="width: ${percentage2}%">
-                                <span class="bar-label">${pop2.toLocaleString('de-AT')}</span>
-                            </div>
-                        </div>
+                    <div class="bar-divider"></div>
+                    <div class="bar-side bar-side-right ${!isCity1Winner ? 'winner' : ''}" style="width: ${percentage2}%">
+                        ${!isCity1Winner ? '<i class="fas fa-crown bar-crown"></i>' : ''}
+                        <span class="bar-population">${pop2.toLocaleString('de-AT')}</span>
+                        <span class="bar-city-name">${city2}</span>
                     </div>
                 </div>
                 
-                <div class="comparison-stats">
-                    <div class="stat-item">
+                <div class="comparison-percentages">
+                    <span class="percentage-label">${percentage1.toFixed(0)}%</span>
+                    <span class="percentage-vs">VS</span>
+                    <span class="percentage-label">${percentage2.toFixed(0)}%</span>
+                </div>
+                
+                <div class="comparison-stats-compact">
+                    <div class="stat-chip">
                         <i class="fas fa-users"></i>
-                        <span>Differenz: <strong>${Math.abs(pop1 - pop2).toLocaleString('de-AT')}</strong> Einwohner</span>
+                        <span>Differenz: <strong>${Math.abs(pop1 - pop2).toLocaleString('de-AT')}</strong></span>
                     </div>
-                    <div class="stat-item">
-                        <i class="fas fa-percentage"></i>
-                        <span>${isCity1Winner ? city1 : city2} ist <strong>${((maxPop / Math.min(pop1, pop2)) - 1).toFixed(1)}x</strong> größer</span>
+                    <div class="stat-chip">
+                        <i class="fas fa-trophy"></i>
+                        <span><strong>${winnerCity}</strong> ist ${multiplier}x größer</span>
                     </div>
-                </div>
-                
-                <div class="comparison-note">
-                    <i class="fas fa-info-circle"></i>
-                    Einwohnerzahlen basieren auf den letzten verfügbaren Daten
                 </div>
             </div>
         `;
