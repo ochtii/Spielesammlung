@@ -553,22 +553,23 @@ class AustriaQuiz {
      * Timer starten für aktuelle Frage
      */
     startTimer() {
-        if (!this.timerEnabled) return;
+        // Vorherigen Timer stoppen falls noch aktiv
+        this.stopTimer();
         
         // Timer-Einstellungen neu laden (falls in Settings geändert)
         this.timerEnabled = localStorage.getItem('timerEnabled') === 'true';
         this.timerDuration = parseInt(localStorage.getItem('timerDuration') || '30');
         this.timerVisual = localStorage.getItem('timerVisual') !== 'false';
         
-        if (!this.timerEnabled) return;
+        if (!this.timerEnabled) {
+            this.showTimerDisplay(false);
+            return;
+        }
         
         this.timeRemaining = this.timerDuration;
         this.initTimerMode();
         this.updateTimerDisplay();
         this.showTimerDisplay(true);
-        
-        // Vorherigen Timer stoppen falls noch aktiv
-        this.stopTimer();
         
         // Neuen Timer starten
         this.timerInterval = setInterval(() => {
@@ -1127,6 +1128,7 @@ class AustriaQuiz {
         // Timer-Einstellungen neu laden
         this.timerEnabled = localStorage.getItem('timerEnabled') === 'true';
         this.timerDuration = parseInt(localStorage.getItem('timerDuration') || '30');
+        this.timerVisual = localStorage.getItem('timerVisual') !== 'false';
         
         this.generateQuestions();
         this.loadNextQuestion();
