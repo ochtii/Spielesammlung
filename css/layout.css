@@ -130,8 +130,5 @@
 /* Additional Text */
 .text-3xl { font-size: 1.875rem; }
 
-/* Hidden */
-.hidden { display: none !important; }
-
 /* Margin Bottom 3 */
 .mb-3 { margin-bottom: var(--space-3); }

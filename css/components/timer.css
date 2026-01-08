@@ -134,41 +134,6 @@
     font-size: var(--font-base);
 }
 
-/* Hint Button Update */
-.hint-button {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-2);
-    padding: var(--spacing-3) var(--spacing-4);
-    background: linear-gradient(135deg, #f59e0b, #fbbf24);
-    color: #1a1a1a;
-    border: none;
-    border-radius: var(--radius-lg);
-    font-size: var(--font-sm);
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
-}
-
-.hint-button:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
-}
-
-.hint-button:active:not(:disabled) {
-    transform: translateY(0);
-}
-
-.hint-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.hint-button.hidden {
-    display: none;
-}
-
 /* Answer delay animation for hardcore mode */
 .answer-btn.delayed {
     opacity: 0;

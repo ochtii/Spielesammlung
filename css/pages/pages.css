@@ -50,8 +50,8 @@
     margin-top: var(--spacing-1);
 }
 
-/* Card Icon */
-.card-icon {
+/* Page Card Icon (larger variant) */
+.page-card-icon {
     width: 64px;
     height: 64px;
     border-radius: 50%;
@@ -402,14 +402,14 @@
     border: none;
 }
 
-/* Card Header */
-.card-header {
+/* Settings Card Header */
+.settings-card-header {
     padding-bottom: var(--spacing-3);
     border-bottom: 1px solid var(--border-color);
     margin-bottom: var(--spacing-3);
 }
 
-.card-header .card-title {
+.settings-card-header .card-title {
     margin: 0;
 }
 
