@@ -604,72 +604,183 @@ main {
     }
     
     .advanced-settings {
-        display: none;
+        display: none !important;
     }
     
     .advanced-settings.active {
-        display: block;
+        display: block !important;
     }
     
     /* ============================================
-       MODERNISIERTES MOBILE ADVANCED SETTINGS
+       🎨 NEU: MODERNES MOBILE SETTINGS DESIGN 2026
+       iOS/Material Design inspiriert
        ============================================ */
     
-    /* Kompaktere Accordion Cards */
-    .settings-accordion {
+    /* Settings Page Container */
+    .settings-page {
+        padding: 0 0.75rem;
+        margin: 1rem auto;
+    }
+    
+    /* Minimalistischer Header */
+    .settings-page-header {
+        padding: 1rem 0 1.5rem;
+        margin-bottom: 0;
+    }
+    
+    .settings-page-header h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+    }
+    
+    .settings-page-icon {
+        font-size: 2.5rem;
         margin-bottom: 0.5rem;
-        border-radius: 12px;
+        animation: none;
+    }
+    
+    .settings-subtitle {
+        font-size: 0.9rem;
+        opacity: 0.7;
+    }
+    
+    /* Moderne Accordion Cards - Glassmorphism Style */
+    .settings-accordion {
+        margin-bottom: 0.75rem;
+        border-radius: 16px;
         border: none;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        background: var(--bg-primary);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 
+                    0 1px 2px rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
+    .settings-accordion:active {
+        transform: scale(0.98);
+    }
+    
+    /* Accordion Header - Touch-optimiert */
     .accordion-header {
-        padding: 0.875rem 1rem;
-        gap: 0.5rem;
+        padding: 1rem 1.25rem;
+        gap: 0.875rem;
+        min-height: 64px;
+        background: transparent;
+        border-radius: 16px;
     }
     
+    .accordion-header:hover {
+        background: transparent;
+    }
+    
+    .accordion-header.active {
+        background: transparent;
+        border-bottom: 1px solid var(--border-color);
+        border-radius: 16px 16px 0 0;
+    }
+    
+    /* Icon im farbigen Kreis */
     .accordion-title {
-        font-size: 0.95rem;
-        gap: 0.5rem;
+        font-size: 1rem;
+        gap: 0.875rem;
+        font-weight: 600;
     }
     
     .accordion-title i {
-        font-size: 1rem;
-        width: 28px;
-        height: 28px;
+        font-size: 1.1rem;
+        width: 36px;
+        height: 36px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgba(52, 152, 219, 0.1);
-        border-radius: 8px;
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+        color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(237, 41, 57, 0.25);
     }
     
+    /* Verschiedene Icon-Farben pro Kategorie */
+    .settings-accordion:nth-child(1) .accordion-title i {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    }
+    
+    .settings-accordion:nth-child(2) .accordion-title i {
+        background: linear-gradient(135deg, #11998e, #38ef7d);
+        box-shadow: 0 2px 8px rgba(17, 153, 142, 0.3);
+    }
+    
+    .settings-accordion:nth-child(3) .accordion-title i {
+        background: linear-gradient(135deg, #f093fb, #f5576c);
+        box-shadow: 0 2px 8px rgba(245, 87, 108, 0.3);
+    }
+    
+    .settings-accordion:nth-child(4) .accordion-title i {
+        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        box-shadow: 0 2px 8px rgba(79, 172, 254, 0.3);
+    }
+    
+    .settings-accordion:nth-child(5) .accordion-title i {
+        background: linear-gradient(135deg, #fa709a, #fee140);
+        box-shadow: 0 2px 8px rgba(250, 112, 154, 0.3);
+    }
+    
+    .settings-accordion:nth-child(6) .accordion-title i {
+        background: linear-gradient(135deg, #a8edea, #fed6e3);
+        box-shadow: 0 2px 8px rgba(168, 237, 234, 0.3);
+        color: #333;
+    }
+    
+    /* Chevron Animation */
     .accordion-icon {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 0.5;
     }
     
-    /* Kompaktere Inhalte */
+    .accordion-header.active .accordion-icon {
+        transform: rotate(180deg);
+        opacity: 1;
+        color: var(--primary-color);
+    }
+    
+    /* Accordion Content */
     .accordion-content .settings-card {
-        padding: 0.75rem;
+        padding: 1rem 1.25rem 1.25rem;
+        background: var(--bg-primary);
+        border-radius: 0;
     }
     
     .settings-card {
-        padding: 0.875rem;
+        padding: 1rem;
+        box-shadow: none;
+        border-radius: 0;
     }
     
-    /* Modernisierte Settings Options */
+    /* Settings Options - Clean List Style */
     .settings-option {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        padding: 0.625rem 0;
-        gap: 0.75rem;
-        border-bottom: 1px solid var(--border-color);
+        padding: 0.875rem 0;
+        gap: 1rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    
+    body.dark-mode .settings-option {
+        border-bottom-color: rgba(255, 255, 255, 0.08);
     }
     
     .settings-option:last-child {
         border-bottom: none;
+        padding-bottom: 0;
+    }
+    
+    .settings-option:first-child {
+        padding-top: 0;
     }
     
     .settings-option-info {
@@ -678,193 +789,303 @@ main {
     }
     
     .settings-option-label {
-        font-size: 0.9rem;
-        font-weight: 600;
-        line-height: 1.3;
+        font-size: 0.95rem;
+        font-weight: 500;
+        line-height: 1.4;
+        color: var(--text-primary);
     }
     
     .settings-option-desc {
-        font-size: 0.75rem;
-        line-height: 1.3;
-        margin-top: 0.125rem;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+        font-size: 0.8rem;
+        line-height: 1.4;
+        margin-top: 0.25rem;
+        color: var(--text-secondary);
+        opacity: 0.8;
     }
     
-    /* Kompaktere Toggle Switches */
+    /* Modern Toggle Switches - iOS Style */
     .toggle-switch {
-        width: 44px;
-        height: 24px;
+        width: 51px;
+        height: 31px;
         flex-shrink: 0;
     }
     
-    .toggle-switch .toggle-slider::before {
-        width: 18px;
-        height: 18px;
-        bottom: 3px;
-        left: 3px;
+    .toggle-slider {
+        border-radius: 31px;
+        background: #e9e9eb;
+    }
+    
+    body.dark-mode .toggle-slider {
+        background: #39393d;
+    }
+    
+    .toggle-slider::before {
+        width: 27px;
+        height: 27px;
+        bottom: 2px;
+        left: 2px;
+        border-radius: 50%;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15),
+                    0 1px 1px rgba(0, 0, 0, 0.16);
+    }
+    
+    .toggle-switch input:checked + .toggle-slider {
+        background: #34c759;
     }
     
     .toggle-switch input:checked + .toggle-slider::before {
         transform: translateX(20px);
     }
     
-    /* Kompakte Select Dropdowns */
+    /* Modern Select Dropdowns */
     .settings-select {
         width: auto;
-        min-width: 100px;
-        max-width: 130px;
-        padding: 0.5rem 0.75rem;
-        font-size: 0.85rem;
-        margin-top: 0;
+        min-width: 110px;
+        max-width: 140px;
+        padding: 0.5rem 0.875rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border-radius: 10px;
+        border: none;
+        background: var(--bg-secondary);
+        color: var(--primary-color);
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ed2939' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        padding-right: 2rem;
     }
     
-    /* Checkbox Grid für bessere Übersicht */
+    /* Checkbox Grid - Pill Style */
     .settings-option-checkboxes {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.375rem;
-        padding: 0.5rem 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.75rem 0;
     }
     
     .checkbox-label {
-        font-size: 0.8rem;
-        padding: 0.5rem;
-        border-radius: 8px;
+        font-size: 0.85rem;
+        padding: 0.5rem 0.875rem;
+        border-radius: 20px;
         background: var(--bg-secondary);
-        display: flex;
+        display: inline-flex;
         align-items: center;
-        gap: 0.375rem;
+        gap: 0.5rem;
+        transition: all 0.2s ease;
+        border: 2px solid transparent;
+    }
+    
+    .checkbox-label:has(input:checked) {
+        background: rgba(237, 41, 57, 0.1);
+        border-color: var(--primary-color);
+        color: var(--primary-color);
     }
     
     .checkbox-label input[type="checkbox"] {
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
+        accent-color: var(--primary-color);
     }
     
     .checkbox-label span {
         display: flex;
         align-items: center;
-        gap: 0.25rem;
-        font-size: 0.75rem;
+        gap: 0.375rem;
+        font-size: 0.8rem;
+        font-weight: 500;
     }
     
     .checkbox-label i {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
     }
     
-    /* Range Slider kompakter */
-    .range-slider-container {
-        max-width: 100%;
-    }
-    
-    /* Kompaktere Save Buttons */
+    /* Save Section - Floating Button Style */
     .settings-save-section {
-        padding: 0.625rem 0;
-        margin-top: 0.25rem;
+        padding: 1rem 0 0.5rem;
+        margin-top: 0.5rem;
+        border-top: none;
     }
     
     .settings-save-section .btn {
         width: 100%;
-        padding: 0.75rem;
-        font-size: 0.85rem;
-        border-radius: 8px;
+        padding: 0.875rem 1.5rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+        box-shadow: 0 4px 12px rgba(237, 41, 57, 0.25);
+        transition: all 0.2s ease;
+    }
+    
+    .settings-save-section .btn:active {
+        transform: scale(0.98);
+        box-shadow: 0 2px 8px rgba(237, 41, 57, 0.2);
     }
     
     .save-feedback {
-        font-size: 0.8rem;
-        margin-top: 0.5rem;
-    }
-    
-    /* Settings Page Header kompakter */
-    .settings-page-header {
-        padding: 1.25rem 0;
-    }
-    
-    .settings-page-header h1 {
-        font-size: 1.4rem;
-    }
-    
-    .settings-page-icon {
-        font-size: 1.75rem;
-    }
-    
-    .settings-subtitle {
         font-size: 0.85rem;
+        margin-top: 0.75rem;
+        border-radius: 10px;
+        padding: 0.875rem 1rem;
     }
     
-    /* Quick Setting Items optimiert */
+    /* Quick Settings - Card Style */
+    .quick-settings-card {
+        border-radius: 16px;
+        overflow: hidden;
+    }
+    
     .quick-setting-item {
-        min-height: 56px;
+        min-height: 60px;
+        padding: 0.875rem 1.25rem;
+        gap: 1rem;
     }
     
-    /* Info Box kompakter */
+    .quick-setting-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+    }
+    
+    .quick-setting-label {
+        font-size: 0.95rem;
+        font-weight: 500;
+    }
+    
+    /* Info Box - Modern Card */
     .settings-info-box {
-        flex-direction: column;
-        gap: 0.75rem;
-        padding: 0.875rem;
+        flex-direction: row;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 12px;
+        border-left: none;
+        border: 1px solid var(--border-color);
     }
     
     .settings-info-box .info-icon {
-        font-size: 1.75rem;
+        font-size: 2rem;
     }
     
     .settings-info-box h3 {
         font-size: 1rem;
+        margin-bottom: 0.25rem;
     }
     
     .settings-info-box p {
         font-size: 0.85rem;
         margin-bottom: 0.75rem;
+        line-height: 1.5;
     }
     
-    /* Dev Tools kompakter */
+    /* Dev Tools Section */
     .dev-tools-header {
-        padding: 0.875rem;
+        padding: 1rem;
+        border-radius: 12px;
+        margin-bottom: 1rem;
     }
     
     .dev-tools-header h3 {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
     
     .dev-tools-header p {
-        font-size: 0.8rem;
-    }
-    
-    .dev-tools-subsection {
-        padding: 0.75rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .dev-tools-subsection h4 {
-        font-size: 0.9rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .dev-toggle-option {
-        padding: 0.5rem 0;
-    }
-    
-    .dev-toggle-label {
         font-size: 0.85rem;
     }
     
-    .dev-toggle-desc {
-        font-size: 0.75rem;
+    .dev-tools-subsection {
+        padding: 1rem;
+        margin-bottom: 0.75rem;
+        border-radius: 12px;
+        background: var(--bg-secondary);
     }
     
-    .danger-zone {
-        padding: 0.875rem;
+    .dev-tools-subsection h4 {
+        font-size: 0.95rem;
+        margin-bottom: 0.75rem;
     }
     
-    .danger-zone h4 {
+    .dev-toggle-option {
+        padding: 0.75rem 0;
+    }
+    
+    .dev-toggle-label {
         font-size: 0.9rem;
     }
     
+    .dev-toggle-desc {
+        font-size: 0.8rem;
+    }
+    
+    /* Danger Zone - Prominent Warning */
+    .danger-zone,
+    .dev-tools-danger-zone {
+        padding: 1rem;
+        border-radius: 16px;
+        margin-top: 1rem;
+    }
+    
+    .danger-zone h4 {
+        font-size: 1rem;
+    }
+    
     .danger-btn {
-        padding: 0.625rem 1rem;
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+        border-radius: 10px;
+    }
+    
+    .danger-zone-actions {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    /* Easter Eggs Card - Compact */
+    .easter-eggs-counter-card {
+        padding: 1rem;
+        border-radius: 16px;
+        margin-bottom: 1rem;
+    }
+    
+    .easter-eggs-counter-header {
+        gap: 0.875rem;
+    }
+    
+    .easter-eggs-icon-wrap {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+    }
+    
+    .easter-eggs-title {
+        font-size: 1rem;
+    }
+    
+    .easter-eggs-subtitle {
+        font-size: 0.75rem;
+    }
+    
+    .easter-eggs-count span:first-child {
+        font-size: 1.75rem;
+    }
+    
+    .easter-egg-item {
+        padding: 0.625rem;
+        border-radius: 10px;
+    }
+    
+    .easter-egg-item .egg-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+    }
+    
+    .easter-egg-item .egg-name {
+        font-size: 0.85rem;
+    }
+    
+    .easter-egg-item .egg-reward {
         font-size: 0.8rem;
     }
 }
