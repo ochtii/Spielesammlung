@@ -2395,3 +2395,16 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('dark-mode');
     }
 });
+
+// Dark Mode sofort anwenden (für Seiten die script.js nach dem Laden laden)
+(function() {
+    const darkMode = localStorage.getItem('darkMode') === 'true';
+    const accent = localStorage.getItem('accentColor');
+    
+    if (darkMode) {
+        document.body.classList.add('dark-mode');
+    }
+    if (accent) {
+        document.documentElement.style.setProperty('--primary-color', accent);
+    }
+})();

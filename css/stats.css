@@ -22,12 +22,12 @@
 }
 
 .stat-card {
-    background: rgba(255, 255, 255, 0.18);
+    background: var(--bg-primary);
     border-radius: 1.2rem;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    box-shadow: var(--shadow);
     backdrop-filter: blur(12px) saturate(120%);
     -webkit-backdrop-filter: blur(12px) saturate(120%);
-    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    border: 1px solid var(--border-color);
     padding: 2rem;
     display: flex;
     align-items: center;
@@ -73,12 +73,12 @@
 }
 
 .stats-section {
-    background: rgba(255, 255, 255, 0.18);
+    background: var(--bg-primary);
     border-radius: 1.2rem;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    box-shadow: var(--shadow);
     backdrop-filter: blur(12px) saturate(120%);
     -webkit-backdrop-filter: blur(12px) saturate(120%);
-    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    border: 1px solid var(--border-color);
     padding: 2rem;
 }
 
