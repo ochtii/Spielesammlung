@@ -116,6 +116,26 @@
 
 	<script src="components/footer.js"></script>
 	<script>
+<script>
+// Mobiles Menü für Settings-Seite
+document.addEventListener('DOMContentLoaded', function() {
+	const menuToggle = document.getElementById('menuToggle');
+	const menuDropdown = document.getElementById('menuDropdown');
+	if (menuToggle && menuDropdown) {
+		menuToggle.addEventListener('click', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			menuToggle.classList.toggle('active');
+			menuDropdown.classList.toggle('show');
+		});
+		document.addEventListener('click', function(e) {
+			if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
+				menuToggle.classList.remove('active');
+				menuDropdown.classList.remove('show');
+			}
+		});
+	}
+});
 	// Theme
 	const themeSelect = document.getElementById('theme-select');
 	function applyTheme(theme) {
