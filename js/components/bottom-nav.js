@@ -18,8 +18,10 @@ const BottomNav = {
             this.updatePointsBadge();
         }
 
-        // Listen for points updates
-        EventBus.on(Events.POINTS_UPDATE, () => this.updatePointsBadge());
+        // Listen for points updates (safe check for EventBus)
+        if (typeof EventBus !== 'undefined' && typeof Events !== 'undefined') {
+            EventBus.on(Events.POINTS_UPDATE, () => this.updatePointsBadge());
+        }
     },
 
     /**

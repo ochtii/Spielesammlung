@@ -10,12 +10,28 @@ const App = {
      * Initialize the application
      */
     init() {
+        // Initialize core modules individually to prevent cascade failures
         try {
-            // Initialize core modules
             Theme.init();
+        } catch (e) {
+            console.error('Theme init failed:', e);
+        }
+        
+        try {
             Navbar.init();
-            BottomNav.init();
+        } catch (e) {
+            console.error('Navbar init failed:', e);
+        }
+        
+        try {
+            if (typeof BottomNav !== 'undefined') {
+                BottomNav.init();
+            }
+        } catch (e) {
+            console.error('BottomNav init failed:', e);
+        }
 
+        try {
             // Register games
             this.registerGames();
 
