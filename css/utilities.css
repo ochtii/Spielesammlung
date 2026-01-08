@@ -571,3 +571,22 @@ textarea:focus-visible {
         border: 2px solid currentColor;
     }
 }
+
+/* ============================================
+   Font Size Utilities
+   ============================================ */
+.font-large {
+    font-size: 1.2em !important;
+}
+
+.font-large * {
+    font-size: inherit;
+}
+
+.font-xlarge {
+    font-size: 1.4em !important;
+}
+
+.font-xlarge * {
+    font-size: inherit;
+}
