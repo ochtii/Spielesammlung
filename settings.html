@@ -9,10 +9,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/settings-future.css">
 </head>
-<body data-page="settings" class="has-bottom-nav">
+<body data-page="settings" class="has-bottom-nav futuristic">
+    <!-- Animated Background -->
+    <div class="settings-bg">
+        <div class="bg-grid"></div>
+        <div class="bg-glow"></div>
+    </div>
+
     <!-- Navbar -->
-    <nav class="navbar">
+    <nav class="navbar glass-nav">
         <a href="index.html" class="navbar-brand">
             <i class="fas fa-flag"></i>
             AUT Quiz
@@ -44,137 +51,569 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="container page">
+    <main class="container page settings-page">
         <div class="page-header">
-            <h1 class="page-title">
-                <i class="fas fa-cog"></i> Einstellungen
+            <h1 class="page-title glow-text">
+                <i class="fas fa-cog fa-spin-slow"></i> Einstellungen
             </h1>
+            <p class="page-subtitle">Personalisiere dein Erlebnis</p>
         </div>
 
-        <!-- Appearance -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h3 class="card-title">Darstellung</h3>
-            </div>
-
-            <div class="setting-item">
-                <div class="setting-info">
-                    <div class="setting-label">Theme</div>
-                    <div class="setting-desc">Wähle das Farbschema</div>
-                </div>
-                <select id="themeSelect" class="form-select" style="width: auto;">
-                    <option value="light">Hell</option>
-                    <option value="dark">Dunkel</option>
-                    <option value="auto">Automatisch</option>
-                </select>
-            </div>
-
-            <div class="setting-item">
-                <div class="setting-info">
-                    <div class="setting-label">Schriftgröße</div>
-                    <div class="setting-desc">Passe die Textgröße an</div>
-                </div>
-                <select id="fontScaleSelect" class="form-select" style="width: auto;">
-                    <option value="0.875">Klein</option>
-                    <option value="1">Normal</option>
-                    <option value="1.125">Groß</option>
-                </select>
-            </div>
-
-            <div class="setting-item">
-                <div class="setting-info">
-                    <div class="setting-label">Akzentfarbe</div>
-                    <div class="setting-desc">Primärfarbe der App</div>
-                </div>
-                <input type="color" id="accentColor" class="color-picker" value="#ed2939">
-            </div>
+        <!-- Settings Navigation Tabs -->
+        <div class="settings-tabs">
+            <button class="tab-btn active" data-tab="appearance">
+                <i class="fas fa-palette"></i>
+                <span>Design</span>
+            </button>
+            <button class="tab-btn" data-tab="accessibility">
+                <i class="fas fa-universal-access"></i>
+                <span>Barrierefreiheit</span>
+            </button>
+            <button class="tab-btn" data-tab="data">
+                <i class="fas fa-database"></i>
+                <span>Daten</span>
+            </button>
+            <button class="tab-btn" data-tab="devtools">
+                <i class="fas fa-terminal"></i>
+                <span>Dev Tools</span>
+            </button>
         </div>
 
-        <!-- Data -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h3 class="card-title">Daten</h3>
+        <!-- Tab Content -->
+        <div class="settings-content">
+            
+            <!-- Appearance Tab -->
+            <div class="tab-panel active" id="panel-appearance">
+                <div class="futuristic-card">
+                    <div class="card-glow"></div>
+                    <div class="card-inner">
+                        <h3 class="section-heading">
+                            <i class="fas fa-moon"></i> Farbschema
+                        </h3>
+                        
+                        <div class="theme-selector">
+                            <button class="theme-option" data-theme="light">
+                                <div class="theme-preview light-preview">
+                                    <i class="fas fa-sun"></i>
+                                </div>
+                                <span>Hell</span>
+                            </button>
+                            <button class="theme-option" data-theme="dark">
+                                <div class="theme-preview dark-preview">
+                                    <i class="fas fa-moon"></i>
+                                </div>
+                                <span>Dunkel</span>
+                            </button>
+                            <button class="theme-option" data-theme="auto">
+                                <div class="theme-preview auto-preview">
+                                    <i class="fas fa-adjust"></i>
+                                </div>
+                                <span>Auto</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="futuristic-card">
+                    <div class="card-glow"></div>
+                    <div class="card-inner">
+                        <h3 class="section-heading">
+                            <i class="fas fa-droplet"></i> Akzentfarbe
+                        </h3>
+                        
+                        <div class="color-selector">
+                            <div class="preset-colors">
+                                <button class="color-btn" data-color="#ed2939" style="--btn-color: #ed2939" title="Österreich Rot"></button>
+                                <button class="color-btn" data-color="#3b82f6" style="--btn-color: #3b82f6" title="Blau"></button>
+                                <button class="color-btn" data-color="#22c55e" style="--btn-color: #22c55e" title="Grün"></button>
+                                <button class="color-btn" data-color="#a855f7" style="--btn-color: #a855f7" title="Lila"></button>
+                                <button class="color-btn" data-color="#f97316" style="--btn-color: #f97316" title="Orange"></button>
+                                <button class="color-btn" data-color="#ec4899" style="--btn-color: #ec4899" title="Pink"></button>
+                                <button class="color-btn" data-color="#14b8a6" style="--btn-color: #14b8a6" title="Türkis"></button>
+                                <button class="color-btn" data-color="#eab308" style="--btn-color: #eab308" title="Gold"></button>
+                            </div>
+                            <div class="custom-color">
+                                <label>Eigene Farbe:</label>
+                                <input type="color" id="accentColor" class="color-picker-future" value="#ed2939">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="futuristic-card">
+                    <div class="card-glow"></div>
+                    <div class="card-inner">
+                        <h3 class="section-heading">
+                            <i class="fas fa-sparkles"></i> Animationen
+                        </h3>
+                        
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <div class="setting-label">Partikel-Effekte</div>
+                                <div class="setting-desc">Hintergrund-Animationen</div>
+                            </div>
+                            <label class="toggle-future">
+                                <input type="checkbox" id="particlesToggle" checked>
+                                <span class="toggle-track">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <div class="setting-label">Übergangs-Effekte</div>
+                                <div class="setting-desc">Sanfte Animationen bei Interaktionen</div>
+                            </div>
+                            <label class="toggle-future">
+                                <input type="checkbox" id="transitionsToggle" checked>
+                                <span class="toggle-track">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="setting-item">
-                <div class="setting-info">
-                    <div class="setting-label">Alle Daten löschen</div>
-                    <div class="setting-desc">Punkte, Statistiken und Einstellungen zurücksetzen</div>
+            <!-- Accessibility Tab -->
+            <div class="tab-panel" id="panel-accessibility">
+                <div class="futuristic-card">
+                    <div class="card-glow"></div>
+                    <div class="card-inner">
+                        <h3 class="section-heading">
+                            <i class="fas fa-text-height"></i> Textgröße
+                        </h3>
+                        
+                        <div class="font-size-selector">
+                            <span class="font-label small">A</span>
+                            <input type="range" id="fontSizeSlider" min="0.75" max="1.5" step="0.125" value="1" class="slider-future">
+                            <span class="font-label large">A</span>
+                        </div>
+                        <div class="font-size-preview" id="fontPreview">
+                            <p>Vorschau: So sieht der Text aus</p>
+                        </div>
+                    </div>
                 </div>
-                <button id="resetBtn" class="btn btn-error btn-sm">
-                    <i class="fas fa-trash"></i> Zurücksetzen
-                </button>
+
+                <div class="futuristic-card">
+                    <div class="card-glow"></div>
+                    <div class="card-inner">
+                        <h3 class="section-heading">
+                            <i class="fas fa-eye"></i> Sichtbarkeit
+                        </h3>
+                        
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <div class="setting-label">Hoher Kontrast</div>
+                                <div class="setting-desc">Verbesserte Lesbarkeit</div>
+                            </div>
+                            <label class="toggle-future">
+                                <input type="checkbox" id="highContrastToggle">
+                                <span class="toggle-track">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <div class="setting-label">Reduzierte Bewegung</div>
+                                <div class="setting-desc">Weniger Animationen für sensitive Nutzer</div>
+                            </div>
+                            <label class="toggle-future">
+                                <input type="checkbox" id="reducedMotionToggle">
+                                <span class="toggle-track">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <div class="setting-label">Große Klickziele</div>
+                                <div class="setting-desc">Größere Buttons und Links</div>
+                            </div>
+                            <label class="toggle-future">
+                                <input type="checkbox" id="largeTargetsToggle">
+                                <span class="toggle-track">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="futuristic-card">
+                    <div class="card-glow"></div>
+                    <div class="card-inner">
+                        <h3 class="section-heading">
+                            <i class="fas fa-volume-up"></i> Audio & Feedback
+                        </h3>
+                        
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <div class="setting-label">Sound-Effekte</div>
+                                <div class="setting-desc">Akustisches Feedback bei Aktionen</div>
+                            </div>
+                            <label class="toggle-future">
+                                <input type="checkbox" id="soundToggle">
+                                <span class="toggle-track">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <div class="setting-label">Vibration</div>
+                                <div class="setting-desc">Haptisches Feedback (Mobile)</div>
+                            </div>
+                            <label class="toggle-future">
+                                <input type="checkbox" id="vibrationToggle">
+                                <span class="toggle-track">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <div class="setting-label">Screenreader-Modus</div>
+                                <div class="setting-desc">Optimiert für Bildschirmleser</div>
+                            </div>
+                            <label class="toggle-future">
+                                <input type="checkbox" id="screenreaderToggle">
+                                <span class="toggle-track">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="futuristic-card">
+                    <div class="card-glow"></div>
+                    <div class="card-inner">
+                        <h3 class="section-heading">
+                            <i class="fas fa-palette"></i> Farbenblindheit
+                        </h3>
+                        
+                        <div class="colorblind-selector">
+                            <button class="colorblind-option active" data-mode="none">
+                                <span class="cb-preview normal"></span>
+                                <span>Normal</span>
+                            </button>
+                            <button class="colorblind-option" data-mode="protanopia">
+                                <span class="cb-preview protanopia"></span>
+                                <span>Protanopie</span>
+                            </button>
+                            <button class="colorblind-option" data-mode="deuteranopia">
+                                <span class="cb-preview deuteranopia"></span>
+                                <span>Deuteranopie</span>
+                            </button>
+                            <button class="colorblind-option" data-mode="tritanopia">
+                                <span class="cb-preview tritanopia"></span>
+                                <span>Tritanopie</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <!-- Data Tab -->
+            <div class="tab-panel" id="panel-data">
+                <div class="futuristic-card data-card">
+                    <div class="card-glow"></div>
+                    <div class="card-inner">
+                        <h3 class="section-heading">
+                            <i class="fas fa-chart-pie"></i> Speicheranalyse
+                        </h3>
+                        
+                        <div class="storage-chart-container">
+                            <canvas id="storageChart" width="200" height="200"></canvas>
+                            <div class="storage-center">
+                                <span class="storage-total" id="storageTotal">0 KB</span>
+                                <span class="storage-label">Gesamt</span>
+                            </div>
+                        </div>
+                        
+                        <div class="storage-legend" id="storageLegend">
+                            <!-- Dynamisch generiert -->
+                        </div>
+                        
+                        <div class="storage-details">
+                            <div class="detail-row">
+                                <span>Verfügbar:</span>
+                                <span id="storageAvailable">~5 MB</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Browser Limit:</span>
+                                <span id="storageBrowserLimit">~5-10 MB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="futuristic-card">
+                    <div class="card-glow"></div>
+                    <div class="card-inner">
+                        <h3 class="section-heading">
+                            <i class="fas fa-key"></i> Storage Keys
+                        </h3>
+                        
+                        <div class="keys-list" id="storageKeysList">
+                            <!-- Dynamisch generiert -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="futuristic-card">
+                    <div class="card-glow"></div>
+                    <div class="card-inner">
+                        <h3 class="section-heading">
+                            <i class="fas fa-download"></i> Export & Import
+                        </h3>
+                        
+                        <div class="data-actions">
+                            <button id="exportDataBtn" class="btn-future">
+                                <i class="fas fa-file-export"></i>
+                                <span>Daten exportieren</span>
+                            </button>
+                            <label class="btn-future btn-secondary">
+                                <i class="fas fa-file-import"></i>
+                                <span>Daten importieren</span>
+                                <input type="file" id="importDataInput" accept=".json" hidden>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="futuristic-card danger-zone">
+                    <div class="card-glow danger"></div>
+                    <div class="card-inner">
+                        <h3 class="section-heading danger">
+                            <i class="fas fa-exclamation-triangle"></i> Gefahrenzone
+                        </h3>
+                        
+                        <div class="danger-actions">
+                            <button id="resetStatsBtn" class="btn-danger-outline">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Statistiken zurücksetzen</span>
+                            </button>
+                            <button id="resetSettingsBtn" class="btn-danger-outline">
+                                <i class="fas fa-cog"></i>
+                                <span>Einstellungen zurücksetzen</span>
+                            </button>
+                            <button id="resetAllBtn" class="btn-danger">
+                                <i class="fas fa-trash-alt"></i>
+                                <span>ALLES LÖSCHEN</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dev Tools Tab -->
+            <div class="tab-panel" id="panel-devtools">
+                <div class="futuristic-card terminal-card">
+                    <div class="card-glow cyan"></div>
+                    <div class="card-inner">
+                        <h3 class="section-heading cyan">
+                            <i class="fas fa-terminal"></i> Console
+                        </h3>
+                        
+                        <div class="dev-console" id="devConsole">
+                            <div class="console-output" id="consoleOutput">
+                                <div class="console-line info">
+                                    <span class="timestamp">[--:--:--]</span>
+                                    <span class="message">Bereit für Befehle...</span>
+                                </div>
+                            </div>
+                            <div class="console-input-wrapper">
+                                <span class="prompt">❯</span>
+                                <input type="text" id="consoleInput" class="console-input" placeholder="Befehl eingeben..." autocomplete="off">
+                            </div>
+                        </div>
+                        
+                        <div class="console-commands">
+                            <span class="cmd-label">Schnellbefehle:</span>
+                            <button class="cmd-btn" data-cmd="help">help</button>
+                            <button class="cmd-btn" data-cmd="stats">stats</button>
+                            <button class="cmd-btn" data-cmd="clear">clear</button>
+                            <button class="cmd-btn" data-cmd="storage">storage</button>
+                            <button class="cmd-btn" data-cmd="version">version</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="futuristic-card">
+                    <div class="card-glow"></div>
+                    <div class="card-inner">
+                        <h3 class="section-heading">
+                            <i class="fas fa-sync"></i> Cache Management
+                        </h3>
+                        
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <div class="setting-label">Cache Buster</div>
+                                <div class="setting-desc">Erzwingt das Laden neuer Dateiversionen</div>
+                            </div>
+                            <label class="toggle-future">
+                                <input type="checkbox" id="cacheBusterToggle" checked>
+                                <span class="toggle-track">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="cache-buttons">
+                            <button id="clearCacheBtn" class="btn-future btn-secondary">
+                                <i class="fas fa-broom"></i> Cache leeren
+                            </button>
+                            <button id="hardReloadBtn" class="btn-future btn-secondary">
+                                <i class="fas fa-sync-alt"></i> Hard Reload
+                            </button>
+                            <button id="clearServiceWorkerBtn" class="btn-future btn-secondary">
+                                <i class="fas fa-cogs"></i> SW Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="futuristic-card">
+                    <div class="card-glow"></div>
+                    <div class="card-inner">
+                        <h3 class="section-heading">
+                            <i class="fas fa-bug"></i> Debug-Optionen
+                        </h3>
+                        
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <div class="setting-label">Debug-Modus</div>
+                                <div class="setting-desc">Erweiterte Logs in der Konsole</div>
+                            </div>
+                            <label class="toggle-future">
+                                <input type="checkbox" id="debugModeToggle">
+                                <span class="toggle-track">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <div class="setting-label">Performance Monitor</div>
+                                <div class="setting-desc">FPS und Memory anzeigen</div>
+                            </div>
+                            <label class="toggle-future">
+                                <input type="checkbox" id="perfMonitorToggle">
+                                <span class="toggle-track">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <div class="setting-label">Event Logger</div>
+                                <div class="setting-desc">Alle Events protokollieren</div>
+                            </div>
+                            <label class="toggle-future">
+                                <input type="checkbox" id="eventLoggerToggle">
+                                <span class="toggle-track">
+                                    <span class="toggle-thumb"></span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="futuristic-card">
+                    <div class="card-glow"></div>
+                    <div class="card-inner">
+                        <h3 class="section-heading">
+                            <i class="fas fa-vial"></i> Test-Funktionen
+                        </h3>
+                        
+                        <div class="test-buttons">
+                            <button id="testToastBtn" class="btn-future btn-sm">
+                                <i class="fas fa-bell"></i> Toast testen
+                            </button>
+                            <button id="testAchievementBtn" class="btn-future btn-sm">
+                                <i class="fas fa-trophy"></i> Achievement testen
+                            </button>
+                            <button id="addTestDataBtn" class="btn-future btn-sm">
+                                <i class="fas fa-database"></i> Test-Daten
+                            </button>
+                            <button id="simulateGameBtn" class="btn-future btn-sm">
+                                <i class="fas fa-gamepad"></i> Spiel simulieren
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="futuristic-card">
+                    <div class="card-glow"></div>
+                    <div class="card-inner">
+                        <h3 class="section-heading">
+                            <i class="fas fa-info-circle"></i> System Info
+                        </h3>
+                        
+                        <div class="system-info">
+                            <div class="info-row">
+                                <span class="info-label">App Version:</span>
+                                <span class="info-value" id="appVersion">2.0.0</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Build:</span>
+                                <span class="info-value" id="buildDate">2026-01-08</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Browser:</span>
+                                <span class="info-value" id="browserInfo">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Viewport:</span>
+                                <span class="info-value" id="viewportInfo">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Theme:</span>
+                                <span class="info-value" id="currentTheme">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Registrierte Spiele:</span>
+                                <span class="info-value" id="registeredGames">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <!-- Developer Tools -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h3 class="card-title"><i class="fas fa-code"></i> Entwickler-Tools</h3>
-            </div>
-
-            <div class="setting-item">
-                <div class="setting-info">
-                    <div class="setting-label">Cache Buster</div>
-                    <div class="setting-desc">Erzwingt das Laden neuer Dateiversionen</div>
-                </div>
-                <label class="toggle">
-                    <input type="checkbox" id="cacheBusterToggle" checked>
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-
-            <div class="setting-item">
-                <div class="setting-info">
-                    <div class="setting-label">Cache leeren</div>
-                    <div class="setting-desc">Alle Browser-Caches sofort leeren</div>
-                </div>
-                <button id="clearCacheBtn" class="btn btn-secondary btn-sm">
-                    <i class="fas fa-broom"></i> Leeren
-                </button>
-            </div>
-
-            <div class="setting-item">
-                <div class="setting-info">
-                    <div class="setting-label">Hard Reload</div>
-                    <div class="setting-desc">Seite neu laden mit Cache-Bypass</div>
-                </div>
-                <button id="hardReloadBtn" class="btn btn-secondary btn-sm">
-                    <i class="fas fa-sync-alt"></i> Reload
-                </button>
-            </div>
-        </div>
-
-        <!-- About -->
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Über</h3>
-            </div>
-            <div class="setting-item">
-                <div class="setting-info">
-                    <div class="setting-label">Version</div>
-                </div>
-                <span class="text-secondary" id="appVersion">2.0.0</span>
-            </div>
-            <div class="setting-item">
-                <div class="setting-info">
-                    <div class="setting-label">Build</div>
-                </div>
-                <span class="text-secondary" id="buildDate">2026-01-08</span>
-            </div>
-            <div class="flex gap-2 mt-4">
-                <a href="help.html" class="btn btn-secondary btn-sm">
-                    <i class="fas fa-question-circle"></i> Hilfe
-                </a>
-                <a href="impressum.html" class="btn btn-secondary btn-sm">
-                    <i class="fas fa-info-circle"></i> Impressum
-                </a>
-            </div>
+        <!-- Footer Links -->
+        <div class="settings-footer">
+            <a href="help.html" class="footer-link">
+                <i class="fas fa-question-circle"></i> Hilfe
+            </a>
+            <a href="impressum.html" class="footer-link">
+                <i class="fas fa-info-circle"></i> Impressum
+            </a>
+            <a href="https://github.com/ochtii/Spielesammlung" target="_blank" class="footer-link">
+                <i class="fab fa-github"></i> GitHub
+            </a>
         </div>
     </main>
 
+    <!-- Performance Monitor Overlay -->
+    <div class="perf-monitor" id="perfMonitor" style="display: none;">
+        <div class="perf-fps">FPS: <span id="perfFps">60</span></div>
+        <div class="perf-memory">MEM: <span id="perfMemory">-</span></div>
+    </div>
+
     <!-- Bottom Navigation -->
-    <nav class="bottom-nav" id="bottomNav">
+    <nav class="bottom-nav glass-nav" id="bottomNav">
         <a href="index.html" class="bottom-nav-item">
             <i class="fas fa-home"></i>
             <span>Spiel</span>
@@ -208,5 +647,6 @@
     <script src="js/games/registry.js"></script>
     <script src="js/data/austria.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/pages/settings.js"></script>
 </body>
 </html>

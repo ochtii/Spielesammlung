@@ -106,12 +106,34 @@ const Theme = {
     applyAccentColor() {
         const color = this.getAccentColor();
         document.documentElement.style.setProperty('--color-primary', color);
+        document.documentElement.style.setProperty('--accent-color', color);
+        
+        // Set RGB values for rgba usage
+        const rgb = this.hexToRgb(color);
+        if (rgb) {
+            document.documentElement.style.setProperty('--accent-rgb', `${rgb.r}, ${rgb.g}, ${rgb.b}`);
+        }
+        
         // Generate hover color (darker)
         const hoverColor = this.adjustBrightness(color, -15);
         document.documentElement.style.setProperty('--color-primary-hover', hoverColor);
         // Generate light color
         const lightColor = color + '1a'; // 10% opacity
         document.documentElement.style.setProperty('--color-primary-light', lightColor);
+    },
+    
+    /**
+     * Convert hex to RGB
+     * @param {string} hex 
+     * @returns {{r: number, g: number, b: number}|null}
+     */
+    hexToRgb(hex) {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
     },
 
     /**
