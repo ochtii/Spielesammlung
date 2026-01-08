@@ -105,6 +105,7 @@
 					<h2><i class="fas fa-tools"></i> Entwickler-Tools</h2>
 					<button id="toggleDevMode" class="dev-btn"><i class="fas fa-terminal"></i> Dev Mode umschalten</button>
 					<button id="showDevReloadBtn" class="dev-btn"><i class="fas fa-sync-alt"></i> Reload-Button anzeigen/verstecken</button>
+					<button id="devHardReloadBtn" class="dev-btn"><i class="fas fa-broom"></i> Hard Reload & Cache leeren</button>
 					<div id="devModeStatus"></div>
 				</section>
 			</div>
@@ -252,6 +253,50 @@ document.addEventListener('DOMContentLoaded', function() {
 		resetBtn.addEventListener('click', resetSettings);
 		// Dev Tools
 		updateDevModeStatus();
+
+		// Hard Reload & Cache leeren
+		const devHardReloadBtn = document.getElementById('devHardReloadBtn');
+		if (devHardReloadBtn) {
+			devHardReloadBtn.addEventListener('click', async (e) => {
+				e.preventDefault();
+				devHardReloadBtn.classList.add('spinning');
+				devHardReloadBtn.disabled = true;
+				try {
+					// Service Worker Cache leeren
+					if ('caches' in window) {
+						const cacheNames = await caches.keys();
+						await Promise.all(cacheNames.map(name => caches.delete(name)));
+					}
+					// Service Worker deregistrieren
+					if ('serviceWorker' in navigator) {
+						const registrations = await navigator.serviceWorker.getRegistrations();
+						await Promise.all(registrations.map(reg => reg.unregister()));
+					}
+					sessionStorage.setItem('cacheCleared', 'true');
+					setTimeout(() => { location.reload(true); }, 500);
+				} catch (error) {
+					console.error('Cache clear error:', error);
+					location.reload(true);
+				}
+			});
+			// Zeige Erfolgs-Toast wenn gerade Cache geleert wurde
+			if (sessionStorage.getItem('cacheCleared') === 'true') {
+				sessionStorage.removeItem('cacheCleared');
+				showCacheClearedToast();
+			}
+		}
+		// Toast-Notification für Cache Clear
+		function showCacheClearedToast() {
+			const toast = document.createElement('div');
+			toast.className = 'cache-cleared-toast';
+			toast.innerHTML = `<i class="fas fa-check-circle"></i> <span>Cache geleert & neu geladen!</span>`;
+			document.body.appendChild(toast);
+			setTimeout(() => toast.classList.add('show'), 10);
+			setTimeout(() => {
+				toast.classList.remove('show');
+				setTimeout(() => toast.remove(), 300);
+			}, 2500);
+		}
 	});
 	</script>
 </body>
