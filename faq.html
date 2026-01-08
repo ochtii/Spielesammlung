@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - AUT Quiz</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-question-circle"></i> AUT Quiz - FAQ
+            </a>
+            <div class="navbar-menu">
+                <button class="menu-toggle" id="menuToggle" aria-label="Menü" type="button">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="menu-dropdown" id="menuDropdown">
+                    <a href="index.html" class="menu-item">
+                        <i class="fas fa-home"></i> Zurück zum Spiel
+                    </a>
+                    <a href="points.html" class="menu-item">
+                        <i class="fas fa-coins"></i> Punkte
+                    </a>
+                    <a href="help.html" class="menu-item">
+                        <i class="fas fa-book"></i> Hilfe
+                    </a>
+                    <a href="settings.html" class="menu-item">
+                        <i class="fas fa-cog"></i> Einstellungen
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="container">
+        <!-- FAQ Hero -->
+        <div class="faq-hero">
+            <div class="faq-hero-content">
+                <i class="fas fa-comment-dots faq-hero-icon"></i>
+                <h1>Häufig gestellte Fragen</h1>
+                <p>Hier findest du Antworten auf die wichtigsten Fragen rund um die Spielesammlung</p>
+            </div>
+        </div>
+
+        <!-- Search Box -->
+        <div class="faq-search">
+            <i class="fas fa-search"></i>
+            <input type="text" id="faqSearch" placeholder="Frage durchsuchen...">
+        </div>
+
+        <!-- FAQ Categories -->
+        <div class="faq-categories">
+            <button class="faq-category-btn active" data-category="all">
+                <i class="fas fa-th"></i>
+                <span>Alle</span>
+            </button>
+            <button class="faq-category-btn" data-category="allgemein">
+                <i class="fas fa-info-circle"></i>
+                <span>Allgemein</span>
+            </button>
+            <button class="faq-category-btn" data-category="spiel">
+                <i class="fas fa-gamepad"></i>
+                <span>Spielmodi</span>
+            </button>
+            <button class="faq-category-btn" data-category="punkte">
+                <i class="fas fa-coins"></i>
+                <span>Punkte</span>
+            </button>
+            <button class="faq-category-btn" data-category="technik">
+                <i class="fas fa-cog"></i>
+                <span>Technisch</span>
+            </button>
+        </div>
+
+        <!-- FAQ Sections -->
+        <section class="faq-section" data-category="allgemein">
+            <h2 class="faq-section-title">
+                <i class="fas fa-info-circle"></i>
+                Allgemeine Fragen
+            </h2>
+            
+            <div class="faq-accordion">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Was ist die AUT Quiz Spielesammlung?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Die AUT Quiz Spielesammlung ist eine interaktive Lernplattform, die verschiedene Quiz-Spiele rund um österreichische und internationale Geografie anbietet. Du kannst dein Wissen über Kennzeichen, Hauptstädte und Einwohnerzahlen testen und dabei Punkte sammeln.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Ist die Nutzung kostenlos?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Ja, die gesamte Spielesammlung ist komplett kostenlos und erfordert keine Registrierung. Alle Features sind ohne Einschränkungen verfügbar.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Brauche ich einen Account?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Nein, du brauchst keinen Account. Alle deine Fortschritte und Punkte werden lokal in deinem Browser gespeichert und bleiben auch nach dem Schließen erhalten.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Kann ich die App offline nutzen?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Die Spielesammlung funktioniert grundsätzlich offline, sobald sie einmal geladen wurde. Lediglich für die Anzeige der aktuellen Version im Footer wird eine Internetverbindung benötigt.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section" data-category="spiel">
+            <h2 class="faq-section-title">
+                <i class="fas fa-gamepad"></i>
+                Spielmodi & Spielablauf
+            </h2>
+            
+            <div class="faq-accordion">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Welche Spielmodi gibt es?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Es gibt vier verschiedene Spielmodi:</p>
+                        <ul>
+                            <li><strong>Kennzeichen raten:</strong> Erkenne österreichische KFZ-Kennzeichen</li>
+                            <li><strong>Hauptstädte Quiz:</strong> Österreichische Bundes- und Bezirkshauptstädte</li>
+                            <li><strong>Welthauptstädte:</strong> Hauptstädte aus aller Welt</li>
+                            <li><strong>Einwohner-Vergleich:</strong> Vergleiche Städte nach Einwohnerzahl</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Was ist der Unterschied zwischen Quiz-Modus und Profi-Modus?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>Quiz-Modus:</strong> Du bekommst 4 Antwortmöglichkeiten zur Auswahl - ideal für Einsteiger.</p>
+                        <p><strong>Kombiniert:</strong> Du kannst die Antwort eintippen oder dir Optionen anzeigen lassen - flexibel für alle Levels.</p>
+                        <p><strong>Profi-Modus:</strong> Du musst die Antwort komplett selbst eingeben - für echte Experten ohne Hilfestellung.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Wie funktioniert das Tipp-System?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Du hast pro Frage bis zu 3 Tipps zur Verfügung:</p>
+                        <ul>
+                            <li><strong>Tipp 1:</strong> Allgemeiner Hinweis (z.B. Bundesland, Anfangsbuchstabe)</li>
+                            <li><strong>Tipp 2:</strong> Genauerer Hinweis (z.B. Wappen bei Kennzeichen)</li>
+                            <li><strong>Tipp 3:</strong> Starker Hinweis (z.B. mehrere Buchstaben der Lösung)</li>
+                        </ul>
+                        <p>Je mehr Tipps du verwendest, desto weniger Punkte erhältst du für die richtige Antwort.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Was bedeutet "Tippfehler-Toleranz"?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Mit aktivierter Tippfehler-Toleranz werden kleine Schreibfehler bei der Eingabe akzeptiert. Besonders hilfreich bei schwierigen Städtenamen! Du findest diese Option in den Einstellungen.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Bei Welthauptstädten: In welcher Sprache muss ich antworten?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Die Antworten werden in <strong>Deutsch, Englisch und der Landessprache</strong> akzeptiert. Du kannst also z.B. "Peking", "Beijing" oder "北京" eingeben - alles wird als richtig gewertet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section" data-category="punkte">
+            <h2 class="faq-section-title">
+                <i class="fas fa-coins"></i>
+                Punkte & Statistiken
+            </h2>
+            
+            <div class="faq-accordion">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Wie werden Punkte berechnet?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Die Punktevergabe ist dynamisch und hängt von der Anzahl verwendeter Tipps ab:</p>
+                        <ul>
+                            <li><strong>Ohne Tipp:</strong> 100 Punkte</li>
+                            <li><strong>1 Tipp:</strong> 70 Punkte</li>
+                            <li><strong>2 Tipps:</strong> 40 Punkte</li>
+                            <li><strong>3 Tipps:</strong> 10 Punkte</li>
+                            <li><strong>Falsche Antwort:</strong> 0 Punkte</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Was sind kostenpflichtige Tipps?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>In den Einstellungen kannst du "Kostenpflichtige Tipps" aktivieren. Dann kostet jeder Tipp <strong>20 gesammelte Punkte</strong> aus deinem Guthaben. Das macht das Spiel herausfordernder und du musst gut überlegen, ob du einen Tipp wirklich brauchst!</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Bleiben meine Punkte dauerhaft gespeichert?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Ja! Alle verdienten Punkte werden auf deinem globalen Punktekonto gespeichert und bleiben auch nach Spielende, Browser-Schließung und sogar nach Updates erhalten. Die Daten werden lokal in deinem Browser gespeichert.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Kann ich meine Statistiken zurücksetzen?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Ja, auf der Punkte-Seite findest du einen Button "Punkte zurücksetzen". Alternativ kannst du in den Entwickler Tools (wenn aktiviert) gezielt Punkte oder die gesamte Historie löschen.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Was ist die Punkte-Historie?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Die Punkte-Historie zeigt dir alle deine gespielten Runden mit Details wie Spielmodus, erreichte Punkte und Zeitstempel. Die maximale Anzahl gespeicherter Einträge kannst du in den Einstellungen anpassen (20-500 Einträge).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section" data-category="technik">
+            <h2 class="faq-section-title">
+                <i class="fas fa-cog"></i>
+                Technische Fragen
+            </h2>
+            
+            <div class="faq-accordion">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Wie aktiviere ich den Dark Mode?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Gehe zu den Einstellungen und aktiviere den Schalter bei "Dark Mode". Das dunkle Farbschema wird sofort übernommen und bleibt dauerhaft gespeichert.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Was ist die Bottom Navigation?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Die Bottom Navigation ist eine moderne App-ähnliche Navigation am unteren Bildschirmrand (nur auf mobilen Geräten sichtbar). In den Einstellungen kannst du sie anpassen:</p>
+                        <ul>
+                            <li>Ein-/Ausschalten</li>
+                            <li>Fixiert am Bildschirm oder im Seitenfluss</li>
+                            <li>Größe (Klein, Normal, Groß)</li>
+                            <li>Sichtbare Buttons individuell wählen</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Was sind die Entwickler Tools?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Die Entwickler Tools sind erweiterte Funktionen für fortgeschrittene Nutzer:</p>
+                        <ul>
+                            <li><strong>LocalStorage anzeigen:</strong> Alle gespeicherten Daten einsehen</li>
+                            <li><strong>Einstellungen zurücksetzen:</strong> Alle Einstellungen auf Standard setzen</li>
+                            <li><strong>Punkte zurücksetzen:</strong> Statistiken komplett löschen</li>
+                            <li><strong>Daten exportieren:</strong> Backup als JSON-Datei herunterladen</li>
+                            <li><strong>Historie löschen:</strong> Nur die Spiel-Historie entfernen</li>
+                            <li><strong>Footer-Info erweitern:</strong> Detaillierte Infos im Footer anzeigen</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Welche Browser werden unterstützt?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Die Spielesammlung funktioniert in allen modernen Browsern:</p>
+                        <ul>
+                            <li>Chrome/Edge (empfohlen)</li>
+                            <li>Firefox</li>
+                            <li>Safari</li>
+                            <li>Opera</li>
+                        </ul>
+                        <p>Mobile Browser wie Chrome Mobile und Safari iOS werden ebenfalls vollständig unterstützt.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Meine Daten sind weg - was kann ich tun?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Wenn deine Punkte verschwunden sind, kann das folgende Ursachen haben:</p>
+                        <ul>
+                            <li><strong>Browser-Cache gelöscht:</strong> Leider sind die Daten dann verloren, da keine Cloud-Speicherung erfolgt</li>
+                            <li><strong>Inkognito-Modus:</strong> Daten werden nicht gespeichert</li>
+                            <li><strong>Anderes Gerät/Browser:</strong> Daten sind gerätespezifisch</li>
+                        </ul>
+                        <p><strong>Tipp:</strong> Nutze die Export-Funktion in den Entwickler Tools, um regelmäßig Backups zu erstellen!</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Wie kann ich die Zoom-Ansicht zurücksetzen?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Im Footer jeder Seite findest du einen Button "Ansicht auf 100% zurücksetzen". Ein Klick darauf setzt die Viewport-Skalierung zurück - hilfreich, wenn die Seite aus Versehen gezoomt wurde.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <div class="faq-cta">
+            <h3>Noch Fragen?</h3>
+            <p>Schau dir die Hilfe-Seite an oder starte direkt mit dem Spielen!</p>
+            <div class="faq-cta-buttons">
+                <a href="help.html" class="faq-cta-btn faq-cta-secondary">
+                    <i class="fas fa-book"></i>
+                    Zur Hilfe
+                </a>
+                <a href="index.html" class="faq-cta-btn faq-cta-primary">
+                    <i class="fas fa-play"></i>
+                    Spiel starten
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav" id="bottomNav">
+        <div class="bottom-nav-content">
+            <a href="index.html" class="bottom-nav-item" data-nav="home">
+                <i class="fas fa-home"></i>
+                <span>Spiel</span>
+            </a>
+            <a href="points.html" class="bottom-nav-item" data-nav="points">
+                <i class="fas fa-coins"></i>
+                <span>Punkte</span>
+            </a>
+            <a href="help.html" class="bottom-nav-item" data-nav="help">
+                <i class="fas fa-question-circle"></i>
+                <span>Hilfe</span>
+            </a>
+            <a href="faq.html" class="bottom-nav-item current" data-nav="faq">
+                <i class="fas fa-comment-dots"></i>
+                <span>FAQ</span>
+            </a>
+            <a href="settings.html" class="bottom-nav-item" data-nav="settings">
+                <i class="fas fa-cog"></i>
+                <span>Einstellungen</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <button class="footer-zoom-btn" id="zoomResetBtn">
+                <i class="fas fa-search-minus"></i>
+                <span>Ansicht auf 100% zurücksetzen</span>
+            </button>
+            <p id="commitInfo">Version wird geladen...</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme laden
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+        
+        // Bottom Nav Einstellungen anwenden
+        function applyBottomNavSettings() {
+            const bottomNav = document.getElementById('bottomNav');
+            if (!bottomNav) return;
+            
+            // FAQ standardmäßig auf false setzen
+            if (localStorage.getItem('bottomNavShowFaq') === null) {
+                localStorage.setItem('bottomNavShowFaq', 'false');
+            }
+            
+            const enabled = localStorage.getItem('bottomNavEnabled') !== 'false';
+            const fixed = localStorage.getItem('bottomNavFixed') !== 'false';
+            const size = localStorage.getItem('bottomNavSize') || 'normal';
+            const showHome = localStorage.getItem('bottomNavShowHome') !== 'false';
+            const showPoints = localStorage.getItem('bottomNavShowPoints') !== 'false';
+            const showHelp = localStorage.getItem('bottomNavShowHelp') !== 'false';
+            const showFaq = localStorage.getItem('bottomNavShowFaq') === 'true';
+            const showSettings = localStorage.getItem('bottomNavShowSettings') !== 'false';
+            
+            if (enabled) {
+                bottomNav.style.display = '';
+            } else {
+                bottomNav.style.display = 'none';
+            }
+            
+            bottomNav.classList.remove('position-static');
+            if (!fixed) bottomNav.classList.add('position-static');
+            
+            bottomNav.classList.remove('size-small', 'size-normal', 'size-large');
+            bottomNav.classList.add('size-' + size);
+            
+            const items = bottomNav.querySelectorAll('.bottom-nav-item');
+            items.forEach(item => {
+                const nav = item.getAttribute('data-nav');
+                item.classList.remove('hidden');
+                if (nav === 'home' && !showHome) item.classList.add('hidden');
+                if (nav === 'points' && !showPoints) item.classList.add('hidden');
+                if (nav === 'help' && !showHelp) item.classList.add('hidden');
+                if (nav === 'faq' && !showFaq) item.classList.add('hidden');
+                if (nav === 'settings' && !showSettings) item.classList.add('hidden');
+            });
+        }
+        
+        applyBottomNavSettings();
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                const isActive = item.classList.contains('active');
+                
+                // Alle schließen
+                document.querySelectorAll('.faq-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                
+                // Aktuelles öffnen (wenn nicht schon offen war)
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Category Filter
+        document.querySelectorAll('.faq-category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const category = btn.dataset.category;
+                
+                // Update active button
+                document.querySelectorAll('.faq-category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Filter sections
+                document.querySelectorAll('.faq-section').forEach(section => {
+                    if (category === 'all' || section.dataset.category === category) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('faqSearch');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            document.querySelectorAll('.faq-item').forEach(item => {
+                const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Show all sections when searching
+            if (searchTerm) {
+                document.querySelectorAll('.faq-section').forEach(s => s.style.display = 'block');
+            }
+        });
+        
+        // Zoom Reset
+        const zoomBtn = document.getElementById('zoomResetBtn');
+        if (zoomBtn) {
+            zoomBtn.addEventListener('click', () => {
+                const viewport = document.querySelector('meta[name="viewport"]');
+                if (viewport) {
+                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                    setTimeout(() => {
+                        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+                    }, 100);
+                }
+                zoomBtn.innerHTML = '<i class="fas fa-check"></i><span>Zurückgesetzt!</span>';
+                setTimeout(() => {
+                    zoomBtn.innerHTML = '<i class="fas fa-search-minus"></i><span>Ansicht auf 100% zurücksetzen</span>';
+                }, 2000);
+            });
+        }
+
+        // Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const menuDropdown = document.getElementById('menuDropdown');
+        
+        if (menuToggle && menuDropdown) {
+            menuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                menuToggle.classList.toggle('active');
+                menuDropdown.classList.toggle('show');
+            });
+            
+            document.addEventListener('click', (e) => {
+                if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
+                    menuToggle.classList.remove('active');
+                    menuDropdown.classList.remove('show');
+                }
+            });
+        }
+
+        // Commit Info laden
+        async function loadCommitTime() {
+            const commitInfoEl = document.getElementById('commitInfo');
+            try {
+                const response = await fetch('https://api.github.com/repos/ochtii/Spielesammlung/commits?per_page=1');
+                if (!response.ok) throw new Error('API Error');
+                const data = await response.json();
+                if (data.length > 0) {
+                    const commitDate = new Date(data[0].commit.author.date);
+                    const formattedDate = new Intl.DateTimeFormat('de-AT', {
+                        year: 'numeric', month: '2-digit', day: '2-digit',
+                        hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Vienna'
+                    }).format(commitDate);
+                    commitInfoEl.innerHTML = `<i class="fas fa-clock"></i> ${formattedDate}`;
+                }
+            } catch (error) {
+                commitInfoEl.innerHTML = '<i class="fas fa-wifi"></i> Offline';
+            }
+        }
+        loadCommitTime();
+    </script>
+</body>
+</html>

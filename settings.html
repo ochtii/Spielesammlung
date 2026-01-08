@@ -116,6 +116,10 @@
                             <span><i class="fas fa-question-circle"></i> Hilfe</span>
                         </label>
                         <label class="checkbox-label">
+                            <input type="checkbox" id="bottomNavShowFaq">
+                            <span><i class="fas fa-comment-dots"></i> FAQ</span>
+                        </label>
+                        <label class="checkbox-label">
                             <input type="checkbox" id="bottomNavShowSettings" checked>
                             <span><i class="fas fa-cog"></i> Einstellungen</span>
                         </label>
@@ -338,6 +342,7 @@
             const bottomNavShowHome = localStorage.getItem('bottomNavShowHome') !== 'false';
             const bottomNavShowPoints = localStorage.getItem('bottomNavShowPoints') !== 'false';
             const bottomNavShowHelp = localStorage.getItem('bottomNavShowHelp') !== 'false';
+            const bottomNavShowFaq = localStorage.getItem('bottomNavShowFaq') === 'true';
             const bottomNavShowSettings = localStorage.getItem('bottomNavShowSettings') !== 'false';
 
             document.getElementById('darkModeCheck').checked = theme === 'dark';
@@ -357,6 +362,7 @@
             document.getElementById('bottomNavShowHome').checked = bottomNavShowHome;
             document.getElementById('bottomNavShowPoints').checked = bottomNavShowPoints;
             document.getElementById('bottomNavShowHelp').checked = bottomNavShowHelp;
+            document.getElementById('bottomNavShowFaq').checked = bottomNavShowFaq;
             document.getElementById('bottomNavShowSettings').checked = bottomNavShowSettings;
             
             // Bottom Nav anwenden
@@ -374,6 +380,7 @@
             const showHome = localStorage.getItem('bottomNavShowHome') !== 'false';
             const showPoints = localStorage.getItem('bottomNavShowPoints') !== 'false';
             const showHelp = localStorage.getItem('bottomNavShowHelp') !== 'false';
+            const showFaq = localStorage.getItem('bottomNavShowFaq') === 'true';
             const showSettings = localStorage.getItem('bottomNavShowSettings') !== 'false';
             
             // Enabled/Disabled
@@ -402,6 +409,7 @@
                 if (nav === 'home' && !showHome) item.classList.add('hidden');
                 if (nav === 'points' && !showPoints) item.classList.add('hidden');
                 if (nav === 'help' && !showHelp) item.classList.add('hidden');
+                if (nav === 'faq' && !showFaq) item.classList.add('hidden');
                 if (nav === 'settings' && !showSettings) item.classList.add('hidden');
             });
         }
@@ -415,6 +423,7 @@
             const showHome = document.getElementById('bottomNavShowHome').checked;
             const showPoints = document.getElementById('bottomNavShowPoints').checked;
             const showHelp = document.getElementById('bottomNavShowHelp').checked;
+            const showFaq = document.getElementById('bottomNavShowFaq').checked;
             const showSettings = document.getElementById('bottomNavShowSettings').checked;
             
             localStorage.setItem('bottomNavEnabled', enabled);
@@ -423,6 +432,7 @@
             localStorage.setItem('bottomNavShowHome', showHome);
             localStorage.setItem('bottomNavShowPoints', showPoints);
             localStorage.setItem('bottomNavShowHelp', showHelp);
+            localStorage.setItem('bottomNavShowFaq', showFaq);
             localStorage.setItem('bottomNavShowSettings', showSettings);
             
             // Einstellungen anwenden
