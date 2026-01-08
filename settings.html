@@ -50,6 +50,44 @@
                 <p class="settings-subtitle">Passe die App nach deinen Wünschen an</p>
             </div>
 
+            <!-- Easter Eggs Counter Card -->
+            <div class="easter-eggs-counter-card" id="easterEggsCounterCard">
+                <div class="easter-eggs-counter-header">
+                    <div class="easter-eggs-icon-wrap">
+                        <i class="fas fa-egg"></i>
+                    </div>
+                    <div class="easter-eggs-info">
+                        <span class="easter-eggs-title">Easter Eggs</span>
+                        <span class="easter-eggs-subtitle">Findest du alle versteckten Überraschungen?</span>
+                    </div>
+                    <div class="easter-eggs-count">
+                        <span id="foundEasterEggsCount">0</span>
+                        <span class="easter-eggs-divider">/</span>
+                        <span id="totalEasterEggsCount">3</span>
+                    </div>
+                </div>
+                <div class="easter-eggs-progress">
+                    <div class="easter-eggs-progress-bar" id="easterEggsProgressBar" style="width: 0%"></div>
+                </div>
+                <div class="easter-eggs-list">
+                    <div class="easter-egg-item" id="eggItem1" data-egg="cheatMode">
+                        <i class="fas fa-question egg-icon"></i>
+                        <span class="egg-name">???</span>
+                        <span class="egg-reward">+1000 <i class="fas fa-coins"></i></span>
+                    </div>
+                    <div class="easter-egg-item" id="eggItem2" data-egg="konamiCode">
+                        <i class="fas fa-question egg-icon"></i>
+                        <span class="egg-name">???</span>
+                        <span class="egg-reward">+500 <i class="fas fa-coins"></i></span>
+                    </div>
+                    <div class="easter-egg-item" id="eggItem3" data-egg="secretWord">
+                        <i class="fas fa-question egg-icon"></i>
+                        <span class="egg-name">???</span>
+                        <span class="egg-reward">+250 <i class="fas fa-coins"></i></span>
+                    </div>
+                </div>
+            </div>
+
             <!-- Simple/Advanced Mode Toggle (nur mobil sichtbar) -->
             <div class="settings-mode-toggle" id="settingsModeToggle">
                 <button class="mode-btn active" data-mode="simple" id="simpleModeBtn">
@@ -1578,64 +1616,104 @@
         }
 
         // ============================================
-        // EASTER EGG SYSTEM
+        // EASTER EGG SYSTEM - 3 Easter Eggs
         // ============================================
+        
+        const EASTER_EGGS = {
+            cheatMode: {
+                id: 'cheatMode',
+                name: 'Cheat Mode',
+                icon: 'fas fa-magic',
+                reward: 1000,
+                description: '7x auf das Tools-Icon klicken'
+            },
+            konamiCode: {
+                id: 'konamiCode',
+                name: 'Konami Code',
+                icon: 'fas fa-gamepad',
+                reward: 500,
+                description: '↑↑↓↓←→←→BA'
+            },
+            secretWord: {
+                id: 'secretWord',
+                name: 'Geheimwort',
+                icon: 'fas fa-keyboard',
+                reward: 250,
+                description: 'Tippe "austria"'
+            }
+        };
         
         let easterEggClicks = 0;
         let easterEggTimer = null;
         const EASTER_EGG_CLICKS_REQUIRED = 7;
         const EASTER_EGG_TIMEOUT = 3000;
         
-        function initEasterEgg() {
-            const trigger = document.getElementById('easterEggTrigger');
-            const cheatModeUnlocked = localStorage.getItem('cheatModeUnlocked') === 'true';
+        // Konami Code Tracker
+        let konamiIndex = 0;
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        
+        // Secret Word Tracker
+        let secretWordBuffer = '';
+        const secretWord = 'austria';
+        
+        function getFoundEasterEggs() {
+            return JSON.parse(localStorage.getItem('foundEasterEggs') || '[]');
+        }
+        
+        function setFoundEasterEgg(eggId) {
+            const found = getFoundEasterEggs();
+            if (!found.includes(eggId)) {
+                found.push(eggId);
+                localStorage.setItem('foundEasterEggs', JSON.stringify(found));
+            }
+        }
+        
+        function isEasterEggFound(eggId) {
+            return getFoundEasterEggs().includes(eggId);
+        }
+        
+        function updateEasterEggsCounter() {
+            const found = getFoundEasterEggs();
+            const total = Object.keys(EASTER_EGGS).length;
             
-            // Zeige Cheat Mode wenn bereits freigeschaltet
-            if (cheatModeUnlocked) {
+            // Update counter
+            document.getElementById('foundEasterEggsCount').textContent = found.length;
+            document.getElementById('totalEasterEggsCount').textContent = total;
+            
+            // Update progress bar
+            const percentage = (found.length / total) * 100;
+            document.getElementById('easterEggsProgressBar').style.width = `${percentage}%`;
+            
+            // Update individual egg items
+            Object.values(EASTER_EGGS).forEach((egg, index) => {
+                const item = document.getElementById(`eggItem${index + 1}`);
+                if (item) {
+                    if (found.includes(egg.id)) {
+                        item.classList.add('found');
+                        item.querySelector('.egg-icon').className = `${egg.icon} egg-icon`;
+                        item.querySelector('.egg-name').textContent = egg.name;
+                    }
+                }
+            });
+            
+            // Cheat Mode anzeigen wenn gefunden
+            if (found.includes('cheatMode')) {
                 showCheatMode();
             }
+        }
+        
+        function initEasterEgg() {
+            // Update counter on load
+            updateEasterEggsCounter();
             
-            // Easter Egg Trigger (7x auf Tools-Icon klicken)
-            if (trigger) {
-                trigger.style.cursor = 'default';
-                trigger.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    
-                    // Wenn bereits freigeschaltet, nichts tun
-                    if (localStorage.getItem('cheatModeUnlocked') === 'true') return;
-                    
-                    easterEggClicks++;
-                    
-                    // Visual feedback
-                    trigger.style.transform = `scale(${1 + easterEggClicks * 0.05})`;
-                    trigger.style.color = `hsl(${easterEggClicks * 30}, 70%, 50%)`;
-                    
-                    // Reset timer
-                    if (easterEggTimer) clearTimeout(easterEggTimer);
-                    easterEggTimer = setTimeout(() => {
-                        easterEggClicks = 0;
-                        trigger.style.transform = '';
-                        trigger.style.color = '';
-                    }, EASTER_EGG_TIMEOUT);
-                    
-                    // Check if easter egg triggered
-                    if (easterEggClicks >= EASTER_EGG_CLICKS_REQUIRED) {
-                        triggerEasterEgg();
-                    }
-                });
-            }
+            // Easter Egg 1: Cheat Mode (7x auf Tools-Icon klicken)
+            initCheatModeEasterEgg();
             
-            // Hint klick (alternative)
-            const hint = document.getElementById('easterEggHint');
-            if (hint) {
-                let hintClicks = 0;
-                hint.addEventListener('click', () => {
-                    hintClicks++;
-                    if (hintClicks >= 5 && localStorage.getItem('cheatModeUnlocked') !== 'true') {
-                        triggerEasterEgg();
-                    }
-                });
-            }
+            // Easter Egg 2: Konami Code
+            initKonamiCodeEasterEgg();
+            
+            // Easter Egg 3: Secret Word
+            initSecretWordEasterEgg();
             
             // Modal schließen
             document.getElementById('closeEasterEggModal')?.addEventListener('click', () => {
@@ -1644,54 +1722,181 @@
             
             // Cheat Mode Buttons
             document.getElementById('cheatAddPointsBtn')?.addEventListener('click', () => {
-                addCheatPoints(1000);
+                addEasterEggPoints(1000, 'Cheat Mode Bonus');
             });
             
             document.getElementById('resetEasterEggBtn')?.addEventListener('click', async () => {
                 const confirmed = await showModernConfirm({
                     type: 'warning',
-                    title: 'Easter Egg zurücksetzen?',
-                    message: 'Möchtest du das Easter Egg zurücksetzen? Du kannst es dann erneut finden!',
-                    details: ['Cheat Mode wird deaktiviert', 'Easter Egg muss erneut gefunden werden'],
+                    title: 'Alle Easter Eggs zurücksetzen?',
+                    message: 'Möchtest du alle Easter Eggs zurücksetzen? Du kannst sie dann erneut finden!',
+                    details: ['Alle 3 Easter Eggs werden zurückgesetzt', 'Cheat Mode wird deaktiviert'],
                     confirmLabel: 'Zurücksetzen'
                 });
                 
                 if (confirmed) {
+                    localStorage.removeItem('foundEasterEggs');
                     localStorage.removeItem('cheatModeUnlocked');
                     hideCheatMode();
-                    easterEggClicks = 0;
-                    showSuccessNotification('Easter Egg zurückgesetzt!');
+                    updateEasterEggsCounter();
+                    showSuccessNotification('Alle Easter Eggs zurückgesetzt!');
                 }
             });
         }
         
-        function triggerEasterEgg() {
-            // Speichere Freischaltung
-            localStorage.setItem('cheatModeUnlocked', 'true');
-            
-            // Punkte hinzufügen
-            addCheatPoints(1000);
-            
-            // Zeige Modal mit Konfetti
-            showEasterEggModal();
-            
-            // Zeige Cheat Mode
-            showCheatMode();
-            
-            // Reset clicks
-            easterEggClicks = 0;
+        // Easter Egg 1: Cheat Mode
+        function initCheatModeEasterEgg() {
             const trigger = document.getElementById('easterEggTrigger');
+            
             if (trigger) {
-                trigger.style.transform = '';
-                trigger.style.color = '';
+                trigger.style.cursor = 'default';
+                trigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    
+                    if (isEasterEggFound('cheatMode')) return;
+                    
+                    easterEggClicks++;
+                    
+                    // Visual feedback
+                    trigger.style.transform = `scale(${1 + easterEggClicks * 0.05})`;
+                    trigger.style.color = `hsl(${easterEggClicks * 30}, 70%, 50%)`;
+                    
+                    clearTimeout(easterEggTimer);
+                    easterEggTimer = setTimeout(() => {
+                        easterEggClicks = 0;
+                        trigger.style.transform = '';
+                        trigger.style.color = '';
+                    }, EASTER_EGG_TIMEOUT);
+                    
+                    if (easterEggClicks >= EASTER_EGG_CLICKS_REQUIRED) {
+                        triggerEasterEgg('cheatMode');
+                        trigger.style.transform = '';
+                        trigger.style.color = '';
+                    }
+                });
             }
         }
         
-        function showEasterEggModal() {
-            const modal = document.getElementById('easterEggModal');
-            modal.classList.add('show');
+        // Easter Egg 2: Konami Code
+        function initKonamiCodeEasterEgg() {
+            document.addEventListener('keydown', (e) => {
+                if (isEasterEggFound('konamiCode')) return;
+                
+                const key = e.key.toLowerCase();
+                const expected = konamiSequence[konamiIndex].toLowerCase();
+                
+                if (key === expected) {
+                    konamiIndex++;
+                    
+                    // Visual feedback
+                    showKonamiProgress(konamiIndex);
+                    
+                    if (konamiIndex === konamiSequence.length) {
+                        triggerEasterEgg('konamiCode');
+                        konamiIndex = 0;
+                    }
+                } else {
+                    konamiIndex = 0;
+                }
+            });
+        }
+        
+        function showKonamiProgress(index) {
+            // Kleine Notification für Progress
+            const symbols = ['↑', '↑', '↓', '↓', '←', '→', '←', '→', 'B', 'A'];
+            const progress = symbols.slice(0, index).join('');
             
-            // Konfetti erstellen
+            // Nur zeigen wenn mehr als 3 Tasten korrekt
+            if (index >= 3) {
+                const toast = document.createElement('div');
+                toast.className = 'konami-progress-toast';
+                toast.innerHTML = `<span>${progress}</span>`;
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 100px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(0,0,0,0.8);
+                    color: #f1c40f;
+                    padding: 0.5rem 1rem;
+                    border-radius: 8px;
+                    font-family: monospace;
+                    font-size: 1.2rem;
+                    z-index: 10000;
+                    animation: fadeInOut 1s ease;
+                `;
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 1000);
+            }
+        }
+        
+        // Easter Egg 3: Secret Word
+        function initSecretWordEasterEgg() {
+            document.addEventListener('keypress', (e) => {
+                if (isEasterEggFound('secretWord')) return;
+                
+                // Ignoriere wenn in Eingabefeld
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                
+                secretWordBuffer += e.key.toLowerCase();
+                
+                // Buffer auf max. Länge beschränken
+                if (secretWordBuffer.length > secretWord.length) {
+                    secretWordBuffer = secretWordBuffer.slice(-secretWord.length);
+                }
+                
+                if (secretWordBuffer === secretWord) {
+                    triggerEasterEgg('secretWord');
+                    secretWordBuffer = '';
+                }
+            });
+        }
+        
+        function triggerEasterEgg(eggId) {
+            const egg = EASTER_EGGS[eggId];
+            if (!egg || isEasterEggFound(eggId)) return;
+            
+            // Als gefunden markieren
+            setFoundEasterEgg(eggId);
+            
+            // Für Cheat Mode auch alten Key setzen (Kompatibilität)
+            if (eggId === 'cheatMode') {
+                localStorage.setItem('cheatModeUnlocked', 'true');
+            }
+            
+            // Punkte hinzufügen
+            addEasterEggPoints(egg.reward, egg.name);
+            
+            // Modal anzeigen
+            showEasterEggModal(egg);
+            
+            // Counter updaten
+            updateEasterEggsCounter();
+        }
+        
+        function showEasterEggModal(egg) {
+            const modal = document.getElementById('easterEggModal');
+            const icon = modal.querySelector('.easter-egg-icon i');
+            const reward = modal.querySelector('.easter-egg-reward span');
+            const message = modal.querySelector('.easter-egg-message');
+            const submessage = modal.querySelector('.easter-egg-submessage');
+            
+            // Modal anpassen
+            if (icon) icon.className = egg.icon;
+            if (reward) reward.textContent = `+${egg.reward} Punkte`;
+            if (message) message.textContent = `Du hast "${egg.name}" gefunden!`;
+            
+            const found = getFoundEasterEggs();
+            const total = Object.keys(EASTER_EGGS).length;
+            if (submessage) {
+                if (found.length === total) {
+                    submessage.innerHTML = '🏆 <strong>Alle Easter Eggs gefunden!</strong> Du bist ein wahrer Entdecker!';
+                } else {
+                    submessage.innerHTML = `Easter Egg <strong>${found.length}/${total}</strong> gefunden. Weiter suchen!`;
+                }
+            }
+            
+            modal.classList.add('show');
             createConfetti();
         }
         
@@ -1728,7 +1933,7 @@
             if (section) section.style.display = 'none';
         }
         
-        function addCheatPoints(amount) {
+        function addEasterEggPoints(amount, source) {
             let pointsData = JSON.parse(localStorage.getItem('pointsData') || '{}');
             pointsData.totalPoints = (pointsData.totalPoints || 0) + amount;
             
@@ -1738,11 +1943,12 @@
                 type: '🎁 Easter Egg',
                 points: amount,
                 timestamp: new Date().toISOString(),
-                details: 'Cheat Mode Bonus'
+                details: source
             });
             
             localStorage.setItem('pointsData', JSON.stringify(pointsData));
             showSuccessNotification(`+${amount} Punkte!`);
+            updateBottomNavPoints();
         }
 
         // Initialize

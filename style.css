@@ -1847,6 +1847,180 @@ body.dark-mode .quick-setting-item:active {
    EASTER EGG SYSTEM
    ============================================ */
 
+/* Easter Eggs Counter Card */
+.easter-eggs-counter-card {
+    background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.easter-eggs-counter-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(241, 196, 15, 0.1), transparent 70%);
+    pointer-events: none;
+}
+
+.easter-eggs-counter-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.easter-eggs-icon-wrap {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #f1c40f, #f39c12);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    box-shadow: 0 4px 12px rgba(241, 196, 15, 0.4);
+    animation: eggBounce 2s ease-in-out infinite;
+}
+
+@keyframes eggBounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-3px) rotate(-5deg); }
+    75% { transform: translateY(-3px) rotate(5deg); }
+}
+
+.easter-eggs-info {
+    flex: 1;
+}
+
+.easter-eggs-title {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.easter-eggs-subtitle {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.easter-eggs-count {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.easter-eggs-count span:first-child {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #f1c40f;
+}
+
+.easter-eggs-divider {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+.easter-eggs-count span:last-child {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.easter-eggs-progress {
+    height: 8px;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.easter-eggs-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #f1c40f, #e67e22);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.easter-eggs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.easter-egg-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.easter-egg-item .egg-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-primary);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.easter-egg-item .egg-name {
+    flex: 1;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.easter-egg-item .egg-reward {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.easter-egg-item .egg-reward i {
+    color: #f1c40f;
+}
+
+.easter-egg-item.found {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.15), rgba(39, 174, 96, 0.1));
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.easter-egg-item.found .egg-icon {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: white;
+}
+
+.easter-egg-item.found .egg-name {
+    color: var(--text-primary);
+    font-style: normal;
+    font-weight: 600;
+}
+
+.easter-egg-item.found .egg-reward {
+    color: #2ecc71;
+}
+
 /* Easter Egg Modal */
 .easter-egg-modal {
     position: fixed;
