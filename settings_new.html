@@ -117,186 +117,175 @@
 
 	<script src="components/footer.js"></script>
 	<script>
-<script>
-// Mobiles Menü für Settings-Seite
-document.addEventListener('DOMContentLoaded', function() {
-	const menuToggle = document.getElementById('menuToggle');
-	const menuDropdown = document.getElementById('menuDropdown');
-	if (menuToggle && menuDropdown) {
-		menuToggle.addEventListener('click', function(e) {
-			e.preventDefault();
-			e.stopPropagation();
-			menuToggle.classList.toggle('active');
-			menuDropdown.classList.toggle('show');
-		});
-		document.addEventListener('click', function(e) {
-			if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
-				menuToggle.classList.remove('active');
-				menuDropdown.classList.remove('show');
-			}
-		});
-	}
-});
-	// Theme
-	const themeSelect = document.getElementById('theme-select');
-	function applyTheme(theme) {
-		if (theme === 'dark') {
-			document.body.classList.add('dark-mode');
-		} else {
-			document.body.classList.remove('dark-mode');
-		}
-		localStorage.setItem('theme', theme);
-	}
+	// Settings-Initialisierung in EINEM DOMContentLoaded-Block
+	document.addEventListener('DOMContentLoaded', function() {
+	    // Mobiles Menü
+	    const menuToggle = document.getElementById('menuToggle');
+	    const menuDropdown = document.getElementById('menuDropdown');
+	    if (menuToggle && menuDropdown) {
+	        menuToggle.addEventListener('click', function(e) {
+	            e.preventDefault();
+	            e.stopPropagation();
+	            menuToggle.classList.toggle('active');
+	            menuDropdown.classList.toggle('show');
+	        });
+	        document.addEventListener('click', function(e) {
+	            if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
+	                menuToggle.classList.remove('active');
+	                menuDropdown.classList.remove('show');
+	            }
+	        });
+	    }
 
-	// Sprache
-	const languageSelect = document.getElementById('language-select');
-	function applyLanguage(lang) {
-		localStorage.setItem('language', lang);
-		// Platzhalter für spätere Übersetzungsfunktion
-	}
+	    // Theme
+	    const themeSelect = document.getElementById('theme-select');
+	    function applyTheme(theme) {
+	        if (theme === 'dark') {
+	            document.body.classList.add('dark-mode');
+	        } else {
+	            document.body.classList.remove('dark-mode');
+	        }
+	        localStorage.setItem('theme', theme);
+	    }
+	    const savedTheme = localStorage.getItem('theme') || 'light';
+	    themeSelect.value = savedTheme;
+	    applyTheme(savedTheme);
+	    themeSelect.addEventListener('change', (e) => {
+	        applyTheme(e.target.value);
+	    });
 
-	// Schriftgröße
-	const fontSizeSelect = document.getElementById('font-size-select');
-	function applyFontSize(size) {
-		document.body.classList.remove('font-large', 'font-xlarge');
-		if (size === 'large') document.body.classList.add('font-large');
-		if (size === 'xlarge') document.body.classList.add('font-xlarge');
-		localStorage.setItem('fontSize', size);
-	}
+	    // Sprache
+	    const languageSelect = document.getElementById('language-select');
+	    function applyLanguage(lang) {
+	        localStorage.setItem('language', lang);
+	        // Platzhalter für spätere Übersetzungsfunktion
+	    }
+	    const savedLang = localStorage.getItem('language') || 'de';
+	    languageSelect.value = savedLang;
+	    languageSelect.addEventListener('change', (e) => {
+	        applyLanguage(e.target.value);
+	    });
 
-	// Sound
-	const soundToggle = document.getElementById('sound-toggle');
-	const soundStatus = document.getElementById('sound-status');
-	function updateSoundStatus() {
-		const enabled = soundToggle.checked;
-		soundStatus.textContent = enabled ? 'Sound ist an' : 'Sound ist aus';
-		localStorage.setItem('soundEnabled', enabled ? 'true' : 'false');
-	}
+	    // Schriftgröße
+	    const fontSizeSelect = document.getElementById('font-size-select');
+	    function applyFontSize(size) {
+	        document.body.classList.remove('font-large', 'font-xlarge');
+	        if (size === 'large') document.body.classList.add('font-large');
+	        if (size === 'xlarge') document.body.classList.add('font-xlarge');
+	        localStorage.setItem('fontSize', size);
+	    }
+	    const savedFont = localStorage.getItem('fontSize') || 'normal';
+	    fontSizeSelect.value = savedFont;
+	    applyFontSize(savedFont);
+	    fontSizeSelect.addEventListener('change', (e) => {
+	        applyFontSize(e.target.value);
+	    });
 
-	// Benachrichtigungen
-	const notificationsToggle = document.getElementById('notifications-toggle');
-	const notificationsStatus = document.getElementById('notifications-status');
-	function updateNotificationStatus() {
-		const enabled = notificationsToggle.checked;
-		notificationsStatus.textContent = enabled ? 'Benachrichtigungen sind an' : 'Benachrichtigungen sind aus';
-		localStorage.setItem('notificationsEnabled', enabled ? 'true' : 'false');
-	}
+	    // Sound
+	    const soundToggle = document.getElementById('sound-toggle');
+	    const soundStatus = document.getElementById('sound-status');
+	    function updateSoundStatus() {
+	        const enabled = soundToggle.checked;
+	        soundStatus.textContent = enabled ? 'Sound ist an' : 'Sound ist aus';
+	        localStorage.setItem('soundEnabled', enabled ? 'true' : 'false');
+	    }
+	    soundToggle.checked = localStorage.getItem('soundEnabled') === 'true';
+	    updateSoundStatus();
+	    soundToggle.addEventListener('change', updateSoundStatus);
 
-	// Fortschritt zurücksetzen
-	const resetProgressBtn = document.getElementById('reset-progress-btn');
-	function resetProgress() {
-		localStorage.removeItem('pointsData');
-		localStorage.removeItem('foundEasterEggs');
-		alert('Fortschritt wurde zurückgesetzt!');
-	}
+	    // Benachrichtigungen
+	    const notificationsToggle = document.getElementById('notifications-toggle');
+	    const notificationsStatus = document.getElementById('notifications-status');
+	    function updateNotificationStatus() {
+	        const enabled = notificationsToggle.checked;
+	        notificationsStatus.textContent = enabled ? 'Benachrichtigungen sind an' : 'Benachrichtigungen sind aus';
+	        localStorage.setItem('notificationsEnabled', enabled ? 'true' : 'false');
+	    }
+	    notificationsToggle.checked = localStorage.getItem('notificationsEnabled') === 'true';
+	    updateNotificationStatus();
+	    notificationsToggle.addEventListener('change', updateNotificationStatus);
 
-	// Einstellungen zurücksetzen
-	const resetBtn = document.getElementById('reset-btn');
-	function resetSettings() {
-		localStorage.clear();
-		location.reload();
-	}
+	    // Fortschritt zurücksetzen
+	    const resetProgressBtn = document.getElementById('reset-progress-btn');
+	    function resetProgress() {
+	        localStorage.removeItem('pointsData');
+	        localStorage.removeItem('foundEasterEggs');
+	        alert('Fortschritt wurde zurückgesetzt!');
+	    }
+	    resetProgressBtn.addEventListener('click', resetProgress);
 
-	// Entwickler-Tools
-	const devModeBtn = document.getElementById('toggleDevMode');
-	const showDevReloadBtn = document.getElementById('showDevReloadBtn');
-	const devModeStatus = document.getElementById('devModeStatus');
-	function updateDevModeStatus() {
-		const devMode = localStorage.getItem('devMode') === 'true';
-		const reloadBtn = localStorage.getItem('showDevReloadBtn') !== 'false';
-		devModeStatus.innerHTML = `<b>Dev Mode:</b> ${devMode ? 'Aktiviert' : 'Deaktiviert'}<br><b>Reload-Button:</b> ${reloadBtn ? 'Sichtbar' : 'Versteckt'}`;
-	}
-	devModeBtn.addEventListener('click', () => {
-		const current = localStorage.getItem('devMode') === 'true';
-		localStorage.setItem('devMode', (!current).toString());
-		updateDevModeStatus();
-	});
-	showDevReloadBtn.addEventListener('click', () => {
-		const current = localStorage.getItem('showDevReloadBtn') !== 'false';
-		localStorage.setItem('showDevReloadBtn', (!current).toString());
-		updateDevModeStatus();
-	});
+	    // Einstellungen zurücksetzen
+	    const resetBtn = document.getElementById('reset-btn');
+	    function resetSettings() {
+	        localStorage.clear();
+	        location.reload();
+	    }
+	    resetBtn.addEventListener('click', resetSettings);
 
-	// Initialisierung
-	document.addEventListener('DOMContentLoaded', () => {
-		// Theme
-		const savedTheme = localStorage.getItem('theme') || 'light';
-		themeSelect.value = savedTheme;
-		applyTheme(savedTheme);
-		themeSelect.addEventListener('change', (e) => {
-			applyTheme(e.target.value);
-		});
-		// Sprache
-		const savedLang = localStorage.getItem('language') || 'de';
-		languageSelect.value = savedLang;
-		languageSelect.addEventListener('change', (e) => {
-			applyLanguage(e.target.value);
-		});
-		// Schriftgröße
-		const savedFont = localStorage.getItem('fontSize') || 'normal';
-		fontSizeSelect.value = savedFont;
-		applyFontSize(savedFont);
-		fontSizeSelect.addEventListener('change', (e) => {
-			applyFontSize(e.target.value);
-		});
-		// Sound
-		soundToggle.checked = localStorage.getItem('soundEnabled') === 'true';
-		updateSoundStatus();
-		soundToggle.addEventListener('change', updateSoundStatus);
-		// Benachrichtigungen
-		notificationsToggle.checked = localStorage.getItem('notificationsEnabled') === 'true';
-		updateNotificationStatus();
-		notificationsToggle.addEventListener('change', updateNotificationStatus);
-		// Fortschritt
-		resetProgressBtn.addEventListener('click', resetProgress);
-		// Reset
-		resetBtn.addEventListener('click', resetSettings);
-		// Dev Tools
-		updateDevModeStatus();
+	    // Entwickler-Tools
+	    const devModeBtn = document.getElementById('toggleDevMode');
+	    const showDevReloadBtn = document.getElementById('showDevReloadBtn');
+	    const devModeStatus = document.getElementById('devModeStatus');
+	    function updateDevModeStatus() {
+	        const devMode = localStorage.getItem('devMode') === 'true';
+	        const reloadBtn = localStorage.getItem('showDevReloadBtn') !== 'false';
+	        devModeStatus.innerHTML = `<b>Dev Mode:</b> ${devMode ? 'Aktiviert' : 'Deaktiviert'}<br><b>Reload-Button:</b> ${reloadBtn ? 'Sichtbar' : 'Versteckt'}`;
+	    }
+	    devModeBtn.addEventListener('click', () => {
+	        const current = localStorage.getItem('devMode') === 'true';
+	        localStorage.setItem('devMode', (!current).toString());
+	        updateDevModeStatus();
+	    });
+	    showDevReloadBtn.addEventListener('click', () => {
+	        const current = localStorage.getItem('showDevReloadBtn') !== 'false';
+	        localStorage.setItem('showDevReloadBtn', (!current).toString());
+	        updateDevModeStatus();
+	    });
+	    updateDevModeStatus();
 
-		// Hard Reload & Cache leeren
-		const devHardReloadBtn = document.getElementById('devHardReloadBtn');
-		if (devHardReloadBtn) {
-			devHardReloadBtn.addEventListener('click', async (e) => {
-				e.preventDefault();
-				devHardReloadBtn.classList.add('spinning');
-				devHardReloadBtn.disabled = true;
-				try {
-					// Service Worker Cache leeren
-					if ('caches' in window) {
-						const cacheNames = await caches.keys();
-						await Promise.all(cacheNames.map(name => caches.delete(name)));
-					}
-					// Service Worker deregistrieren
-					if ('serviceWorker' in navigator) {
-						const registrations = await navigator.serviceWorker.getRegistrations();
-						await Promise.all(registrations.map(reg => reg.unregister()));
-					}
-					sessionStorage.setItem('cacheCleared', 'true');
-					setTimeout(() => { location.reload(true); }, 500);
-				} catch (error) {
-					console.error('Cache clear error:', error);
-					location.reload(true);
-				}
-			});
-			// Zeige Erfolgs-Toast wenn gerade Cache geleert wurde
-			if (sessionStorage.getItem('cacheCleared') === 'true') {
-				sessionStorage.removeItem('cacheCleared');
-				showCacheClearedToast();
-			}
-		}
-		// Toast-Notification für Cache Clear
-		function showCacheClearedToast() {
-			const toast = document.createElement('div');
-			toast.className = 'cache-cleared-toast';
-			toast.innerHTML = `<i class="fas fa-check-circle"></i> <span>Cache geleert & neu geladen!</span>`;
-			document.body.appendChild(toast);
-			setTimeout(() => toast.classList.add('show'), 10);
-			setTimeout(() => {
-				toast.classList.remove('show');
-				setTimeout(() => toast.remove(), 300);
-			}, 2500);
-		}
+	    // Hard Reload & Cache leeren
+	    const devHardReloadBtn = document.getElementById('devHardReloadBtn');
+	    if (devHardReloadBtn) {
+	        devHardReloadBtn.addEventListener('click', async (e) => {
+	            e.preventDefault();
+	            devHardReloadBtn.classList.add('spinning');
+	            devHardReloadBtn.disabled = true;
+	            try {
+	                // Service Worker Cache leeren
+	                if ('caches' in window) {
+	                    const cacheNames = await caches.keys();
+	                    await Promise.all(cacheNames.map(name => caches.delete(name)));
+	                }
+	                // Service Worker deregistrieren
+	                if ('serviceWorker' in navigator) {
+	                    const registrations = await navigator.serviceWorker.getRegistrations();
+	                    await Promise.all(registrations.map(reg => reg.unregister()));
+	                }
+	                sessionStorage.setItem('cacheCleared', 'true');
+	                setTimeout(() => { location.reload(true); }, 500);
+	            } catch (error) {
+	                console.error('Cache clear error:', error);
+	                location.reload(true);
+	            }
+	        });
+	        // Zeige Erfolgs-Toast wenn gerade Cache geleert wurde
+	        if (sessionStorage.getItem('cacheCleared') === 'true') {
+	            sessionStorage.removeItem('cacheCleared');
+	            showCacheClearedToast();
+	        }
+	    }
+	    // Toast-Notification für Cache Clear
+	    function showCacheClearedToast() {
+	        const toast = document.createElement('div');
+	        toast.className = 'cache-cleared-toast';
+	        toast.innerHTML = `<i class=\"fas fa-check-circle\"></i> <span>Cache geleert & neu geladen!</span>`;
+	        document.body.appendChild(toast);
+	        setTimeout(() => toast.classList.add('show'), 10);
+	        setTimeout(() => {
+	            toast.classList.remove('show');
+	            setTimeout(() => toast.remove(), 300);
+	        }, 2500);
+	    }
 	});
 	</script>
 </body>
