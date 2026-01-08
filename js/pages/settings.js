@@ -515,6 +515,15 @@ const SettingsPage = {
             }
         });
 
+        // CacheBuster Console Toggle
+        document.getElementById('cacheBusterConsoleBtn')?.addEventListener('click', () => {
+            if (typeof CacheBuster !== 'undefined') {
+                CacheBuster.toggleConsole();
+            } else {
+                Toast.error('CacheBuster nicht verfügbar');
+            }
+        });
+
         // Debug toggles
         this.initToggle('debugModeToggle', this.KEYS.DEBUG_MODE, false, (enabled) => {
             window.DEBUG = enabled;

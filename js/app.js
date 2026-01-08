@@ -3,7 +3,7 @@
  */
 const App = {
     currentGame: null,
-    version: '2.1.3',
+    version: '2.1.5',
     buildDate: '2026-01-08',
 
     /**
@@ -17,10 +17,13 @@ const App = {
             console.error('Theme init failed:', e);
         }
         
+        // Inject and initialize Sidebar
         try {
-            Navbar.init();
+            if (typeof Sidebar !== 'undefined') {
+                Sidebar.inject();
+            }
         } catch (e) {
-            console.error('Navbar init failed:', e);
+            console.error('Sidebar init failed:', e);
         }
         
         try {

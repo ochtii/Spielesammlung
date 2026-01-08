@@ -8,47 +8,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css?v=2.1.4">
+    <link rel="stylesheet" href="css/styles.css?v=2.1.5">
     <link rel="stylesheet" href="css/settings-future.css">
 </head>
-<body data-page="settings" class="has-bottom-nav futuristic">
+<body data-page="settings" class="has-bottom-nav has-sidebar futuristic">
     <!-- Animated Background -->
     <div class="settings-bg">
         <div class="bg-grid"></div>
         <div class="bg-glow"></div>
     </div>
 
-    <!-- Navbar -->
-    <nav class="navbar glass-nav">
-        <a href="index.html" class="navbar-brand">
-            <i class="fas fa-flag"></i>
-            AUT Quiz
-        </a>
-        <div class="navbar-spacer"></div>
-        <div class="navbar-actions">
-            <button class="menu-toggle" id="menuToggle" aria-label="Menü" aria-expanded="false">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="menu-dropdown" id="menuDropdown">
-                <a href="index.html" class="menu-item">
-                    <i class="fas fa-home"></i> Startseite
-                </a>
-                <a href="points.html" class="menu-item">
-                    <i class="fas fa-coins"></i> Punkte
-                </a>
-                <a href="stats.html" class="menu-item">
-                    <i class="fas fa-chart-bar"></i> Statistik
-                </a>
-                <div class="menu-divider"></div>
-                <a href="settings.html" class="menu-item">
-                    <i class="fas fa-cog"></i> Einstellungen
-                </a>
-                <a href="help.html" class="menu-item">
-                    <i class="fas fa-question-circle"></i> Hilfe
-                </a>
-            </div>
-        </div>
-    </nav>
+    <!-- Sidebar will be injected by JS -->
 
     <!-- Main Content -->
     <main class="container page settings-page">
@@ -477,6 +447,9 @@
                             <button id="clearServiceWorkerBtn" class="btn-future btn-secondary">
                                 <i class="fas fa-cogs"></i> SW Reset
                             </button>
+                            <button id="cacheBusterConsoleBtn" class="btn-future btn-primary">
+                                <i class="fas fa-terminal"></i> CacheBuster Konsole
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -640,7 +613,7 @@
     <script src="js/core/events.js"></script>
     <script src="js/core/theme.js"></script>
     <script src="js/components/toast.js"></script>
-    <script src="js/components/navbar.js"></script>
+    <script src="js/components/sidebar.js"></script>
     <script src="js/components/bottom-nav.js"></script>
     <script src="js/games/GameEngine.js"></script>
     <script src="js/games/QuizGame.js"></script>
