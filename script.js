@@ -622,6 +622,8 @@ class AustriaQuiz {
             clearInterval(this.timerInterval);
             this.timerInterval = null;
         }
+        // Laser-Animation stoppen
+        this.hideLaserBorder();
     }
 
     /**
@@ -630,6 +632,7 @@ class AustriaQuiz {
     updateTimerDisplay() {
         const timerValue = document.getElementById('timerValue');
         const timerDisplay = document.getElementById('timerDisplay');
+        const laserBorder = document.getElementById('laserBorder');
         
         if (timerValue && timerDisplay) {
             timerValue.textContent = this.timeRemaining;
@@ -648,10 +651,55 @@ class AustriaQuiz {
             
             if (this.timeRemaining <= dangerThreshold) {
                 timerDisplay.classList.add('danger');
+                this.updateLaserBorder('danger');
             } else if (this.timeRemaining <= warningThreshold) {
                 timerDisplay.classList.add('warning');
+                this.updateLaserBorder('warning');
+            } else {
+                this.updateLaserBorder('normal');
             }
         }
+    }
+
+    /**
+     * Laser-Border Animation initialisieren
+     */
+    initLaserBorder() {
+        const laserBorder = document.getElementById('laserBorder');
+        if (!laserBorder || !this.timerVisual) return;
+        
+        // Setze die Animationsdauer basierend auf Timer-Dauer
+        laserBorder.style.setProperty('--shrink-duration', `${this.timerDuration}s`);
+        
+        // Aktiviere und starte Shrink-Animation
+        laserBorder.classList.remove('warning', 'danger');
+        laserBorder.classList.add('active', 'shrinking');
+    }
+
+    /**
+     * Laser-Border Zustand aktualisieren
+     */
+    updateLaserBorder(state) {
+        const laserBorder = document.getElementById('laserBorder');
+        if (!laserBorder || !this.timerVisual) return;
+        
+        laserBorder.classList.remove('warning', 'danger');
+        
+        if (state === 'warning') {
+            laserBorder.classList.add('warning');
+        } else if (state === 'danger') {
+            laserBorder.classList.add('danger');
+        }
+    }
+
+    /**
+     * Laser-Border ausblenden
+     */
+    hideLaserBorder() {
+        const laserBorder = document.getElementById('laserBorder');
+        if (!laserBorder) return;
+        
+        laserBorder.classList.remove('active', 'shrinking', 'warning', 'danger');
     }
 
     /**
@@ -661,6 +709,13 @@ class AustriaQuiz {
         const timerDisplay = document.getElementById('timerDisplay');
         if (timerDisplay) {
             timerDisplay.style.display = show && this.timerEnabled ? 'flex' : 'none';
+        }
+        
+        // Laser-Border auch steuern
+        if (show && this.timerEnabled && this.timerVisual) {
+            this.initLaserBorder();
+        } else {
+            this.hideLaserBorder();
         }
     }
 
@@ -970,6 +1025,12 @@ class AustriaQuiz {
             document.getElementById('gameSelectionSection').style.display = 'none';
             document.getElementById('difficultySection').style.display = 'block';
             document.getElementById('startGameSection').classList.remove('active');
+        } else if (game === 'population') {
+            // Einwohner-Raten: direkt starten (keine Modus-Auswahl, nur 2 Buttons)
+            this.currentDifficulty = 'quiz';
+            document.getElementById('gameSelectionSection').style.display = 'none';
+            document.getElementById('difficultySection').style.display = 'none';
+            document.getElementById('startGameSection').classList.add('active');
         } else {
             // Für andere Spiele: zeige direkt Schwierigkeitsgrad
             document.getElementById('gameSelectionSection').style.display = 'none';

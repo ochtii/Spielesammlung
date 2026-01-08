@@ -2642,6 +2642,255 @@ input[type="text"]::placeholder {
     justify-content: space-between;
     margin-bottom: 2rem;
     gap: 1rem;
+    position: relative;
+    z-index: 10;
+}
+
+/* ============================================
+   Laser Border Animation
+   ============================================ */
+.laser-border {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.laser-border.active {
+    display: block;
+}
+
+/* Laser Lines */
+.laser-line {
+    position: absolute;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--laser-color, #667eea), 
+        var(--laser-color, #667eea),
+        transparent
+    );
+    filter: blur(0px);
+    opacity: 0.9;
+    transition: all 0.3s ease;
+}
+
+.laser-top, .laser-bottom {
+    left: 0;
+    right: 0;
+    height: var(--laser-width, 4px);
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--laser-color, #667eea) 20%, 
+        var(--laser-color, #667eea) 80%, 
+        transparent 100%
+    );
+}
+
+.laser-top {
+    top: 0;
+    box-shadow: 
+        0 0 10px var(--laser-color, #667eea),
+        0 0 20px var(--laser-color, #667eea),
+        0 0 40px var(--laser-color, #667eea),
+        0 5px 30px var(--laser-color, #667eea);
+}
+
+.laser-bottom {
+    bottom: 0;
+    box-shadow: 
+        0 0 10px var(--laser-color, #667eea),
+        0 0 20px var(--laser-color, #667eea),
+        0 0 40px var(--laser-color, #667eea),
+        0 -5px 30px var(--laser-color, #667eea);
+}
+
+.laser-left, .laser-right {
+    top: 0;
+    bottom: 0;
+    width: var(--laser-width, 4px);
+    background: linear-gradient(180deg, 
+        transparent 0%, 
+        var(--laser-color, #667eea) 20%, 
+        var(--laser-color, #667eea) 80%, 
+        transparent 100%
+    );
+}
+
+.laser-left {
+    left: 0;
+    box-shadow: 
+        0 0 10px var(--laser-color, #667eea),
+        0 0 20px var(--laser-color, #667eea),
+        0 0 40px var(--laser-color, #667eea),
+        5px 0 30px var(--laser-color, #667eea);
+}
+
+.laser-right {
+    right: 0;
+    box-shadow: 
+        0 0 10px var(--laser-color, #667eea),
+        0 0 20px var(--laser-color, #667eea),
+        0 0 40px var(--laser-color, #667eea),
+        -5px 0 30px var(--laser-color, #667eea);
+}
+
+/* Laser Corners - glowing dots */
+.laser-corner {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--laser-color, #667eea);
+    border-radius: 50%;
+    box-shadow: 
+        0 0 10px var(--laser-color, #667eea),
+        0 0 20px var(--laser-color, #667eea),
+        0 0 40px var(--laser-color, #667eea),
+        0 0 60px var(--laser-color, #667eea);
+    animation: cornerPulse 0.5s ease-in-out infinite;
+}
+
+.laser-corner-tl { top: -4px; left: -4px; }
+.laser-corner-tr { top: -4px; right: -4px; }
+.laser-corner-bl { bottom: -4px; left: -4px; }
+.laser-corner-br { bottom: -4px; right: -4px; }
+
+@keyframes cornerPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.8; }
+}
+
+/* Laser Warning State - Orange/Yellow */
+.laser-border.warning {
+    --laser-color: #f39c12;
+    --laser-width: 5px;
+}
+
+.laser-border.warning .laser-line {
+    animation: laserPulseWarning 0.6s ease-in-out infinite;
+}
+
+.laser-border.warning .laser-corner {
+    animation: cornerPulse 0.4s ease-in-out infinite;
+}
+
+@keyframes laserPulseWarning {
+    0%, 100% { 
+        opacity: 0.9;
+        filter: blur(0px);
+    }
+    50% { 
+        opacity: 1;
+        filter: blur(1px);
+    }
+}
+
+/* Laser Danger State - Red, intense */
+.laser-border.danger {
+    --laser-color: #e74c3c;
+    --laser-width: 6px;
+}
+
+.laser-border.danger .laser-line {
+    animation: laserPulseDanger 0.3s ease-in-out infinite;
+}
+
+.laser-border.danger .laser-corner {
+    animation: cornerPulseDanger 0.25s ease-in-out infinite;
+    width: 16px;
+    height: 16px;
+}
+
+@keyframes laserPulseDanger {
+    0%, 100% { 
+        opacity: 0.9;
+        filter: blur(0px);
+    }
+    50% { 
+        opacity: 1;
+        filter: blur(2px);
+    }
+}
+
+@keyframes cornerPulseDanger {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(2); opacity: 0.7; }
+}
+
+/* Shrinking effect - the laser moves inward */
+.laser-border.shrinking .laser-top {
+    animation: shrinkTop var(--shrink-duration, 30s) linear forwards;
+}
+.laser-border.shrinking .laser-bottom {
+    animation: shrinkBottom var(--shrink-duration, 30s) linear forwards;
+}
+.laser-border.shrinking .laser-left {
+    animation: shrinkLeft var(--shrink-duration, 30s) linear forwards;
+}
+.laser-border.shrinking .laser-right {
+    animation: shrinkRight var(--shrink-duration, 30s) linear forwards;
+}
+
+@keyframes shrinkTop {
+    0% { top: 0; }
+    100% { top: 45%; }
+}
+@keyframes shrinkBottom {
+    0% { bottom: 0; }
+    100% { bottom: 45%; }
+}
+@keyframes shrinkLeft {
+    0% { left: 0; }
+    100% { left: 45%; }
+}
+@keyframes shrinkRight {
+    0% { right: 0; }
+    100% { right: 45%; }
+}
+
+/* Corner positions during shrink */
+.laser-border.shrinking .laser-corner-tl {
+    animation: shrinkCornerTL var(--shrink-duration, 30s) linear forwards, cornerPulse 0.5s ease-in-out infinite;
+}
+.laser-border.shrinking .laser-corner-tr {
+    animation: shrinkCornerTR var(--shrink-duration, 30s) linear forwards, cornerPulse 0.5s ease-in-out infinite;
+}
+.laser-border.shrinking .laser-corner-bl {
+    animation: shrinkCornerBL var(--shrink-duration, 30s) linear forwards, cornerPulse 0.5s ease-in-out infinite;
+}
+.laser-border.shrinking .laser-corner-br {
+    animation: shrinkCornerBR var(--shrink-duration, 30s) linear forwards, cornerPulse 0.5s ease-in-out infinite;
+}
+
+@keyframes shrinkCornerTL {
+    0% { top: -4px; left: -4px; }
+    100% { top: calc(45% - 4px); left: calc(45% - 4px); }
+}
+@keyframes shrinkCornerTR {
+    0% { top: -4px; right: -4px; }
+    100% { top: calc(45% - 4px); right: calc(45% - 4px); }
+}
+@keyframes shrinkCornerBL {
+    0% { bottom: -4px; left: -4px; }
+    100% { bottom: calc(45% - 4px); left: calc(45% - 4px); }
+}
+@keyframes shrinkCornerBR {
+    0% { bottom: -4px; right: -4px; }
+    100% { bottom: calc(45% - 4px); right: calc(45% - 4px); }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .laser-line {
+        --laser-width: 3px;
+    }
+    .laser-corner {
+        width: 8px;
+        height: 8px;
+    }
 }
 
 .score-display {
@@ -2955,11 +3204,14 @@ input[type="text"]::placeholder {
     transition: all 0.3s ease;
 }
 
-.answer-btn:hover:not(:disabled) {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-    transform: translateY(-4px);
+/* Hover-Effekte nur auf Geräten mit echtem Hover (nicht Touch) */
+@media (hover: hover) and (pointer: fine) {
+    .answer-btn:hover:not(:disabled) {
+        background-color: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+        transform: translateY(-4px);
+    }
 }
 
 .answer-btn:disabled {
