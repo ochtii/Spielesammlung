@@ -1633,10 +1633,10 @@
             },
             konamiCode: {
                 id: 'konamiCode',
-                name: 'Konami Code',
-                icon: 'fas fa-gamepad',
+                name: 'Geheimer Klick',
+                icon: 'fas fa-hand-pointer',
                 reward: 500,
-                description: '↑↑↓↓←→←→BA (oder Swipe-Gesten + Doppel-Tap)'
+                description: '5x schnell auf den Fortschrittsbalken tippen'
             },
             secretWord: {
                 id: 'secretWord',
@@ -1651,10 +1651,6 @@
         let easterEggTimer = null;
         const EASTER_EGG_CLICKS_REQUIRED = 7;
         const EASTER_EGG_TIMEOUT = 3000;
-        
-        // Konami Code Tracker
-        let konamiIndex = 0;
-        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
         
         // Secret Word Tracker
         let secretWordBuffer = '';
@@ -1781,151 +1777,36 @@
             }
         }
         
-        // Easter Egg 2: Konami Code (Keyboard + Mobile Swipe)
-        let swipeSequence = [];
-        const swipeKonamiSequence = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right'];
-        let touchStartX = 0;
-        let touchStartY = 0;
-        let swipeResetTimer = null;
+        // Easter Egg 2: Schnelles Tippen auf Fortschrittsbalken (5x in 2 Sekunden)
+        let progressBarTaps = 0;
+        let progressBarTimer = null;
         
         function initKonamiCodeEasterEgg() {
-            // Keyboard für Desktop
-            document.addEventListener('keydown', (e) => {
-                if (isEasterEggFound('konamiCode')) return;
-                
-                const key = e.key.toLowerCase();
-                const expected = konamiSequence[konamiIndex].toLowerCase();
-                
-                if (key === expected) {
-                    konamiIndex++;
+            const progressBar = document.querySelector('.easter-eggs-progress');
+            if (progressBar) {
+                progressBar.style.cursor = 'pointer';
+                progressBar.addEventListener('click', () => {
+                    if (isEasterEggFound('konamiCode')) return;
+                    
+                    progressBarTaps++;
                     
                     // Visual feedback
-                    showKonamiProgress(konamiIndex);
+                    progressBar.style.transform = `scale(${1 + progressBarTaps * 0.02})`;
                     
-                    if (konamiIndex === konamiSequence.length) {
+                    clearTimeout(progressBarTimer);
+                    progressBarTimer = setTimeout(() => {
+                        progressBarTaps = 0;
+                        progressBar.style.transform = '';
+                    }, 2000);
+                    
+                    // Bei 5 Taps triggern
+                    if (progressBarTaps >= 5) {
                         triggerEasterEgg('konamiCode');
-                        konamiIndex = 0;
+                        progressBarTaps = 0;
+                        progressBar.style.transform = '';
                     }
-                } else {
-                    konamiIndex = 0;
-                }
-            });
-            
-            // Touch/Swipe für Mobile
-            document.addEventListener('touchstart', (e) => {
-                if (isEasterEggFound('konamiCode')) return;
-                touchStartX = e.touches[0].clientX;
-                touchStartY = e.touches[0].clientY;
-            }, { passive: true });
-            
-            document.addEventListener('touchend', (e) => {
-                if (isEasterEggFound('konamiCode')) return;
-                
-                const touchEndX = e.changedTouches[0].clientX;
-                const touchEndY = e.changedTouches[0].clientY;
-                
-                const diffX = touchEndX - touchStartX;
-                const diffY = touchEndY - touchStartY;
-                const minSwipe = 50;
-                
-                let direction = null;
-                
-                if (Math.abs(diffX) > Math.abs(diffY)) {
-                    if (Math.abs(diffX) > minSwipe) {
-                        direction = diffX > 0 ? 'right' : 'left';
-                    }
-                } else {
-                    if (Math.abs(diffY) > minSwipe) {
-                        direction = diffY > 0 ? 'down' : 'up';
-                    }
-                }
-                
-                if (direction) {
-                    // Reset timer
-                    clearTimeout(swipeResetTimer);
-                    swipeResetTimer = setTimeout(() => {
-                        swipeSequence = [];
-                    }, 3000);
-                    
-                    const expected = swipeKonamiSequence[swipeSequence.length];
-                    
-                    if (direction === expected) {
-                        swipeSequence.push(direction);
-                        showSwipeProgress(swipeSequence.length);
-                        
-                        // Nach 8 Swipes: Doppel-Tap für "BA"
-                        if (swipeSequence.length === swipeKonamiSequence.length) {
-                            showSwipeFinishHint();
-                        }
-                    } else {
-                        swipeSequence = [];
-                    }
-                }
-            }, { passive: true });
-            
-            // Doppel-Tap für "BA" am Ende
-            let lastTap = 0;
-            document.addEventListener('touchend', (e) => {
-                if (isEasterEggFound('konamiCode')) return;
-                if (swipeSequence.length !== swipeKonamiSequence.length) return;
-                
-                const now = Date.now();
-                if (now - lastTap < 300) {
-                    // Doppel-Tap erkannt!
-                    triggerEasterEgg('konamiCode');
-                    swipeSequence = [];
-                }
-                lastTap = now;
-            }, { passive: true });
-        }
-        
-        function showSwipeProgress(count) {
-            const symbols = ['↑', '↑', '↓', '↓', '←', '→', '←', '→'];
-            const progress = symbols.slice(0, count).join('');
-            
-            if (count >= 2) {
-                const toast = document.createElement('div');
-                toast.className = 'konami-progress-toast';
-                toast.innerHTML = `<span>${progress}</span>`;
-                toast.style.cssText = `
-                    position: fixed;
-                    bottom: 100px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    background: rgba(0,0,0,0.8);
-                    color: #f1c40f;
-                    padding: 0.5rem 1rem;
-                    border-radius: 8px;
-                    font-family: monospace;
-                    font-size: 1.2rem;
-                    z-index: 10000;
-                    animation: fadeInOut 1s ease;
-                `;
-                document.body.appendChild(toast);
-                setTimeout(() => toast.remove(), 1000);
+                });
             }
-        }
-        
-        function showSwipeFinishHint() {
-            const toast = document.createElement('div');
-            toast.innerHTML = `<span>↑↑↓↓←→←→ ✓</span><br><small>Jetzt doppel-tippen!</small>`;
-            toast.style.cssText = `
-                position: fixed;
-                bottom: 100px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: rgba(0,0,0,0.9);
-                color: #2ecc71;
-                padding: 0.75rem 1.25rem;
-                border-radius: 8px;
-                font-family: monospace;
-                font-size: 1rem;
-                text-align: center;
-                z-index: 10000;
-                animation: pulse 0.5s ease infinite;
-            `;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
         }
         
         // Easter Egg 3: Secret Word (Keyboard + Mobile Tap)
