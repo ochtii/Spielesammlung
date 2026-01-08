@@ -50,6 +50,7 @@
 			<button class="tab-btn" data-tab="game">Spieloptionen</button>
 			<button class="tab-btn" data-tab="accessibility">Barrierefreiheit</button>
 			<button class="tab-btn" data-tab="developer">Entwickler</button>
+			<button class="tab-btn danger-tab" data-tab="danger">⚠️ Gefahrenzone</button>
 		</div>
 		<div class="settings-content">
 			<div class="tab-panel active" id="general">
@@ -265,6 +266,43 @@
 					</section>
 				</div>
 			</div>
+			<div class="tab-panel" id="danger">
+				<div class="settings-card danger-card">
+					<section class="settings-section">
+						<h2><i class="fas fa-exclamation-triangle"></i> ⚠️ Gefahrenzone</h2>
+						<p class="danger-warning">
+							<strong>Achtung!</strong> Die folgenden Aktionen sind irreversibel und können nicht rückgängig gemacht werden.
+							Bitte seien Sie vorsichtig bei der Verwendung dieser Funktionen.
+						</p>
+						
+						<div class="danger-actions">
+							<div class="danger-item">
+								<h3><i class="fas fa-undo"></i> Fortschritt zurücksetzen</h3>
+								<p>Löscht alle Punkte, gefundenen Easter Eggs und Spielstatistiken.</p>
+								<button id="reset-progress-btn" class="danger-btn">
+									<i class="fas fa-trash"></i> Fortschritt zurücksetzen
+								</button>
+							</div>
+							
+							<div class="danger-item">
+								<h3><i class="fas fa-cog"></i> Einstellungen zurücksetzen</h3>
+								<p>Setzt alle Einstellungen auf Standardwerte zurück.</p>
+								<button id="reset-btn" class="danger-btn">
+									<i class="fas fa-undo"></i> Einstellungen zurücksetzen
+								</button>
+							</div>
+							
+							<div class="danger-item">
+								<h3><i class="fas fa-broom"></i> Cache leeren & Hard Reload</h3>
+								<p>Leert den Browser-Cache und lädt die Seite komplett neu.</p>
+								<button id="devHardReloadBtn" class="danger-btn">
+									<i class="fas fa-broom"></i> Cache leeren & neu laden
+								</button>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
 		</div>
 	</main>
 
@@ -351,23 +389,6 @@
 	    notificationsToggle.checked = localStorage.getItem('notificationsEnabled') === 'true';
 	    updateNotificationStatus();
 	    notificationsToggle.addEventListener('change', updateNotificationStatus);
-
-	    // Fortschritt zurücksetzen
-	    const resetProgressBtn = document.getElementById('reset-progress-btn');
-	    function resetProgress() {
-	        localStorage.removeItem('pointsData');
-	        localStorage.removeItem('foundEasterEggs');
-	        alert('Fortschritt wurde zurückgesetzt!');
-	    }
-	    resetProgressBtn.addEventListener('click', resetProgress);
-
-	    // Einstellungen zurücksetzen
-	    const resetBtn = document.getElementById('reset-btn');
-	    function resetSettings() {
-	        localStorage.clear();
-	        location.reload();
-	    }
-	    resetBtn.addEventListener('click', resetSettings);
 
 	    // Entwickler-Tools
 	    // Dark Mode Toggle
@@ -592,6 +613,85 @@
 	    balanceDisplaySelect.addEventListener('change', (e) => {
 	        applyBalanceDisplayMode(e.target.value);
 	    });
+
+	    // ============================================
+	    // GEFahrenzone - Gefährliche Funktionen
+	    // ============================================
+
+	    // Fortschritt zurücksetzen
+	    const resetProgressBtn = document.getElementById('reset-progress-btn');
+	    if (resetProgressBtn) {
+	        function resetProgress() {
+	            if (confirm('⚠️ Sind Sie sicher, dass Sie Ihren gesamten Fortschritt zurücksetzen möchten?\n\nDies löscht:\n- Alle Punkte\n- Alle gefundenen Easter Eggs\n- Alle Spielstatistiken\n\nDiese Aktion kann nicht rückgängig gemacht werden!')) {
+	                localStorage.removeItem('pointsData');
+	                localStorage.removeItem('foundEasterEggs');
+	                localStorage.removeItem('gameStats');
+	                alert('✅ Fortschritt wurde erfolgreich zurückgesetzt!');
+	                location.reload();
+	            }
+	        }
+	        resetProgressBtn.addEventListener('click', resetProgress);
+	    }
+
+	    // Einstellungen zurücksetzen
+	    const resetBtn = document.getElementById('reset-btn');
+	    if (resetBtn) {
+	        function resetSettings() {
+	            if (confirm('⚠️ Sind Sie sicher, dass Sie alle Einstellungen zurücksetzen möchten?\n\nDies setzt alle Einstellungen auf Standardwerte zurück.\n\nDiese Aktion kann nicht rückgängig gemacht werden!')) {
+	                localStorage.clear();
+	                alert('✅ Einstellungen wurden erfolgreich zurückgesetzt!');
+	                location.reload();
+	            }
+	        }
+	        resetBtn.addEventListener('click', resetSettings);
+	    }
+
+	    // Hard Reload & Cache leeren
+	    const devHardReloadBtn = document.getElementById('devHardReloadBtn');
+	    if (devHardReloadBtn) {
+	        devHardReloadBtn.addEventListener('click', async (e) => {
+	            e.preventDefault();
+	            if (confirm('⚠️ Sind Sie sicher, dass Sie den Cache leeren und die Seite neu laden möchten?\n\nDies kann bei technischen Problemen helfen.')) {
+	                devHardReloadBtn.classList.add('spinning');
+	                devHardReloadBtn.disabled = true;
+	                try {
+	                    // Service Worker Cache leeren
+	                    if ('caches' in window) {
+	                        const cacheNames = await caches.keys();
+	                        await Promise.all(cacheNames.map(name => caches.delete(name)));
+	                    }
+	                    // Service Worker deregistrieren
+	                    if ('serviceWorker' in navigator) {
+	                        const registrations = await navigator.serviceWorker.getRegistrations();
+	                        await Promise.all(registrations.map(reg => reg.unregister()));
+	                    }
+	                    sessionStorage.setItem('cacheCleared', 'true');
+	                    setTimeout(() => { location.reload(true); }, 500);
+	                } catch (error) {
+	                    console.error('Cache clear error:', error);
+	                    location.reload(true);
+	                }
+	            }
+	        });
+	        // Zeige Erfolgs-Toast wenn gerade Cache geleert wurde
+	        if (sessionStorage.getItem('cacheCleared') === 'true') {
+	            sessionStorage.removeItem('cacheCleared');
+	            showCacheClearedToast();
+	        }
+	    }
+
+	    // Toast-Notification für Cache Clear
+	    function showCacheClearedToast() {
+	        const toast = document.createElement('div');
+	        toast.className = 'cache-cleared-toast';
+	        toast.innerHTML = `<i class="fas fa-check-circle"></i> <span>Cache geleert & neu geladen!</span>`;
+	        document.body.appendChild(toast);
+	        setTimeout(() => toast.classList.add('show'), 10);
+	        setTimeout(() => {
+	            toast.classList.remove('show');
+	            setTimeout(() => toast.remove(), 300);
+	        }, 2500);
+	    }
 
 	    // Theme Auto-Modus
 	    function applyTheme(theme) {
