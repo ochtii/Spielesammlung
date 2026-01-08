@@ -44,6 +44,7 @@
 		<div class="settings-tabs">
 			<button class="tab-btn active" data-tab="general">Allgemein</button>
 			<button class="tab-btn" data-tab="appearance">Erscheinung</button>
+			<button class="tab-btn" data-tab="game">Spieloptionen</button>
 			<button class="tab-btn" data-tab="accessibility">Barrierefreiheit</button>
 			<button class="tab-btn" data-tab="developer">Entwickler</button>
 		</div>
@@ -118,6 +119,51 @@
 							<span class="slider round"></span>
 						</label>
 						<span id="animations-status">Animationen sind an</span>
+					</section>
+				</div>
+			</div>
+			<div class="tab-panel" id="game">
+				<div class="settings-card">
+					<section class="settings-section">
+						<h2><i class="fas fa-clock"></i> Timer</h2>
+						<label class="switch">
+							<input type="checkbox" id="timer-enabled-toggle">
+							<span class="slider round"></span>
+						</label>
+						<span id="timer-enabled-status">Timer ist aus</span>
+						<div id="timer-duration-container" style="display: none; margin-top: 1rem;">
+							<label for="timer-duration-select">Timer-Dauer (Sekunden):</label>
+							<select id="timer-duration-select">
+								<option value="15">15</option>
+								<option value="30">30</option>
+								<option value="45">45</option>
+								<option value="60">60</option>
+							</select>
+						</div>
+						<div id="timer-visual-container" style="display: none; margin-top: 1rem;">
+							<label class="switch">
+								<input type="checkbox" id="timer-visual-toggle">
+								<span class="slider round"></span>
+							</label>
+							<span id="timer-visual-status">Visueller Timer ist an</span>
+						</div>
+					</section>
+					<section class="settings-section">
+						<h2><i class="fas fa-map-marker-alt"></i> Hauptstadt-Modus</h2>
+						<label for="capital-mode-select">Standard-Modus:</label>
+						<select id="capital-mode-select">
+							<option value="all">Alle Hauptstädte</option>
+							<option value="federal">Bundesländer-Hauptstädte</option>
+							<option value="district">Bezirkshauptstädte</option>
+						</select>
+					</section>
+					<section class="settings-section">
+						<h2><i class="fas fa-coins"></i> Punkte-Anzeige</h2>
+						<label for="balance-display-select">Anzeige-Modus:</label>
+						<select id="balance-display-select">
+							<option value="widget">Widget</option>
+							<option value="header">Im Header</option>
+						</select>
 					</section>
 				</div>
 			</div>
@@ -408,6 +454,68 @@
 	    screenReaderToggle.checked = localStorage.getItem('screenReader') === 'true';
 	    updateScreenReaderStatus();
 	    screenReaderToggle.addEventListener('change', updateScreenReaderStatus);
+
+	    // Spieloptionen
+	    // Timer Enabled
+	    const timerEnabledToggle = document.getElementById('timer-enabled-toggle');
+	    const timerEnabledStatus = document.getElementById('timer-enabled-status');
+	    const timerDurationContainer = document.getElementById('timer-duration-container');
+	    const timerVisualContainer = document.getElementById('timer-visual-container');
+	    function updateTimerEnabledStatus() {
+	        const enabled = timerEnabledToggle.checked;
+	        timerEnabledStatus.textContent = enabled ? 'Timer ist an' : 'Timer ist aus';
+	        localStorage.setItem('timerEnabled', enabled ? 'true' : 'false');
+	        timerDurationContainer.style.display = enabled ? 'block' : 'none';
+	        timerVisualContainer.style.display = enabled ? 'block' : 'none';
+	    }
+	    timerEnabledToggle.checked = localStorage.getItem('timerEnabled') === 'true';
+	    updateTimerEnabledStatus();
+	    timerEnabledToggle.addEventListener('change', updateTimerEnabledStatus);
+
+	    // Timer Duration
+	    const timerDurationSelect = document.getElementById('timer-duration-select');
+	    function applyTimerDuration(duration) {
+	        localStorage.setItem('timerDuration', duration);
+	    }
+	    const savedTimerDuration = localStorage.getItem('timerDuration') || '30';
+	    timerDurationSelect.value = savedTimerDuration;
+	    timerDurationSelect.addEventListener('change', (e) => {
+	        applyTimerDuration(e.target.value);
+	    });
+
+	    // Timer Visual
+	    const timerVisualToggle = document.getElementById('timer-visual-toggle');
+	    const timerVisualStatus = document.getElementById('timer-visual-status');
+	    function updateTimerVisualStatus() {
+	        const enabled = timerVisualToggle.checked;
+	        timerVisualStatus.textContent = enabled ? 'Visueller Timer ist an' : 'Visueller Timer ist aus';
+	        localStorage.setItem('timerVisual', enabled ? 'true' : 'false');
+	    }
+	    timerVisualToggle.checked = localStorage.getItem('timerVisual') !== 'false';
+	    updateTimerVisualStatus();
+	    timerVisualToggle.addEventListener('change', updateTimerVisualStatus);
+
+	    // Capital Mode
+	    const capitalModeSelect = document.getElementById('capital-mode-select');
+	    function applyCapitalMode(mode) {
+	        localStorage.setItem('capitalMode', mode);
+	    }
+	    const savedCapitalMode = localStorage.getItem('capitalMode') || 'all';
+	    capitalModeSelect.value = savedCapitalMode;
+	    capitalModeSelect.addEventListener('change', (e) => {
+	        applyCapitalMode(e.target.value);
+	    });
+
+	    // Balance Display Mode
+	    const balanceDisplaySelect = document.getElementById('balance-display-select');
+	    function applyBalanceDisplayMode(mode) {
+	        localStorage.setItem('balanceDisplayMode', mode);
+	    }
+	    const savedBalanceDisplayMode = localStorage.getItem('balanceDisplayMode') || 'widget';
+	    balanceDisplaySelect.value = savedBalanceDisplayMode;
+	    balanceDisplaySelect.addEventListener('change', (e) => {
+	        applyBalanceDisplayMode(e.target.value);
+	    });
 
 	    // Theme Auto-Modus
 	    function applyTheme(theme) {
