@@ -112,8 +112,7 @@ select {
     -webkit-backdrop-filter: blur(10px) saturate(120%);
 }
 body {
-    background: linear-gradient(135deg, rgba(237,41,57,0.12) 0%, rgba(52,152,219,0.10) 100%), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80') no-repeat center center fixed;
-    background-size: cover;
+    background: var(--bg-primary);
 }
 /* Glassmorphism für Inputs und Selects */
 select, input[type="text"], input[type="email"], input[type="password"] {
