@@ -131,18 +131,26 @@ const capitalsData = [
 ];
 
 /**
- * Bundesländer-Wappen (Emojis als Fallback)
+ * Bundesländer-Wappen aus neuer Datenbank
  */
+function getCoatOfArms(name) {
+    if (typeof austrianCoatsOfArms !== 'undefined') {
+        const coat = coatsOfArmsHelpers.findByName(name);
+        return coat ? coat.wappen : null;
+    }
+    return null;
+}
+
 const stateCoats = {
-    'Burgenland': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Coat_of_arms_of_Burgenland.svg/100px-Coat_of_arms_of_Burgenland.svg.png',
-    'Kärnten': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Coat_of_arms_of_Carinthia.svg/100px-Coat_of_arms_of_Carinthia.svg.png',
-    'Niederösterreich': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Coat_of_arms_of_Lower_Austria.svg/100px-Coat_of_arms_of_Lower_Austria.svg.png',
-    'Oberösterreich': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Coat_of_arms_of_Upper_Austria.svg/100px-Coat_of_arms_of_Upper_Austria.svg.png',
-    'Salzburg': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Coat_of_arms_of_Salzburg.svg/100px-Coat_of_arms_of_Salzburg.svg.png',
-    'Steiermark': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Coat_of_arms_of_Styria.svg/100px-Coat_of_arms_of_Styria.svg.png',
-    'Tirol': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Coat_of_arms_of_Tyrol.svg/100px-Coat_of_arms_of_Tyrol.svg.png',
-    'Vorarlberg': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Coat_of_arms_of_Vorarlberg.svg/100px-Coat_of_arms_of_Vorarlberg.svg.png',
-    'Wien': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Coat_of_arms_of_Vienna.svg/100px-Coat_of_arms_of_Vienna.svg.png'
+    'Burgenland': getCoatOfArms('Burgenland'),
+    'Kärnten': getCoatOfArms('Kärnten'),
+    'Niederösterreich': getCoatOfArms('Niederösterreich'),
+    'Oberösterreich': getCoatOfArms('Oberösterreich'),
+    'Salzburg': getCoatOfArms('Salzburg'),
+    'Steiermark': getCoatOfArms('Steiermark'),
+    'Tirol': getCoatOfArms('Tirol'),
+    'Vorarlberg': getCoatOfArms('Vorarlberg'),
+    'Wien': getCoatOfArms('Wien')
 };
 
 /**
@@ -1720,7 +1728,7 @@ class AustriaQuiz {
             case 'coat':
                 const coat = stateCoats[q.state] || '';
                 if (coat) {
-                    hintText = `Wappen: <div style="margin: 0.5rem 0;"><img src="${coat}" alt="Wappen ${q.state}" style="max-width: 100px; height: auto;"></div><strong>${q.state}</strong>`;
+                    hintText = `Wappen: <div style="margin: 0.5rem 0;"><img src="${coat}" alt="Wappen ${q.state}" class="coat-display"></div><strong>${q.state}</strong>`;
                 } else {
                     hintText = `Bundesland: <strong>${q.state}</strong>`;
                 }
