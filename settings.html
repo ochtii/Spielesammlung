@@ -551,12 +551,8 @@
         function setupAccordion() {
             const accordionHeaders = document.querySelectorAll('.accordion-header');
             
-            accordionHeaders.forEach((header, index) => {
-                // Erste Sektion (Darstellung) und zweite (Bottom Nav) standardmäßig offen
-                if (index === 0 || index === 1) {
-                    header.classList.add('active');
-                    header.nextElementSibling.style.maxHeight = header.nextElementSibling.scrollHeight + 'px';
-                }
+            accordionHeaders.forEach((header) => {
+                // Alle Sektionen standardmäßig eingeklappt
                 
                 header.addEventListener('click', function() {
                     const content = this.nextElementSibling;
