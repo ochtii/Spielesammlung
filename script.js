@@ -1394,14 +1394,29 @@ class AustriaQuiz {
         submitBtn.addEventListener('click', () => this.submitAnswer(input.value));
 
         const helpBtn = document.createElement('button');
-        helpBtn.className = 'help-btn';
-        helpBtn.textContent = 'Antworten anzeigen';
+        helpBtn.className = 'help-btn options-cost-btn';
+        helpBtn.innerHTML = '<i class="fas fa-list-check"></i> 4 Möglichkeiten anzeigen <span class="cost-badge">-100 <i class="fas fa-coins"></i></span>';
         helpBtn.id = 'showOptionsBtn';
         helpBtn.addEventListener('click', () => {
+            // Prüfe ob genug Punkte vorhanden sind
+            const currentPoints = this.pointsManager.getTotalPoints();
+            const optionsCost = 100;
+            
+            if (currentPoints < optionsCost) {
+                this.showFeedback('Nicht genug Punkte! Du benötigst 100 Punkte, um die Optionen anzuzeigen.', false);
+                return;
+            }
+            
+            // Punkte abziehen
+            this.pointsManager.updatePoints(-optionsCost, 'Optionen anzeigen (Kombi-Modus)');
+            
             // Zeige Optionen und verstecke Eingabefeld
             inputSection.style.display = 'none';
             optionsSection.style.display = 'block';
             this.renderMultipleChoice(optionsSection);
+            
+            // Feedback über Punkteabzug
+            this.showFeedback(`${optionsCost} Punkte abgezogen. Wähle eine der 4 Optionen.`, true);
         });
 
         inputSection.appendChild(input);

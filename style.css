@@ -2302,6 +2302,34 @@ input[type="text"]::placeholder {
     transform: translateY(-2px);
 }
 
+.options-cost-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+.options-cost-btn:hover {
+    background: linear-gradient(135deg, #e67e22, #d35400);
+}
+
+.cost-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.cost-badge i {
+    font-size: 0.85rem;
+}
+
 .options-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
