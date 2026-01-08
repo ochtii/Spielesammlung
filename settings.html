@@ -3,20 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUT Quiz - Einstellungen</title>
-    
-    <!-- Google Fonts -->
+    <title>Einstellungen – AUT Quiz</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Modular Stylesheets -->
     <link rel="stylesheet" href="css/main.css?v=20260109">
+    <link rel="stylesheet" href="css/settings.css?v=20260109">
 </head>
 <body>
     <nav class="navbar">
         <div class="navbar-content">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-map-location-dot"></i> AUT Quiz
+            </a>
+            <div class="navbar-menu">
+                <button class="menu-toggle" id="menuToggle" aria-label="Menü" type="button">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="menu-dropdown" id="menuDropdown">
+                    <a href="index.html" class="menu-item"><i class="fas fa-home"></i> Zurück zum Spiel</a>
+                    <a href="points.html" class="menu-item"><i class="fas fa-coins"></i> Punkte</a>
+                    <a href="help.html" class="menu-item"><i class="fas fa-question-circle"></i> Hilfe</a>
+                    <a href="faq.html" class="menu-item"><i class="fas fa-circle-question"></i> FAQ</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="settings-main">
+        <section class="settings-hero">
+            <i class="fas fa-cog settings-hero-icon"></i>
+            <h1>Einstellungen</h1>
+            <p>Stelle die App nach deinen Wünschen ein</p>
+        </section>
+        <div class="settings-grid">
+            <section class="settings-card">
+                <h2><i class="fas fa-palette"></i> Darstellung</h2>
+                <div class="settings-option-row">
+                    <span>Dark Mode</span>
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeCheck">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="settings-option-row">
+                    <span>Akzentfarbe</span>
+                    <input type="color" id="accentColorPicker" value="#339af0" aria-label="Akzentfarbe wählen">
+                </div>
+            </section>
+            <section class="settings-card">
+                <h2><i class="fas fa-bars"></i> Navigation</h2>
+                <div class="settings-option-row">
+                    <span>Bottom Navigation anzeigen</span>
+                    <label class="switch">
+                        <input type="checkbox" id="bottomNavEnabledCheck">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="settings-option-row">
+                    <span>Am Bildschirm fixiert</span>
+                    <label class="switch">
+                        <input type="checkbox" id="bottomNavFixedCheck">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </section>
+            <section class="settings-card">
+                <h2><i class="fas fa-gamepad"></i> Spieloptionen</h2>
+                <div class="settings-option-row">
+                    <span>Timer aktivieren</span>
+                    <label class="switch">
+                        <input type="checkbox" id="timerCheck">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="settings-option-row">
+                    <span>Tippfehler erlauben</span>
+                    <label class="switch">
+                        <input type="checkbox" id="typoCheck">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="settings-option-row">
+                    <span>Kostenpflichtige Tipps</span>
+                    <label class="switch">
+                        <input type="checkbox" id="paidHintsCheck">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </section>
+            <section class="settings-card easter-eggs-card">
+                <h2><i class="fas fa-egg"></i> Easter Eggs</h2>
+                <div class="easter-eggs-list" id="easterEggsList">
+                    <!-- Easter Eggs werden hier dynamisch angezeigt -->
+                </div>
+                <div class="easter-eggs-hint">
+                    <i class="fas fa-info-circle"></i> Tipp: Es gibt versteckte Überraschungen in der App!
+                </div>
+            </section>
+        </div>
+        <div class="settings-actions">
+            <button class="btn btn-primary" id="saveSettingsBtn"><i class="fas fa-save"></i> Einstellungen speichern</button>
+            <span class="save-feedback" id="settingsSaveFeedback" style="display:none;"><i class="fas fa-check-circle"></i> Gespeichert!</span>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
             <a href="index.html" class="navbar-brand">
                 <i class="fas fa-map-location-dot"></i> AUT Quiz
             </a>
