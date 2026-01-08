@@ -204,38 +204,6 @@
 							<option value="header">Im Header</option>
 						</select>
 					</section>
-				</div>
-			</div>
-			<div class="tab-panel" id="accessibility">
-				<div class="settings-card">
-					<section class="settings-section">
-						<h2><i class="fas fa-eye"></i> High Contrast</h2>
-						<label class="switch">
-							<input type="checkbox" id="contrast-toggle">
-							<span class="slider round"></span>
-						</label>
-						<span id="contrast-status">High Contrast ist aus</span>
-					</section>
-					<section class="settings-section">
-						<h2><i class="fas fa-mouse-pointer"></i> Reduzierte Bewegungen</h2>
-						<label class="switch">
-							<input type="checkbox" id="reduced-motion-toggle">
-							<span class="slider round"></span>
-						</label>
-						<span id="reduced-motion-status">Bewegungen sind normal</span>
-					</section>
-					<section class="settings-section">
-						<h2><i class="fas fa-volume-off"></i> Screen Reader</h2>
-						<label class="switch">
-							<input type="checkbox" id="screen-reader-toggle">
-							<span class="slider round"></span>
-						</label>
-						<span id="screen-reader-status">Screen Reader ist aus</span>
-					</section>
-				</div>
-			</div>
-			<div class="tab-panel" id="developer">
-				<div class="settings-card dev-tools-card">
 					<section class="settings-section">
 						<h2><i class="fas fa-tools"></i> Entwickler-Tools</h2>
 						
@@ -272,6 +240,102 @@
 							</button>
 						</div>
 						
+						<div id="devSaveFeedback" class="save-feedback" style="display: none;">
+							<i class="fas fa-check"></i> Einstellungen gespeichert!
+						</div>
+					</section>
+				</div>
+			</div>
+			<div class="tab-panel" id="accessibility">
+				<div class="settings-card">
+					<section class="settings-section">
+						<h2><i class="fas fa-eye"></i> High Contrast</h2>
+						<label class="switch">
+							<input type="checkbox" id="contrast-toggle">
+							<span class="slider round"></span>
+						</label>
+						<span id="contrast-status">High Contrast ist aus</span>
+					</section>
+					<section class="settings-section">
+						<h2><i class="fas fa-mouse-pointer"></i> Reduzierte Bewegungen</h2>
+						<label class="switch">
+							<input type="checkbox" id="reduced-motion-toggle">
+							<span class="slider round"></span>
+						</label>
+						<span id="reduced-motion-status">Bewegungen sind normal</span>
+					</section>
+					<section class="settings-section">
+						<h2><i class="fas fa-volume-off"></i> Screen Reader</h2>
+						<label class="switch">
+							<input type="checkbox" id="screen-reader-toggle">
+							<span class="slider round"></span>
+						</label>
+						<span id="screen-reader-status">Screen Reader ist aus</span>
+					</section>
+				</div>
+			</div>
+			<div class="tab-panel" id="developer">
+				<div class="settings-card dev-tools-card">
+					<section class="settings-section">
+						<h2><i class="fas fa-tools"></i> Entwickler-Tools</h2>
+
+						<div class="dev-option">
+							<label class="switch">
+								<input type="checkbox" id="footer-settings-toggle">
+								<span class="slider round"></span>
+							</label>
+							<span>Footer-Einstellungen anzeigen</span>
+						</div>
+
+						<div class="dev-option">
+							<label class="switch">
+								<input type="checkbox" id="resize-button-toggle">
+								<span class="slider round"></span>
+							</label>
+							<span>Resize-Button einblenden</span>
+						</div>
+
+						<div class="dev-option">
+							<label class="switch">
+								<input type="checkbox" id="hard-reload-button-toggle">
+								<span class="slider round"></span>
+							</label>
+							<span>Hard Reload Button anzeigen</span>
+						</div>
+
+						<div class="dev-option">
+							<label class="switch">
+								<input type="checkbox" id="debug-messages-toggle">
+								<span class="slider round"></span>
+							</label>
+							<span>Debug-Meldungen aktivieren</span>
+						</div>
+
+						<div id="debug-settings-container" style="display: none; margin-top: 1rem;">
+							<label for="debug-level-select">Debug-Level:</label>
+							<select id="debug-level-select">
+								<option value="error">Nur Fehler</option>
+								<option value="warn">Warnungen + Fehler</option>
+								<option value="info">Info + Warnungen + Fehler</option>
+								<option value="debug">Alle Debug-Meldungen</option>
+							</select>
+
+							<label class="switch" style="margin-top: 1rem;">
+								<input type="checkbox" id="debug-console-output-toggle">
+								<span class="slider round"></span>
+							</label>
+							<span>Konsole-Ausgabe aktivieren</span>
+						</div>
+
+						<div class="dev-actions">
+							<button id="devHardReloadBtn" class="dev-btn">
+								<i class="fas fa-broom"></i> Hard Reload & Cache leeren
+							</button>
+							<button id="devSaveSettings" class="dev-btn">
+								<i class="fas fa-save"></i> Einstellungen speichern
+							</button>
+						</div>
+
 						<div id="devSaveFeedback" class="save-feedback" style="display: none;">
 							<i class="fas fa-check"></i> Einstellungen gespeichert!
 						</div>
@@ -429,36 +493,72 @@
 	    updateNotificationStatus();
 	    notificationsToggle.addEventListener('change', updateNotificationStatus);
 
-	    // Entwickler-Tools
-	    // Timer Toggle
-	    const devTimerToggle = document.getElementById('devTimerEnabled');
-	    function updateDevTimerStatus() {
-	        const enabled = devTimerToggle.checked;
-	        localStorage.setItem('devTimerEnabled', enabled ? 'true' : 'false');
+	    // Neue Entwickler-Tools
+	    // Footer Settings Toggle
+	    const footerSettingsToggle = document.getElementById('footer-settings-toggle');
+	    function updateFooterSettingsStatus() {
+	        const enabled = footerSettingsToggle.checked;
+	        localStorage.setItem('footerSettingsEnabled', enabled ? 'true' : 'false');
+	        // Hier könnte Footer-Logik implementiert werden
 	    }
-	    devTimerToggle.checked = localStorage.getItem('devTimerEnabled') === 'true';
-	    updateDevTimerStatus();
-	    devTimerToggle.addEventListener('change', updateDevTimerStatus);
+	    footerSettingsToggle.checked = localStorage.getItem('footerSettingsEnabled') === 'true';
+	    updateFooterSettingsStatus();
+	    footerSettingsToggle.addEventListener('change', updateFooterSettingsStatus);
 
-	    // Typo Tolerance Toggle
-	    const typoToleranceToggle = document.getElementById('devTypoTolerance');
-	    function updateTypoToleranceStatus() {
-	        const enabled = typoToleranceToggle.checked;
-	        localStorage.setItem('typoToleranceEnabled', enabled ? 'true' : 'false');
+	    // Resize Button Toggle
+	    const resizeButtonToggle = document.getElementById('resize-button-toggle');
+	    function updateResizeButtonStatus() {
+	        const enabled = resizeButtonToggle.checked;
+	        localStorage.setItem('resizeButtonEnabled', enabled ? 'true' : 'false');
+	        // Hier könnte Resize-Button Logik implementiert werden
 	    }
-	    typoToleranceToggle.checked = localStorage.getItem('typoToleranceEnabled') === 'true';
-	    updateTypoToleranceStatus();
-	    typoToleranceToggle.addEventListener('change', updateTypoToleranceStatus);
+	    resizeButtonToggle.checked = localStorage.getItem('resizeButtonEnabled') === 'true';
+	    updateResizeButtonStatus();
+	    resizeButtonToggle.addEventListener('change', updateResizeButtonStatus);
 
-	    // Paid Hints Toggle
-	    const paidHintsToggle = document.getElementById('devPaidHints');
-	    function updatePaidHintsStatus() {
-	        const enabled = paidHintsToggle.checked;
-	        localStorage.setItem('paidHintsEnabled', enabled ? 'true' : 'false');
+	    // Hard Reload Button Toggle
+	    const hardReloadButtonToggle = document.getElementById('hard-reload-button-toggle');
+	    function updateHardReloadButtonStatus() {
+	        const enabled = hardReloadButtonToggle.checked;
+	        localStorage.setItem('hardReloadButtonEnabled', enabled ? 'true' : 'false');
+	        // Hier könnte Hard Reload Button Logik implementiert werden
 	    }
-	    paidHintsToggle.checked = localStorage.getItem('paidHintsEnabled') === 'true';
-	    updatePaidHintsStatus();
-	    paidHintsToggle.addEventListener('change', updatePaidHintsStatus);
+	    hardReloadButtonToggle.checked = localStorage.getItem('hardReloadButtonEnabled') === 'true';
+	    updateHardReloadButtonStatus();
+	    hardReloadButtonToggle.addEventListener('change', updateHardReloadButtonStatus);
+
+	    // Debug Messages Toggle
+	    const debugMessagesToggle = document.getElementById('debug-messages-toggle');
+	    const debugSettingsContainer = document.getElementById('debug-settings-container');
+	    function updateDebugMessagesStatus() {
+	        const enabled = debugMessagesToggle.checked;
+	        localStorage.setItem('debugMessagesEnabled', enabled ? 'true' : 'false');
+	        debugSettingsContainer.style.display = enabled ? 'block' : 'none';
+	    }
+	    debugMessagesToggle.checked = localStorage.getItem('debugMessagesEnabled') === 'true';
+	    updateDebugMessagesStatus();
+	    debugMessagesToggle.addEventListener('change', updateDebugMessagesStatus);
+
+	    // Debug Level Select
+	    const debugLevelSelect = document.getElementById('debug-level-select');
+	    function applyDebugLevel(level) {
+	        localStorage.setItem('debugLevel', level);
+	    }
+	    const savedDebugLevel = localStorage.getItem('debugLevel') || 'error';
+	    debugLevelSelect.value = savedDebugLevel;
+	    debugLevelSelect.addEventListener('change', (e) => {
+	        applyDebugLevel(e.target.value);
+	    });
+
+	    // Debug Console Output Toggle
+	    const debugConsoleOutputToggle = document.getElementById('debug-console-output-toggle');
+	    function updateDebugConsoleOutputStatus() {
+	        const enabled = debugConsoleOutputToggle.checked;
+	        localStorage.setItem('debugConsoleOutputEnabled', enabled ? 'true' : 'false');
+	    }
+	    debugConsoleOutputToggle.checked = localStorage.getItem('debugConsoleOutputEnabled') === 'true';
+	    updateDebugConsoleOutputStatus();
+	    debugConsoleOutputToggle.addEventListener('change', updateDebugConsoleOutputStatus);
 
 	    // Save Developer Settings
 	    const saveDevSettingsBtn = document.getElementById('devSaveSettings');
@@ -683,6 +783,37 @@
 	    balanceDisplaySelect.addEventListener('change', (e) => {
 	        applyBalanceDisplayMode(e.target.value);
 	    });
+
+	    // Entwickler-Tools (jetzt in Spieloptionen)
+	    // Timer Toggle
+	    const devTimerToggle = document.getElementById('devTimerEnabled');
+	    function updateDevTimerStatus() {
+	        const enabled = devTimerToggle.checked;
+	        localStorage.setItem('devTimerEnabled', enabled ? 'true' : 'false');
+	    }
+	    devTimerToggle.checked = localStorage.getItem('devTimerEnabled') === 'true';
+	    updateDevTimerStatus();
+	    devTimerToggle.addEventListener('change', updateDevTimerStatus);
+
+	    // Typo Tolerance Toggle
+	    const typoToleranceToggle = document.getElementById('devTypoTolerance');
+	    function updateTypoToleranceStatus() {
+	        const enabled = typoToleranceToggle.checked;
+	        localStorage.setItem('typoToleranceEnabled', enabled ? 'true' : 'false');
+	    }
+	    typoToleranceToggle.checked = localStorage.getItem('typoToleranceEnabled') === 'true';
+	    updateTypoToleranceStatus();
+	    typoToleranceToggle.addEventListener('change', updateTypoToleranceStatus);
+
+	    // Paid Hints Toggle
+	    const paidHintsToggle = document.getElementById('devPaidHints');
+	    function updatePaidHintsStatus() {
+	        const enabled = paidHintsToggle.checked;
+	        localStorage.setItem('paidHintsEnabled', enabled ? 'true' : 'false');
+	    }
+	    paidHintsToggle.checked = localStorage.getItem('paidHintsEnabled') === 'true';
+	    updatePaidHintsStatus();
+	    paidHintsToggle.addEventListener('change', updatePaidHintsStatus);
 
 
 
