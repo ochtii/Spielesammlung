@@ -134,9 +134,12 @@ const capitalsData = [
  * Bundesländer-Wappen aus neuer Datenbank
  */
 function getCoatOfArms(name) {
-    if (typeof austrianCoatsOfArms !== 'undefined') {
+    if (typeof austrianCoatsOfArms !== 'undefined' && typeof coatsOfArmsHelpers !== 'undefined') {
         const coat = coatsOfArmsHelpers.findByName(name);
-        return coat ? coat.wappen : null;
+        if (coat && coat.wappen) {
+            // Wappen kann ein Array sein - nimm die erste URL
+            return Array.isArray(coat.wappen) ? coat.wappen[0] : coat.wappen;
+        }
     }
     return null;
 }
@@ -1563,7 +1566,17 @@ class AustriaQuiz {
                 return isInputMode || q.type === 'population' === false;
             case 'coat':
                 // Nur bei Kennzeichen oder Hauptstädten mit verfügbarem Wappen
-                return (q.type === 'license-plates' || (q.type === 'capitals' && stateCoats[q.state])) && q.state;
+                // Prüfe dynamisch ob Wappen verfügbar ist
+                if (!q.state) return false;
+                if (q.type !== 'license-plates' && q.type !== 'capitals') return false;
+                
+                // Prüfe ob Wappen vorhanden (statisch oder dynamisch)
+                let hasCoat = !!stateCoats[q.state];
+                if (!hasCoat && typeof coatsOfArmsHelpers !== 'undefined') {
+                    const coatData = coatsOfArmsHelpers.findByName(q.state);
+                    hasCoat = coatData && coatData.wappen;
+                }
+                return hasCoat;
             default:
                 return false;
         }
@@ -1598,9 +1611,16 @@ class AustriaQuiz {
                 hintText = `Länge: Die Antwort hat <strong>${q.answer.length}</strong> Buchstaben.`;
                 break;
             case 'coat':
-                const coat = stateCoats[q.state] || '';
+                // Wappen dynamisch aus coatsOfArmsHelpers holen
+                let coat = stateCoats[q.state] || '';
+                if (!coat && typeof coatsOfArmsHelpers !== 'undefined') {
+                    const coatData = coatsOfArmsHelpers.findByName(q.state);
+                    if (coatData && coatData.wappen) {
+                        coat = Array.isArray(coatData.wappen) ? coatData.wappen[0] : coatData.wappen;
+                    }
+                }
                 if (coat) {
-                    hintText = `Wappen: <div style="margin: 0.5rem 0;"><img src="${coat}" alt="Wappen ${q.state}" class="coat-display"></div><strong>${q.state}</strong>`;
+                    hintText = `Wappen: <div style="margin: 0.5rem 0;"><img src="${coat}" alt="Wappen ${q.state}" class="coat-display" onerror="this.style.display='none'"></div><strong>${q.state}</strong>`;
                 } else {
                     hintText = `Bundesland: <strong>${q.state}</strong>`;
                 }
