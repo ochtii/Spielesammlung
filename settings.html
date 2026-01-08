@@ -4,378 +4,162 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Einstellungen - AUT Quiz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
+<body data-page="settings">
+    <!-- Navbar -->
     <nav class="navbar">
-        <div class="navbar-content">
-            <a href="index.html" class="navbar-brand">
-                <i class="fas fa-map-location-dot"></i> AUT Quiz
-            </a>
-            <div class="navbar-menu">
-                <button class="menu-toggle" id="menuToggle" aria-label="Menü" type="button">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="menu-dropdown" id="menuDropdown">
-                    <a href="index.html" class="menu-item">
-                        <i class="fas fa-home"></i> Zurück zum Spiel
-                    </a>
-                    <a href="points.html" class="menu-item">
-                        <i class="fas fa-coins"></i> Punkte: <span id="menuPointsDisplay">0</span>
-                    </a>
-                    <a href="help.html" class="menu-item">
-                        <i class="fas fa-question-circle"></i> Hilfe
-                    </a>
-                    <a href="faq.html" class="menu-item">
-                        <i class="fas fa-circle-question"></i> FAQ
-                    </a>
-                    <a href="stats.html" class="menu-item">
-                        <i class="fas fa-chart-bar"></i> Statistik
-                    </a>
-                </div>
+        <a href="index.html" class="navbar-brand">
+            <i class="fas fa-flag"></i>
+            AUT Quiz
+        </a>
+        <div class="navbar-spacer"></div>
+        <div class="navbar-actions">
+            <button class="menu-toggle" id="menuToggle" aria-label="Menü" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="menu-dropdown" id="menuDropdown">
+                <a href="index.html" class="menu-item">
+                    <i class="fas fa-home"></i> Startseite
+                </a>
+                <a href="points.html" class="menu-item">
+                    <i class="fas fa-coins"></i> Punkte
+                </a>
+                <a href="stats.html" class="menu-item">
+                    <i class="fas fa-chart-bar"></i> Statistik
+                </a>
+                <div class="menu-divider"></div>
+                <a href="settings.html" class="menu-item">
+                    <i class="fas fa-cog"></i> Einstellungen
+                </a>
+                <a href="help.html" class="menu-item">
+                    <i class="fas fa-question-circle"></i> Hilfe
+                </a>
             </div>
         </div>
     </nav>
 
-    <main class="container">
-        <h1 class="settings-title"><i class="fas fa-cog"></i> Einstellungen</h1>
-        
-        <div class="settings-tabs">
-            <button class="tab-btn active" data-tab="general">Allgemein</button>
-            <button class="tab-btn" data-tab="appearance">Erscheinung</button>
-            <button class="tab-btn" data-tab="game">Spieloptionen</button>
-            <button class="tab-btn" data-tab="accessibility">Barrierefreiheit</button>
-            <button class="tab-btn" data-tab="developer">Entwickler</button>
-            <button class="tab-btn danger-tab" data-tab="danger">⚠️ Gefahrenzone</button>
+    <!-- Main Content -->
+    <main class="container page">
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-cog"></i> Einstellungen
+            </h1>
         </div>
 
-        <div class="settings-content">
-            <!-- General Tab -->
-            <div class="tab-panel active" id="general">
-                <div class="settings-card">
-                    <section class="settings-section">
-                        <h2><i class="fas fa-language"></i> Sprache</h2>
-                        <label for="language-select">Sprache wählen:</label>
-                        <select id="language-select">
-                            <option value="de">Deutsch</option>
-                            <option value="en">English</option>
-                        </select>
-                    </section>
-
-                    <section class="settings-section">
-                        <h2><i class="fas fa-volume-up"></i> Sound</h2>
-                        <label class="switch">
-                            <input type="checkbox" id="sound-toggle">
-                            <span class="slider round"></span>
-                        </label>
-                        <span id="sound-status">Sound ist aus</span>
-                    </section>
-
-                    <section class="settings-section">
-                        <h2><i class="fas fa-bell"></i> Benachrichtigungen</h2>
-                        <label class="switch">
-                            <input type="checkbox" id="notifications-toggle">
-                            <span class="slider round"></span>
-                        </label>
-                        <span id="notifications-status">Benachrichtigungen sind aus</span>
-                    </section>
-                </div>
+        <!-- Appearance -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="card-title">Darstellung</h3>
             </div>
 
-            <!-- Appearance Tab -->
-            <div class="tab-panel" id="appearance">
-                <div class="settings-card">
-                    <section class="settings-section">
-                        <h2><i class="fas fa-palette"></i> Design</h2>
-                        <label for="theme-select">Farbschema:</label>
-                        <select id="theme-select">
-                            <option value="light">Hell</option>
-                            <option value="dark">Dunkel</option>
-                            <option value="auto">Automatisch</option>
-                        </select>
-                    </section>
-
-                    <section class="settings-section">
-                        <h2><i class="fas fa-paint-brush"></i> Akzentfarbe</h2>
-                        <label for="accent-color-picker">Akzentfarbe wählen:</label>
-                        <input type="color" id="accent-color-picker" value="#ed2939">
-                        <div class="color-preview">
-                            <span>Diese Farbe wird für Buttons und Hervorhebungen verwendet.</span>
-                        </div>
-                    </section>
-
-                    <section class="settings-section">
-                        <h2><i class="fas fa-font"></i> Schriftgröße</h2>
-                        <label for="font-size-slider">Schriftgröße: <span id="font-size-value">100%</span></label>
-                        <input type="range" id="font-size-slider" min="80" max="150" step="5" value="100">
-                        <div class="slider-info">
-                            <span>80%</span>
-                            <span>100%</span>
-                            <span>150%</span>
-                        </div>
-                    </section>
-
-                    <section class="settings-section">
-                        <h2><i class="fas fa-magic"></i> Animationen</h2>
-                        <label class="switch">
-                            <input type="checkbox" id="animations-toggle" checked>
-                            <span class="slider round"></span>
-                        </label>
-                        <span id="animations-status">Animationen sind an</span>
-                    </section>
-
-                    <section class="settings-section">
-                        <h2><i class="fas fa-mobile-alt"></i> Bottom Navigation</h2>
-                        <div class="sub-section">
-                            <label class="switch">
-                                <input type="checkbox" id="bottom-nav-enabled-toggle" checked>
-                                <span class="slider round"></span>
-                            </label>
-                            <span id="bottom-nav-enabled-status">Bottom Navigation ist an</span>
-                        </div>
-                        <div id="bottom-nav-elements-container" class="hidden">
-                            <label>Anzuzeigende Elemente:</label>
-                            <div class="checkbox-group">
-                                <label class="checkbox-item">
-                                    <input type="checkbox" id="bottom-nav-home-toggle" checked>
-                                    <span class="checkmark"></span>
-                                    Startseite
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" id="bottom-nav-points-toggle" checked>
-                                    <span class="checkmark"></span>
-                                    Punkte
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" id="bottom-nav-help-toggle" checked>
-                                    <span class="checkmark"></span>
-                                    Hilfe
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" id="bottom-nav-faq-toggle">
-                                    <span class="checkmark"></span>
-                                    FAQ
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" id="bottom-nav-settings-toggle" checked>
-                                    <span class="checkmark"></span>
-                                    Einstellungen
-                                </label>
-                            </div>
-                        </div>
-                    </section>
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-label">Theme</div>
+                    <div class="setting-desc">Wähle das Farbschema</div>
                 </div>
+                <select id="themeSelect" class="form-select" style="width: auto;">
+                    <option value="light">Hell</option>
+                    <option value="dark">Dunkel</option>
+                    <option value="auto">Automatisch</option>
+                </select>
             </div>
 
-            <!-- Game Tab -->
-            <div class="tab-panel" id="game">
-                <div class="settings-card">
-                    <section class="settings-section">
-                        <h2><i class="fas fa-clock"></i> Timer</h2>
-                        <label class="switch">
-                            <input type="checkbox" id="timer-enabled-toggle">
-                            <span class="slider round"></span>
-                        </label>
-                        <span id="timer-enabled-status">Timer ist aus</span>
-                        <div id="timer-duration-container" class="hidden">
-                            <label for="timer-duration-select">Timer-Dauer (Sekunden):</label>
-                            <select id="timer-duration-select">
-                                <option value="15">15</option>
-                                <option value="30" selected>30</option>
-                                <option value="45">45</option>
-                                <option value="60">60</option>
-                            </select>
-                        </div>
-                        <div id="timer-visual-container" class="hidden">
-                            <label class="switch">
-                                <input type="checkbox" id="timer-visual-toggle" checked>
-                                <span class="slider round"></span>
-                            </label>
-                            <span id="timer-visual-status">Visueller Timer ist an</span>
-                        </div>
-                    </section>
-
-                    <section class="settings-section">
-                        <h2><i class="fas fa-map-marker-alt"></i> Hauptstadt-Modus</h2>
-                        <label for="capital-mode-select">Standard-Modus:</label>
-                        <select id="capital-mode-select">
-                            <option value="all">Alle Hauptstädte</option>
-                            <option value="federal">Bundesländer-Hauptstädte</option>
-                            <option value="district">Bezirkshauptstädte</option>
-                        </select>
-                    </section>
-
-                    <section class="settings-section">
-                        <h2><i class="fas fa-coins"></i> Punkte-Anzeige</h2>
-                        <label for="balance-display-select">Anzeige-Modus:</label>
-                        <select id="balance-display-select">
-                            <option value="widget">Widget</option>
-                            <option value="header">Im Header</option>
-                        </select>
-                    </section>
-
-                    <section class="settings-section">
-                        <h2><i class="fas fa-keyboard"></i> Tippfehler-Toleranz</h2>
-                        <label class="switch">
-                            <input type="checkbox" id="typo-tolerance-toggle" checked>
-                            <span class="slider round"></span>
-                        </label>
-                        <span id="typo-tolerance-status">Tippfehler-Toleranz ist an</span>
-                    </section>
-
-                    <section class="settings-section">
-                        <h2><i class="fas fa-money-bill"></i> Kostenpflichtige Tipps</h2>
-                        <label class="switch">
-                            <input type="checkbox" id="paid-hints-toggle">
-                            <span class="slider round"></span>
-                        </label>
-                        <span id="paid-hints-status">Tipps sind kostenlos</span>
-                    </section>
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-label">Schriftgröße</div>
+                    <div class="setting-desc">Passe die Textgröße an</div>
                 </div>
+                <select id="fontScaleSelect" class="form-select" style="width: auto;">
+                    <option value="0.875">Klein</option>
+                    <option value="1">Normal</option>
+                    <option value="1.125">Groß</option>
+                </select>
             </div>
 
-            <!-- Accessibility Tab -->
-            <div class="tab-panel" id="accessibility">
-                <div class="settings-card">
-                    <section class="settings-section">
-                        <h2><i class="fas fa-eye"></i> High Contrast</h2>
-                        <label class="switch">
-                            <input type="checkbox" id="contrast-toggle">
-                            <span class="slider round"></span>
-                        </label>
-                        <span id="contrast-status">High Contrast ist aus</span>
-                    </section>
-
-                    <section class="settings-section">
-                        <h2><i class="fas fa-mouse-pointer"></i> Reduzierte Bewegungen</h2>
-                        <label class="switch">
-                            <input type="checkbox" id="reduced-motion-toggle">
-                            <span class="slider round"></span>
-                        </label>
-                        <span id="reduced-motion-status">Bewegungen sind normal</span>
-                    </section>
-
-                    <section class="settings-section">
-                        <h2><i class="fas fa-volume-off"></i> Screen Reader</h2>
-                        <label class="switch">
-                            <input type="checkbox" id="screen-reader-toggle">
-                            <span class="slider round"></span>
-                        </label>
-                        <span id="screen-reader-status">Screen Reader ist aus</span>
-                    </section>
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-label">Akzentfarbe</div>
+                    <div class="setting-desc">Primärfarbe der App</div>
                 </div>
+                <input type="color" id="accentColor" class="color-picker" value="#ed2939">
+            </div>
+        </div>
+
+        <!-- Data -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="card-title">Daten</h3>
             </div>
 
-            <!-- Developer Tab -->
-            <div class="tab-panel" id="developer">
-                <div class="settings-card dev-tools-card">
-                    <section class="settings-section">
-                        <h2><i class="fas fa-tools"></i> Entwickler-Tools</h2>
-
-                        <div class="dev-option">
-                            <label class="switch">
-                                <input type="checkbox" id="footer-settings-toggle">
-                                <span class="slider round"></span>
-                            </label>
-                            <span>Footer-Einstellungen anzeigen</span>
-                        </div>
-
-                        <div class="dev-option">
-                            <label class="switch">
-                                <input type="checkbox" id="resize-button-toggle">
-                                <span class="slider round"></span>
-                            </label>
-                            <span>Resize-Button einblenden</span>
-                        </div>
-
-                        <div class="dev-option">
-                            <label class="switch">
-                                <input type="checkbox" id="hard-reload-button-toggle">
-                                <span class="slider round"></span>
-                            </label>
-                            <span>Hard-Reload-Button anzeigen</span>
-                        </div>
-
-                        <div class="dev-option">
-                            <label class="switch">
-                                <input type="checkbox" id="debug-messages-toggle">
-                                <span class="slider round"></span>
-                            </label>
-                            <span>Debug-Meldungen aktivieren</span>
-                        </div>
-
-                        <div class="dev-actions">
-                            <button id="devHardReloadBtn" class="dev-btn">
-                                <i class="fas fa-broom"></i> Hard Reload & Cache leeren
-                            </button>
-                            <button id="devSaveSettings" class="dev-btn">
-                                <i class="fas fa-save"></i> Einstellungen speichern
-                            </button>
-                        </div>
-
-                        <div id="devSaveFeedback" class="save-feedback hidden">
-                            <i class="fas fa-check"></i> Einstellungen gespeichert!
-                        </div>
-                    </section>
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-label">Alle Daten löschen</div>
+                    <div class="setting-desc">Punkte, Statistiken und Einstellungen zurücksetzen</div>
                 </div>
+                <button id="resetBtn" class="btn btn-error btn-sm">
+                    <i class="fas fa-trash"></i> Zurücksetzen
+                </button>
             </div>
+        </div>
 
-            <!-- Danger Zone Tab -->
-            <div class="tab-panel" id="danger">
-                <div class="settings-card danger-card">
-                    <section class="settings-section">
-                        <h2><i class="fas fa-exclamation-triangle"></i> Gefahrenzone</h2>
-                        <p class="danger-warning">Achtung: Diese Aktionen können nicht rückgängig gemacht werden!</p>
-
-                        <div class="danger-actions">
-                            <button id="resetProgressBtn" class="btn btn-danger">
-                                <i class="fas fa-undo"></i> Fortschritt zurücksetzen
-                            </button>
-                            <button id="resetSettingsBtn" class="btn btn-danger">
-                                <i class="fas fa-cog"></i> Einstellungen zurücksetzen
-                            </button>
-                            <button id="resetAllBtn" class="btn btn-danger-full">
-                                <i class="fas fa-trash"></i> Alle Daten löschen
-                            </button>
-                        </div>
-                    </section>
+        <!-- About -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Über</h3>
+            </div>
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-label">Version</div>
                 </div>
+                <span class="text-secondary">1.0.0</span>
+            </div>
+            <div class="flex gap-2 mt-4">
+                <a href="help.html" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-question-circle"></i> Hilfe
+                </a>
+                <a href="impressum.html" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-info-circle"></i> Impressum
+                </a>
             </div>
         </div>
     </main>
 
+    <!-- Bottom Navigation -->
     <nav class="bottom-nav" id="bottomNav">
-        <div class="bottom-nav-content">
-            <a href="index.html" class="bottom-nav-item" data-nav="home">
-                <i class="fas fa-home"></i>
-                <span>Spiel</span>
-            </a>
-            <a href="points.html" class="bottom-nav-item" data-nav="points">
-                <i class="fas fa-coins"></i>
-                <span>Punkte</span>
-                <span class="bottom-nav-badge" id="bottomNavPoints">0</span>
-            </a>
-            <a href="help.html" class="bottom-nav-item" data-nav="help">
-                <i class="fas fa-question-circle"></i>
-                <span>Hilfe</span>
-            </a>
-            <a href="faq.html" class="bottom-nav-item" data-nav="faq">
-                <i class="fas fa-circle-question"></i>
-                <span>FAQ</span>
-            </a>
-            <a href="settings.html" class="bottom-nav-item current" data-nav="settings">
-                <i class="fas fa-cog"></i>
-                <span>Einstellungen</span>
-            </a>
-        </div>
+        <a href="index.html" class="bottom-nav-item">
+            <i class="fas fa-home"></i>
+            <span>Spiel</span>
+        </a>
+        <a href="points.html" class="bottom-nav-item">
+            <i class="fas fa-coins"></i>
+            <span>Punkte</span>
+        </a>
+        <a href="stats.html" class="bottom-nav-item">
+            <i class="fas fa-chart-bar"></i>
+            <span>Statistik</span>
+        </a>
+        <a href="settings.html" class="bottom-nav-item active">
+            <i class="fas fa-cog"></i>
+            <span>Einstellungen</span>
+        </a>
     </nav>
 
-    <div id="footer-container"></div>
-
-    <script src="components/common.js"></script>
-    <script src="components/footer.js"></script>
-    <script src="components/settings.js"></script>
+    <!-- Scripts -->
+    <script src="js/core/storage.js"></script>
+    <script src="js/core/events.js"></script>
+    <script src="js/core/theme.js"></script>
+    <script src="js/components/toast.js"></script>
+    <script src="js/components/navbar.js"></script>
+    <script src="js/components/bottom-nav.js"></script>
+    <script src="js/games/GameEngine.js"></script>
+    <script src="js/games/QuizGame.js"></script>
+    <script src="js/games/registry.js"></script>
+    <script src="js/data/austria.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

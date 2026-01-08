@@ -1,0 +1,350 @@
+/* ===========================================
+   Pages CSS - Specific Page Styles
+   =========================================== */
+
+/* Page Header */
+.page-header {
+    margin-bottom: var(--spacing-6);
+}
+
+.page-title {
+    font-size: var(--font-2xl);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-3);
+}
+
+.page-title i {
+    color: var(--accent-color);
+}
+
+/* Section Title */
+.section-title {
+    font-size: var(--font-lg);
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-4);
+    padding-bottom: var(--spacing-2);
+    border-bottom: 2px solid var(--border-color);
+}
+
+/* Stats Cards */
+.stat-card {
+    text-align: center;
+    padding: var(--spacing-4);
+}
+
+.stat-value {
+    font-size: var(--font-2xl);
+    font-weight: var(--font-bold);
+    color: var(--accent-color);
+    line-height: 1.2;
+}
+
+.stat-label {
+    font-size: var(--font-sm);
+    color: var(--text-muted);
+    margin-top: var(--spacing-1);
+}
+
+/* Card Icon */
+.card-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--accent-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-2xl);
+    color: var(--accent-color);
+    margin-bottom: var(--spacing-3);
+}
+
+/* Lists */
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list li {
+    padding: var(--spacing-2) 0;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    color: var(--text-secondary);
+}
+
+.list li i {
+    width: 20px;
+    text-align: center;
+}
+
+/* Tech Badges */
+.tech-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+}
+
+.badge {
+    display: inline-block;
+    padding: var(--spacing-1) var(--spacing-3);
+    background: var(--accent-bg);
+    color: var(--accent-color);
+    border-radius: var(--radius-full);
+    font-size: var(--font-sm);
+    font-weight: var(--font-medium);
+}
+
+/* Game Stats List */
+.game-stats-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+}
+
+.game-stat-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-3) var(--spacing-4);
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+}
+
+.game-stat-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+}
+
+.game-stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    background: var(--accent-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-color);
+}
+
+.game-stat-name {
+    font-weight: var(--font-medium);
+    color: var(--text-primary);
+}
+
+.game-stat-plays {
+    font-size: var(--font-sm);
+    color: var(--text-muted);
+}
+
+.game-stat-accuracy {
+    font-weight: var(--font-semibold);
+    color: var(--accent-color);
+}
+
+/* Recent Games List */
+.recent-games-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+}
+
+.recent-game-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-3) var(--spacing-4);
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+}
+
+.recent-game-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+}
+
+.recent-game-name {
+    font-weight: var(--font-medium);
+    color: var(--text-primary);
+}
+
+.recent-game-date {
+    font-size: var(--font-sm);
+    color: var(--text-muted);
+}
+
+.recent-game-score {
+    text-align: right;
+}
+
+.recent-game-points {
+    font-weight: var(--font-semibold);
+    color: var(--accent-color);
+}
+
+.recent-game-result {
+    font-size: var(--font-sm);
+    color: var(--text-muted);
+}
+
+/* Settings specific styles */
+.settings-section {
+    margin-bottom: var(--spacing-6);
+}
+
+.settings-group {
+    margin-bottom: var(--spacing-4);
+}
+
+.settings-label {
+    display: block;
+    font-weight: var(--font-medium);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-2);
+}
+
+.settings-description {
+    font-size: var(--font-sm);
+    color: var(--text-muted);
+    margin-top: var(--spacing-1);
+}
+
+/* Button Group */
+.btn-group {
+    display: flex;
+    gap: var(--spacing-2);
+    flex-wrap: wrap;
+}
+
+.btn-group .btn {
+    flex: 1;
+    min-width: 80px;
+}
+
+.btn-group .btn.active {
+    background: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
+/* Color Options */
+.color-options {
+    display: flex;
+    gap: var(--spacing-3);
+    flex-wrap: wrap;
+}
+
+.color-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.color-option.active {
+    border-color: var(--text-primary);
+}
+
+.color-option.active::after {
+    content: '✓';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Accent Colors */
+.color-option[data-color="blue"] { background: #3b82f6; }
+.color-option[data-color="green"] { background: #22c55e; }
+.color-option[data-color="purple"] { background: #a855f7; }
+.color-option[data-color="orange"] { background: #f97316; }
+.color-option[data-color="pink"] { background: #ec4899; }
+.color-option[data-color="teal"] { background: #14b8a6; }
+.color-option[data-color="red"] { background: #ef4444; }
+.color-option[data-color="yellow"] { background: #eab308; }
+
+/* Setting Items */
+.setting-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-4);
+    padding: var(--spacing-3) 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+.setting-info {
+    flex: 1;
+}
+
+.setting-label {
+    font-weight: var(--font-medium);
+    color: var(--text-primary);
+}
+
+.setting-desc {
+    font-size: var(--font-sm);
+    color: var(--text-muted);
+    margin-top: var(--spacing-1);
+}
+
+/* Color Picker */
+.color-picker {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    background: transparent;
+}
+
+.color-picker::-webkit-color-swatch-wrapper {
+    padding: 4px;
+}
+
+.color-picker::-webkit-color-swatch {
+    border-radius: var(--radius-sm);
+    border: none;
+}
+
+/* Card Header */
+.card-header {
+    padding-bottom: var(--spacing-3);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-3);
+}
+
+.card-header .card-title {
+    margin: 0;
+}
+
+/* Utility: Text Center for Page Title */
+.page-header.text-center .page-title {
+    justify-content: center;
+}

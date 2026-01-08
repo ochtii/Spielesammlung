@@ -3,228 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUT Quiz - Statistik</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Statistik - AUT Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
+<body data-page="stats">
+    <!-- Navbar -->
     <nav class="navbar">
-        <div class="navbar-content">
-            <a href="index.html" class="navbar-brand">
-                <i class="fas fa-map-location-dot"></i> AUT Quiz
-            </a>
-            <div class="navbar-menu">
-                <button class="menu-toggle" id="menuToggle" aria-label="Menü" type="button">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="menu-dropdown" id="menuDropdown">
-                    <a href="index.html" class="menu-item">
-                        <i class="fas fa-home"></i> Zurück zum Spiel
-                    </a>
-                    <a href="points.html" class="menu-item">
-                        <i class="fas fa-coins"></i> Punkte
-                    </a>
-                    <a href="help.html" class="menu-item">
-                        <i class="fas fa-question-circle"></i> Hilfe
-                    </a>
-                    <a href="settings.html" class="menu-item">
-                        <i class="fas fa-cog"></i> Einstellungen
-                    </a>
-                </div>
+        <a href="index.html" class="navbar-brand">
+            <i class="fas fa-flag"></i>
+            AUT Quiz
+        </a>
+        <div class="navbar-spacer"></div>
+        <div class="navbar-actions">
+            <button class="menu-toggle" id="menuToggle" aria-label="Menü" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="menu-dropdown" id="menuDropdown">
+                <a href="index.html" class="menu-item">
+                    <i class="fas fa-home"></i> Startseite
+                </a>
+                <a href="points.html" class="menu-item">
+                    <i class="fas fa-coins"></i> Punkte
+                </a>
+                <a href="stats.html" class="menu-item">
+                    <i class="fas fa-chart-bar"></i> Statistik
+                </a>
+                <div class="menu-divider"></div>
+                <a href="settings.html" class="menu-item">
+                    <i class="fas fa-cog"></i> Einstellungen
+                </a>
             </div>
         </div>
     </nav>
 
-    <main class="container stats-container">
-        <div class="stats-header">
-            <div class="stats-header-icon">
-                <i class="fas fa-chart-line"></i>
-            </div>
-            <h1>Deine Statistik</h1>
-            <p>Detaillierte Übersicht deiner Spielergebnisse</p>
+    <!-- Main Content -->
+    <main class="container page">
+        <div class="page-header text-center">
+            <h1 class="page-title">
+                <i class="fas fa-chart-bar"></i> Statistik
+            </h1>
         </div>
 
-        <div class="stats-overview">
-            <div class="overview-card total-games">
-                <div class="overview-icon">
-                    <i class="fas fa-gamepad"></i>
+        <!-- Overview Stats -->
+        <section class="mb-4">
+            <h2 class="section-title">Übersicht</h2>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="card stat-card">
+                    <div class="stat-value" id="totalGames">0</div>
+                    <div class="stat-label">Gesamt Spiele</div>
                 </div>
-                <div class="overview-content">
-                    <span class="overview-value" id="totalGames">0</span>
-                    <span class="overview-label">Spiele gesamt</span>
+                <div class="card stat-card">
+                    <div class="stat-value" id="totalQuestions">0</div>
+                    <div class="stat-label">Fragen beantwortet</div>
                 </div>
-            </div>
-            <div class="overview-card total-rounds">
-                <div class="overview-icon">
-                    <i class="fas fa-circle-play"></i>
+                <div class="card stat-card">
+                    <div class="stat-value" id="correctAnswers">0</div>
+                    <div class="stat-label">Richtige Antworten</div>
                 </div>
-                <div class="overview-content">
-                    <span class="overview-value" id="totalRounds">0</span>
-                    <span class="overview-label">Runden gespielt</span>
-                </div>
-            </div>
-            <div class="overview-card correct-answers">
-                <div class="overview-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <div class="overview-content">
-                    <span class="overview-value" id="totalCorrect">0</span>
-                    <span class="overview-label">Richtige Antworten</span>
+                <div class="card stat-card">
+                    <div class="stat-value" id="wrongAnswers">0</div>
+                    <div class="stat-label">Falsche Antworten</div>
                 </div>
             </div>
-            <div class="overview-card wrong-answers">
-                <div class="overview-icon">
-                    <i class="fas fa-times-circle"></i>
-                </div>
-                <div class="overview-content">
-                    <span class="overview-value" id="totalWrong">0</span>
-                    <span class="overview-label">Falsche Antworten</span>
-                </div>
-            </div>
-        </div>
+        </section>
 
-        <div class="stats-card success-rate-card">
-            <h3><i class="fas fa-percentage"></i> Erfolgsquote</h3>
-            <div class="success-rate-display">
-                <div class="rate-circle" id="rateCircle">
-                    <svg viewBox="0 0 100 100">
-                        <circle class="rate-bg" cx="50" cy="50" r="45"></circle>
-                        <circle class="rate-progress" id="rateProgress" cx="50" cy="50" r="45" 
-                            stroke-dasharray="283" stroke-dashoffset="283"></circle>
-                    </svg>
-                    <div class="rate-text">
-                        <span class="rate-value" id="successRate">0</span>
-                        <span class="rate-percent">%</span>
-                    </div>
-                </div>
-                <div class="rate-details">
-                    <div class="rate-item correct">
-                        <span class="rate-item-label">Richtig</span>
-                        <span class="rate-item-value" id="correctPercent">0%</span>
-                    </div>
-                    <div class="rate-item wrong">
-                        <span class="rate-item-label">Falsch</span>
-                        <span class="rate-item-value" id="wrongPercent">0%</span>
-                    </div>
-                    <div class="rate-item streak">
-                        <span class="rate-item-label">Beste Serie</span>
-                        <span class="rate-item-value" id="bestStreak">0</span>
-                    </div>
-                    <div class="rate-item current-streak">
-                        <span class="rate-item-label">Aktuelle Serie</span>
-                        <span class="rate-item-value" id="currentStreak">0</span>
-                    </div>
-                </div>
+        <!-- Game Type Stats -->
+        <section class="mb-4" id="gameTypesSection">
+            <h2 class="section-title">Nach Spieltyp</h2>
+            <div class="game-stats-list" id="gameTypesList">
+                <!-- Dynamically filled -->
             </div>
-        </div>
+        </section>
 
-        <div class="stats-card game-stats-card">
-            <h3><i class="fas fa-trophy"></i> Statistik nach Spielmodus</h3>
-            <div class="game-stats-tabs">
-                <button class="game-tab active" data-game="all">Alle</button>
-                <button class="game-tab" data-game="license-plates">Kennzeichen</button>
-                <button class="game-tab" data-game="capitals">Hauptstädte</button>
-                <button class="game-tab" data-game="world-capitals">Welt</button>
-                <button class="game-tab" data-game="population">Einwohner</button>
+        <!-- Recent Games -->
+        <section class="mb-4" id="recentGamesSection">
+            <h2 class="section-title">Letzte Spiele</h2>
+            <div class="recent-games-list" id="recentGamesList">
+                <!-- Dynamically filled -->
             </div>
-            <div class="game-stats-content" id="gameStatsContent"></div>
-        </div>
+            <p class="text-muted text-center mt-2" id="noRecentGames" style="display: none;">
+                Noch keine Spiele gespielt.
+            </p>
+        </section>
 
-        <div class="stats-charts">
-            <div class="stats-card chart-card">
-                <h3><i class="fas fa-chart-pie"></i> Verteilung nach Spielmodus</h3>
-                <div class="chart-container">
-                    <canvas id="gameDistributionChart"></canvas>
-                </div>
-            </div>
-            <div class="stats-card chart-card">
-                <h3><i class="fas fa-chart-bar"></i> Letzte 7 Tage</h3>
-                <div class="chart-container">
-                    <canvas id="weeklyChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="stats-card activity-card">
-            <h3><i class="fas fa-history"></i> Letzte Aktivitäten</h3>
-            <div class="activity-list" id="activityList"></div>
-            <div class="activity-empty hidden" id="activityEmpty">
-                <i class="fas fa-inbox"></i>
-                <p>Noch keine Aktivitäten vorhanden</p>
-            </div>
-        </div>
-
-        <div class="stats-card records-card">
-            <h3><i class="fas fa-medal"></i> Persönliche Bestleistungen</h3>
-            <div class="records-grid">
-                <div class="record-item">
-                    <div class="record-icon"><i class="fas fa-star"></i></div>
-                    <div class="record-content">
-                        <span class="record-value" id="highestScore">0</span>
-                        <span class="record-label">Höchste Punktzahl</span>
-                    </div>
-                </div>
-                <div class="record-item">
-                    <div class="record-icon"><i class="fas fa-fire"></i></div>
-                    <div class="record-content">
-                        <span class="record-value" id="longestStreak">0</span>
-                        <span class="record-label">Längste Serie</span>
-                    </div>
-                </div>
-                <div class="record-item">
-                    <div class="record-icon"><i class="fas fa-bolt"></i></div>
-                    <div class="record-content">
-                        <span class="record-value" id="fastestAnswer">-</span>
-                        <span class="record-label">Schnellste Antwort</span>
-                    </div>
-                </div>
-                <div class="record-item">
-                    <div class="record-icon"><i class="fas fa-crown"></i></div>
-                    <div class="record-content">
-                        <span class="record-value" id="perfectGames">0</span>
-                        <span class="record-label">Perfekte Spiele</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="stats-actions">
-            <button class="btn btn-secondary" id="exportStatsBtn">
-                <i class="fas fa-download"></i> Exportieren
-            </button>
-            <button class="btn btn-danger" id="resetStatsBtn">
+        <!-- Reset Stats -->
+        <section class="text-center mt-4">
+            <button class="btn btn-outline" id="resetStatsBtn">
                 <i class="fas fa-trash"></i> Statistik zurücksetzen
             </button>
-        </div>
+        </section>
     </main>
 
+    <!-- Bottom Navigation -->
     <nav class="bottom-nav" id="bottomNav">
-        <div class="bottom-nav-content">
-            <a href="index.html" class="bottom-nav-item" data-nav="home">
-                <i class="fas fa-home"></i>
-                <span>Start</span>
-            </a>
-            <a href="points.html" class="bottom-nav-item" data-nav="points">
-                <i class="fas fa-coins"></i>
-                <span>Punkte</span>
-            </a>
-            <a href="stats.html" class="bottom-nav-item current" data-nav="stats">
-                <i class="fas fa-chart-bar"></i>
-                <span>Statistik</span>
-            </a>
-            <a href="settings.html" class="bottom-nav-item" data-nav="settings">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
-            </a>
-        </div>
+        <a href="index.html" class="bottom-nav-item">
+            <i class="fas fa-home"></i>
+            <span>Spiel</span>
+        </a>
+        <a href="points.html" class="bottom-nav-item">
+            <i class="fas fa-coins"></i>
+            <span>Punkte</span>
+        </a>
+        <a href="stats.html" class="bottom-nav-item active">
+            <i class="fas fa-chart-bar"></i>
+            <span>Statistik</span>
+        </a>
+        <a href="settings.html" class="bottom-nav-item">
+            <i class="fas fa-cog"></i>
+            <span>Einstellungen</span>
+        </a>
     </nav>
 
-    <div id="footer-container"></div>
-
-    <script src="components/common.js"></script>
-    <script src="components/footer.js"></script>
-    <script src="components/stats.js"></script>
+    <!-- Scripts -->
+    <script src="js/core/storage.js"></script>
+    <script src="js/core/events.js"></script>
+    <script src="js/core/theme.js"></script>
+    <script src="js/components/toast.js"></script>
+    <script src="js/components/navbar.js"></script>
+    <script src="js/components/bottom-nav.js"></script>
+    <script src="js/games/GameEngine.js"></script>
+    <script src="js/games/QuizGame.js"></script>
+    <script src="js/games/registry.js"></script>
+    <script src="js/data/austria.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

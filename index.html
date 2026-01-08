@@ -3,233 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUT Quiz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>AUT Quiz - Österreich Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
+<body data-page="game">
+    <!-- Navbar -->
     <nav class="navbar">
-        <div class="navbar-content">
-            <a href="index.html" class="navbar-brand">
-                <i class="fas fa-map-location-dot"></i> AUT Quiz
-            </a>
-            <div class="navbar-menu">
-                <button class="menu-toggle" id="menuToggle" aria-label="Menü" type="button">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="menu-dropdown" id="menuDropdown">
-                    <a href="points.html" class="menu-item">
-                        <i class="fas fa-coins"></i> Punkte: <span id="menuPointsDisplay">0</span>
-                    </a>
-                    <a href="help.html" class="menu-item">
-                        <i class="fas fa-question-circle"></i> Hilfe
-                    </a>
-                    <a href="faq.html" class="menu-item">
-                        <i class="fas fa-circle-question"></i> FAQ
-                    </a>
-                    <a href="stats.html" class="menu-item">
-                        <i class="fas fa-chart-bar"></i> Statistik
-                    </a>
-                    <a href="settings.html" class="menu-item">
-                        <i class="fas fa-cog"></i> Einstellungen
-                    </a>
-                </div>
+        <a href="index.html" class="navbar-brand">
+            <i class="fas fa-flag"></i>
+            AUT Quiz
+        </a>
+        <div class="navbar-spacer"></div>
+        <div class="navbar-actions">
+            <button class="menu-toggle" id="menuToggle" aria-label="Menü" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="menu-dropdown" id="menuDropdown">
+                <a href="index.html" class="menu-item">
+                    <i class="fas fa-home"></i> Startseite
+                </a>
+                <a href="points.html" class="menu-item">
+                    <i class="fas fa-coins"></i> Punkte
+                </a>
+                <a href="stats.html" class="menu-item">
+                    <i class="fas fa-chart-bar"></i> Statistik
+                </a>
+                <div class="menu-divider"></div>
+                <a href="settings.html" class="menu-item">
+                    <i class="fas fa-cog"></i> Einstellungen
+                </a>
+                <a href="help.html" class="menu-item">
+                    <i class="fas fa-question-circle"></i> Hilfe
+                </a>
             </div>
         </div>
     </nav>
 
+    <!-- Main Content -->
     <main class="container">
-        <div id="startScreen" class="screen active">
-            <div class="card welcome-card">
-                <h2>Willkommen zum Österreich-Quiz!</h2>
-                <p>Teste dein Wissen über Österreich. Wähle ein Spiel und einen Schwierigkeitsgrad.</p>
+        <!-- Start Screen -->
+        <section id="startScreen" class="game-screen active">
+            <div class="page-header text-center">
+                <h1 class="page-title">Wähle ein Spiel</h1>
+                <p class="page-subtitle">Teste dein Wissen über Österreich</p>
             </div>
 
-            <div class="selection-section" id="gameSelectionSection">
-                <h3>Wähle ein Spiel:</h3>
-                <div class="button-grid">
-                    <button class="game-btn" data-game="license-plates">
-                        <i class="fas fa-car"></i>
-                        <span>Kennzeichen raten</span>
-                    </button>
-                    <button class="game-btn" data-game="capitals">
-                        <i class="fas fa-university"></i>
-                        <span>Hauptstädte quizzen</span>
-                    </button>
-                    <button class="game-btn" data-game="world-capitals">
-                        <i class="fas fa-globe"></i>
-                        <span>Internationale Hauptstädte</span>
-                    </button>
-                    <button class="game-btn" data-game="population">
-                        <i class="fas fa-users"></i>
-                        <span>Einwohner vergleichen</span>
-                    </button>
+            <div class="game-selection">
+                <div id="gameGrid" class="game-grid">
+                    <!-- Games werden per JS eingefügt -->
                 </div>
             </div>
 
-            <div class="selection-section hidden" id="difficultySection">
-                <h3>Wähle einen Schwierigkeitsgrad:</h3>
-                <div class="button-grid">
-                    <button class="difficulty-btn" data-difficulty="quiz">
-                        <i class="fas fa-clone"></i>
-                        <span>Quiz-Modus<br><small>4 Antwort-Optionen</small></span>
-                    </button>
-                    <button class="difficulty-btn hidden" data-difficulty="kombiniert" id="combinedBtn">
-                        <i class="fas fa-edit"></i>
-                        <span>Kombiniert<br><small>Eingabe + Hilfe</small></span>
-                    </button>
-                    <button class="difficulty-btn" data-difficulty="profi">
-                        <i class="fas fa-keyboard"></i>
-                        <span>Profi-Modus<br><small>Freie Eingabe</small></span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="start-game-section" id="startGameSection">
-                <button class="start-btn" id="startBtn">
+            <div class="text-center mt-6">
+                <button id="startBtn" class="btn btn-primary btn-xl btn-block" disabled>
                     <i class="fas fa-play"></i> Spiel starten
                 </button>
             </div>
-        </div>
+        </section>
 
-        <div id="gameScreen" class="screen">
-            <div class="laser-border" id="laserBorder">
-                <div class="laser-line laser-top"></div>
-                <div class="laser-line laser-right"></div>
-                <div class="laser-line laser-bottom"></div>
-                <div class="laser-line laser-left"></div>
-                <div class="laser-corner laser-corner-tl"></div>
-                <div class="laser-corner laser-corner-tr"></div>
-                <div class="laser-corner laser-corner-bl"></div>
-                <div class="laser-corner laser-corner-br"></div>
-            </div>
-            
-            <div class="game-header">
-                <div class="score-display">
-                    <span class="score-label">Punkte:</span>
-                    <span class="score-value" id="scoreValue">0</span>
+        <!-- Game Screen -->
+        <section id="gameScreen" class="game-screen">
+            <!-- Progress -->
+            <div class="game-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
                 </div>
-                <div class="timer-display hidden" id="timerDisplay">
-                    <div class="timer-visual" id="timerVisual">
-                        <svg class="timer-ring" viewBox="0 0 100 100">
-                            <circle class="timer-ring-bg" cx="50" cy="50" r="45"></circle>
-                            <circle class="timer-ring-progress" id="timerRingProgress" cx="50" cy="50" r="45"></circle>
-                        </svg>
-                        <div class="timer-inner">
-                            <span class="timer-value" id="timerValue">30</span>
-                            <span class="timer-unit">s</span>
-                        </div>
+                <div class="progress-text">
+                    <span>Frage <span id="currentQuestion">1</span>/<span id="totalQuestions">10</span></span>
+                    <span>Punkte: <span id="scoreDisplay">0</span></span>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="game-stats">
+                <div class="game-stat">
+                    <div class="game-stat-value" id="scoreDisplay">0</div>
+                    <div class="game-stat-label">Punkte</div>
+                </div>
+                <div class="game-stat">
+                    <div class="game-stat-value" id="streakDisplay">0</div>
+                    <div class="game-stat-label">Serie</div>
+                </div>
+            </div>
+
+            <!-- Question -->
+            <div class="question-card">
+                <p class="question-text" id="questionText">Frage wird geladen...</p>
+            </div>
+
+            <!-- Answers -->
+            <div class="answers-grid" id="answersGrid">
+                <!-- Antworten werden per JS eingefügt -->
+            </div>
+        </section>
+
+        <!-- Result Screen -->
+        <section id="resultScreen" class="game-screen">
+            <div class="card result-card">
+                <div class="result-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h2 class="result-title">Spiel beendet!</h2>
+                <div class="result-score">
+                    <span id="finalScore">0</span>/<span id="finalTotal">10</span>
+                </div>
+                <p class="text-secondary"><span id="finalPercent">0</span>% richtig</p>
+
+                <div class="result-stats">
+                    <div class="result-stat">
+                        <div class="result-stat-value text-success" id="finalCorrect">0</div>
+                        <div class="result-stat-label">Richtig</div>
                     </div>
-                    <i class="fas fa-clock timer-icon-simple" id="timerIconSimple"></i>
+                    <div class="result-stat">
+                        <div class="result-stat-value text-error" id="finalWrong">0</div>
+                        <div class="result-stat-label">Falsch</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-value" id="finalStreak">0</div>
+                        <div class="result-stat-label">Beste Serie</div>
+                    </div>
                 </div>
-                <button class="restart-btn" id="restartBtn" title="Neustart">
-                    <i class="fas fa-rotate-right"></i>
-                </button>
-                <div class="header-balance hidden" id="headerBalance">
-                    <i class="fas fa-coins"></i>
-                    <span id="headerBalanceAmount">0</span>P
-                </div>
-            </div>
 
-            <div class="card question-card">
-                <div id="questionContent"></div>
-            </div>
-
-            <div id="answerArea"></div>
-
-            <div class="hint-section">
-                <div class="hint-header">
-                    <i class="fas fa-lightbulb"></i> Tipps <span id="hintCount">(3 verfügbar)</span>
-                </div>
-                <div class="hint-buttons-grid">
-                    <button class="hint-btn-compact" data-hint="5050" type="button">
-                        <i class="fas fa-divide"></i>
-                        <span class="hint-label">50/50</span>
-                        <span class="hint-price" data-price="30"></span>
+                <div class="result-actions">
+                    <button id="playAgainBtn" class="btn btn-primary btn-block">
+                        <i class="fas fa-redo"></i> Nochmal spielen
                     </button>
-                    <button class="hint-btn-compact" data-hint="removeOne" type="button">
-                        <i class="fas fa-minus-circle"></i>
-                        <span class="hint-label">Eine weg</span>
-                        <span class="hint-price" data-price="20"></span>
-                    </button>
-                    <button class="hint-btn-compact" data-hint="firstLetter" type="button">
-                        <i class="fas fa-font"></i>
-                        <span class="hint-label">Anfangsbuchstabe</span>
-                        <span class="hint-price" data-price="15"></span>
-                    </button>
-                    <button class="hint-btn-compact" data-hint="randomLetter" type="button">
-                        <i class="fas fa-random"></i>
-                        <span class="hint-label">Zufälliger Buchstabe</span>
-                        <span class="hint-price" data-price="15"></span>
-                    </button>
-                    <button class="hint-btn-compact" data-hint="length" type="button">
-                        <i class="fas fa-ruler"></i>
-                        <span class="hint-label">Länge</span>
-                        <span class="hint-price" data-price="10"></span>
-                    </button>
-                    <button class="hint-btn-compact" data-hint="coat" type="button">
-                        <i class="fas fa-shield-alt"></i>
-                        <span class="hint-label">Wappen</span>
-                        <span class="hint-price" data-price="15"></span>
+                    <button id="restartBtn" class="btn btn-secondary btn-block">
+                        <i class="fas fa-home"></i> Zurück zur Auswahl
                     </button>
                 </div>
             </div>
-
-            <div id="feedbackArea" class="feedback-hidden">
-                <div class="card feedback-card">
-                    <div id="feedbackContent"></div>
-                </div>
-                <button class="next-btn" id="nextBtn">
-                    <i class="fas fa-forward"></i> Nächste Frage
-                </button>
-            </div>
-
-            <div class="end-game-section">
-                <button class="end-game-btn" id="endGameBtn">
-                    <i class="fas fa-door-open"></i> Spiel beenden
-                </button>
-            </div>
-        </div>
+        </section>
     </main>
 
-    <div id="floatingBalance" class="floating-balance hidden">
-        <i class="fas fa-coins"></i>
-        <span id="floatingBalanceAmount">0</span>
-    </div>
-
+    <!-- Bottom Navigation -->
     <nav class="bottom-nav" id="bottomNav">
-        <div class="bottom-nav-content">
-            <a href="index.html" class="bottom-nav-item current" data-nav="home">
-                <i class="fas fa-home"></i>
-                <span>Spiel</span>
-            </a>
-            <a href="points.html" class="bottom-nav-item" data-nav="points">
-                <i class="fas fa-coins"></i>
-                <span>Punkte</span>
-                <span class="bottom-nav-badge" id="bottomNavPoints">0</span>
-            </a>
-            <a href="help.html" class="bottom-nav-item" data-nav="help">
-                <i class="fas fa-question-circle"></i>
-                <span>Hilfe</span>
-            </a>
-            <a href="faq.html" class="bottom-nav-item" data-nav="faq">
-                <i class="fas fa-circle-question"></i>
-                <span>FAQ</span>
-            </a>
-            <a href="settings.html" class="bottom-nav-item" data-nav="settings">
-                <i class="fas fa-cog"></i>
-                <span>Einstellungen</span>
-            </a>
-        </div>
+        <a href="index.html" class="bottom-nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Spiel</span>
+        </a>
+        <a href="points.html" class="bottom-nav-item">
+            <i class="fas fa-coins"></i>
+            <span>Punkte</span>
+            <span class="bottom-nav-badge hidden" id="pointsBadge">0</span>
+        </a>
+        <a href="stats.html" class="bottom-nav-item">
+            <i class="fas fa-chart-bar"></i>
+            <span>Statistik</span>
+        </a>
+        <a href="settings.html" class="bottom-nav-item">
+            <i class="fas fa-cog"></i>
+            <span>Einstellungen</span>
+        </a>
     </nav>
 
-    <div id="footer-container"></div>
-
+    <!-- Scripts -->
     <script src="world_capitals.js"></script>
-    <script src="coats_of_arms.js"></script>
-    <script src="components/common.js"></script>
-    <script src="components/footer.js"></script>
-    <script src="script.js"></script>
+    <script src="js/core/storage.js"></script>
+    <script src="js/core/events.js"></script>
+    <script src="js/core/theme.js"></script>
+    <script src="js/components/toast.js"></script>
+    <script src="js/components/navbar.js"></script>
+    <script src="js/components/bottom-nav.js"></script>
+    <script src="js/games/GameEngine.js"></script>
+    <script src="js/games/QuizGame.js"></script>
+    <script src="js/games/registry.js"></script>
+    <script src="js/data/austria.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

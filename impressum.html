@@ -4,144 +4,176 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Impressum - AUT Quiz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
+<body data-page="impressum">
+    <!-- Navbar -->
     <nav class="navbar">
-        <div class="navbar-content">
-            <a href="index.html" class="navbar-brand">
-                <i class="fas fa-map-location-dot"></i> AUT Quiz
-            </a>
-            <div class="navbar-menu">
-                <button class="menu-toggle" id="menuToggle" aria-label="Menü" type="button">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="menu-dropdown" id="menuDropdown">
-                    <a href="index.html" class="menu-item">
-                        <i class="fas fa-home"></i> Zurück zum Spiel
-                    </a>
-                    <a href="points.html" class="menu-item">
-                        <i class="fas fa-coins"></i> Punkte
-                    </a>
-                    <a href="help.html" class="menu-item">
-                        <i class="fas fa-question-circle"></i> Hilfe
-                    </a>
-                    <a href="faq.html" class="menu-item">
-                        <i class="fas fa-circle-question"></i> FAQ
-                    </a>
-                    <a href="settings.html" class="menu-item">
-                        <i class="fas fa-cog"></i> Einstellungen
-                    </a>
-                </div>
+        <a href="index.html" class="navbar-brand">
+            <i class="fas fa-flag"></i>
+            AUT Quiz
+        </a>
+        <div class="navbar-spacer"></div>
+        <div class="navbar-actions">
+            <button class="menu-toggle" id="menuToggle" aria-label="Menü" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="menu-dropdown" id="menuDropdown">
+                <a href="index.html" class="menu-item">
+                    <i class="fas fa-home"></i> Startseite
+                </a>
+                <a href="points.html" class="menu-item">
+                    <i class="fas fa-coins"></i> Punkte
+                </a>
+                <a href="stats.html" class="menu-item">
+                    <i class="fas fa-chart-bar"></i> Statistik
+                </a>
+                <div class="menu-divider"></div>
+                <a href="settings.html" class="menu-item">
+                    <i class="fas fa-cog"></i> Einstellungen
+                </a>
             </div>
         </div>
     </nav>
 
-    <main class="container">
-        <div class="page-header">
-            <h1><i class="fas fa-balance-scale"></i> Impressum</h1>
-            <p>Offenlegung gemäß § 25 MedienG und Informationen gemäß § 5 ECG</p>
+    <!-- Main Content -->
+    <main class="container page">
+        <div class="page-header text-center">
+            <h1 class="page-title">
+                <i class="fas fa-info-circle"></i> Impressum
+            </h1>
         </div>
 
-        <div class="content-card">
-            <h2><i class="fas fa-gavel"></i> Offenlegung gemäß § 25 Mediengesetz</h2>
-            <p><strong>Medieninhaber und Herausgeber:</strong><br>
-            Österreich Spielesammlung (Privates Open-Source-Projekt)</p>
-            
-            <p><strong>Unternehmensgegenstand:</strong><br>
-            Nicht-kommerzielles Bildungsprojekt zur spielerischen Vermittlung von Wissen über Österreich</p>
-            
-            <p><strong>Blattlinie / Grundlegende Richtung:</strong><br>
-            Bereitstellung einer kostenlosen, werbefreien Lernplattform für geografisches und landeskundliches Wissen über Österreich.</p>
-        </div>
+        <!-- About -->
+        <section class="mb-4">
+            <h2 class="section-title">Über AUT Quiz</h2>
+            <div class="card">
+                <p class="card-text">
+                    AUT Quiz ist eine kostenlose Lern-App zum Üben von österreichischem Allgemeinwissen.
+                    Die App wurde als Hobby-Projekt entwickelt und dient ausschließlich Bildungszwecken.
+                </p>
+            </div>
+        </section>
 
-        <div class="content-card">
-            <h2><i class="fas fa-info-circle"></i> Informationen gemäß § 5 ECG</h2>
-            <p><strong>Projektbezeichnung:</strong><br>
-            Österreich Spielesammlung – AUT Quiz</p>
-            
-            <p><strong>Art des Projekts:</strong><br>
-            Privates, nicht-kommerzielles Open-Source-Bildungsprojekt</p>
-            
-            <p><strong>Quellcode und Repository:</strong><br>
-            <a href="https://github.com/ochtii/Spielesammlung" target="_blank" rel="noopener">
-                <i class="fab fa-github"></i> github.com/ochtii/Spielesammlung
-            </a></p>
-        </div>
+        <!-- Privacy -->
+        <section class="mb-4">
+            <h2 class="section-title">Datenschutz</h2>
+            <div class="card">
+                <h3 class="card-title">
+                    <i class="fas fa-shield-alt text-primary"></i>
+                    Deine Privatsphäre
+                </h3>
+                <p class="card-text mb-3">
+                    Diese App respektiert deine Privatsphäre:
+                </p>
+                <ul class="list">
+                    <li><i class="fas fa-check text-success"></i> Keine Cookies von Drittanbietern</li>
+                    <li><i class="fas fa-check text-success"></i> Keine Analyse-Tools oder Tracking</li>
+                    <li><i class="fas fa-check text-success"></i> Alle Daten bleiben auf deinem Gerät</li>
+                    <li><i class="fas fa-check text-success"></i> Keine Registrierung erforderlich</li>
+                    <li><i class="fas fa-check text-success"></i> Keine Werbung</li>
+                </ul>
+            </div>
+        </section>
 
-        <div class="content-card">
-            <h2><i class="fas fa-envelope"></i> Kontaktmöglichkeit</h2>
-            <p>Für Fragen, Anregungen, Fehlerberichte oder rechtliche Anfragen nutzen Sie bitte die GitHub Issues-Funktion:</p>
-            <p><a href="https://github.com/ochtii/Spielesammlung/issues" target="_blank" rel="noopener">
-                <i class="fab fa-github"></i> GitHub Issues öffnen
-            </a></p>
-        </div>
+        <!-- Local Storage -->
+        <section class="mb-4">
+            <h2 class="section-title">Lokale Speicherung</h2>
+            <div class="card">
+                <p class="card-text mb-3">
+                    Die App verwendet den lokalen Speicher deines Browsers (localStorage), um folgende Daten zu speichern:
+                </p>
+                <ul class="list">
+                    <li><i class="fas fa-cog"></i> Einstellungen (Design, Schriftgröße)</li>
+                    <li><i class="fas fa-coins"></i> Punktestand</li>
+                    <li><i class="fas fa-chart-bar"></i> Spielstatistiken</li>
+                </ul>
+                <p class="card-text mt-3">
+                    Du kannst diese Daten jederzeit in den <a href="settings.html">Einstellungen</a> löschen.
+                </p>
+            </div>
+        </section>
 
-        <div class="content-card">
-            <h2><i class="fas fa-exclamation-triangle"></i> Haftungsausschluss</h2>
-            
-            <h3>Haftung für Inhalte (§ 16 ECG)</h3>
-            <p>Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der bereitgestellten Inhalte übernehmen wir jedoch keine Gewähr.</p>
-            
-            <h3>Haftung für Links (§ 17 ECG)</h3>
-            <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben.</p>
-            
-            <h3>Urheberrecht</h3>
-            <p>Die durch den Betreiber erstellten Inhalte und Werke auf dieser Website unterliegen dem österreichischen Urheberrecht (UrhG). Soweit nicht anders angegeben, stehen alle Inhalte unter der MIT-Lizenz.</p>
-        </div>
+        <!-- Tech Stack -->
+        <section class="mb-4">
+            <h2 class="section-title">Technologie</h2>
+            <div class="card">
+                <p class="card-text">
+                    Diese App wurde mit folgenden Technologien erstellt:
+                </p>
+                <div class="tech-badges mt-3">
+                    <span class="badge">HTML5</span>
+                    <span class="badge">CSS3</span>
+                    <span class="badge">JavaScript</span>
+                    <span class="badge">Font Awesome</span>
+                    <span class="badge">Inter Font</span>
+                </div>
+            </div>
+        </section>
 
-        <div class="content-card">
-            <h2><i class="fas fa-shield-alt"></i> Datenschutzerklärung gemäß DSGVO</h2>
-            
-            <h3>Grundsatz der Datenminimierung</h3>
-            <p>Diese Anwendung wurde unter dem Grundsatz der Datenminimierung entwickelt. Es werden <strong>keine personenbezogenen Daten</strong> erhoben, verarbeitet oder an Dritte übermittelt.</p>
-            
-            <h3>Lokale Datenspeicherung (LocalStorage)</h3>
-            <p>Alle Spieldaten werden ausschließlich lokal in Ihrem Browser gespeichert (LocalStorage). Diese Daten verlassen Ihr Gerät nicht.</p>
-            
-            <h3>Keine Cookies</h3>
-            <p>Diese Website verwendet <strong>keine Cookies</strong>.</p>
-            
-            <h3>Ihre Rechte nach DSGVO</h3>
-            <p>Da keine personenbezogenen Daten serverseitig gespeichert werden, können Sie Ihre Rechte vollständig selbstständig durch Löschung der lokalen Browser-Daten ausüben.</p>
-        </div>
+        <!-- Credits -->
+        <section class="mb-4">
+            <h2 class="section-title">Credits</h2>
+            <div class="card">
+                <ul class="list">
+                    <li>
+                        <i class="fas fa-font text-primary"></i>
+                        Schriftart: <a href="https://fonts.google.com/specimen/Inter" target="_blank" rel="noopener">Inter</a> (Google Fonts)
+                    </li>
+                    <li>
+                        <i class="fas fa-icons text-primary"></i>
+                        Icons: <a href="https://fontawesome.com/" target="_blank" rel="noopener">Font Awesome</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
 
-        <div class="content-card">
-            <h2><i class="fas fa-image"></i> Bildquellen und Lizenzen</h2>
-            <p>Die verwendeten Wappen österreichischer Bundesländer und Gemeinden stammen aus <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> und stehen unter freien Lizenzen (Public Domain / CC BY-SA).</p>
-        </div>
+        <!-- Version -->
+        <section class="text-center text-muted">
+            <p>
+                <i class="fas fa-code-branch"></i> Version 2.0.0
+            </p>
+            <p class="text-sm">
+                &copy; 2024 AUT Quiz
+            </p>
+        </section>
     </main>
 
+    <!-- Bottom Navigation -->
     <nav class="bottom-nav" id="bottomNav">
-        <div class="bottom-nav-content">
-            <a href="index.html" class="bottom-nav-item" data-nav="home">
-                <i class="fas fa-home"></i>
-                <span>Spiel</span>
-            </a>
-            <a href="points.html" class="bottom-nav-item" data-nav="points">
-                <i class="fas fa-coins"></i>
-                <span>Punkte</span>
-            </a>
-            <a href="help.html" class="bottom-nav-item" data-nav="help">
-                <i class="fas fa-question-circle"></i>
-                <span>Hilfe</span>
-            </a>
-            <a href="faq.html" class="bottom-nav-item" data-nav="faq">
-                <i class="fas fa-circle-question"></i>
-                <span>FAQ</span>
-            </a>
-            <a href="settings.html" class="bottom-nav-item" data-nav="settings">
-                <i class="fas fa-cog"></i>
-                <span>Einstellungen</span>
-            </a>
-        </div>
+        <a href="index.html" class="bottom-nav-item">
+            <i class="fas fa-home"></i>
+            <span>Spiel</span>
+        </a>
+        <a href="points.html" class="bottom-nav-item">
+            <i class="fas fa-coins"></i>
+            <span>Punkte</span>
+        </a>
+        <a href="stats.html" class="bottom-nav-item">
+            <i class="fas fa-chart-bar"></i>
+            <span>Statistik</span>
+        </a>
+        <a href="settings.html" class="bottom-nav-item">
+            <i class="fas fa-cog"></i>
+            <span>Einstellungen</span>
+        </a>
     </nav>
 
-    <div id="footer-container"></div>
-
-    <script src="components/common.js"></script>
-    <script src="components/footer.js"></script>
+    <!-- Scripts -->
+    <script src="js/core/storage.js"></script>
+    <script src="js/core/events.js"></script>
+    <script src="js/core/theme.js"></script>
+    <script src="js/components/toast.js"></script>
+    <script src="js/components/navbar.js"></script>
+    <script src="js/components/bottom-nav.js"></script>
+    <script src="js/games/GameEngine.js"></script>
+    <script src="js/games/QuizGame.js"></script>
+    <script src="js/games/registry.js"></script>
+    <script src="js/data/austria.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

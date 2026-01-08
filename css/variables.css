@@ -1,81 +1,148 @@
 /* ===========================================
-   CSS Variables - Theme System
+   CSS Variables - Design Tokens
    =========================================== */
 
 :root {
-    /* Font Scale - wird per JS überschrieben */
+    /* Font System */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-scale: 1;
-    --base-font-size: 16px;
+    --font-size-base: 16px;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 2rem;
 
-    /* Light Mode Colors */
-    --bg-body: #f0f2f5;
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;
-    --bg-tertiary: #e9ecef;
-    --text-primary: #212529;
-    --text-secondary: #6c757d;
-    --text-muted: #adb5bd;
-    --border-color: #dee2e6;
+    /* Colors - Light Theme */
+    --color-bg: #f5f5f7;
+    --color-surface: #ffffff;
+    --color-surface-hover: #f8f9fa;
+    --color-surface-active: #f0f1f3;
+    --color-border: #e5e5e7;
+    --color-border-strong: #d1d1d6;
     
-    /* Shadows */
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-    --shadow: 0 2px 8px rgba(0,0,0,0.08);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
-    --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
-
+    --color-text: #1d1d1f;
+    --color-text-secondary: #6e6e73;
+    --color-text-muted: #aeaeb2;
+    
     /* Brand Colors */
-    --primary: #ed2939;
-    --primary-hover: #d91e2c;
-    --primary-light: #ff4d5a;
-    --accent: #ed2939;
+    --color-primary: #ed2939;
+    --color-primary-hover: #d91e2c;
+    --color-primary-light: rgba(237, 41, 57, 0.1);
     
     /* Status Colors */
-    --success: #28a745;
-    --danger: #dc3545;
-    --warning: #ffc107;
-    --info: #17a2b8;
+    --color-success: #30d158;
+    --color-success-light: rgba(48, 209, 88, 0.1);
+    --color-error: #ff453a;
+    --color-error-light: rgba(255, 69, 58, 0.1);
+    --color-warning: #ffd60a;
+    --color-warning-light: rgba(255, 214, 10, 0.1);
+    --color-info: #0a84ff;
+    --color-info-light: rgba(10, 132, 255, 0.1);
 
     /* Spacing Scale */
     --space-1: 0.25rem;
     --space-2: 0.5rem;
     --space-3: 0.75rem;
     --space-4: 1rem;
-    --space-5: 1.5rem;
-    --space-6: 2rem;
-    --space-8: 3rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
 
     /* Border Radius */
     --radius-sm: 6px;
-    --radius: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --radius-xl: 24px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 20px;
     --radius-full: 9999px;
 
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
     /* Transitions */
-    --transition: 0.2s ease;
-    --transition-slow: 0.3s ease;
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow: 350ms ease;
 
     /* Layout */
     --navbar-height: 56px;
-    --bottom-nav-height: 56px;
+    --bottom-nav-height: 64px;
     --container-max: 800px;
-    --container-wide: 1200px;
+    --container-padding: var(--space-4);
 }
 
-/* Dark Mode */
-body.dark-mode {
-    --bg-body: #121212;
-    --bg-primary: #1e1e1e;
-    --bg-secondary: #2d2d2d;
-    --bg-tertiary: #3d3d3d;
-    --text-primary: #f5f5f5;
-    --text-secondary: #b0b0b0;
-    --text-muted: #707070;
-    --border-color: #404040;
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
-    --shadow: 0 2px 8px rgba(0,0,0,0.4);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
-    --shadow-lg: 0 8px 24px rgba(0,0,0,0.6);
+/* Dark Theme */
+[data-theme="dark"] {
+    --color-bg: #000000;
+    --color-surface: #1c1c1e;
+    --color-surface-hover: #2c2c2e;
+    --color-surface-active: #3a3a3c;
+    --color-border: #38383a;
+    --color-border-strong: #48484a;
+    
+    --color-text: #f5f5f7;
+    --color-text-secondary: #a1a1a6;
+    --color-text-muted: #636366;
+    
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Font Scale Modifier */
+html {
+    font-size: calc(var(--font-size-base) * var(--font-scale));
+}
+
+/* Semantic Variable Aliases */
+:root {
+    /* Spacing Aliases */
+    --spacing-1: var(--space-1);
+    --spacing-2: var(--space-2);
+    --spacing-3: var(--space-3);
+    --spacing-4: var(--space-4);
+    --spacing-5: var(--space-5);
+    --spacing-6: var(--space-6);
+    --spacing-8: var(--space-8);
+
+    /* Color Aliases */
+    --text-primary: var(--color-text);
+    --text-secondary: var(--color-text-secondary);
+    --text-muted: var(--color-text-muted);
+    --border-color: var(--color-border);
+    --card-bg: var(--color-surface);
+    --accent-color: var(--color-primary);
+    --accent-bg: var(--color-primary-light);
+
+    /* Font Weight Aliases */
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+
+    /* Font Size Aliases */
+    --font-xs: var(--font-size-xs);
+    --font-sm: var(--font-size-sm);
+    --font-md: var(--font-size-md);
+    --font-lg: var(--font-size-lg);
+    --font-xl: var(--font-size-xl);
+    --font-2xl: var(--font-size-2xl);
+    --font-3xl: var(--font-size-3xl);
+}
+
+[data-theme="dark"] {
+    --text-primary: var(--color-text);
+    --text-secondary: var(--color-text-secondary);
+    --text-muted: var(--color-text-muted);
+    --border-color: var(--color-border);
+    --card-bg: var(--color-surface);
+    --accent-color: var(--color-primary);
+    --accent-bg: var(--color-primary-light);
 }
 

@@ -4,143 +4,184 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hilfe - AUT Quiz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
+<body data-page="help">
+    <!-- Navbar -->
     <nav class="navbar">
-        <div class="navbar-content">
-            <a href="index.html" class="navbar-brand">
-                <i class="fas fa-map-location-dot"></i> AUT Quiz
-            </a>
-            <div class="navbar-menu">
-                <button class="menu-toggle" id="menuToggle" aria-label="Menü" type="button">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="menu-dropdown" id="menuDropdown">
-                    <a href="index.html" class="menu-item">
-                        <i class="fas fa-home"></i> Zurück zum Spiel
-                    </a>
-                    <a href="points.html" class="menu-item">
-                        <i class="fas fa-coins"></i> Punkte
-                    </a>
-                    <a href="faq.html" class="menu-item">
-                        <i class="fas fa-circle-question"></i> FAQ
-                    </a>
-                    <a href="stats.html" class="menu-item">
-                        <i class="fas fa-chart-bar"></i> Statistik
-                    </a>
-                    <a href="settings.html" class="menu-item">
-                        <i class="fas fa-cog"></i> Einstellungen
-                    </a>
-                </div>
+        <a href="index.html" class="navbar-brand">
+            <i class="fas fa-flag"></i>
+            AUT Quiz
+        </a>
+        <div class="navbar-spacer"></div>
+        <div class="navbar-actions">
+            <button class="menu-toggle" id="menuToggle" aria-label="Menü" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="menu-dropdown" id="menuDropdown">
+                <a href="index.html" class="menu-item">
+                    <i class="fas fa-home"></i> Startseite
+                </a>
+                <a href="points.html" class="menu-item">
+                    <i class="fas fa-coins"></i> Punkte
+                </a>
+                <a href="stats.html" class="menu-item">
+                    <i class="fas fa-chart-bar"></i> Statistik
+                </a>
+                <div class="menu-divider"></div>
+                <a href="settings.html" class="menu-item">
+                    <i class="fas fa-cog"></i> Einstellungen
+                </a>
             </div>
         </div>
     </nav>
 
-    <main class="container">
-        <div class="page-header">
-            <h1><i class="fas fa-question-circle"></i> Hilfe & Anleitung</h1>
-            <p>Alles, was du über die Spielesammlung wissen musst</p>
+    <!-- Main Content -->
+    <main class="container page">
+        <div class="page-header text-center">
+            <h1 class="page-title">
+                <i class="fas fa-question-circle"></i> Hilfe
+            </h1>
         </div>
 
-        <div class="content-card">
-            <h2><i class="fas fa-gamepad"></i> Spielmodi</h2>
-            
-            <h3>Kennzeichen raten</h3>
-            <p>Erkenne österreichische KFZ-Kennzeichen und ordne sie dem richtigen Bezirk oder Bundesland zu.</p>
-            
-            <h3>Hauptstädte Quiz</h3>
-            <p>Teste dein Wissen über österreichische Bundesländer und Bezirkshauptstädte.</p>
-            
-            <h3>Welthauptstädte</h3>
-            <p>Errate Hauptstädte aus aller Welt – Antworten in mehreren Sprachen möglich!</p>
-            
-            <h3>Einwohner-Vergleich</h3>
-            <p>Vergleiche österreichische Städte und schätze, welche mehr Einwohner hat.</p>
-        </div>
+        <!-- FAQ Section -->
+        <section class="mb-4">
+            <h2 class="section-title">Häufige Fragen</h2>
 
-        <div class="content-card">
-            <h2><i class="fas fa-layer-group"></i> Schwierigkeitsgrade</h2>
-            
-            <h3>Quiz-Modus (Einfach)</h3>
-            <p>Wähle die richtige Antwort aus 4 vorgegebenen Optionen. Perfekt für Einsteiger!</p>
-            
-            <h3>Kombiniert (Mittel)</h3>
-            <p>Gib die Antwort selbst ein oder lass dir Optionen anzeigen. Flexibel und herausfordernd!</p>
-            
-            <h3>Profi-Modus (Schwer)</h3>
-            <p>Tippe die Antwort komplett selbst ein – ohne jegliche Hilfe. Nur für wahre Experten!</p>
-        </div>
+            <div class="card mb-3">
+                <h3 class="card-title">
+                    <i class="fas fa-gamepad text-primary"></i>
+                    Wie spiele ich?
+                </h3>
+                <p class="card-text">
+                    Wähle auf der Startseite ein Quiz aus und beantworte die Multiple-Choice-Fragen.
+                    Für jede richtige Antwort bekommst du Punkte. Je schneller du antwortest, desto mehr Punkte!
+                </p>
+            </div>
 
-        <div class="content-card">
-            <h2><i class="fas fa-star"></i> Punktesystem</h2>
-            <p>Je weniger Tipps du nutzt, desto mehr Punkte erhältst du!</p>
-            <ul>
-                <li><strong>Ohne Tipp:</strong> 100 Punkte (+ bis zu 20 Zeitbonus)</li>
-                <li><strong>1 Tipp:</strong> 70 Punkte (+ Zeitbonus)</li>
-                <li><strong>2 Tipps:</strong> 40 Punkte (+ Zeitbonus)</li>
-                <li><strong>3 Tipps:</strong> 10 Punkte (+ Zeitbonus)</li>
-                <li><strong>Falsche Antwort:</strong> 0 Punkte</li>
-            </ul>
-        </div>
+            <div class="card mb-3">
+                <h3 class="card-title">
+                    <i class="fas fa-coins text-primary"></i>
+                    Wie funktioniert das Punktesystem?
+                </h3>
+                <p class="card-text">
+                    Du erhältst 10 Punkte für jede richtige Antwort. Bonus-Punkte gibt es für schnelle Antworten
+                    und Serien korrekter Antworten. Deine Punkte werden automatisch gespeichert.
+                </p>
+            </div>
 
-        <div class="content-card">
-            <h2><i class="fas fa-lightbulb"></i> Tipp-System</h2>
-            <p>Du hast pro Frage mehrere Tipps zur Verfügung:</p>
-            <ul>
-                <li><strong>50/50:</strong> Zwei falsche Antworten werden entfernt</li>
-                <li><strong>Eine weg:</strong> Eine falsche Antwort wird entfernt</li>
-                <li><strong>Anfangsbuchstabe:</strong> Zeigt den ersten Buchstaben</li>
-                <li><strong>Zufälliger Buchstabe:</strong> Zeigt einen zufälligen Buchstaben</li>
-                <li><strong>Länge:</strong> Zeigt die Anzahl der Buchstaben</li>
-                <li><strong>Wappen:</strong> Zeigt das Bezirkswappen (bei Kennzeichen)</li>
-            </ul>
-        </div>
+            <div class="card mb-3">
+                <h3 class="card-title">
+                    <i class="fas fa-moon text-primary"></i>
+                    Wie wechsle ich den Dark Mode?
+                </h3>
+                <p class="card-text">
+                    Gehe zu <a href="settings.html">Einstellungen</a> und wähle zwischen Hell, Dunkel oder Automatisch.
+                    Im Automatik-Modus passt sich das Design deinen Systemeinstellungen an.
+                </p>
+            </div>
 
-        <div class="content-card">
-            <h2><i class="fas fa-cog"></i> Einstellungen</h2>
-            <p>Passe das Spiel an deine Vorlieben an:</p>
-            <ul>
-                <li><strong>Design:</strong> Hell, Dunkel oder Automatisch</li>
-                <li><strong>Schriftgröße:</strong> 80% bis 150%</li>
-                <li><strong>Timer:</strong> Optional mit 15, 30, 45 oder 60 Sekunden</li>
-                <li><strong>Kostenpflichtige Tipps:</strong> Tipps kosten Punkte</li>
-                <li><strong>Tippfehler-Toleranz:</strong> Kleine Schreibfehler werden akzeptiert</li>
-            </ul>
-        </div>
+            <div class="card mb-3">
+                <h3 class="card-title">
+                    <i class="fas fa-text-height text-primary"></i>
+                    Wie ändere ich die Schriftgröße?
+                </h3>
+                <p class="card-text">
+                    In den <a href="settings.html">Einstellungen</a> kannst du die Schriftgröße von Klein bis Sehr Groß anpassen.
+                    Die Änderung gilt für die gesamte App.
+                </p>
+            </div>
+
+            <div class="card mb-3">
+                <h3 class="card-title">
+                    <i class="fas fa-sync-alt text-primary"></i>
+                    Werden meine Daten gespeichert?
+                </h3>
+                <p class="card-text">
+                    Alle Daten (Punkte, Statistiken, Einstellungen) werden lokal in deinem Browser gespeichert.
+                    Nichts wird an einen Server gesendet. Du kannst deine Daten jederzeit in den Einstellungen löschen.
+                </p>
+            </div>
+        </section>
+
+        <!-- Available Games -->
+        <section class="mb-4">
+            <h2 class="section-title">Verfügbare Spiele</h2>
+
+            <div class="card mb-3">
+                <h3 class="card-title">
+                    <i class="fas fa-car text-primary"></i>
+                    KFZ-Kennzeichen
+                </h3>
+                <p class="card-text">
+                    Lerne die KFZ-Kennzeichen der österreichischen Bezirke. Zu welchem Bezirk gehört "WU"?
+                </p>
+            </div>
+
+            <div class="card mb-3">
+                <h3 class="card-title">
+                    <i class="fas fa-building text-primary"></i>
+                    Landeshauptstädte
+                </h3>
+                <p class="card-text">
+                    Teste dein Wissen über die Hauptstädte der österreichischen Bundesländer.
+                </p>
+            </div>
+
+            <div class="card mb-3">
+                <h3 class="card-title">
+                    <i class="fas fa-globe text-primary"></i>
+                    Hauptstädte der Welt
+                </h3>
+                <p class="card-text">
+                    Erweitere dein Wissen über die Hauptstädte der Länder weltweit.
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="text-center">
+            <p class="text-muted">
+                Weitere Fragen? Schau ins <a href="impressum.html">Impressum</a>.
+            </p>
+        </section>
     </main>
 
+    <!-- Bottom Navigation -->
     <nav class="bottom-nav" id="bottomNav">
-        <div class="bottom-nav-content">
-            <a href="index.html" class="bottom-nav-item" data-nav="home">
-                <i class="fas fa-home"></i>
-                <span>Spiel</span>
-            </a>
-            <a href="points.html" class="bottom-nav-item" data-nav="points">
-                <i class="fas fa-coins"></i>
-                <span>Punkte</span>
-                <span class="bottom-nav-badge" id="bottomNavPoints">0</span>
-            </a>
-            <a href="help.html" class="bottom-nav-item current" data-nav="help">
-                <i class="fas fa-question-circle"></i>
-                <span>Hilfe</span>
-            </a>
-            <a href="faq.html" class="bottom-nav-item" data-nav="faq">
-                <i class="fas fa-circle-question"></i>
-                <span>FAQ</span>
-            </a>
-            <a href="settings.html" class="bottom-nav-item" data-nav="settings">
-                <i class="fas fa-cog"></i>
-                <span>Einstellungen</span>
-            </a>
-        </div>
+        <a href="index.html" class="bottom-nav-item">
+            <i class="fas fa-home"></i>
+            <span>Spiel</span>
+        </a>
+        <a href="points.html" class="bottom-nav-item">
+            <i class="fas fa-coins"></i>
+            <span>Punkte</span>
+        </a>
+        <a href="stats.html" class="bottom-nav-item">
+            <i class="fas fa-chart-bar"></i>
+            <span>Statistik</span>
+        </a>
+        <a href="settings.html" class="bottom-nav-item">
+            <i class="fas fa-cog"></i>
+            <span>Einstellungen</span>
+        </a>
     </nav>
 
-    <div id="footer-container"></div>
-
-    <script src="components/common.js"></script>
-    <script src="components/footer.js"></script>
+    <!-- Scripts -->
+    <script src="js/core/storage.js"></script>
+    <script src="js/core/events.js"></script>
+    <script src="js/core/theme.js"></script>
+    <script src="js/components/toast.js"></script>
+    <script src="js/components/navbar.js"></script>
+    <script src="js/components/bottom-nav.js"></script>
+    <script src="js/games/GameEngine.js"></script>
+    <script src="js/games/QuizGame.js"></script>
+    <script src="js/games/registry.js"></script>
+    <script src="js/data/austria.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
