@@ -8,16 +8,22 @@ const App = {
      * Initialize the application
      */
     init() {
-        // Initialize core modules
-        Theme.init();
-        Navbar.init();
-        BottomNav.init();
+        try {
+            // Initialize core modules
+            Theme.init();
+            Navbar.init();
+            BottomNav.init();
 
-        // Register games
-        this.registerGames();
+            // Register games
+            this.registerGames();
 
-        // Setup page-specific functionality
-        this.setupPage();
+            // Setup page-specific functionality
+            this.setupPage();
+            
+            console.log('App initialized successfully');
+        } catch (error) {
+            console.error('App initialization error:', error);
+        }
     },
 
     /**
@@ -129,18 +135,22 @@ const App = {
         const startBtn = document.getElementById('startBtn');
         let selectedGame = null;
 
-        // Render game selection cards
+        // Render game selection cards (only if games exist)
         if (gameGrid) {
             const games = GameRegistry.getAll();
-            gameGrid.innerHTML = games.map(game => `
-                <div class="selection-card" data-game="${game.id}">
-                    <div class="selection-card-icon">
-                        <i class="fas ${game.icon}"></i>
+            
+            // Only overwrite if we have games registered
+            if (games.length > 0) {
+                gameGrid.innerHTML = games.map(game => `
+                    <div class="selection-card" data-game="${game.id}">
+                        <div class="selection-card-icon">
+                            <i class="fas ${game.icon}"></i>
+                        </div>
+                        <div class="selection-card-title">${game.name}</div>
+                        <div class="selection-card-desc">${game.description}</div>
                     </div>
-                    <div class="selection-card-title">${game.name}</div>
-                    <div class="selection-card-desc">${game.description}</div>
-                </div>
-            `).join('');
+                `).join('');
+            }
 
             // Handle game selection
             gameGrid.querySelectorAll('.selection-card').forEach(card => {
