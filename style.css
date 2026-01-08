@@ -39,6 +39,93 @@ body.dark-mode {
     --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
+/* Dark Mode - Cards & Containers */
+body.dark-mode .card,
+body.dark-mode .feedback-card,
+body.dark-mode .stats-card,
+body.dark-mode .history-card,
+body.dark-mode .help-card,
+body.dark-mode .wappen-card,
+body.dark-mode .info-card,
+body.dark-mode .legal-card,
+body.dark-mode .settings-card {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+/* Dark Mode - Hero Sections */
+body.dark-mode .wappen-hero,
+body.dark-mode .dev-info-hero,
+body.dark-mode .impressum-hero {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+    border-color: var(--border-color);
+}
+
+/* Dark Mode - Inputs & Forms */
+body.dark-mode input[type="text"],
+body.dark-mode input[type="number"],
+body.dark-mode select,
+body.dark-mode textarea {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+body.dark-mode input[type="text"]:focus,
+body.dark-mode input[type="number"]:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus {
+    border-color: var(--primary-color);
+    background: var(--bg-secondary);
+}
+
+/* Dark Mode - Tables */
+body.dark-mode table {
+    background: var(--bg-primary);
+}
+
+body.dark-mode th {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode td {
+    border-color: var(--border-color);
+}
+
+body.dark-mode tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Dark Mode - Modals & Overlays */
+body.dark-mode .modal-content,
+body.dark-mode .dropdown-menu {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+/* Dark Mode - Accordion */
+body.dark-mode .accordion-header {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .accordion-header:hover {
+    background: var(--bg-secondary);
+}
+
+body.dark-mode .accordion-content {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+/* Dark Mode - Charts & Stats */
+body.dark-mode .chart-container,
+body.dark-mode .storage-chart {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
 /* ============================================
    Global Styles
    ============================================ */
@@ -4623,6 +4710,128 @@ body.dark-mode .bottom-nav {
     background: rgba(26, 26, 26, 0.85);
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3), 
                 0 -2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Dark Mode - Navbar */
+body.dark-mode .navbar {
+    background: rgba(26, 26, 26, 0.95);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .menu-dropdown {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .menu-item:hover {
+    background: var(--bg-secondary);
+}
+
+/* Dark Mode - Buttons */
+body.dark-mode .filter-btn:not(.active) {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+body.dark-mode .filter-btn:not(.active):hover {
+    background: var(--bg-secondary);
+}
+
+body.dark-mode .alphabet-btn {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+body.dark-mode .alphabet-btn:hover {
+    background: var(--bg-secondary);
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .danger-btn {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+/* Dark Mode - Footer */
+body.dark-mode .footer {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .footer-zoom-btn {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+body.dark-mode .footer-zoom-btn:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+body.dark-mode .footer-link {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .footer-link:hover {
+    color: var(--primary-color);
+}
+
+/* Dark Mode - Wappen Page */
+body.dark-mode .wappen-stats {
+    background: var(--bg-primary);
+}
+
+body.dark-mode .wappen-stat {
+    background: rgba(102, 126, 234, 0.1);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+body.dark-mode .alphabet-nav {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .letter-header {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+/* Dark Mode - Settings Page */
+body.dark-mode .settings-page-header {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+}
+
+body.dark-mode .settings-section {
+    background: var(--bg-primary);
+}
+
+body.dark-mode .storage-item {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+/* Dark Mode - Dev/Impressum Pages */
+body.dark-mode .info-section,
+body.dark-mode .legal-section,
+body.dark-mode .feature-section {
+    background: transparent;
+}
+
+body.dark-mode .info-grid,
+body.dark-mode .feature-grid {
+    background: transparent;
+}
+
+body.dark-mode .info-item,
+body.dark-mode .feature-item {
+    border-color: var(--border-color);
+}
+
+body.dark-mode .tech-badge {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
 }
 
 .bottom-nav-content {
