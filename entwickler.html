@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entwickler-Informationen - AUT Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-map-location-dot"></i> AUT Quiz
+            </a>
+            <div class="navbar-menu">
+                <button class="menu-toggle" id="menuToggle" aria-label="Menü" type="button">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="menu-dropdown" id="menuDropdown">
+                    <a href="index.html" class="menu-item">
+                        <i class="fas fa-home"></i> Zurück zum Spiel
+                    </a>
+                    <a href="points.html" class="menu-item">
+                        <i class="fas fa-coins"></i> Punkte
+                    </a>
+                    <a href="help.html" class="menu-item">
+                        <i class="fas fa-question-circle"></i> Hilfe
+                    </a>
+                    <a href="faq.html" class="menu-item">
+                        <i class="fas fa-circle-question"></i> FAQ
+                    </a>
+                    <a href="settings.html" class="menu-item">
+                        <i class="fas fa-cog"></i> Einstellungen
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h1><i class="fas fa-laptop-code"></i> Entwickler-Informationen</h1>
+            <p>Technische Details und verwendete Technologien</p>
+        </div>
+
+        <div class="content-card">
+            <h2><i class="fas fa-info-circle"></i> Über das Projekt</h2>
+            <p><strong>Projektname:</strong> Österreich Spielesammlung</p>
+            <p><strong>Version:</strong> <span id="versionInfo">Wird geladen...</span></p>
+            <p><strong>Letztes Update:</strong> <span id="lastUpdate">Wird geladen...</span></p>
+            <p><strong>Repository:</strong> <a href="https://github.com/ochtii/Spielesammlung" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a></p>
+            <p>Eine interaktive Web-Anwendung zum Lernen österreichischer Geographie, Hauptstädte, Kennzeichen und mehr.</p>
+        </div>
+
+        <div class="content-card">
+            <h2><i class="fas fa-layer-group"></i> Verwendete Technologien</h2>
+            <div class="tech-stack">
+                <span class="tech-badge"><i class="fab fa-html5"></i> HTML5</span>
+                <span class="tech-badge"><i class="fab fa-css3-alt"></i> CSS3</span>
+                <span class="tech-badge"><i class="fab fa-js"></i> JavaScript ES6+</span>
+                <span class="tech-badge"><i class="fas fa-database"></i> LocalStorage API</span>
+                <span class="tech-badge"><i class="fas fa-icons"></i> Font Awesome</span>
+                <span class="tech-badge"><i class="fas fa-image"></i> Wikimedia Commons</span>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2><i class="fas fa-star"></i> Hauptfunktionen</h2>
+            <ul>
+                <li><strong>5 Spielmodi:</strong> Hauptstädte, Kennzeichen, Einwohner-Vergleich, Wappen und Welthauptstädte</li>
+                <li><strong>Punktesystem:</strong> Detaillierte Statistiken mit Rang-System und Erfolgen</li>
+                <li><strong>Responsive Design:</strong> Optimiert für Desktop, Tablet und Mobile</li>
+                <li><strong>Dark Mode:</strong> Automatische Anpassung an System-Einstellungen</li>
+                <li><strong>Anpassbar:</strong> Umfangreiche Einstellungsmöglichkeiten</li>
+                <li><strong>Offline-fähig:</strong> Funktioniert ohne Internetverbindung</li>
+            </ul>
+        </div>
+
+        <div class="content-card">
+            <h2><i class="fas fa-shield-alt"></i> Datenschutz & Speicherung</h2>
+            <ul>
+                <li><strong>Lokale Speicherung:</strong> Alle Daten werden ausschließlich lokal im Browser gespeichert</li>
+                <li><strong>Keine Server-Kommunikation:</strong> Es werden keine Daten an externe Server übertragen</li>
+                <li><strong>Kein Tracking:</strong> Keine Analyse-Tools oder Tracking-Scripte</li>
+                <li><strong>Volle Kontrolle:</strong> Daten können jederzeit über die Entwickler-Tools gelöscht werden</li>
+            </ul>
+        </div>
+
+        <div class="content-card">
+            <h2><i class="fas fa-globe"></i> Browser-Kompatibilität</h2>
+            <ul>
+                <li>Chrome 90+</li>
+                <li>Firefox 88+</li>
+                <li>Safari 14+</li>
+                <li>Edge 90+</li>
+            </ul>
+        </div>
+
+        <div class="content-card">
+            <h2><i class="fas fa-heart"></i> Danksagungen</h2>
+            <ul>
+                <li><strong>Wappen-Bilder:</strong> <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></li>
+                <li><strong>Icons:</strong> <a href="https://fontawesome.com" target="_blank" rel="noopener">Font Awesome</a></li>
+                <li><strong>Schriftarten:</strong> <a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a></li>
+            </ul>
+        </div>
+    </main>
+
+    <nav class="bottom-nav" id="bottomNav">
+        <div class="bottom-nav-content">
+            <a href="index.html" class="bottom-nav-item" data-nav="home">
+                <i class="fas fa-home"></i>
+                <span>Spiel</span>
+            </a>
+            <a href="points.html" class="bottom-nav-item" data-nav="points">
+                <i class="fas fa-coins"></i>
+                <span>Punkte</span>
+                <span class="bottom-nav-badge" id="bottomNavPoints">0</span>
+            </a>
+            <a href="help.html" class="bottom-nav-item" data-nav="help">
+                <i class="fas fa-question-circle"></i>
+                <span>Hilfe</span>
+            </a>
+            <a href="faq.html" class="bottom-nav-item" data-nav="faq">
+                <i class="fas fa-circle-question"></i>
+                <span>FAQ</span>
+            </a>
+            <a href="settings.html" class="bottom-nav-item" data-nav="settings">
+                <i class="fas fa-cog"></i>
+                <span>Einstellungen</span>
+            </a>
+        </div>
+    </nav>
+
+    <div id="footer-container"></div>
+
+    <script src="components/common.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/entwickler.js"></script>
+</body>
+</html>

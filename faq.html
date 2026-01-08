@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - AUT Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-map-location-dot"></i> AUT Quiz
+            </a>
+            <div class="navbar-menu">
+                <button class="menu-toggle" id="menuToggle" aria-label="Menü" type="button">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="menu-dropdown" id="menuDropdown">
+                    <a href="index.html" class="menu-item">
+                        <i class="fas fa-home"></i> Zurück zum Spiel
+                    </a>
+                    <a href="points.html" class="menu-item">
+                        <i class="fas fa-coins"></i> Punkte
+                    </a>
+                    <a href="help.html" class="menu-item">
+                        <i class="fas fa-book"></i> Hilfe
+                    </a>
+                    <a href="stats.html" class="menu-item">
+                        <i class="fas fa-chart-bar"></i> Statistik
+                    </a>
+                    <a href="settings.html" class="menu-item">
+                        <i class="fas fa-cog"></i> Einstellungen
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h1><i class="fas fa-circle-question"></i> Häufig gestellte Fragen</h1>
+            <p>Hier findest du Antworten auf die wichtigsten Fragen</p>
+        </div>
+
+        <div class="content-card">
+            <h2><i class="fas fa-info-circle"></i> Allgemeine Fragen</h2>
+            
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Was ist die AUT Quiz Spielesammlung?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Die AUT Quiz Spielesammlung ist eine interaktive Lernplattform, die verschiedene Quiz-Spiele rund um österreichische und internationale Geografie anbietet.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Ist die Nutzung kostenlos?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Ja, die gesamte Spielesammlung ist komplett kostenlos und erfordert keine Registrierung.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Brauche ich einen Account?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Nein, alle deine Fortschritte werden lokal in deinem Browser gespeichert.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2><i class="fas fa-gamepad"></i> Spielmodi & Spielablauf</h2>
+            
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Welche Spielmodi gibt es?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Es gibt vier Spielmodi: Kennzeichen raten, Hauptstädte Quiz, Welthauptstädte und Einwohner-Vergleich.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Was ist der Unterschied zwischen Quiz-Modus und Profi-Modus?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Im Quiz-Modus wählst du aus 4 Antworten. Im Profi-Modus musst du die Antwort komplett selbst eingeben.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Wie funktioniert das Tipp-System?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Du hast verschiedene Tipps zur Verfügung wie 50/50, Anfangsbuchstabe oder Wappen. Je mehr Tipps du nutzt, desto weniger Punkte erhältst du.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2><i class="fas fa-coins"></i> Punkte & Statistiken</h2>
+            
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Wie werden Punkte berechnet?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Ohne Tipp: 100 Punkte. Pro verwendetem Tipp werden 30 Punkte abgezogen. Minimum: 10 Punkte pro richtiger Antwort.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Bleiben meine Punkte gespeichert?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Ja, alle Punkte werden lokal in deinem Browser gespeichert und bleiben dauerhaft erhalten.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Kann ich meine Statistiken zurücksetzen?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Ja, in den Einstellungen unter "Gefahrenzone" kannst du alle Daten zurücksetzen.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2><i class="fas fa-cog"></i> Technische Fragen</h2>
+            
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Wie aktiviere ich den Dark Mode?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Gehe zu den Einstellungen → Erscheinung und wähle "Dunkel" oder "Automatisch".
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Funktioniert die App offline?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Die Spielesammlung funktioniert grundsätzlich offline, sobald sie einmal geladen wurde.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <nav class="bottom-nav" id="bottomNav">
+        <div class="bottom-nav-content">
+            <a href="index.html" class="bottom-nav-item" data-nav="home">
+                <i class="fas fa-home"></i>
+                <span>Spiel</span>
+            </a>
+            <a href="points.html" class="bottom-nav-item" data-nav="points">
+                <i class="fas fa-coins"></i>
+                <span>Punkte</span>
+                <span class="bottom-nav-badge" id="bottomNavPoints">0</span>
+            </a>
+            <a href="help.html" class="bottom-nav-item" data-nav="help">
+                <i class="fas fa-question-circle"></i>
+                <span>Hilfe</span>
+            </a>
+            <a href="faq.html" class="bottom-nav-item current" data-nav="faq">
+                <i class="fas fa-circle-question"></i>
+                <span>FAQ</span>
+            </a>
+            <a href="settings.html" class="bottom-nav-item" data-nav="settings">
+                <i class="fas fa-cog"></i>
+                <span>Einstellungen</span>
+            </a>
+        </div>
+    </nav>
+
+    <div id="footer-container"></div>
+
+    <script src="components/common.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/faq.js"></script>
+</body>
+</html>
