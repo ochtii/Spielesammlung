@@ -7,7 +7,7 @@
    Help Page Styles
    ============================================ */
 .help-hero {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
     border-radius: 20px;
     padding: 3rem 2rem;
     text-align: center;
@@ -62,13 +62,13 @@
 
 .help-quick-link:hover {
     transform: translateY(-5px);
-    border-color: var(--primary-color);
+    border-color: var(--accent-color);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 .help-quick-link i {
     font-size: 1.8rem;
-    color: var(--primary-color);
+    color: var(--accent-color);
 }
 
 .help-quick-link span {
@@ -89,11 +89,11 @@
     color: var(--text-primary);
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
-    border-bottom: 3px solid var(--primary-color);
+    border-bottom: 3px solid var(--accent-color);
 }
 
 .help-section-title i {
-    color: var(--primary-color);
+    color: var(--accent-color);
 }
 
 .help-grid {
@@ -185,7 +185,7 @@
 }
 
 .help-feature i {
-    color: var(--primary-color);
+    color: var(--accent-color);
     font-size: 0.85rem;
 }
 
@@ -237,7 +237,7 @@
 .difficulty-badge {
     display: inline-block;
     padding: 0.4rem 1rem;
-    background: var(--primary-color);
+    background: var(--accent-color);
     color: white;
     border-radius: 20px;
     font-size: 0.85rem;
@@ -247,7 +247,7 @@
 
 .difficulty-icon {
     font-size: 3rem;
-    color: var(--primary-color);
+    color: var(--accent-color);
     margin-bottom: 1rem;
 }
 
@@ -355,12 +355,12 @@
 .points-value {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: var(--accent-color);
 }
 
 /* CTA Section */
 .help-cta {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
     border-radius: 20px;
     padding: 3rem 2rem;
     text-align: center;

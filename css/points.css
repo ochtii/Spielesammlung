@@ -22,7 +22,7 @@
 .points-hero-bg {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
     opacity: 0.1;
     border-radius: 24px;
 }
@@ -245,7 +245,7 @@
 }
 
 .section-title i {
-    color: var(--primary-color);
+    color: var(--accent-color);
 }
 
 .section-header {
@@ -352,7 +352,7 @@
 
 .achievement-progress-bar {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
     border-radius: 3px;
     transition: width 0.5s ease;
 }
@@ -395,7 +395,7 @@
     width: 50px;
     height: 50px;
     border-radius: 12px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -461,13 +461,13 @@
 }
 
 .history-filter-btn:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
 }
 
 .history-filter-btn.active {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
+    background: var(--accent-color);
+    border-color: var(--accent-color);
     color: white;
 }
 
@@ -621,7 +621,7 @@
 }
 
 .history-modern-detail-btn:hover {
-    background: var(--primary-color);
+    background: var(--accent-color);
     color: white;
     transform: scale(1.1);
 }
