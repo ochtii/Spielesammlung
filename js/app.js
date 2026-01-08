@@ -3,6 +3,8 @@
  */
 const App = {
     currentGame: null,
+    version: '2.0.0',
+    buildDate: '2026-01-08',
 
     /**
      * Initialize the application
@@ -20,10 +22,24 @@ const App = {
             // Setup page-specific functionality
             this.setupPage();
             
-            console.log('App initialized successfully');
+            // Update version display
+            this.updateVersionDisplay();
+            
+            console.log(`App v${this.version} initialized`);
         } catch (error) {
             console.error('App initialization error:', error);
         }
+    },
+    
+    /**
+     * Update version display in UI
+     */
+    updateVersionDisplay() {
+        const versionEl = document.getElementById('appVersion');
+        const buildEl = document.getElementById('buildDate');
+        
+        if (versionEl) versionEl.textContent = this.version;
+        if (buildEl) buildEl.textContent = this.buildDate;
     },
 
     /**
