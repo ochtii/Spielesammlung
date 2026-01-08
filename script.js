@@ -397,6 +397,70 @@ class AustriaQuiz {
     }
 
     /**
+     * Detaillierte Spielstatistiken sammeln
+     */
+    saveGameStatistics(gameData) {
+        const stats = JSON.parse(localStorage.getItem('gameStats') || '{}');
+        
+        // Initialisiere Statistiken falls nicht vorhanden
+        if (!stats.totalPoints) stats.totalPoints = 0;
+        if (!stats.totalGames) stats.totalGames = 0;
+        if (!stats.averageTime) stats.averageTime = 0;
+        if (!stats.bestScore) stats.bestScore = 0;
+        if (!stats.capitalsGames) stats.capitalsGames = 0;
+        if (!stats.coatsGames) stats.coatsGames = 0;
+        if (!stats.recentGames) stats.recentGames = [];
+        if (!stats.gameHistory) stats.gameHistory = [];
+        
+        // Aktualisiere Gesamtstatistiken
+        stats.totalPoints += gameData.score;
+        stats.totalGames += 1;
+        
+        // Spielmodus zählen
+        if (gameData.mode === 'capitals') {
+            stats.capitalsGames += 1;
+        } else if (gameData.mode === 'coats') {
+            stats.coatsGames += 1;
+        }
+        
+        // Beste Punktzahl aktualisieren
+        if (gameData.score > stats.bestScore) {
+            stats.bestScore = gameData.score;
+        }
+        
+        // Durchschnittszeit berechnen
+        const totalTime = (stats.averageTime * (stats.totalGames - 1)) + gameData.time;
+        stats.averageTime = totalTime / stats.totalGames;
+        
+        // Letzte Spiele (max 5)
+        stats.recentGames.unshift({
+            mode: gameData.mode,
+            score: gameData.score,
+            time: gameData.time,
+            date: new Date().toISOString()
+        });
+        if (stats.recentGames.length > 5) {
+            stats.recentGames = stats.recentGames.slice(0, 5);
+        }
+        
+        // Spielverlauf (max 50)
+        stats.gameHistory.unshift({
+            mode: gameData.mode,
+            score: gameData.score,
+            time: gameData.time,
+            percentage: gameData.percentage,
+            questions: gameData.questions,
+            date: new Date().toISOString().split('T')[0] // Nur Datum
+        });
+        if (stats.gameHistory.length > 50) {
+            stats.gameHistory = stats.gameHistory.slice(0, 50);
+        }
+        
+        // Speichere Statistiken
+        localStorage.setItem('gameStats', JSON.stringify(stats));
+    }
+
+    /**
      * Hinweis-Statistik aktualisieren
      */
     incrementHintsUsed() {
@@ -2043,6 +2107,15 @@ class AustriaQuiz {
         
         // Spiel-Statistik aktualisieren
         this.incrementGamesPlayed();
+        
+        // Detaillierte Statistiken sammeln
+        this.saveGameStatistics({
+            mode: this.currentGame === 'capitals' ? 'Hauptstädte' : 'Wappen',
+            score: finalScore,
+            time: this.timeRemaining || 0,
+            percentage: percentage,
+            questions: totalQuestions
+        });
         
         const finalScore = this.score;
         const maxScore = this.totalPossiblePoints;

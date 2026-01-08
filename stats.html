@@ -77,11 +77,11 @@
 
 			<div class="stat-card">
 				<div class="stat-icon">
-					<i class="fas fa-star"></i>
+					<i class="fas fa-egg"></i>
 				</div>
 				<div class="stat-content">
-					<h3>Beste Punktzahl</h3>
-					<p class="stat-value" id="bestScore">0</p>
+					<h3>Easter Eggs</h3>
+					<p class="stat-value" id="easterEggs">0</p>
 				</div>
 			</div>
 		</div>
@@ -146,8 +146,9 @@
 
 	    // Reset Button
 	    document.getElementById('resetStatsBtn').addEventListener('click', function() {
-	        if (confirm('Möchten Sie wirklich alle Statistiken zurücksetzen?')) {
+	        if (confirm('Möchten Sie wirklich alle Statistiken zurücksetzen? Easter Eggs bleiben erhalten.')) {
 	            localStorage.removeItem('gameStats');
+	            // Easter Eggs und Punkte bleiben erhalten
 	            loadStatistics();
 	            showNotification('Statistiken wurden zurückgesetzt', 'success');
 	        }
@@ -161,12 +162,15 @@
 
 	function loadStatistics() {
 	    const stats = JSON.parse(localStorage.getItem('gameStats') || '{}');
+	    const foundEasterEggs = JSON.parse(localStorage.getItem('foundEasterEggs') || '[]');
+	    const pointsData = JSON.parse(localStorage.getItem('pointsData') || '{}');
 
 	    // Übersicht
-	    document.getElementById('totalPoints').textContent = (stats.totalPoints || 0).toLocaleString();
+	    document.getElementById('totalPoints').textContent = (pointsData.totalPoints || 0).toLocaleString();
 	    document.getElementById('totalGames').textContent = (stats.totalGames || 0).toLocaleString();
 	    document.getElementById('averageTime').textContent = formatTime(stats.averageTime || 0);
 	    document.getElementById('bestScore').textContent = (stats.bestScore || 0).toLocaleString();
+	    document.getElementById('easterEggs').textContent = foundEasterEggs.length.toLocaleString();
 
 	    // Spielmodi
 	    document.getElementById('capitalsGames').textContent = (stats.capitalsGames || 0).toLocaleString();
