@@ -3,7 +3,7 @@
  */
 const App = {
     currentGame: null,
-    version: '2.0.0',
+    version: '2.1.3',
     buildDate: '2026-01-08',
 
     /**

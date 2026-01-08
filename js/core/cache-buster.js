@@ -5,7 +5,7 @@
 const CacheBuster = {
     STORAGE_KEY: 'cacheBusterEnabled',
     VERSION_KEY: 'appVersion',
-    BUILD_VERSION: '2.1.0', // Sync with AppConfig.version
+    BUILD_VERSION: '2.1.3', // Sync with AppConfig.version
     
     /**
      * Check if cache busting is enabled
