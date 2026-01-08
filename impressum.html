@@ -254,6 +254,17 @@
     </footer>
 
     <script>
+        // Theme laden
+        function loadTheme() {
+            const theme = localStorage.getItem('theme') || 'light';
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+        }
+        
+        // Theme sofort laden (vor DOMContentLoaded)
+        loadTheme();
+        
         document.addEventListener('DOMContentLoaded', function() {
             setupMenu();
             applyBottomNavSettings();
