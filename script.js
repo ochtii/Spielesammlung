@@ -2396,15 +2396,68 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Dark Mode sofort anwenden (für Seiten die script.js nach dem Laden laden)
-(function() {
-    const darkMode = localStorage.getItem('darkMode') === 'true';
-    const accent = localStorage.getItem('accentColor');
-    
-    if (darkMode) {
+// ============================================
+// GLOBALE SETTINGS-ANWENDUNG
+// Wird auf allen Seiten ausgeführt
+// ============================================
+
+function applyGlobalSettings() {
+    // Theme (Dark Mode)
+    const theme = localStorage.getItem('theme') || 'light';
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.body.classList.remove('light-mode', 'dark-mode');
+    if (theme === 'auto') {
+        document.body.classList.add(prefersDark ? 'dark-mode' : 'light-mode');
+    } else {
+        document.body.classList.add(theme + '-mode');
+    }
+
+    // Dark Mode (alternative Speicherung)
+    if (localStorage.getItem('darkMode') === 'true') {
         document.body.classList.add('dark-mode');
     }
-    if (accent) {
-        document.documentElement.style.setProperty('--primary-color', accent);
+
+    // Accent Color
+    const accentColor = localStorage.getItem('accentColor') || '#ed2939';
+    document.documentElement.style.setProperty('--accent-color', accentColor);
+    document.documentElement.style.setProperty('--primary-color', accentColor);
+
+    // Font Scale
+    const fontScale = localStorage.getItem('fontScale') || '100';
+    const scaleValue = fontScale / 100;
+    document.documentElement.style.setProperty('--font-scale', scaleValue);
+
+    // Animations
+    const animationsEnabled = localStorage.getItem('animationsEnabled') !== 'false';
+    document.body.classList.toggle('no-animations', !animationsEnabled);
+
+    // High Contrast
+    const highContrast = localStorage.getItem('highContrast') === 'true';
+    document.body.classList.toggle('high-contrast', highContrast);
+
+    // Reduced Motion
+    const reducedMotion = localStorage.getItem('reducedMotion') === 'true';
+    document.body.classList.toggle('reduced-motion', reducedMotion);
+
+    // Screen Reader
+    const screenReader = localStorage.getItem('screenReader') === 'true';
+    document.body.classList.toggle('screen-reader-active', screenReader);
+
+    // Bottom Navigation
+    const bottomNavEnabled = localStorage.getItem('bottomNavEnabled') !== 'false';
+    document.body.classList.toggle('bottom-nav-enabled', bottomNavEnabled);
+}
+
+// Initiale Anwendung beim Laden
+applyGlobalSettings();
+
+// Theme-Änderungen live überwachen
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    const theme = localStorage.getItem('theme');
+    if (theme === 'auto') {
+        applyGlobalSettings();
     }
-})();
+});
+
+// Export für andere Skripte
+window.applyGlobalSettings = applyGlobalSettings;
