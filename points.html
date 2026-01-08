@@ -118,6 +118,10 @@
 
     <footer class="footer">
         <div class="footer-content">
+            <button class="footer-zoom-btn" id="zoomResetBtn">
+                <i class="fas fa-search-minus"></i>
+                <span>Ansicht auf 100% zurücksetzen</span>
+            </button>
             <p id="commitInfo">Version wird geladen...</p>
         </div>
     </footer>
@@ -614,6 +618,24 @@
             loadPointsData();
             setupMenu();
             loadCommitTime();
+            
+            // Zoom Reset
+            const zoomBtn = document.getElementById('zoomResetBtn');
+            if (zoomBtn) {
+                zoomBtn.addEventListener('click', () => {
+                    const viewport = document.querySelector('meta[name="viewport"]');
+                    if (viewport) {
+                        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                        setTimeout(() => {
+                            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+                        }, 100);
+                    }
+                    zoomBtn.innerHTML = '<i class="fas fa-check"></i><span>Zurückgesetzt!</span>';
+                    setTimeout(() => {
+                        zoomBtn.innerHTML = '<i class="fas fa-search-minus"></i><span>Ansicht auf 100% zurücksetzen</span>';
+                    }, 2000);
+                });
+            }
             
             // Settings Button
             document.getElementById('settingsBtn').addEventListener('click', () => {

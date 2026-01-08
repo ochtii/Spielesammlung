@@ -1969,9 +1969,35 @@ function applyBottomNavSettings() {
     });
 }
 
+// Zoom Reset Funktion
+function initZoomReset() {
+    const zoomBtn = document.getElementById('zoomResetBtn');
+    if (zoomBtn) {
+        zoomBtn.addEventListener('click', () => {
+            // Setze Viewport Zoom auf 100%
+            const viewport = document.querySelector('meta[name="viewport"]');
+            if (viewport) {
+                viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                
+                // Nach kurzer Zeit wieder normale Einstellung
+                setTimeout(() => {
+                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+                }, 100);
+            }
+            
+            // Visuelles Feedback
+            zoomBtn.innerHTML = '<i class="fas fa-check"></i><span>Zurückgesetzt!</span>';
+            setTimeout(() => {
+                zoomBtn.innerHTML = '<i class="fas fa-search-minus"></i><span>Ansicht auf 100% zurücksetzen</span>';
+            }, 2000);
+        });
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     new AustriaQuiz();
     loadCommitTime();
     updateBottomNavPoints();
     applyBottomNavSettings();
+    initZoomReset();
 });
