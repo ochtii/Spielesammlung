@@ -42,123 +42,308 @@
 
     <!-- Main Container -->
     <main class="container">
-        <div class="card welcome-card">
-            <h2><i class="fas fa-gamepad"></i> Willkommen zur Spielesammlung!</h2>
-            <p>Hier findest du alle Informationen zu den verschiedenen Spielmodi und wie du sie spielst.</p>
+        <!-- Hero Section -->
+        <div class="help-hero">
+            <div class="help-hero-content">
+                <i class="fas fa-question-circle help-hero-icon"></i>
+                <h1>Hilfe & Anleitung</h1>
+                <p>Alles, was du über die Spielesammlung wissen musst</p>
+            </div>
         </div>
 
-        <!-- Spielmodi -->
-        <div class="card" style="margin-top: 1.5rem;">
-            <h3><i class="fas fa-dice"></i> Spielmodi</h3>
+        <!-- Quick Links -->
+        <div class="help-quick-links">
+            <a href="#spielmodi" class="help-quick-link">
+                <i class="fas fa-gamepad"></i>
+                <span>Spielmodi</span>
+            </a>
+            <a href="#schwierigkeit" class="help-quick-link">
+                <i class="fas fa-layer-group"></i>
+                <span>Schwierigkeit</span>
+            </a>
+            <a href="#punkte" class="help-quick-link">
+                <i class="fas fa-star"></i>
+                <span>Punkte</span>
+            </a>
+            <a href="#tipps" class="help-quick-link">
+                <i class="fas fa-lightbulb"></i>
+                <span>Tipps</span>
+            </a>
+        </div>
+
+        <!-- Spielmodi Section -->
+        <section id="spielmodi" class="help-section-wrapper">
+            <h2 class="help-section-title">
+                <i class="fas fa-gamepad"></i>
+                Spielmodi
+            </h2>
             
-            <div class="help-section">
-                <h4><i class="fas fa-car"></i> Kennzeichen raten</h4>
-                <p>Dir wird ein österreichisches KFZ-Kennzeichen gezeigt. Errate, zu welchem Bezirk oder Bundesland es gehört.</p>
-                <ul>
-                    <li>Das Kennzeichen zeigt den Bezirkscode (z.B. W für Wien, G für Graz)</li>
-                    <li>Nutze den Tipp-Button für einen Hinweis zum Bundesland inkl. Wappen</li>
-                </ul>
-            </div>
+            <div class="help-grid">
+                <div class="help-card">
+                    <div class="help-card-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Kennzeichen raten</h3>
+                    <p>Erkenne österreichische KFZ-Kennzeichen und ordne sie dem richtigen Bezirk oder Bundesland zu.</p>
+                    <div class="help-features">
+                        <div class="help-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Bezirkscodes lernen</span>
+                        </div>
+                        <div class="help-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Wappen als Hinweis</span>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="help-section">
-                <h4><i class="fas fa-university"></i> Hauptstädte quizzen</h4>
-                <p>Teste dein Wissen über die Hauptstädte der österreichischen Bundesländer und Bezirke.</p>
-                <ul>
-                    <li><strong>Bundesländer:</strong> Die 9 Landeshauptstädte Österreichs</li>
-                    <li><strong>Bezirke:</strong> Größere Bezirks- und Stadthauptstädte</li>
-                    <li><strong>Gemischt:</strong> Kombination aus beiden</li>
-                </ul>
-            </div>
+                <div class="help-card">
+                    <div class="help-card-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3>Hauptstädte Quiz</h3>
+                    <p>Teste dein Wissen über österreichische Bundesländer und Bezirkshauptstädte.</p>
+                    <div class="help-features">
+                        <div class="help-feature">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>9 Landeshauptstädte</span>
+                        </div>
+                        <div class="help-feature">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Bezirkshauptstädte</span>
+                        </div>
+                        <div class="help-feature">
+                            <i class="fas fa-random"></i>
+                            <span>Gemischter Modus</span>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="help-section">
-                <h4><i class="fas fa-globe"></i> Internationale Hauptstädte</h4>
-                <p>Errate die Hauptstädte von Ländern aus der ganzen Welt. Die Antworten werden in Deutsch, Englisch und der Landessprache akzeptiert.</p>
-            </div>
+                <div class="help-card">
+                    <div class="help-card-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <i class="fas fa-globe-europe"></i>
+                    </div>
+                    <h3>Welthauptstädte</h3>
+                    <p>Errate Hauptstädte aus aller Welt – Antworten in mehreren Sprachen möglich!</p>
+                    <div class="help-features">
+                        <div class="help-feature">
+                            <i class="fas fa-language"></i>
+                            <span>DE, EN & Landessprache</span>
+                        </div>
+                        <div class="help-feature">
+                            <i class="fas fa-globe"></i>
+                            <span>Internationale Städte</span>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="help-section">
-                <h4><i class="fas fa-users"></i> Einwohner vergleichen</h4>
-                <p>Vergleiche zwei österreichische Städte: Welche hat mehr Einwohner?</p>
+                <div class="help-card">
+                    <div class="help-card-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Einwohner-Vergleich</h3>
+                    <p>Vergleiche österreichische Städte und schätze, welche mehr Einwohner hat.</p>
+                    <div class="help-features">
+                        <div class="help-feature">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Städte-Ranking</span>
+                        </div>
+                        <div class="help-feature">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Direktvergleich</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Schwierigkeitsgrade -->
-        <div class="card" style="margin-top: 1.5rem;">
-            <h3><i class="fas fa-layer-group"></i> Schwierigkeitsgrade</h3>
+        <!-- Schwierigkeitsgrade Section -->
+        <section id="schwierigkeit" class="help-section-wrapper">
+            <h2 class="help-section-title">
+                <i class="fas fa-layer-group"></i>
+                Schwierigkeitsgrade
+            </h2>
             
-            <div class="help-section">
-                <h4><i class="fas fa-clone"></i> Quiz-Modus</h4>
-                <p>Wähle die richtige Antwort aus 4 Optionen. Ideal für Einsteiger!</p>
-            </div>
+            <div class="help-difficulty-grid">
+                <div class="help-difficulty-card difficulty-easy">
+                    <div class="difficulty-badge">Einfach</div>
+                    <i class="fas fa-clone difficulty-icon"></i>
+                    <h3>Quiz-Modus</h3>
+                    <p>Wähle die richtige Antwort aus 4 vorgegebenen Optionen. Perfekt für Einsteiger!</p>
+                    <div class="difficulty-level">
+                        <span>Schwierigkeit:</span>
+                        <div class="level-bars">
+                            <div class="level-bar active"></div>
+                            <div class="level-bar"></div>
+                            <div class="level-bar"></div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="help-section">
-                <h4><i class="fas fa-edit"></i> Kombiniert</h4>
-                <p>Gib deine Antwort ein, aber du kannst dir auch die Optionen anzeigen lassen. Nur bei Hauptstädte-Spielen verfügbar.</p>
-            </div>
+                <div class="help-difficulty-card difficulty-medium">
+                    <div class="difficulty-badge">Mittel</div>
+                    <i class="fas fa-edit difficulty-icon"></i>
+                    <h3>Kombiniert</h3>
+                    <p>Gib die Antwort selbst ein oder lass dir Optionen anzeigen. Flexibel und herausfordernd!</p>
+                    <div class="difficulty-level">
+                        <span>Schwierigkeit:</span>
+                        <div class="level-bars">
+                            <div class="level-bar active"></div>
+                            <div class="level-bar active"></div>
+                            <div class="level-bar"></div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="help-section">
-                <h4><i class="fas fa-keyboard"></i> Profi-Modus</h4>
-                <p>Tippe die Antwort selbst ein – ohne Hilfe! Für echte Experten.</p>
+                <div class="help-difficulty-card difficulty-hard">
+                    <div class="difficulty-badge">Schwer</div>
+                    <i class="fas fa-keyboard difficulty-icon"></i>
+                    <h3>Profi-Modus</h3>
+                    <p>Tippe die Antwort komplett selbst ein – ohne jegliche Hilfe. Nur für wahre Experten!</p>
+                    <div class="difficulty-level">
+                        <span>Schwierigkeit:</span>
+                        <div class="level-bars">
+                            <div class="level-bar active"></div>
+                            <div class="level-bar active"></div>
+                            <div class="level-bar active"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Punktesystem -->
-        <div class="card" style="margin-top: 1.5rem;">
-            <h3><i class="fas fa-star"></i> Punktesystem</h3>
+        <!-- Punktesystem Section -->
+        <section id="punkte" class="help-section-wrapper">
+            <h2 class="help-section-title">
+                <i class="fas fa-star"></i>
+                Punktesystem
+            </h2>
             
-            <div class="help-section">
-                <h4><i class="fas fa-coins"></i> Dynamische Punkte</h4>
-                <p>Je weniger Tipps du verwendest, desto mehr Punkte bekommst du!</p>
-                <ul>
-                    <li><strong>Ohne Tipp:</strong> 100 Punkte</li>
-                    <li><strong>1 Tipp verwendet:</strong> 70 Punkte</li>
-                    <li><strong>2 Tipps verwendet:</strong> 40 Punkte</li>
-                    <li><strong>3 Tipps verwendet:</strong> 10 Punkte</li>
-                    <li><strong>Falsche Antwort:</strong> 0 Punkte</li>
-                </ul>
+            <div class="help-points-explainer">
+                <div class="points-info-card">
+                    <i class="fas fa-trophy points-icon"></i>
+                    <h3>Dynamische Punktevergabe</h3>
+                    <p>Je weniger Tipps du nutzt, desto mehr Punkte erhältst du! Zeige dein Können und maximiere deine Punktzahl.</p>
+                </div>
+
+                <div class="points-table">
+                    <div class="points-row points-header">
+                        <span>Tipps verwendet</span>
+                        <span>Punkte</span>
+                    </div>
+                    <div class="points-row points-excellent">
+                        <span><i class="fas fa-star"></i> Ohne Tipp</span>
+                        <span class="points-value">100</span>
+                    </div>
+                    <div class="points-row points-good">
+                        <span><i class="fas fa-lightbulb"></i> 1 Tipp</span>
+                        <span class="points-value">70</span>
+                    </div>
+                    <div class="points-row points-ok">
+                        <span><i class="fas fa-lightbulb"></i> 2 Tipps</span>
+                        <span class="points-value">40</span>
+                    </div>
+                    <div class="points-row points-low">
+                        <span><i class="fas fa-lightbulb"></i> 3 Tipps</span>
+                        <span class="points-value">10</span>
+                    </div>
+                    <div class="points-row points-wrong">
+                        <span><i class="fas fa-times"></i> Falsche Antwort</span>
+                        <span class="points-value">0</span>
+                    </div>
+                </div>
             </div>
 
-            <div class="help-section">
-                <h4><i class="fas fa-wallet"></i> Globales Punktekonto</h4>
-                <p>Alle verdienten Punkte werden auf deinem globalen Punktekonto gesammelt. Diese Punkte bleiben auch nach Spielende erhalten!</p>
-                <p>Auf der <a href="points.html">Punkte-Seite</a> kannst du deine Statistiken einsehen und bei Bedarf zurücksetzen.</p>
-            </div>
+            <div class="help-points-features">
+                <div class="points-feature-card">
+                    <i class="fas fa-wallet"></i>
+                    <h4>Globales Punktekonto</h4>
+                    <p>Alle Punkte werden gespeichert und bleiben dauerhaft erhalten. Verfolge deinen Fortschritt auf der <a href="points.html">Punkte-Seite</a>.</p>
+                </div>
 
-            <div class="help-section">
-                <h4><i class="fas fa-shopping-cart"></i> Kostenpflichtige Tipps</h4>
-                <p>In den Einstellungen kannst du "Kostenpflichtige Tipps" aktivieren. Dann kosten Tipps <strong>20 gesammelte Punkte</strong> pro Tipp.</p>
-                <p>Das macht das Spiel herausfordernder – überlege gut, ob du einen Tipp wirklich brauchst!</p>
+                <div class="points-feature-card">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h4>Kostenpflichtige Tipps</h4>
+                    <p>Optional: Aktiviere diese Funktion in den Einstellungen. Tipps kosten dann <strong>20 Punkte</strong> aus deinem Guthaben.</p>
+                </div>
             </div>
+        </section>
 
-            <div class="help-section">
-                <h4><i class="fas fa-lightbulb"></i> Tipp-System</h4>
-                <p>Du hast pro Frage bis zu 3 Tipps zur Verfügung:</p>
-                <ul>
-                    <li><strong>Tipp 1:</strong> Allgemeiner Hinweis (z.B. Bundesland, Anfangsbuchstabe)</li>
-                    <li><strong>Tipp 2:</strong> Genauerer Hinweis + Wappen bei Kennzeichen</li>
-                    <li><strong>Tipp 3:</strong> Starker Hinweis (z.B. Wortanfang)</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Einstellungen -->
-        <div class="card" style="margin-top: 1.5rem;">
-            <h3><i class="fas fa-cog"></i> Einstellungen</h3>
+        <!-- Tipp-System Section -->
+        <section id="tipps" class="help-section-wrapper">
+            <h2 class="help-section-title">
+                <i class="fas fa-lightbulb"></i>
+                Tipp-System
+            </h2>
             
-            <div class="help-section">
-                <h4><i class="fas fa-spell-check"></i> Tippfehler akzeptieren</h4>
-                <p>Aktiviere diese Option in den Einstellungen, um kleine Tippfehler bei der Eingabe zu tolerieren. Nützlich bei schwierigen Städtenamen!</p>
-            </div>
+            <div class="help-tips-timeline">
+                <div class="tip-timeline-item">
+                    <div class="tip-number">1</div>
+                    <div class="tip-content">
+                        <h4>Allgemeiner Hinweis</h4>
+                        <p>Bundesland, Region oder Anfangsbuchstabe der gesuchten Antwort.</p>
+                    </div>
+                </div>
 
-            <div class="help-section">
-                <h4><i class="fas fa-moon"></i> Dark Mode</h4>
-                <p>Klicke auf das Mond-/Sonnen-Symbol oben rechts, um zwischen hellem und dunklem Design zu wechseln.</p>
-            </div>
-        </div>
+                <div class="tip-timeline-item">
+                    <div class="tip-number">2</div>
+                    <div class="tip-content">
+                        <h4>Genauerer Hinweis</h4>
+                        <p>Detailliertere Informationen wie Wappen (bei Kennzeichen) oder geografische Lage.</p>
+                    </div>
+                </div>
 
-        <!-- Zurück Button -->
-        <div style="text-align: center; margin-top: 2rem;">
-            <a href="index.html" class="start-btn" style="text-decoration: none; display: inline-block;">
-                <i class="fas fa-play"></i> Zurück zum Spiel
+                <div class="tip-timeline-item">
+                    <div class="tip-number">3</div>
+                    <div class="tip-content">
+                        <h4>Starker Hinweis</h4>
+                        <p>Fast die komplette Antwort: Wortanfang oder mehrere Buchstaben der Lösung.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Weitere Features -->
+        <section class="help-section-wrapper">
+            <h2 class="help-section-title">
+                <i class="fas fa-cog"></i>
+                Weitere Features
+            </h2>
+            
+            <div class="help-extra-features">
+                <div class="extra-feature-card">
+                    <i class="fas fa-spell-check"></i>
+                    <h4>Tippfehler-Toleranz</h4>
+                    <p>Aktiviere diese Option, um kleine Schreibfehler bei der Eingabe zu erlauben – besonders nützlich bei langen Städtenamen!</p>
+                </div>
+
+                <div class="extra-feature-card">
+                    <i class="fas fa-moon"></i>
+                    <h4>Dark Mode</h4>
+                    <p>Wechsle zwischen hellem und dunklem Design für ein angenehmeres Spielerlebnis bei Nacht.</p>
+                </div>
+
+                <div class="extra-feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h4>Mobile Optimierung</h4>
+                    <p>Spiele unterwegs mit der Bottom Navigation – anpassbar in Größe und Aussehen.</p>
+                </div>
+
+                <div class="extra-feature-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h4>Statistiken</h4>
+                    <p>Verfolge deine Fortschritte, Erfolgsquoten und Punkteentwicklung auf der Punkte-Seite.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <div class="help-cta">
+            <h3>Bereit loszulegen?</h3>
+            <p>Starte jetzt und teste dein Wissen!</p>
+            <a href="index.html" class="help-cta-btn">
+                <i class="fas fa-play"></i>
+                Spiel starten
             </a>
         </div>
     </main>
