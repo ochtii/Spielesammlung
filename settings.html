@@ -107,6 +107,44 @@
             </div>
         </div>
 
+        <!-- Developer Tools -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-code"></i> Entwickler-Tools</h3>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-label">Cache Buster</div>
+                    <div class="setting-desc">Erzwingt das Laden neuer Dateiversionen</div>
+                </div>
+                <label class="toggle">
+                    <input type="checkbox" id="cacheBusterToggle" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-label">Cache leeren</div>
+                    <div class="setting-desc">Alle Browser-Caches sofort leeren</div>
+                </div>
+                <button id="clearCacheBtn" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-broom"></i> Leeren
+                </button>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-label">Hard Reload</div>
+                    <div class="setting-desc">Seite neu laden mit Cache-Bypass</div>
+                </div>
+                <button id="hardReloadBtn" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-sync-alt"></i> Reload
+                </button>
+            </div>
+        </div>
+
         <!-- About -->
         <div class="card">
             <div class="card-header">
@@ -150,6 +188,7 @@
     </nav>
 
     <!-- Scripts -->
+    <script src="js/core/cache-buster.js"></script>
     <script src="js/core/storage.js"></script>
     <script src="js/core/events.js"></script>
     <script src="js/core/theme.js"></script>

@@ -264,6 +264,35 @@ const App = {
                 }
             });
         }
+
+        // Dev Tools - Cache Buster Toggle
+        const cacheBusterToggle = document.getElementById('cacheBusterToggle');
+        if (cacheBusterToggle && typeof CacheBuster !== 'undefined') {
+            cacheBusterToggle.checked = CacheBuster.isEnabled();
+            cacheBusterToggle.addEventListener('change', (e) => {
+                CacheBuster.setEnabled(e.target.checked);
+                Toast.show(e.target.checked ? 'Cache Buster aktiviert' : 'Cache Buster deaktiviert', {
+                    type: e.target.checked ? 'success' : 'info'
+                });
+            });
+        }
+
+        // Dev Tools - Clear Cache Button
+        const clearCacheBtn = document.getElementById('clearCacheBtn');
+        if (clearCacheBtn && typeof CacheBuster !== 'undefined') {
+            clearCacheBtn.addEventListener('click', async () => {
+                await CacheBuster.bustCache();
+                Toast.success('Cache geleert!');
+            });
+        }
+
+        // Dev Tools - Hard Reload Button
+        const hardReloadBtn = document.getElementById('hardReloadBtn');
+        if (hardReloadBtn && typeof CacheBuster !== 'undefined') {
+            hardReloadBtn.addEventListener('click', () => {
+                CacheBuster.forceReload();
+            });
+        }
     },
 
     /**
