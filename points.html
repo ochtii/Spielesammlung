@@ -777,7 +777,41 @@
             });
         }
 
-
+        // Easter Egg: Jackpot (7x auf Münzen-Icon tippen)
+        let jackpotTapCount = 0;
+        let jackpotTapTimer = null;
+        
+        function initJackpotEasterEgg() {
+            const coinsIcon = document.querySelector('.points-main-icon');
+            if (!coinsIcon) return;
+            if (window.EasterEggHelper && window.EasterEggHelper.isEasterEggFound('pointsJackpot')) return;
+            
+            coinsIcon.style.cursor = 'pointer';
+            coinsIcon.addEventListener('click', () => {
+                if (window.EasterEggHelper && window.EasterEggHelper.isEasterEggFound('pointsJackpot')) return;
+                
+                jackpotTapCount++;
+                
+                // Visual Feedback - Münzen rotieren
+                coinsIcon.style.transform = `rotate(${jackpotTapCount * 30}deg) scale(${1 + jackpotTapCount * 0.05})`;
+                
+                clearTimeout(jackpotTapTimer);
+                jackpotTapTimer = setTimeout(() => {
+                    jackpotTapCount = 0;
+                    coinsIcon.style.transform = '';
+                }, 2000);
+                
+                if (jackpotTapCount >= 7) {
+                    if (window.EasterEggHelper) {
+                        window.EasterEggHelper.triggerEasterEgg('pointsJackpot', 777, 'Jackpot!');
+                    }
+                    jackpotTapCount = 0;
+                    coinsIcon.style.transform = '';
+                    // Punkte neu laden
+                    setTimeout(loadPointsData, 500);
+                }
+            });
+        }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
@@ -786,6 +820,7 @@
             updateBottomNavPoints();
             loadPointsData();
             setupMenu();
+            initJackpotEasterEgg();
             
             // Reset Button
             document.getElementById('resetPointsBtn').addEventListener('click', resetPoints);

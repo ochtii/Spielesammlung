@@ -6,6 +6,69 @@
 (function() {
     'use strict';
 
+    // Easter Egg Helper Functions (global verwendbar)
+    window.EasterEggHelper = {
+        getFoundEasterEggs: function() {
+            return JSON.parse(localStorage.getItem('foundEasterEggs') || '[]');
+        },
+        
+        isEasterEggFound: function(eggId) {
+            return this.getFoundEasterEggs().includes(eggId);
+        },
+        
+        triggerEasterEgg: function(eggId, reward, name) {
+            if (this.isEasterEggFound(eggId)) return false;
+            
+            // Als gefunden markieren
+            const found = this.getFoundEasterEggs();
+            found.push(eggId);
+            localStorage.setItem('foundEasterEggs', JSON.stringify(found));
+            
+            // Punkte hinzufügen
+            let pointsData = JSON.parse(localStorage.getItem('pointsData') || '{}');
+            pointsData.totalPoints = (pointsData.totalPoints || 0) + reward;
+            if (!pointsData.history) pointsData.history = [];
+            pointsData.history.unshift({
+                type: '🎁 Easter Egg',
+                points: reward,
+                timestamp: new Date().toISOString(),
+                details: name
+            });
+            localStorage.setItem('pointsData', JSON.stringify(pointsData));
+            
+            // Notification anzeigen
+            this.showEasterEggNotification(name, reward);
+            
+            return true;
+        },
+        
+        showEasterEggNotification: function(name, reward) {
+            // Entferne bestehende Notification
+            const existing = document.querySelector('.easter-egg-notification');
+            if (existing) existing.remove();
+            
+            const notification = document.createElement('div');
+            notification.className = 'easter-egg-notification';
+            notification.innerHTML = `
+                <div class="easter-egg-notification-content">
+                    <i class="fas fa-gift"></i>
+                    <div class="easter-egg-notification-text">
+                        <strong>🎉 Easter Egg gefunden!</strong>
+                        <span>${name} (+${reward} Punkte)</span>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            // Animation
+            setTimeout(() => notification.classList.add('show'), 10);
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+    };
+
     // Footer laden
     async function loadFooter() {
         const footerContainer = document.getElementById('footer-container');
@@ -21,6 +84,7 @@
             // Footer-Funktionen initialisieren
             initZoomReset();
             loadCommitInfo();
+            initGlobalEasterEggs();
         } catch (error) {
             console.error('Footer konnte nicht geladen werden:', error);
             // Fallback: Minimaler Footer
@@ -31,7 +95,83 @@
                     </div>
                 </footer>
             `;
+            initGlobalEasterEggs();
         }
+    }
+    
+    // Globale Easter Eggs (funktionieren auf allen Seiten)
+    function initGlobalEasterEggs() {
+        // Easter Egg: Logo Tap (10x auf Logo tippen)
+        initLogoTapEasterEgg();
+        
+        // Easter Egg: Footer Secret (5x auf Copyright tippen)
+        initFooterSecretEasterEgg();
+    }
+    
+    // Logo Tap Easter Egg
+    let logoTapCount = 0;
+    let logoTapTimer = null;
+    
+    function initLogoTapEasterEgg() {
+        const logo = document.querySelector('.navbar-brand');
+        if (!logo || window.EasterEggHelper.isEasterEggFound('logoTap')) return;
+        
+        logo.addEventListener('click', (e) => {
+            if (window.EasterEggHelper.isEasterEggFound('logoTap')) return;
+            
+            // Nur zählen wenn nicht navigiert wird
+            logoTapCount++;
+            
+            // Visual Feedback
+            logo.style.transform = `scale(${1 + logoTapCount * 0.02})`;
+            
+            clearTimeout(logoTapTimer);
+            logoTapTimer = setTimeout(() => {
+                logoTapCount = 0;
+                logo.style.transform = '';
+            }, 2000);
+            
+            if (logoTapCount >= 10) {
+                e.preventDefault();
+                window.EasterEggHelper.triggerEasterEgg('logoTap', 300, 'Logo Fan');
+                logoTapCount = 0;
+                logo.style.transform = '';
+            }
+        });
+    }
+    
+    // Footer Secret Easter Egg
+    let footerTapCount = 0;
+    let footerTapTimer = null;
+    
+    function initFooterSecretEasterEgg() {
+        // Warte kurz bis Footer geladen ist
+        setTimeout(() => {
+            const copyright = document.querySelector('.footer-content p, .footer p');
+            if (!copyright || window.EasterEggHelper.isEasterEggFound('footerSecret')) return;
+            
+            copyright.style.cursor = 'default';
+            copyright.addEventListener('click', () => {
+                if (window.EasterEggHelper.isEasterEggFound('footerSecret')) return;
+                
+                footerTapCount++;
+                
+                // Visual Feedback
+                copyright.style.color = `hsl(${footerTapCount * 40}, 70%, 50%)`;
+                
+                clearTimeout(footerTapTimer);
+                footerTapTimer = setTimeout(() => {
+                    footerTapCount = 0;
+                    copyright.style.color = '';
+                }, 2000);
+                
+                if (footerTapCount >= 5) {
+                    window.EasterEggHelper.triggerEasterEgg('footerSecret', 200, 'Footer Finder');
+                    footerTapCount = 0;
+                    copyright.style.color = '';
+                }
+            });
+        }, 500);
     }
 
     // Zoom Reset Button
