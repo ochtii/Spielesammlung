@@ -2021,6 +2021,33 @@ body.dark-mode .quick-setting-item:active {
     color: #2ecc71;
 }
 
+/* Mobile Hint für Easter Eggs */
+.easter-eggs-hint-mobile {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 8px;
+    font-size: 0.75rem;
+    color: var(--info-color);
+}
+
+.easter-eggs-hint-mobile i {
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .easter-eggs-hint-mobile {
+        display: flex;
+    }
+    
+    .easter-eggs-icon-wrap {
+        cursor: pointer;
+    }
+}
+
 /* Easter Egg Modal */
 .easter-egg-modal {
     position: fixed;

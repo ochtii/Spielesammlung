@@ -86,6 +86,10 @@
                         <span class="egg-reward">+250 <i class="fas fa-coins"></i></span>
                     </div>
                 </div>
+                <div class="easter-eggs-hint-mobile">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Tipp: Auf dem Handy kannst du Swipe-Gesten und Tipp-Sequenzen verwenden!</span>
+                </div>
             </div>
 
             <!-- Simple/Advanced Mode Toggle (nur mobil sichtbar) -->
@@ -1632,14 +1636,14 @@
                 name: 'Konami Code',
                 icon: 'fas fa-gamepad',
                 reward: 500,
-                description: '↑↑↓↓←→←→BA'
+                description: '↑↑↓↓←→←→BA (oder Swipe-Gesten + Doppel-Tap)'
             },
             secretWord: {
                 id: 'secretWord',
                 name: 'Geheimwort',
                 icon: 'fas fa-keyboard',
                 reward: 250,
-                description: 'Tippe "austria"'
+                description: '"austria" tippen oder 7x auf das 🥚 Icon tippen'
             }
         };
         
@@ -1777,8 +1781,15 @@
             }
         }
         
-        // Easter Egg 2: Konami Code
+        // Easter Egg 2: Konami Code (Keyboard + Mobile Swipe)
+        let swipeSequence = [];
+        const swipeKonamiSequence = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right'];
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let swipeResetTimer = null;
+        
         function initKonamiCodeEasterEgg() {
+            // Keyboard für Desktop
             document.addEventListener('keydown', (e) => {
                 if (isEasterEggFound('konamiCode')) return;
                 
@@ -1799,15 +1810,80 @@
                     konamiIndex = 0;
                 }
             });
+            
+            // Touch/Swipe für Mobile
+            document.addEventListener('touchstart', (e) => {
+                if (isEasterEggFound('konamiCode')) return;
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+            
+            document.addEventListener('touchend', (e) => {
+                if (isEasterEggFound('konamiCode')) return;
+                
+                const touchEndX = e.changedTouches[0].clientX;
+                const touchEndY = e.changedTouches[0].clientY;
+                
+                const diffX = touchEndX - touchStartX;
+                const diffY = touchEndY - touchStartY;
+                const minSwipe = 50;
+                
+                let direction = null;
+                
+                if (Math.abs(diffX) > Math.abs(diffY)) {
+                    if (Math.abs(diffX) > minSwipe) {
+                        direction = diffX > 0 ? 'right' : 'left';
+                    }
+                } else {
+                    if (Math.abs(diffY) > minSwipe) {
+                        direction = diffY > 0 ? 'down' : 'up';
+                    }
+                }
+                
+                if (direction) {
+                    // Reset timer
+                    clearTimeout(swipeResetTimer);
+                    swipeResetTimer = setTimeout(() => {
+                        swipeSequence = [];
+                    }, 3000);
+                    
+                    const expected = swipeKonamiSequence[swipeSequence.length];
+                    
+                    if (direction === expected) {
+                        swipeSequence.push(direction);
+                        showSwipeProgress(swipeSequence.length);
+                        
+                        // Nach 8 Swipes: Doppel-Tap für "BA"
+                        if (swipeSequence.length === swipeKonamiSequence.length) {
+                            showSwipeFinishHint();
+                        }
+                    } else {
+                        swipeSequence = [];
+                    }
+                }
+            }, { passive: true });
+            
+            // Doppel-Tap für "BA" am Ende
+            let lastTap = 0;
+            document.addEventListener('touchend', (e) => {
+                if (isEasterEggFound('konamiCode')) return;
+                if (swipeSequence.length !== swipeKonamiSequence.length) return;
+                
+                const now = Date.now();
+                if (now - lastTap < 300) {
+                    // Doppel-Tap erkannt!
+                    triggerEasterEgg('konamiCode');
+                    swipeSequence = [];
+                }
+                lastTap = now;
+            }, { passive: true });
         }
         
-        function showKonamiProgress(index) {
-            // Kleine Notification für Progress
-            const symbols = ['↑', '↑', '↓', '↓', '←', '→', '←', '→', 'B', 'A'];
-            const progress = symbols.slice(0, index).join('');
+        function showSwipeProgress(count) {
+            const symbols = ['↑', '↑', '↓', '↓', '←', '→', '←', '→'];
+            const progress = symbols.slice(0, count).join('');
             
-            // Nur zeigen wenn mehr als 3 Tasten korrekt
-            if (index >= 3) {
+            if (count >= 2) {
                 const toast = document.createElement('div');
                 toast.className = 'konami-progress-toast';
                 toast.innerHTML = `<span>${progress}</span>`;
@@ -1830,8 +1906,34 @@
             }
         }
         
-        // Easter Egg 3: Secret Word
+        function showSwipeFinishHint() {
+            const toast = document.createElement('div');
+            toast.innerHTML = `<span>↑↑↓↓←→←→ ✓</span><br><small>Jetzt doppel-tippen!</small>`;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(0,0,0,0.9);
+                color: #2ecc71;
+                padding: 0.75rem 1.25rem;
+                border-radius: 8px;
+                font-family: monospace;
+                font-size: 1rem;
+                text-align: center;
+                z-index: 10000;
+                animation: pulse 0.5s ease infinite;
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+        
+        // Easter Egg 3: Secret Word (Keyboard + Mobile Tap)
+        let secretTapCount = 0;
+        let secretTapTimer = null;
+        
         function initSecretWordEasterEgg() {
+            // Keyboard für Desktop
             document.addEventListener('keypress', (e) => {
                 if (isEasterEggFound('secretWord')) return;
                 
@@ -1850,6 +1952,32 @@
                     secretWordBuffer = '';
                 }
             });
+            
+            // Mobile: 7x auf das Easter Eggs Icon tippen
+            const eggIconWrap = document.querySelector('.easter-eggs-icon-wrap');
+            if (eggIconWrap) {
+                eggIconWrap.addEventListener('click', () => {
+                    if (isEasterEggFound('secretWord')) return;
+                    
+                    secretTapCount++;
+                    
+                    // Visual feedback
+                    eggIconWrap.style.transform = `scale(${1 + secretTapCount * 0.05}) rotate(${secretTapCount * 10}deg)`;
+                    
+                    clearTimeout(secretTapTimer);
+                    secretTapTimer = setTimeout(() => {
+                        secretTapCount = 0;
+                        eggIconWrap.style.transform = '';
+                    }, 2000);
+                    
+                    // Bei 7 Taps triggern
+                    if (secretTapCount >= 7) {
+                        triggerEasterEgg('secretWord');
+                        secretTapCount = 0;
+                        eggIconWrap.style.transform = '';
+                    }
+                });
+            }
         }
         
         function triggerEasterEgg(eggId) {
