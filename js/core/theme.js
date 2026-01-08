@@ -22,7 +22,7 @@ const Theme = {
      * @returns {'light'|'dark'|'auto'}
      */
     getTheme() {
-        return Storage.get(this.STORAGE_KEYS.theme, 'light');
+        return Storage.get(this.STORAGE_KEYS.theme, 'dark');
     },
 
     /**

@@ -32,7 +32,7 @@ const AppConfig = {
     
     // Default Values
     defaults: {
-        theme: 'light',
+        theme: 'dark',
         fontScale: 1,
         accentColor: '#ed2939'
     }
