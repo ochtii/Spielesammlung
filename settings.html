@@ -495,8 +495,18 @@
                         
                         <!-- Footer Toggles Section -->
                         <div class="dev-tools-subsection">
-                            <h4><i class="fas fa-toggle-on"></i> Footer Einstellungen</h4>
+                            <h4><i class="fas fa-toggle-on"></i> Header & Footer Einstellungen</h4>
                             <div class="dev-tools-toggles">
+                                <div class="dev-toggle-option">
+                                    <div class="dev-toggle-info">
+                                        <span class="dev-toggle-label">Hard-Reload Button anzeigen</span>
+                                        <span class="dev-toggle-desc">Zeigt den Cache-Leeren Button im Header (nur Dev Mode)</span>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="showDevReloadBtn" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
                                 <div class="dev-toggle-option">
                                     <div class="dev-toggle-info">
                                         <span class="dev-toggle-label">Zoom-Reset Button anzeigen</span>
@@ -1063,6 +1073,10 @@
                 const isEnabled = e.target.checked;
                 localStorage.setItem('devMode', isEnabled);
                 toggleDevModeOptions(isEnabled);
+                // Dev Reload Button im Header aktualisieren
+                if (typeof window.updateDevReloadButton === 'function') {
+                    window.updateDevReloadButton();
+                }
             });
             
             // Bottom Nav Einstellungen
@@ -1245,9 +1259,23 @@
         }
 
         function setupDevTools() {
-            // Footer Toggles
+            // Header & Footer Toggles
+            const devReloadToggle = document.getElementById('showDevReloadBtn');
             const zoomResetToggle = document.getElementById('showZoomResetBtn');
             const commitInfoToggle = document.getElementById('showCommitInfo');
+            
+            // Dev Reload Button Toggle
+            if (devReloadToggle) {
+                devReloadToggle.checked = localStorage.getItem('showDevReloadBtn') !== 'false';
+                devReloadToggle.addEventListener('change', (e) => {
+                    localStorage.setItem('showDevReloadBtn', e.target.checked.toString());
+                    // Button aktualisieren via globale Funktion
+                    if (typeof window.updateDevReloadButton === 'function') {
+                        window.updateDevReloadButton();
+                    }
+                    showSuccessNotification('Einstellung gespeichert!');
+                });
+            }
             
             if (zoomResetToggle) {
                 zoomResetToggle.checked = localStorage.getItem('showZoomReset') !== 'false';

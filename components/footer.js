@@ -69,6 +69,98 @@
         }
     };
 
+    // Hard Reload Button im Header initialisieren
+    function initDevReloadButton() {
+        // Prüfe ob Dev Mode aktiviert ist
+        const devModeEnabled = localStorage.getItem('devMode') === 'true';
+        const showDevReloadBtn = localStorage.getItem('showDevReloadBtn') !== 'false'; // default: true wenn dev mode
+        
+        // Entferne existierenden Button falls vorhanden
+        const existingBtn = document.getElementById('devReloadBtn');
+        if (existingBtn) existingBtn.remove();
+        
+        if (!devModeEnabled || !showDevReloadBtn) return;
+        
+        // Button zur Navbar hinzufügen
+        const navbarMenu = document.querySelector('.navbar-menu');
+        if (!navbarMenu) return;
+        
+        const reloadBtn = document.createElement('button');
+        reloadBtn.id = 'devReloadBtn';
+        reloadBtn.className = 'dev-reload-btn';
+        reloadBtn.title = 'Hard Reload - Cache leeren';
+        reloadBtn.innerHTML = '<i class="fas fa-sync-alt"></i>';
+        
+        // Vor dem Menu Toggle einfügen
+        const menuToggle = navbarMenu.querySelector('.menu-toggle');
+        if (menuToggle) {
+            navbarMenu.insertBefore(reloadBtn, menuToggle);
+        } else {
+            navbarMenu.appendChild(reloadBtn);
+        }
+        
+        // Click Handler
+        reloadBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            
+            // Animation starten
+            reloadBtn.classList.add('spinning');
+            reloadBtn.disabled = true;
+            
+            try {
+                // Service Worker Cache leeren
+                if ('caches' in window) {
+                    const cacheNames = await caches.keys();
+                    await Promise.all(cacheNames.map(name => caches.delete(name)));
+                }
+                
+                // Service Worker deregistrieren
+                if ('serviceWorker' in navigator) {
+                    const registrations = await navigator.serviceWorker.getRegistrations();
+                    await Promise.all(registrations.map(reg => reg.unregister()));
+                }
+                
+                // localStorage Flag für erfolgreichen Cache-Clear
+                sessionStorage.setItem('cacheCleared', 'true');
+                
+                // Hard Reload mit Cache-Bypass
+                setTimeout(() => {
+                    location.reload(true);
+                }, 500);
+            } catch (error) {
+                console.error('Cache clear error:', error);
+                // Trotzdem Reload versuchen
+                location.reload(true);
+            }
+        });
+        
+        // Zeige Erfolgs-Toast wenn gerade Cache geleert wurde
+        if (sessionStorage.getItem('cacheCleared') === 'true') {
+            sessionStorage.removeItem('cacheCleared');
+            showCacheClearedToast();
+        }
+    }
+    
+    // Toast-Notification für Cache Clear
+    function showCacheClearedToast() {
+        const toast = document.createElement('div');
+        toast.className = 'cache-cleared-toast';
+        toast.innerHTML = `
+            <i class="fas fa-check-circle"></i>
+            <span>Cache geleert & neu geladen!</span>
+        `;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => toast.classList.add('show'), 10);
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, 2500);
+    }
+    
+    // Globale Funktion zum Aktualisieren des Dev Reload Buttons
+    window.updateDevReloadButton = initDevReloadButton;
+
     // Footer laden
     async function loadFooter() {
         const footerContainer = document.getElementById('footer-container');
@@ -85,6 +177,7 @@
             initZoomReset();
             loadCommitInfo();
             initGlobalEasterEggs();
+            initDevReloadButton();
         } catch (error) {
             console.error('Footer konnte nicht geladen werden:', error);
             // Fallback: Minimaler Footer
@@ -96,6 +189,7 @@
                 </footer>
             `;
             initGlobalEasterEggs();
+            initDevReloadButton();
         }
     }
     
