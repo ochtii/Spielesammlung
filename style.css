@@ -2725,6 +2725,751 @@ input[type="text"]::placeholder {
 }
 
 /* ============================================
+   NEW MODERN POINTS PAGE DESIGN
+   ============================================ */
+
+/* Points Container */
+.points-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem 6rem;
+}
+
+/* Hero Section */
+.points-hero {
+    position: relative;
+    text-align: center;
+    padding: 3rem 2rem;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    border-radius: 24px;
+}
+
+.points-hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    opacity: 0.1;
+    border-radius: 24px;
+}
+
+.points-hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.points-hero-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(243, 156, 18, 0.3);
+}
+
+.points-hero-icon i {
+    font-size: 2.5rem;
+    color: white;
+}
+
+.points-hero-title {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.points-hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Main Points Card */
+.points-main-card {
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+    border-radius: 24px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 10px 40px rgba(243, 156, 18, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.points-main-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent);
+    border-radius: 50%;
+}
+
+.points-main-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.points-main-icon {
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.points-main-icon i {
+    font-size: 2rem;
+    color: white;
+}
+
+.points-main-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.points-main-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.points-main-value {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.points-main-right {
+    position: relative;
+    z-index: 1;
+}
+
+.points-rank {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.points-rank i {
+    font-size: 1.3rem;
+}
+
+/* Rank Colors */
+.rank-beginner { background: rgba(189, 195, 199, 0.3); }
+.rank-skilled { background: rgba(52, 152, 219, 0.3); }
+.rank-advanced { background: rgba(155, 89, 182, 0.3); }
+.rank-expert { background: rgba(230, 126, 34, 0.3); }
+.rank-master { background: rgba(231, 76, 60, 0.3); }
+.rank-legend { background: rgba(241, 196, 15, 0.3); }
+
+/* Quick Stats Grid */
+.points-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.stat-card-modern {
+    background: var(--bg-primary);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--border-color);
+}
+
+.stat-card-modern:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-modern-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.stat-modern-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: white;
+}
+
+.stat-icon-games { background: linear-gradient(135deg, #3498db, #2980b9); }
+.stat-icon-correct { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+.stat-icon-hints { background: linear-gradient(135deg, #f39c12, #e67e22); }
+.stat-icon-streak { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+
+.stat-modern-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.stat-modern-value {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.stat-modern-footer {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Points Section */
+.points-section {
+    margin-bottom: 2.5rem;
+}
+
+.section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.section-title i {
+    color: var(--primary-color);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Achievements Grid */
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.achievement-card {
+    background: var(--bg-primary);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 2px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.achievement-card.unlocked {
+    border-color: var(--success-color);
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.05), var(--bg-primary));
+}
+
+.achievement-card.locked {
+    opacity: 0.6;
+}
+
+.achievement-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.achievement-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    position: relative;
+}
+
+.achievement-card.unlocked .achievement-icon {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    color: white;
+}
+
+.achievement-checkmark {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 24px;
+    height: 24px;
+    background: var(--success-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.achievement-info {
+    flex: 1;
+}
+
+.achievement-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.achievement-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.achievement-progress {
+    height: 6px;
+    background: var(--bg-secondary);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.achievement-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+.achievement-progress-text {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* Game Mode Stats */
+.gamemode-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.gamemode-stat-card {
+    background: var(--bg-primary);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease;
+}
+
+.gamemode-stat-card:hover {
+    transform: translateY(-3px);
+}
+
+.gamemode-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.gamemode-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.gamemode-header h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.gamemode-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.gamemode-stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.gamemode-stat-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.gamemode-stat-value {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.no-data {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* History Filters */
+.history-filters {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.history-filter-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--border-color);
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.history-filter-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.history-filter-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* Modern History List */
+.history-list-modern {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.no-history-modern {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--bg-primary);
+    border-radius: 16px;
+    border: 2px dashed var(--border-color);
+}
+
+.no-history-modern i {
+    font-size: 4rem;
+    color: var(--text-secondary);
+    opacity: 0.3;
+    margin-bottom: 1rem;
+}
+
+.no-history-modern p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem;
+}
+
+.no-history-modern span {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.history-item-modern {
+    background: var(--bg-primary);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.history-item-modern:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.history-item-modern.earned {
+    border-left-color: var(--success-color);
+}
+
+.history-item-modern.incorrect {
+    border-left-color: var(--error-color);
+}
+
+.history-item-modern.spent {
+    border-left-color: var(--warning-color);
+}
+
+.history-modern-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.3rem;
+}
+
+.history-item-modern.earned .history-modern-icon {
+    background: rgba(76, 175, 80, 0.1);
+    color: var(--success-color);
+}
+
+.history-item-modern.incorrect .history-modern-icon {
+    background: rgba(244, 67, 54, 0.1);
+    color: var(--error-color);
+}
+
+.history-item-modern.spent .history-modern-icon {
+    background: rgba(243, 156, 18, 0.1);
+    color: var(--warning-color);
+}
+
+.history-modern-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.history-modern-title {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.history-modern-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.history-modern-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.history-modern-points {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.history-modern-points.earned {
+    color: var(--success-color);
+}
+
+.history-modern-points.incorrect {
+    color: var(--error-color);
+}
+
+.history-modern-points.spent {
+    color: var(--warning-color);
+}
+
+.history-modern-detail-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.history-modern-detail-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Bottom Section */
+.points-bottom-section {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+}
+
+.points-info-modern {
+    background: var(--bg-primary);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+}
+
+.points-info-modern h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.points-info-modern h3 i {
+    color: var(--info-color);
+}
+
+.points-rules {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.rule-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.rule-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: white;
+    font-size: 1rem;
+}
+
+.rule-icon-plus {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.rule-icon-minus {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+.rule-icon-min {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.rule-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.rule-text strong {
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.rule-text span {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.points-actions-modern {
+    display: flex;
+    align-items: center;
+}
+
+.btn-modern {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-danger-modern {
+    background: var(--error-color);
+    color: white;
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
+.btn-danger-modern:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(231, 76, 60, 0.4);
+}
+
+.btn-danger-modern:active {
+    transform: translateY(0);
+}
+
+/* ============================================
    Tablet Responsive - Points Page (481px - 768px)
    ============================================ */
 @media (max-width: 768px) and (min-width: 481px) {
@@ -2911,6 +3656,131 @@ input[type="text"]::placeholder {
         padding: 1rem;
         font-size: 1rem;
         border-radius: 12px;
+    }
+    
+    /* NEW MODERN DESIGN - MOBILE RESPONSIVE */
+    .points-container {
+        padding: 1rem 1rem 5rem;
+    }
+    
+    .points-hero {
+        padding: 2rem 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .points-hero-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .points-hero-icon i {
+        font-size: 2rem;
+    }
+    
+    .points-hero-title {
+        font-size: 1.75rem;
+    }
+    
+    .points-hero-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .points-main-card {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+    
+    .points-main-left {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .points-main-value {
+        font-size: 2.5rem;
+    }
+    
+    .points-main-right {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .points-rank {
+        padding: 0.65rem 1.25rem;
+        font-size: 1rem;
+    }
+    
+    .points-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .stat-card-modern {
+        padding: 1.25rem;
+    }
+    
+    .stat-modern-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+    
+    .stat-modern-value {
+        font-size: 2rem;
+    }
+    
+    .stat-modern-footer {
+        font-size: 0.8rem;
+    }
+    
+    .section-title {
+        font-size: 1.2rem;
+    }
+    
+    .achievements-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .achievement-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .gamemode-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .history-filters {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .history-filter-btn {
+        flex: 1;
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
+    
+    .history-modern-meta {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .history-modern-points {
+        font-size: 1.25rem;
+    }
+    
+    .points-bottom-section {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .btn-modern {
+        width: 100%;
+        justify-content: center;
+        padding: 1rem;
     }
 }
 

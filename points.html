@@ -42,56 +42,169 @@
         </div>
     </nav>
 
-    <div class="container">
-        <div class="points-page">
-            <div class="points-header">
-                <i class="fas fa-coins points-icon"></i>
-                <h1>Deine Punkte</h1>
+    <div class="container points-container">
+        <!-- Hero Section -->
+        <div class="points-hero">
+            <div class="points-hero-bg"></div>
+            <div class="points-hero-content">
+                <div class="points-hero-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h1 class="points-hero-title">Dein Fortschritt</h1>
+                <p class="points-hero-subtitle">Verfolge deine Leistung und erreiche neue Meilensteine</p>
             </div>
-            
-            <div class="points-display-card">
-                <div class="points-value" id="totalPoints">0</div>
-                <div class="points-label">Gesammelte Punkte</div>
-            </div>
+        </div>
 
-            <div class="points-stats">
-                <div class="stat-card">
-                    <i class="fas fa-gamepad"></i>
-                    <div class="stat-value" id="gamesPlayed">0</div>
-                    <div class="stat-label">Spiele gespielt</div>
+        <!-- Main Points Display -->
+        <div class="points-main-card">
+            <div class="points-main-left">
+                <div class="points-main-icon">
+                    <i class="fas fa-coins"></i>
                 </div>
-                <div class="stat-card">
-                    <i class="fas fa-check-circle"></i>
-                    <div class="stat-value" id="correctAnswers">0</div>
-                    <div class="stat-label">Richtige Antworten</div>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-lightbulb"></i>
-                    <div class="stat-value" id="hintsUsed">0</div>
-                    <div class="stat-label">Tipps verwendet</div>
+                <div class="points-main-info">
+                    <span class="points-main-label">Gesamtpunkte</span>
+                    <h2 class="points-main-value" id="totalPoints">0</h2>
                 </div>
             </div>
-
-            <div class="points-info">
-                <h2><i class="fas fa-info-circle"></i> So funktioniert's</h2>
-                <ul>
-                    <li><strong>100 Punkte</strong> für jede richtige Antwort (Basis)</li>
-                    <li><strong>-30 Punkte</strong> für jeden verwendeten Tipp</li>
-                    <li>Mindestens <strong>10 Punkte</strong> pro Frage</li>
-                    <li>Wenn <strong>kostenpflichtige Tipps</strong> aktiviert sind, kosten Tipps <strong>20 Punkte</strong></li>
-                </ul>
+            <div class="points-main-right">
+                <div class="points-rank" id="rankDisplay">
+                    <i class="fas fa-star"></i>
+                    <span id="rankText">Anfänger</span>
+                </div>
             </div>
+        </div>
 
-            <div class="points-history">
-                <h2><i class="fas fa-history"></i> Punkte-Historie</h2>
-                <div id="historyList" class="history-list">
-                    <!-- Historie wird hier eingefügt -->
+        <!-- Quick Stats Grid -->
+        <div class="points-stats-grid">
+            <div class="stat-card-modern">
+                <div class="stat-modern-header">
+                    <div class="stat-modern-icon stat-icon-games">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <span class="stat-modern-label">Spiele</span>
+                </div>
+                <div class="stat-modern-value" id="gamesPlayed">0</div>
+                <div class="stat-modern-footer">
+                    <span class="stat-modern-change" id="gamesChange">-</span>
                 </div>
             </div>
 
-            <div class="points-actions">
-                <button class="btn btn-danger" id="resetPointsBtn">
-                    <i class="fas fa-trash-alt"></i> Punkte zurücksetzen
+            <div class="stat-card-modern">
+                <div class="stat-modern-header">
+                    <div class="stat-modern-icon stat-icon-correct">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <span class="stat-modern-label">Richtig</span>
+                </div>
+                <div class="stat-modern-value" id="correctAnswers">0</div>
+                <div class="stat-modern-footer">
+                    <span class="stat-modern-accuracy" id="accuracyRate">0%</span>
+                </div>
+            </div>
+
+            <div class="stat-card-modern">
+                <div class="stat-modern-header">
+                    <div class="stat-modern-icon stat-icon-hints">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <span class="stat-modern-label">Tipps</span>
+                </div>
+                <div class="stat-modern-value" id="hintsUsed">0</div>
+                <div class="stat-modern-footer">
+                    <span class="stat-modern-avg" id="hintsAvg">Ø 0/Spiel</span>
+                </div>
+            </div>
+
+            <div class="stat-card-modern">
+                <div class="stat-modern-header">
+                    <div class="stat-modern-icon stat-icon-streak">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <span class="stat-modern-label">Streak</span>
+                </div>
+                <div class="stat-modern-value" id="currentStreak">0</div>
+                <div class="stat-modern-footer">
+                    <span class="stat-modern-best" id="bestStreak">Beste: 0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievements Section -->
+        <div class="points-section">
+            <h2 class="section-title">
+                <i class="fas fa-medal"></i> Erfolge
+            </h2>
+            <div class="achievements-grid" id="achievementsGrid">
+                <!-- Achievements werden dynamisch eingefügt -->
+            </div>
+        </div>
+
+        <!-- Game Mode Stats -->
+        <div class="points-section">
+            <h2 class="section-title">
+                <i class="fas fa-chart-bar"></i> Spielmodus-Statistiken
+            </h2>
+            <div class="gamemode-stats" id="gamemodeStats">
+                <!-- Game mode stats werden dynamisch eingefügt -->
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div class="points-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-history"></i> Aktivitätsverlauf
+                </h2>
+                <div class="history-filters">
+                    <button class="history-filter-btn active" data-filter="all">Alle</button>
+                    <button class="history-filter-btn" data-filter="earned">Verdient</button>
+                    <button class="history-filter-btn" data-filter="spent">Ausgegeben</button>
+                </div>
+            </div>
+            <div id="historyList" class="history-list-modern">
+                <!-- Historie wird hier eingefügt -->
+            </div>
+        </div>
+
+        <!-- Points Info & Actions -->
+        <div class="points-bottom-section">
+            <div class="points-info-modern">
+                <h3><i class="fas fa-info-circle"></i> Punktesystem</h3>
+                <div class="points-rules">
+                    <div class="rule-item">
+                        <div class="rule-icon rule-icon-plus">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="rule-text">
+                            <strong>100 Punkte</strong>
+                            <span>für jede richtige Antwort</span>
+                        </div>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-icon rule-icon-minus">
+                            <i class="fas fa-minus"></i>
+                        </div>
+                        <div class="rule-text">
+                            <strong>30 Punkte</strong>
+                            <span>für jeden verwendeten Tipp</span>
+                        </div>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-icon rule-icon-min">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="rule-text">
+                            <strong>Minimum 10</strong>
+                            <span>pro richtige Antwort</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="points-actions-modern">
+                <button class="btn-modern btn-danger-modern" id="resetPointsBtn">
+                    <i class="fas fa-trash-alt"></i>
+                    <span>Alle Daten zurücksetzen</span>
                 </button>
             </div>
         </div>
@@ -187,27 +300,229 @@
                 gamesPlayed: 0,
                 correctAnswers: 0,
                 hintsUsed: 0,
-                history: []
+                history: [],
+                currentStreak: 0,
+                bestStreak: 0
             };
             
-            document.getElementById('totalPoints').textContent = pointsData.totalPoints;
+            // Main Points Display
+            document.getElementById('totalPoints').textContent = pointsData.totalPoints.toLocaleString('de-AT');
+            
+            // Update Rank
+            updateRank(pointsData.totalPoints);
+            
+            // Quick Stats
             document.getElementById('gamesPlayed').textContent = pointsData.gamesPlayed;
             document.getElementById('correctAnswers').textContent = pointsData.correctAnswers;
             document.getElementById('hintsUsed').textContent = pointsData.hintsUsed;
+            document.getElementById('currentStreak').textContent = pointsData.currentStreak || 0;
+            document.getElementById('bestStreak').textContent = 'Beste: ' + (pointsData.bestStreak || 0);
             
-            // Lade Historie
+            // Calculate additional stats
+            const totalQuestions = pointsData.gamesPlayed * 5; // Annahme: 5 Fragen pro Spiel
+            const accuracy = totalQuestions > 0 ? Math.round((pointsData.correctAnswers / totalQuestions) * 100) : 0;
+            const hintsPerGame = pointsData.gamesPlayed > 0 ? (pointsData.hintsUsed / pointsData.gamesPlayed).toFixed(1) : 0;
+            
+            document.getElementById('accuracyRate').textContent = accuracy + '% Genauigkeit';
+            document.getElementById('hintsAvg').textContent = 'Ø ' + hintsPerGame + '/Spiel';
+            
+            // Load Achievements
+            loadAchievements(pointsData);
+            
+            // Load Game Mode Stats
+            loadGameModeStats(pointsData);
+            
+            // Load History
             loadHistory(pointsData.history || []);
+        }
+        
+        function updateRank(points) {
+            const rankDisplay = document.getElementById('rankDisplay');
+            const rankText = document.getElementById('rankText');
+            
+            let rank = { name: 'Anfänger', icon: 'fa-star', class: 'rank-beginner' };
+            
+            if (points >= 10000) {
+                rank = { name: 'Legende', icon: 'fa-crown', class: 'rank-legend' };
+            } else if (points >= 5000) {
+                rank = { name: 'Meister', icon: 'fa-gem', class: 'rank-master' };
+            } else if (points >= 2500) {
+                rank = { name: 'Experte', icon: 'fa-medal', class: 'rank-expert' };
+            } else if (points >= 1000) {
+                rank = { name: 'Fortgeschritten', icon: 'fa-award', class: 'rank-advanced' };
+            } else if (points >= 500) {
+                rank = { name: 'Geübt', icon: 'fa-trophy', class: 'rank-skilled' };
+            }
+            
+            rankDisplay.className = 'points-rank ' + rank.class;
+            rankDisplay.querySelector('i').className = 'fas ' + rank.icon;
+            rankText.textContent = rank.name;
+        }
+        
+        function loadAchievements(data) {
+            const achievements = [
+                {
+                    id: 'first-game',
+                    title: 'Erste Schritte',
+                    description: 'Erstes Spiel abgeschlossen',
+                    icon: 'fa-flag-checkered',
+                    unlocked: data.gamesPlayed >= 1,
+                    progress: Math.min(data.gamesPlayed, 1),
+                    max: 1
+                },
+                {
+                    id: 'games-10',
+                    title: 'Spielesammler',
+                    description: '10 Spiele gespielt',
+                    icon: 'fa-gamepad',
+                    unlocked: data.gamesPlayed >= 10,
+                    progress: Math.min(data.gamesPlayed, 10),
+                    max: 10
+                },
+                {
+                    id: 'points-1000',
+                    title: 'Punktejäger',
+                    description: '1.000 Punkte erreicht',
+                    icon: 'fa-bullseye',
+                    unlocked: data.totalPoints >= 1000,
+                    progress: Math.min(data.totalPoints, 1000),
+                    max: 1000
+                },
+                {
+                    id: 'correct-50',
+                    title: 'Wissensprofi',
+                    description: '50 richtige Antworten',
+                    icon: 'fa-brain',
+                    unlocked: data.correctAnswers >= 50,
+                    progress: Math.min(data.correctAnswers, 50),
+                    max: 50
+                },
+                {
+                    id: 'streak-5',
+                    title: 'Im Flow',
+                    description: '5er Streak erreicht',
+                    icon: 'fa-fire',
+                    unlocked: (data.bestStreak || 0) >= 5,
+                    progress: Math.min(data.bestStreak || 0, 5),
+                    max: 5
+                },
+                {
+                    id: 'no-hints',
+                    title: 'Selbstständig',
+                    description: 'Spiel ohne Tipps',
+                    icon: 'fa-user-ninja',
+                    unlocked: data.gamesPlayed > 0 && data.hintsUsed === 0,
+                    progress: data.hintsUsed === 0 && data.gamesPlayed > 0 ? 1 : 0,
+                    max: 1
+                }
+            ];
+            
+            const grid = document.getElementById('achievementsGrid');
+            grid.innerHTML = achievements.map(ach => {
+                const progressPercent = (ach.progress / ach.max) * 100;
+                return `
+                    <div class="achievement-card ${ach.unlocked ? 'unlocked' : 'locked'}">
+                        <div class="achievement-icon">
+                            <i class="fas ${ach.icon}"></i>
+                            ${ach.unlocked ? '<div class="achievement-checkmark"><i class="fas fa-check"></i></div>' : ''}
+                        </div>
+                        <div class="achievement-info">
+                            <h4 class="achievement-title">${ach.title}</h4>
+                            <p class="achievement-desc">${ach.description}</p>
+                            ${!ach.unlocked ? `
+                                <div class="achievement-progress">
+                                    <div class="achievement-progress-bar" style="width: ${progressPercent}%"></div>
+                                </div>
+                                <span class="achievement-progress-text">${ach.progress}/${ach.max}</span>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function loadGameModeStats(data) {
+            const history = data.history || [];
+            const gameModes = {};
+            
+            history.forEach(entry => {
+                if (entry.type === 'earned' && entry.game) {
+                    if (!gameModes[entry.game]) {
+                        gameModes[entry.game] = { played: 0, correct: 0, points: 0 };
+                    }
+                    gameModes[entry.game].played++;
+                    if (entry.isCorrect) gameModes[entry.game].correct++;
+                    gameModes[entry.game].points += entry.points || 0;
+                }
+            });
+            
+            const gameModeNames = {
+                'license-plates': { name: 'Kennzeichen', icon: 'fa-car' },
+                'capitals': { name: 'Hauptstädte', icon: 'fa-university' },
+                'world-capitals': { name: 'Welt-Hauptstädte', icon: 'fa-globe' },
+                'population': { name: 'Einwohner', icon: 'fa-users' }
+            };
+            
+            const container = document.getElementById('gamemodeStats');
+            
+            if (Object.keys(gameModes).length === 0) {
+                container.innerHTML = '<p class="no-data">Noch keine Spielmodus-Statistiken verfügbar</p>';
+                return;
+            }
+            
+            container.innerHTML = Object.entries(gameModes).map(([mode, stats]) => {
+                const modeInfo = gameModeNames[mode] || { name: mode, icon: 'fa-gamepad' };
+                const accuracy = stats.played > 0 ? Math.round((stats.correct / stats.played) * 100) : 0;
+                
+                return `
+                    <div class="gamemode-stat-card">
+                        <div class="gamemode-header">
+                            <div class="gamemode-icon">
+                                <i class="fas ${modeInfo.icon}"></i>
+                            </div>
+                            <h4>${modeInfo.name}</h4>
+                        </div>
+                        <div class="gamemode-stats-grid">
+                            <div class="gamemode-stat-item">
+                                <span class="gamemode-stat-label">Gespielt</span>
+                                <span class="gamemode-stat-value">${stats.played}</span>
+                            </div>
+                            <div class="gamemode-stat-item">
+                                <span class="gamemode-stat-label">Richtig</span>
+                                <span class="gamemode-stat-value">${stats.correct}</span>
+                            </div>
+                            <div class="gamemode-stat-item">
+                                <span class="gamemode-stat-label">Genauigkeit</span>
+                                <span class="gamemode-stat-value">${accuracy}%</span>
+                            </div>
+                            <div class="gamemode-stat-item">
+                                <span class="gamemode-stat-label">Punkte</span>
+                                <span class="gamemode-stat-value">${stats.points}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function loadHistory(history) {
             const historyList = document.getElementById('historyList');
             
             if (!history || history.length === 0) {
-                historyList.innerHTML = '<p class="no-history">Noch keine Historie vorhanden. Spiele einige Runden, um deine Punkte-Geschichte zu sehen!</p>';
+                historyList.innerHTML = `
+                    <div class="no-history-modern">
+                        <i class="fas fa-inbox"></i>
+                        <p>Noch keine Aktivitäten</p>
+                        <span>Spiele ein paar Runden, um deinen Verlauf zu sehen!</span>
+                    </div>
+                `;
                 return;
             }
 
-            historyList.innerHTML = history.map((entry, index) => {
+            // Nur die letzten 20 anzeigen für bessere Performance
+            const recentHistory = history.slice(0, 20);
+            
+            historyList.innerHTML = recentHistory.map((entry, index) => {
                 const date = new Date(entry.timestamp);
                 const timeStr = date.toLocaleString('de-AT', {
                     day: '2-digit',
@@ -217,45 +532,75 @@
                 });
 
                 const isEarned = entry.type === 'earned';
-                const iconClass = isEarned ? (entry.isCorrect ? 'fa-check-circle' : 'fa-times-circle') : 'fa-lightbulb';
-                const colorClass = isEarned ? (entry.isCorrect ? 'earned' : 'incorrect') : 'spent';
-                const pointsText = entry.points > 0 ? `+${entry.points}` : entry.points;
-
-                let title = '';
+                let iconClass, colorClass, title;
+                
                 if (isEarned) {
-                    title = entry.isCorrect ? 'Richtig' : 'Falsch';
+                    iconClass = entry.isCorrect ? 'fa-check-circle' : 'fa-times-circle';
+                    colorClass = entry.isCorrect ? 'earned' : 'incorrect';
+                    title = entry.isCorrect ? 'Richtige Antwort' : 'Falsche Antwort';
                 } else {
+                    iconClass = 'fa-lightbulb';
+                    colorClass = 'spent';
                     const hintNames = {
-                        '5050': '50/50',
-                        'removeOne': 'Eine weg',
+                        '5050': '50/50 Tipp',
+                        'removeOne': 'Eine weg Tipp',
                         'firstLetter': 'Anfangsbuchstabe',
-                        'randomLetter': 'Zufälliger Buchstabe',
-                        'length': 'Länge',
-                        'coat': 'Wappen'
+                        'randomLetter': 'Buchstabe',
+                        'length': 'Länge Tipp',
+                        'coat': 'Wappen Tipp'
                     };
-                    title = `Tipp: ${hintNames[entry.hintType] || entry.hintType}`;
+                    title = hintNames[entry.hintType] || 'Tipp verwendet';
                 }
 
+                const pointsText = entry.points > 0 ? `+${entry.points}` : entry.points;
+                const gameName = entry.game || 'Quiz';
+
                 return `
-                    <div class="history-item-compact ${colorClass}">
-                        <div class="history-compact-left">
-                            <i class="fas ${iconClass} history-status-icon"></i>
-                            <div class="history-compact-info">
-                                <span class="history-compact-title">${title}</span>
-                                <span class="history-compact-meta">
-                                    ${entry.game || 'Quiz'} · ${timeStr}
-                                </span>
+                    <div class="history-item-modern ${colorClass}" data-type="${entry.type}">
+                        <div class="history-modern-icon">
+                            <i class="fas ${iconClass}"></i>
+                        </div>
+                        <div class="history-modern-content">
+                            <div class="history-modern-title">${title}</div>
+                            <div class="history-modern-meta">
+                                <span><i class="fas fa-gamepad"></i> ${gameName}</span>
+                                <span><i class="fas fa-clock"></i> ${timeStr}</span>
                             </div>
                         </div>
-                        <div class="history-compact-right">
-                            <span class="history-compact-points ${colorClass}">${pointsText}</span>
-                            <button class="history-info-btn" onclick="showHistoryDetail(${index})" title="Details anzeigen">
-                                <i class="fas fa-info-circle"></i>
-                            </button>
+                        <div class="history-modern-points ${colorClass}">
+                            ${pointsText}
                         </div>
+                        <button class="history-modern-detail-btn" onclick="showHistoryDetail(${index})" title="Details">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
                 `;
             }).join('');
+            
+            // Filter Buttons
+            setupHistoryFilters();
+        }
+        
+        function setupHistoryFilters() {
+            document.querySelectorAll('.history-filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active state
+                    document.querySelectorAll('.history-filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    const filter = btn.dataset.filter;
+                    const items = document.querySelectorAll('.history-item-modern');
+                    
+                    items.forEach(item => {
+                        if (filter === 'all') {
+                            item.style.display = '';
+                        } else {
+                            const type = item.dataset.type;
+                            item.style.display = type === filter ? '' : 'none';
+                        }
+                    });
+                });
+            });
         }
 
         function showHistoryDetail(index) {
