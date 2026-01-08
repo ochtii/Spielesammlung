@@ -2259,4 +2259,66 @@ document.addEventListener('DOMContentLoaded', () => {
     updateBottomNavPoints();
     applyBottomNavSettings();
     initZoomReset();
+
+    // SETTINGS PAGE: Modern Controls
+    const darkModeCheck = document.getElementById('darkModeCheck');
+    const accentColorPicker = document.getElementById('accentColorPicker');
+    const bottomNavEnabledCheck = document.getElementById('bottomNavEnabledCheck');
+    const bottomNavFixedCheck = document.getElementById('bottomNavFixedCheck');
+    const timerCheck = document.getElementById('timerCheck');
+    const typoCheck = document.getElementById('typoCheck');
+    const paidHintsCheck = document.getElementById('paidHintsCheck');
+    const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+    const saveFeedback = document.getElementById('settingsSaveFeedback');
+
+    // Initialwerte aus localStorage setzen
+    if (darkModeCheck) darkModeCheck.checked = localStorage.getItem('darkMode') === 'true';
+    if (accentColorPicker) accentColorPicker.value = localStorage.getItem('accentColor') || '#339af0';
+    if (bottomNavEnabledCheck) bottomNavEnabledCheck.checked = localStorage.getItem('bottomNavEnabled') !== 'false';
+    if (bottomNavFixedCheck) bottomNavFixedCheck.checked = localStorage.getItem('bottomNavFixed') !== 'false';
+    if (timerCheck) timerCheck.checked = localStorage.getItem('timerEnabled') === 'true';
+    if (typoCheck) typoCheck.checked = localStorage.getItem('typoTolerance') !== 'false';
+    if (paidHintsCheck) paidHintsCheck.checked = localStorage.getItem('paidHints') === 'true';
+
+    // Event-Listener für Änderungen
+    if (darkModeCheck) darkModeCheck.addEventListener('change', e => {
+        localStorage.setItem('darkMode', darkModeCheck.checked ? 'true' : 'false');
+        document.body.classList.toggle('dark-mode', darkModeCheck.checked);
+    });
+    if (accentColorPicker) accentColorPicker.addEventListener('input', e => {
+        localStorage.setItem('accentColor', accentColorPicker.value);
+        document.documentElement.style.setProperty('--primary-color', accentColorPicker.value);
+    });
+    if (bottomNavEnabledCheck) bottomNavEnabledCheck.addEventListener('change', e => {
+        localStorage.setItem('bottomNavEnabled', bottomNavEnabledCheck.checked ? 'true' : 'false');
+        applyBottomNavSettings();
+    });
+    if (bottomNavFixedCheck) bottomNavFixedCheck.addEventListener('change', e => {
+        localStorage.setItem('bottomNavFixed', bottomNavFixedCheck.checked ? 'true' : 'false');
+        applyBottomNavSettings();
+    });
+    if (timerCheck) timerCheck.addEventListener('change', e => {
+        localStorage.setItem('timerEnabled', timerCheck.checked ? 'true' : 'false');
+    });
+    if (typoCheck) typoCheck.addEventListener('change', e => {
+        localStorage.setItem('typoTolerance', typoCheck.checked ? 'true' : 'false');
+    });
+    if (paidHintsCheck) paidHintsCheck.addEventListener('change', e => {
+        localStorage.setItem('paidHints', paidHintsCheck.checked ? 'true' : 'false');
+    });
+
+    // Speichern-Button
+    if (saveSettingsBtn) saveSettingsBtn.addEventListener('click', () => {
+        saveFeedback.style.display = 'inline-flex';
+        setTimeout(() => saveFeedback.style.display = 'none', 1800);
+    });
+
+    // Accent Color beim Laden anwenden
+    const accent = localStorage.getItem('accentColor');
+    if (accent) document.documentElement.style.setProperty('--primary-color', accent);
+
+    // Dark Mode beim Laden anwenden
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+    }
 });

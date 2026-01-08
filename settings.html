@@ -42,201 +42,83 @@
         </div>
     </nav>
 
-    <div class="container">
-        <div class="settings-page">
-            <div class="settings-page-header">
-                <i class="fas fa-cog settings-page-icon"></i>
-                <h1>Einstellungen</h1>
-                <p class="settings-subtitle">Passe die App nach deinen Wünschen an</p>
-            </div>
-
-            <!-- Easter Eggs Counter Card -->
-            <div class="easter-eggs-counter-card" id="easterEggsCounterCard">
-                <div class="easter-eggs-counter-header">
-                    <div class="easter-eggs-icon-wrap">
-                        <i class="fas fa-egg"></i>
-                    </div>
-                    <div class="easter-eggs-info">
-                        <span class="easter-eggs-title">Easter Eggs</span>
-                        <span class="easter-eggs-subtitle">Findest du alle versteckten Überraschungen?</span>
-                    </div>
-                    <div class="easter-eggs-count">
-                        <span id="foundEasterEggsCount">0</span>
-                        <span class="easter-eggs-divider">/</span>
-                        <span id="totalEasterEggsCount">6</span>
-                    </div>
+    <main class="settings-main">
+        <section class="settings-hero">
+            <i class="fas fa-cog settings-hero-icon"></i>
+            <h1>Einstellungen</h1>
+            <p>Stelle die App nach deinen Wünschen ein</p>
+        </section>
+        <div class="settings-grid">
+            <section class="settings-card">
+                <h2><i class="fas fa-palette"></i> Darstellung</h2>
+                <div class="settings-option-row">
+                    <span>Dark Mode</span>
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeCheck">
+                        <span class="slider round"></span>
+                    </label>
                 </div>
-                <div class="easter-eggs-progress">
-                    <div class="easter-eggs-progress-bar" id="easterEggsProgressBar" style="width: 0%"></div>
+                <div class="settings-option-row">
+                    <span>Akzentfarbe</span>
+                    <input type="color" id="accentColorPicker" value="#339af0" aria-label="Akzentfarbe wählen">
                 </div>
-                <div class="easter-eggs-list">
-                    <div class="easter-egg-item" id="eggItem1" data-egg="cheatMode">
-                        <i class="fas fa-question egg-icon"></i>
-                        <span class="egg-name">???</span>
-                        <span class="egg-reward">+1000 <i class="fas fa-coins"></i></span>
-                    </div>
-                    <div class="easter-egg-item" id="eggItem2" data-egg="konamiCode">
-                        <i class="fas fa-question egg-icon"></i>
-                        <span class="egg-name">???</span>
-                        <span class="egg-reward">+500 <i class="fas fa-coins"></i></span>
-                    </div>
-                    <div class="easter-egg-item" id="eggItem3" data-egg="secretWord">
-                        <i class="fas fa-question egg-icon"></i>
-                        <span class="egg-name">???</span>
-                        <span class="egg-reward">+250 <i class="fas fa-coins"></i></span>
-                    </div>
-                    <div class="easter-egg-item" id="eggItem4" data-egg="logoTap">
-                        <i class="fas fa-question egg-icon"></i>
-                        <span class="egg-name">???</span>
-                        <span class="egg-reward">+300 <i class="fas fa-coins"></i></span>
-                    </div>
-                    <div class="easter-egg-item" id="eggItem5" data-egg="footerSecret">
-                        <i class="fas fa-question egg-icon"></i>
-                        <span class="egg-name">???</span>
-                        <span class="egg-reward">+200 <i class="fas fa-coins"></i></span>
-                    </div>
-                    <div class="easter-egg-item" id="eggItem6" data-egg="pointsJackpot">
-                        <i class="fas fa-question egg-icon"></i>
-                        <span class="egg-name">???</span>
-                        <span class="egg-reward">+777 <i class="fas fa-coins"></i></span>
-                    </div>
+            </section>
+            <section class="settings-card">
+                <h2><i class="fas fa-bars"></i> Navigation</h2>
+                <div class="settings-option-row">
+                    <span>Bottom Navigation anzeigen</span>
+                    <label class="switch">
+                        <input type="checkbox" id="bottomNavEnabledCheck">
+                        <span class="slider round"></span>
+                    </label>
                 </div>
-                <div class="easter-eggs-hint-mobile">
-                    <i class="fas fa-mobile-alt"></i>
-                    <span>Tipp: Easter Eggs sind überall in der App versteckt. Tippe auf verschiedene Elemente!</span>
+                <div class="settings-option-row">
+                    <span>Am Bildschirm fixiert</span>
+                    <label class="switch">
+                        <input type="checkbox" id="bottomNavFixedCheck">
+                        <span class="slider round"></span>
+                    </label>
                 </div>
-            </div>
-
-            <!-- Simple/Advanced Mode Toggle (nur mobil sichtbar) -->
-            <div class="settings-mode-toggle" id="settingsModeToggle">
-                <button class="mode-btn active" data-mode="simple" id="simpleModeBtn">
-                    <i class="fas fa-bolt"></i>
-                    <span>Einfach</span>
-                </button>
-                <button class="mode-btn" data-mode="advanced" id="advancedModeBtn">
-                    <i class="fas fa-sliders-h"></i>
-                    <span>Erweitert</span>
-                </button>
-            </div>
-
-            <!-- Quick Settings für Simple Mode (nur mobil) -->
-            <div class="quick-settings" id="quickSettings">
-                <div class="quick-settings-card">
-                    <div class="quick-setting-item" id="quickDarkMode">
-                        <div class="quick-setting-icon">
-                            <i class="fas fa-moon"></i>
-                        </div>
-                        <span class="quick-setting-label">Dark Mode</span>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="quickDarkModeCheck">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
-                    <div class="quick-setting-item" id="quickTimer">
-                        <div class="quick-setting-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <span class="quick-setting-label">Timer</span>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="quickTimerCheck">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
-                    <div class="quick-setting-item" id="quickTypo">
-                        <div class="quick-setting-icon">
-                            <i class="fas fa-spell-check"></i>
-                        </div>
-                        <span class="quick-setting-label">Tippfehler erlauben</span>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="quickTypoCheck">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
-                    <div class="quick-setting-item" id="quickPaidHints">
-                        <div class="quick-setting-icon">
-                            <i class="fas fa-coins"></i>
-                        </div>
-                        <span class="quick-setting-label">Kostenpflichtige Tipps</span>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="quickPaidHintsCheck">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
+            </section>
+            <section class="settings-card">
+                <h2><i class="fas fa-gamepad"></i> Spieloptionen</h2>
+                <div class="settings-option-row">
+                    <span>Timer aktivieren</span>
+                    <label class="switch">
+                        <input type="checkbox" id="timerCheck">
+                        <span class="slider round"></span>
+                    </label>
                 </div>
-                <div class="quick-settings-footer">
-                    <span class="quick-settings-hint"><i class="fas fa-info-circle"></i> Für mehr Optionen wechsle zu "Erweitert"</span>
+                <div class="settings-option-row">
+                    <span>Tippfehler erlauben</span>
+                    <label class="switch">
+                        <input type="checkbox" id="typoCheck">
+                        <span class="slider round"></span>
+                    </label>
                 </div>
-            </div>
-
-            <!-- Advanced Settings Container -->
-            <div class="advanced-settings" id="advancedSettings">
-
-            <!-- Accordion Section: Darstellung -->
-            <div class="settings-accordion">
-                <button class="accordion-header">
-                    <div class="accordion-title">
-                        <i class="fas fa-palette"></i>
-                        <span>Darstellung</span>
-                    </div>
-                    <i class="fas fa-chevron-down accordion-icon"></i>
-                </button>
-                <div class="accordion-content">
-                    <div class="settings-card">
-                        <div class="settings-option">
-                            <div class="settings-option-info">
-                                <span class="settings-option-label">Dark Mode</span>
-                                <span class="settings-option-desc">Dunkles Farbschema aktivieren</span>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="darkModeCheck">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="settings-save-section">
-                        <button class="btn btn-primary" id="saveDarstellungBtn">
-                            <i class="fas fa-save"></i> Darstellung speichern
-                        </button>
-                        <div class="save-feedback" id="darstellungSaveFeedback" style="display: none;">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Einstellungen erfolgreich gespeichert!</span>
-                        </div>
-                    </div>
+                <div class="settings-option-row">
+                    <span>Kostenpflichtige Tipps</span>
+                    <label class="switch">
+                        <input type="checkbox" id="paidHintsCheck">
+                        <span class="slider round"></span>
+                    </label>
                 </div>
-            </div>
-
-            <!-- Accordion Section: Bottom Navigation -->
-            <div class="settings-accordion">
-                <button class="accordion-header">
-                    <div class="accordion-title">
-                        <i class="fas fa-bars"></i>
-                        <span>Bottom Navigation</span>
-                    </div>
-                    <i class="fas fa-chevron-down accordion-icon"></i>
-                </button>
-                <div class="accordion-content">
-                    <div class="settings-card">
-                        <div class="settings-option">
-                            <div class="settings-option-info">
-                                <span class="settings-option-label">Bottom Navigation anzeigen</span>
-                                <span class="settings-option-desc">Zeigt die Navigation am unteren Bildschirmrand (nur mobil)</span>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="bottomNavEnabledCheck">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        <div class="settings-option">
-                            <div class="settings-option-info">
-                                <span class="settings-option-label">Am Bildschirm fixiert</span>
-                                <span class="settings-option-desc">Navigation bleibt beim Scrollen sichtbar</span>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="bottomNavFixedCheck">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        <div class="settings-option">
+            </section>
+            <section class="settings-card easter-eggs-card">
+                <h2><i class="fas fa-egg"></i> Easter Eggs</h2>
+                <div class="easter-eggs-list" id="easterEggsList">
+                    <!-- Easter Eggs werden hier dynamisch angezeigt -->
+                </div>
+                <div class="easter-eggs-hint">
+                    <i class="fas fa-info-circle"></i> Tipp: Es gibt versteckte Überraschungen in der App!
+                </div>
+            </section>
+        </div>
+        <div class="settings-actions">
+            <button class="btn btn-primary" id="saveSettingsBtn"><i class="fas fa-save"></i> Einstellungen speichern</button>
+            <span class="save-feedback" id="settingsSaveFeedback" style="display:none;"><i class="fas fa-check-circle"></i> Gespeichert!</span>
+        </div>
+    </main>
                             <div class="settings-option-info">
                                 <span class="settings-option-label">Größe</span>
                                 <span class="settings-option-desc">Größe der Navigation und Icons</span>

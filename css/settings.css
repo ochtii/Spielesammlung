@@ -1,4 +1,191 @@
 /* ============================================
+   Modernes Settings-Layout (2026)
+   ============================================ */
+
+.settings-main {
+    max-width: 900px;
+    margin: 2.5rem auto 3rem auto;
+    padding: 0 1.5rem;
+}
+
+.settings-hero {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+.settings-hero-icon {
+    font-size: 3.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    animation: rotate 3s linear infinite;
+}
+.settings-hero h1 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 2.2rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+.settings-hero p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.settings-card {
+    background: var(--bg-secondary);
+    border-radius: 18px;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.07);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    min-width: 0;
+}
+.settings-card h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0 0 1.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+.settings-option-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+.settings-option-row:last-child {
+    border-bottom: none;
+}
+
+/* Custom Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 26px;
+}
+.switch input { display: none; }
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--border-color);
+    transition: .4s;
+    border-radius: 26px;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background: var(--primary-color);
+    transition: .4s;
+    border-radius: 50%;
+}
+.switch input:checked + .slider {
+    background: var(--primary-light);
+}
+.switch input:checked + .slider:before {
+    transform: translateX(20px);
+    background: var(--primary-color);
+}
+.slider.round { border-radius: 26px; }
+.slider.round:before { border-radius: 50%; }
+
+/* Color Picker */
+#accentColorPicker {
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    cursor: pointer;
+    padding: 0;
+}
+
+/* Easter Eggs Card */
+.easter-eggs-card {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+    box-shadow: 0 4px 32px rgba(51,154,240,0.10);
+}
+.easter-eggs-card h2 {
+    color: #fff;
+}
+.easter-eggs-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.easter-eggs-hint {
+    font-size: 0.95rem;
+    color: #fff;
+    opacity: 0.85;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.settings-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+.btn.btn-primary {
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 0.9rem 2.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    box-shadow: 0 2px 12px rgba(51,154,240,0.10);
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.btn.btn-primary:hover {
+    background: var(--primary-dark);
+    box-shadow: 0 4px 18px rgba(51,154,240,0.18);
+}
+.save-feedback {
+    color: var(--primary-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+}
+
+@media (max-width: 700px) {
+    .settings-main {
+        padding: 0 0.5rem;
+    }
+    .settings-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+    .settings-card {
+        padding: 1.2rem 0.7rem 1rem 0.7rem;
+    }
+}
+/* ============================================
    Settings Page Styles
    ============================================ */
 .settings-page {
