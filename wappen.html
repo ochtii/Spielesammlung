@@ -223,9 +223,12 @@
 
                 const categoryClass = coat.kategorie.toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue');
 
+                // Erste URL aus dem Array verwenden
+                const wappenUrl = coatsOfArmsHelpers.getWappenUrl(coat.wappen);
+
                 card.innerHTML = `
                     <div class="wappen-image-container">
-                        <img src="${coat.wappen}" alt="Wappen ${coat.name}" class="wappen-image" loading="lazy">
+                        <img src="${wappenUrl}" alt="Wappen ${coat.name}" class="wappen-image" loading="lazy">
                     </div>
                     <div class="wappen-info">
                         <h3 class="wappen-name">${coat.name}</h3>
@@ -236,6 +239,12 @@
                         ${coat.bundesland ? `<div class="wappen-bundesland"><i class="fas fa-location-dot"></i> ${coat.bundesland}</div>` : ''}
                     </div>
                 `;
+
+                // Fallback für Bilder einrichten
+                const img = card.querySelector('.wappen-image');
+                if (Array.isArray(coat.wappen)) {
+                    coatsOfArmsHelpers.loadImageWithFallback(img, coat.wappen, `Wappen ${coat.name}`);
+                }
 
                 wappenList.appendChild(card);
             });
