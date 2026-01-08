@@ -23,7 +23,8 @@
     overflow: hidden;
 }
 .tab-btn.active {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--accent-color);
+    color: white;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 .tab-btn:hover {
