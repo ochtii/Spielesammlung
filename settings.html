@@ -215,66 +215,121 @@
                             <p>Erweiterte Tools für Entwickler und fortgeschrittene Benutzer</p>
                         </div>
                         
-                        <div class="dev-tools-grid">
-                            <button class="dev-tool-btn dev-tool-info" id="showLocalStorageBtn">
-                                <div class="dev-tool-icon">
-                                    <i class="fas fa-database"></i>
+                        <!-- Footer Toggles Section -->
+                        <div class="dev-tools-subsection">
+                            <h4><i class="fas fa-toggle-on"></i> Footer Einstellungen</h4>
+                            <div class="dev-tools-toggles">
+                                <div class="dev-toggle-option">
+                                    <div class="dev-toggle-info">
+                                        <span class="dev-toggle-label">Zoom-Reset Button anzeigen</span>
+                                        <span class="dev-toggle-desc">Zeigt den "Ansicht zurücksetzen" Button im Footer</span>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="showZoomResetBtn" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
                                 </div>
-                                <div class="dev-tool-content">
-                                    <h4>LocalStorage</h4>
-                                    <p>Gespeicherte Daten anzeigen</p>
+                                <div class="dev-toggle-option">
+                                    <div class="dev-toggle-info">
+                                        <span class="dev-toggle-label">Commit-Info anzeigen</span>
+                                        <span class="dev-toggle-desc">Zeigt die letzte Änderung im Footer</span>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="showCommitInfo" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
                                 </div>
-                            </button>
-                            
-                            <button class="dev-tool-btn dev-tool-warning" id="resetAllSettingsBtn">
-                                <div class="dev-tool-icon">
+                            </div>
+                        </div>
+                        
+                        <!-- Browser Storage Analysis -->
+                        <div class="dev-tools-subsection">
+                            <h4><i class="fas fa-database"></i> Browser-Speicher Analyse</h4>
+                            <div class="dev-storage-info">
+                                <div class="storage-quick-stats">
+                                    <div class="storage-stat-item">
+                                        <i class="fas fa-boxes"></i>
+                                        <div>
+                                            <span class="storage-stat-value" id="storageItemCount">0</span>
+                                            <span class="storage-stat-label">Einträge</span>
+                                        </div>
+                                    </div>
+                                    <div class="storage-stat-item">
+                                        <i class="fas fa-weight-hanging"></i>
+                                        <div>
+                                            <span class="storage-stat-value" id="storageSize">0 KB</span>
+                                            <span class="storage-stat-label">Größe</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="dev-tool-btn-secondary" id="showStorageDetailsBtn">
+                                    <i class="fas fa-chart-pie"></i>
+                                    <span>Detaillierte Analyse anzeigen</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Tools Grid -->
+                        <div class="dev-tools-subsection">
+                            <h4><i class="fas fa-wrench"></i> Verwaltungstools</h4>
+                            <div class="dev-tools-grid">
+                                <button class="dev-tool-btn dev-tool-info" id="showLocalStorageBtn">
+                                    <div class="dev-tool-icon">
+                                        <i class="fas fa-list"></i>
+                                    </div>
+                                    <div class="dev-tool-content">
+                                        <h4>Storage Liste</h4>
+                                        <p>Alle Daten anzeigen</p>
+                                    </div>
+                                </button>
+                                
+                                <button class="dev-tool-btn dev-tool-success" id="exportDataBtn">
+                                    <div class="dev-tool-icon">
+                                        <i class="fas fa-download"></i>
+                                    </div>
+                                    <div class="dev-tool-content">
+                                        <h4>Export</h4>
+                                        <p>Daten sichern</p>
+                                    </div>
+                                </button>
+                                
+                                <button class="dev-tool-btn dev-tool-info" id="toggleFooterInfoBtn">
+                                    <div class="dev-tool-icon">
+                                        <i class="fas fa-info-circle"></i>
+                                    </div>
+                                    <div class="dev-tool-content">
+                                        <h4>Footer</h4>
+                                        <p>Info erweitern</p>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Danger Zone -->
+                        <div class="dev-tools-danger-zone">
+                            <div class="danger-zone-header">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <h4>Gefahrenbereich</h4>
+                                <p>Vorsicht! Diese Aktionen können nicht rückgängig gemacht werden</p>
+                            </div>
+                            <div class="danger-zone-actions">
+                                <button class="danger-btn" id="resetAllSettingsBtn">
                                     <i class="fas fa-undo"></i>
-                                </div>
-                                <div class="dev-tool-content">
-                                    <h4>Einstellungen</h4>
-                                    <p>Alle zurücksetzen</p>
-                                </div>
-                            </button>
-                            
-                            <button class="dev-tool-btn dev-tool-danger" id="resetPointsBtn">
-                                <div class="dev-tool-icon">
+                                    <span>Einstellungen zurücksetzen</span>
+                                </button>
+                                <button class="danger-btn" id="resetPointsBtn">
                                     <i class="fas fa-eraser"></i>
-                                </div>
-                                <div class="dev-tool-content">
-                                    <h4>Punkte</h4>
-                                    <p>Statistiken löschen</p>
-                                </div>
-                            </button>
-                            
-                            <button class="dev-tool-btn dev-tool-success" id="exportDataBtn">
-                                <div class="dev-tool-icon">
-                                    <i class="fas fa-download"></i>
-                                </div>
-                                <div class="dev-tool-content">
-                                    <h4>Export</h4>
-                                    <p>Daten sichern</p>
-                                </div>
-                            </button>
-                            
-                            <button class="dev-tool-btn dev-tool-warning" id="clearHistoryBtn">
-                                <div class="dev-tool-icon">
+                                    <span>Punkte löschen</span>
+                                </button>
+                                <button class="danger-btn" id="clearHistoryBtn">
                                     <i class="fas fa-trash"></i>
-                                </div>
-                                <div class="dev-tool-content">
-                                    <h4>Historie</h4>
-                                    <p>Verlauf löschen</p>
-                                </div>
-                            </button>
-                            
-                            <button class="dev-tool-btn dev-tool-info" id="toggleFooterInfoBtn">
-                                <div class="dev-tool-icon">
-                                    <i class="fas fa-info-circle"></i>
-                                </div>
-                                <div class="dev-tool-content">
-                                    <h4>Footer</h4>
-                                    <p>Info erweitern</p>
-                                </div>
-                            </button>
+                                    <span>Historie löschen</span>
+                                </button>
+                                <button class="danger-btn danger-btn-critical" id="clearAllDataBtn">
+                                    <i class="fas fa-bomb"></i>
+                                    <span>Alle Browser-Daten löschen</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -562,10 +617,290 @@
             if (devOptions) {
                 devOptions.style.display = show ? 'block' : 'none';
             }
+            if (show) {
+                updateStorageStats();
+            }
+        }
+        
+        function updateStorageStats() {
+            // Count items
+            const itemCount = localStorage.length;
+            document.getElementById('storageItemCount').textContent = itemCount;
+            
+            // Calculate size
+            let totalSize = 0;
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const value = localStorage.getItem(key);
+                totalSize += key.length + (value ? value.length : 0);
+            }
+            const sizeKB = (totalSize / 1024).toFixed(2);
+            document.getElementById('storageSize').textContent = sizeKB + ' KB';
+        }
+        
+        function showModernConfirm(config) {
+            return new Promise((resolve) => {
+                const modal = document.createElement('div');
+                modal.className = 'modern-confirm-modal';
+                
+                const iconClass = config.type === 'danger' ? 'fa-exclamation-triangle' : 
+                                 config.type === 'warning' ? 'fa-exclamation-circle' : 'fa-info-circle';
+                const iconColor = config.type === 'danger' ? '#e74c3c' : 
+                                 config.type === 'warning' ? '#f39c12' : '#3498db';
+                
+                modal.innerHTML = `
+                    <div class="modern-confirm-content">
+                        <div class="modern-confirm-header">
+                            <i class="fas ${iconClass}" style="color: ${iconColor}"></i>
+                        </div>
+                        <h3 class="modern-confirm-title">${config.title}</h3>
+                        <p class="modern-confirm-message">${config.message}</p>
+                        ${config.details ? `<ul class="modern-confirm-details">${config.details.map(d => `<li>${d}</li>`).join('')}</ul>` : ''}
+                        ${config.requireConfirm ? `
+                            <div class="modern-confirm-input">
+                                <label>Gib zur Bestätigung "<strong>${config.confirmText}</strong>" ein:</label>
+                                <input type="text" id="confirmInput" autocomplete="off" placeholder="${config.confirmText}">
+                            </div>
+                        ` : ''}
+                        <div class="modern-confirm-actions">
+                            <button class="modern-btn modern-btn-cancel" id="confirmCancelBtn">
+                                <i class="fas fa-times"></i>
+                                <span>Abbrechen</span>
+                            </button>
+                            <button class="modern-btn modern-btn-confirm ${config.type === 'danger' ? 'modern-btn-danger' : ''}" id="confirmOkBtn" ${config.requireConfirm ? 'disabled' : ''}>
+                                <i class="fas fa-check"></i>
+                                <span>${config.confirmLabel || 'Bestätigen'}</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                setTimeout(() => modal.classList.add('show'), 10);
+                
+                const cancelBtn = modal.querySelector('#confirmCancelBtn');
+                const okBtn = modal.querySelector('#confirmOkBtn');
+                const input = modal.querySelector('#confirmInput');
+                
+                if (config.requireConfirm && input) {
+                    input.addEventListener('input', (e) => {
+                        okBtn.disabled = e.target.value !== config.confirmText;
+                    });
+                    input.focus();
+                }
+                
+                const close = (result) => {
+                    modal.classList.remove('show');
+                    setTimeout(() => {
+                        modal.remove();
+                        resolve(result);
+                    }, 300);
+                };
+                
+                cancelBtn.addEventListener('click', () => close(false));
+                okBtn.addEventListener('click', () => close(true));
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) close(false);
+                });
+            });
+        }
+        
+        function showSuccessNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'success-notification';
+            notification.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.classList.add('show'), 10);
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
         }
 
         function setupDevTools() {
-            // LocalStorage anzeigen
+            // Footer Toggles
+            const zoomResetToggle = document.getElementById('showZoomResetBtn');
+            const commitInfoToggle = document.getElementById('showCommitInfo');
+            
+            if (zoomResetToggle) {
+                zoomResetToggle.checked = localStorage.getItem('showZoomReset') !== 'false';
+                zoomResetToggle.addEventListener('change', (e) => {
+                    localStorage.setItem('showZoomReset', e.target.checked);
+                    const zoomBtn = document.getElementById('zoomResetBtn');
+                    if (zoomBtn) {
+                        zoomBtn.style.display = e.target.checked ? '' : 'none';
+                    }
+                    showSuccessNotification('Einstellung gespeichert!');
+                });
+            }
+            
+            if (commitInfoToggle) {
+                commitInfoToggle.checked = localStorage.getItem('showCommitInfo') !== 'false';
+                commitInfoToggle.addEventListener('change', (e) => {
+                    localStorage.setItem('showCommitInfo', e.target.checked);
+                    const commitInfo = document.getElementById('commitInfo');
+                    if (commitInfo) {
+                        commitInfo.style.display = e.target.checked ? '' : 'none';
+                    }
+                    showSuccessNotification('Einstellung gespeichert!');
+                });
+            }
+            
+            // Storage Details with Chart
+            document.getElementById('showStorageDetailsBtn')?.addEventListener('click', () => {
+                const data = [];
+                let categoryData = {
+                    points: 0,
+                    settings: 0,
+                    navigation: 0,
+                    history: 0,
+                    other: 0
+                };
+                
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    const value = localStorage.getItem(key);
+                    const size = key.length + (value ? value.length : 0);
+                    data.push({ key, value, size });
+                    
+                    // Categorize
+                    if (key.includes('points') || key.includes('Points')) categoryData.points += size;
+                    else if (key.includes('Nav') || key.includes('theme') || key.includes('Mode')) categoryData.settings += size;
+                    else if (key.includes('bottom')) categoryData.navigation += size;
+                    else if (key.includes('history') || key.includes('History')) categoryData.history += size;
+                    else categoryData.other += size;
+                }
+                
+                // Sort by size
+                data.sort((a, b) => b.size - a.size);
+                
+                const totalSize = data.reduce((sum, item) => sum + item.size, 0);
+                
+                const modal = document.createElement('div');
+                modal.className = 'storage-detail-modal';
+                modal.innerHTML = `
+                    <div class="storage-detail-content">
+                        <div class="storage-detail-header">
+                            <h3><i class="fas fa-database"></i> Browser-Speicher Analyse</h3>
+                            <button class="modal-close-btn" onclick="this.closest('.storage-detail-modal').remove()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="storage-detail-body">
+                            <!-- Stats Overview -->
+                            <div class="storage-overview">
+                                <div class="storage-overview-item">
+                                    <i class="fas fa-boxes"></i>
+                                    <div>
+                                        <strong>${localStorage.length}</strong>
+                                        <span>Gespeicherte Einträge</span>
+                                    </div>
+                                </div>
+                                <div class="storage-overview-item">
+                                    <i class="fas fa-weight-hanging"></i>
+                                    <div>
+                                        <strong>${(totalSize / 1024).toFixed(2)} KB</strong>
+                                        <span>Gesamtgröße</span>
+                                    </div>
+                                </div>
+                                <div class="storage-overview-item">
+                                    <i class="fas fa-chart-pie"></i>
+                                    <div>
+                                        <strong>${((totalSize / (5 * 1024 * 1024)) * 100).toFixed(2)}%</strong>
+                                        <span>von ~5MB Limit</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Chart -->
+                            <div class="storage-chart-section">
+                                <h4><i class="fas fa-chart-bar"></i> Speicherverteilung nach Kategorie</h4>
+                                <div class="storage-chart">
+                                    ${Object.entries(categoryData).map(([cat, size]) => {
+                                        const percentage = (size / totalSize * 100).toFixed(1);
+                                        const colors = {
+                                            points: '#f39c12',
+                                            settings: '#3498db',
+                                            navigation: '#9b59b6',
+                                            history: '#e74c3c',
+                                            other: '#95a5a6'
+                                        };
+                                        const labels = {
+                                            points: 'Punkte & Stats',
+                                            settings: 'Einstellungen',
+                                            navigation: 'Navigation',
+                                            history: 'Verlauf',
+                                            other: 'Sonstiges'
+                                        };
+                                        return `
+                                            <div class="chart-bar-row">
+                                                <span class="chart-label">${labels[cat]}</span>
+                                                <div class="chart-bar-container">
+                                                    <div class="chart-bar" style="width: ${percentage}%; background: ${colors[cat]}"></div>
+                                                </div>
+                                                <span class="chart-value">${percentage}%</span>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                                <div class="storage-legend">
+                                    ${Object.entries(categoryData).map(([cat, size]) => {
+                                        const colors = {
+                                            points: '#f39c12',
+                                            settings: '#3498db',
+                                            navigation: '#9b59b6',
+                                            history: '#e74c3c',
+                                            other: '#95a5a6'
+                                        };
+                                        const labels = {
+                                            points: 'Punkte & Stats',
+                                            settings: 'Einstellungen',
+                                            navigation: 'Navigation',
+                                            history: 'Verlauf',
+                                            other: 'Sonstiges'
+                                        };
+                                        return `
+                                            <div class="legend-item">
+                                                <span class="legend-color" style="background: ${colors[cat]}"></span>
+                                                <span>${labels[cat]}: ${(size / 1024).toFixed(2)} KB</span>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+                            
+                            <!-- Data List -->
+                            <div class="storage-list-section">
+                                <h4><i class="fas fa-list"></i> Alle Einträge (${data.length})</h4>
+                                <div class="storage-data-list">
+                                    ${data.map(item => `
+                                        <div class="storage-item">
+                                            <div class="storage-item-header">
+                                                <strong>${item.key}</strong>
+                                                <span class="storage-item-size">${(item.size / 1024).toFixed(3)} KB</span>
+                                            </div>
+                                            <div class="storage-item-value">${item.value.length > 100 ? item.value.substring(0, 100) + '...' : item.value}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                setTimeout(() => modal.classList.add('show'), 10);
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('show');
+                        setTimeout(() => modal.remove(), 300);
+                    }
+                });
+            });
+            
+            // LocalStorage Liste anzeigen (Simple)
             document.getElementById('showLocalStorageBtn')?.addEventListener('click', () => {
                 const data = [];
                 for (let i = 0; i < localStorage.length; i++) {
@@ -583,36 +918,53 @@
             });
 
             // Alle Einstellungen zurücksetzen
-            document.getElementById('resetAllSettingsBtn')?.addEventListener('click', () => {
-                if (confirm('⚠️ Möchtest du wirklich ALLE Einstellungen zurücksetzen?\n\nDies setzt zurück:\n- Theme\n- Spieloptionen\n- Bottom Navigation\n- Historie-Größe\n- Entwicklermodus\n\nPunkte und Statistiken bleiben erhalten!')) {
-                    const keysToKeep = ['totalPoints', 'totalGamesPlayed', 'gamesWon', 'gamesLost', 'gamesHistory'];
-                    const savedData = {};
-                    
-                    keysToKeep.forEach(key => {
-                        const value = localStorage.getItem(key);
-                        if (value) savedData[key] = value;
-                    });
-                    
+            document.getElementById('resetAllSettingsBtn')?.addEventListener('click', async () => {
+                const confirmed = await showModernConfirm({
+                    type: 'warning',
+                    title: 'Einstellungen zurücksetzen?',
+                    message: 'Möchtest du wirklich alle Einstellungen zurücksetzen?',
+                    details: [
+                        'Theme-Einstellungen',
+                        'Spieloptionen',
+                        'Bottom Navigation',
+                        'Historie-Größe',
+                        'Entwicklermodus'
+                    ],
+                    confirmLabel: 'Zurücksetzen'
+                });
+                
+                if (confirmed) {
+                    const pointsData = localStorage.getItem('pointsData');
                     localStorage.clear();
+                    if (pointsData) localStorage.setItem('pointsData', pointsData);
                     
-                    Object.keys(savedData).forEach(key => {
-                        localStorage.setItem(key, savedData[key]);
-                    });
-                    
-                    alert('✅ Einstellungen wurden zurückgesetzt!\n\nDie Seite wird neu geladen...');
-                    window.location.reload();
+                    showSuccessNotification('Einstellungen zurückgesetzt!');
+                    setTimeout(() => window.location.reload(), 1500);
                 }
             });
 
             // Punkte zurücksetzen
-            document.getElementById('resetPointsBtn')?.addEventListener('click', () => {
-                if (confirm('⚠️ Möchtest du wirklich alle Punkte und Statistiken zurücksetzen?\n\nDies kann nicht rückgängig gemacht werden!')) {
-                    localStorage.removeItem('totalPoints');
-                    localStorage.removeItem('totalGamesPlayed');
-                    localStorage.removeItem('gamesWon');
-                    localStorage.removeItem('gamesLost');
-                    
-                    alert('✅ Punkte und Statistiken wurden zurückgesetzt!');
+            document.getElementById('resetPointsBtn')?.addEventListener('click', async () => {
+                const confirmed = await showModernConfirm({
+                    type: 'danger',
+                    title: 'Punkte löschen?',
+                    message: 'Diese Aktion löscht alle deine Punkte und Statistiken unwiderruflich!',
+                    details: [
+                        'Gesamtpunkte',
+                        'Spielstatistiken',
+                        'Erfolge',
+                        'Bestenliste'
+                    ],
+                    confirmLabel: 'Löschen',
+                    requireConfirm: true,
+                    confirmText: 'LÖSCHEN'
+                });
+                
+                if (confirmed) {
+                    localStorage.removeItem('pointsData');
+                    localStorage.removeItem('globalPoints');
+                    showSuccessNotification('Punkte wurden gelöscht!');
+                    updateStorageStats();
                 }
             });
 
@@ -634,14 +986,56 @@
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
                 
-                alert('✅ Daten wurden als JSON-Datei heruntergeladen!');
+                showSuccessNotification('Backup heruntergeladen!');
             });
 
             // Historie löschen
-            document.getElementById('clearHistoryBtn')?.addEventListener('click', () => {
-                if (confirm('⚠️ Möchtest du die komplette Spiel-Historie löschen?\n\nPunkte und Statistiken bleiben erhalten!')) {
-                    localStorage.removeItem('gamesHistory');
-                    alert('✅ Historie wurde gelöscht!');
+            document.getElementById('clearHistoryBtn')?.addEventListener('click', async () => {
+                const confirmed = await showModernConfirm({
+                    type: 'warning',
+                    title: 'Historie löschen?',
+                    message: 'Möchtest du die komplette Spiel-Historie löschen?',
+                    details: [
+                        'Punkte-Historie',
+                        'Aktivitätsverlauf',
+                        'Spielmodus-Historie'
+                    ],
+                    confirmLabel: 'Löschen'
+                });
+                
+                if (confirmed) {
+                    const pointsData = JSON.parse(localStorage.getItem('pointsData') || '{}');
+                    if (pointsData.history) {
+                        pointsData.history = [];
+                        localStorage.setItem('pointsData', JSON.stringify(pointsData));
+                    }
+                    showSuccessNotification('Historie gelöscht!');
+                    updateStorageStats();
+                }
+            });
+            
+            // Alle Browser-Daten löschen
+            document.getElementById('clearAllDataBtn')?.addEventListener('click', async () => {
+                const confirmed = await showModernConfirm({
+                    type: 'danger',
+                    title: '⚠️ ALLE DATEN LÖSCHEN?',
+                    message: 'Diese Aktion löscht ALLE gespeicherten Daten unwiderruflich!',
+                    details: [
+                        '🎮 Alle Punkte und Statistiken',
+                        '⚙️ Alle Einstellungen',
+                        '📊 Komplette Historie',
+                        '🎨 Theme-Einstellungen',
+                        '📱 Navigation-Einstellungen'
+                    ],
+                    confirmLabel: 'ALLES LÖSCHEN',
+                    requireConfirm: true,
+                    confirmText: 'ALLES LÖSCHEN'
+                });
+                
+                if (confirmed) {
+                    localStorage.clear();
+                    showSuccessNotification('Alle Daten gelöscht! Seite wird neu geladen...');
+                    setTimeout(() => window.location.reload(), 1500);
                 }
             });
 
@@ -653,19 +1047,17 @@
                 if (footer.dataset.expanded === 'true') {
                     loadCommitTime();
                     footer.dataset.expanded = 'false';
-                    document.getElementById('toggleFooterInfoBtn').innerHTML = '<i class="fas fa-info-circle"></i><span>Footer-Info erweitern</span>';
                 } else {
+                    const pointsData = JSON.parse(localStorage.getItem('pointsData') || '{}');
                     const allData = [];
-                    allData.push(`🎮 Gesamtpunkte: ${localStorage.getItem('totalPoints') || 0}`);
-                    allData.push(`📊 Gespielte Spiele: ${localStorage.getItem('totalGamesPlayed') || 0}`);
-                    allData.push(`✅ Gewonnen: ${localStorage.getItem('gamesWon') || 0}`);
-                    allData.push(`❌ Verloren: ${localStorage.getItem('gamesLost') || 0}`);
-                    allData.push(`💾 LocalStorage Größe: ${new Blob(Object.values(localStorage)).size} bytes`);
-                    allData.push(`🔧 Dev-Mode: ${localStorage.getItem('devMode') === 'true' ? 'An' : 'Aus'}`);
+                    allData.push(`🎮 Punkte: ${pointsData.totalPoints || 0}`);
+                    allData.push(`📊 Spiele: ${pointsData.gamesPlayed || 0}`);
+                    allData.push(`✅ Richtig: ${pointsData.correctAnswers || 0}`);
+                    allData.push(`💾 Größe: ${(new Blob(Object.values(localStorage)).size / 1024).toFixed(2)} KB`);
+                    allData.push(`🔧 Dev: ${localStorage.getItem('devMode') === 'true' ? 'An' : 'Aus'}`);
                     
                     footer.innerHTML = allData.join(' <span class="footer-separator">|</span> ');
                     footer.dataset.expanded = 'true';
-                    document.getElementById('toggleFooterInfoBtn').innerHTML = '<i class="fas fa-compress"></i><span>Footer-Info minimieren</span>';
                 }
             });
         }
