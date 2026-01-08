@@ -304,9 +304,35 @@
                     
                     <div id="devModeOptions" class="dev-mode-options">
                         <div class="dev-tools-header">
-                            <i class="fas fa-tools"></i>
+                            <i class="fas fa-tools" id="easterEggTrigger" title="Tools"></i>
                             <h3>Debug & Verwaltung</h3>
                             <p>Erweiterte Tools für Entwickler und fortgeschrittene Benutzer</p>
+                            <!-- Cheat Mode Indicator (hidden until unlocked) -->
+                            <div id="cheatModeIndicator" class="cheat-mode-indicator" style="display: none;">
+                                <i class="fas fa-star"></i>
+                                <span>Cheat Mode</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Cheat Mode Section (hidden until unlocked) -->
+                        <div id="cheatModeSection" class="dev-tools-subsection cheat-mode-section" style="display: none;">
+                            <h4><i class="fas fa-magic"></i> Cheat Mode</h4>
+                            <div class="cheat-mode-content">
+                                <div class="cheat-info">
+                                    <i class="fas fa-trophy"></i>
+                                    <span>Du hast das Easter Egg gefunden!</span>
+                                </div>
+                                <div class="cheat-actions">
+                                    <button class="cheat-btn" id="cheatAddPointsBtn">
+                                        <i class="fas fa-coins"></i>
+                                        <span>+1000 Punkte</span>
+                                    </button>
+                                    <button class="cheat-btn cheat-btn-reset" id="resetEasterEggBtn">
+                                        <i class="fas fa-redo"></i>
+                                        <span>Easter Egg zurücksetzen</span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         
                         <!-- Footer Toggles Section -->
@@ -435,6 +461,11 @@
                                 </button>
                             </div>
                         </div>
+                        
+                        <!-- Easter Egg Hint (sehr versteckt) -->
+                        <div class="easter-egg-hint" id="easterEggHint">
+                            <small>v1.0.0</small>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -445,6 +476,26 @@
                     <i class="fas fa-arrow-left"></i> Zurück
                 </a>
             </div>
+        </div>
+    </div>
+
+    <!-- Easter Egg Surprise Modal -->
+    <div id="easterEggModal" class="easter-egg-modal">
+        <div class="easter-egg-content">
+            <div class="confetti-container" id="confettiContainer"></div>
+            <div class="easter-egg-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            <h2>🎉 ÜBERRASCHUNG! 🎉</h2>
+            <p class="easter-egg-message">Du hast das geheime Easter Egg gefunden!</p>
+            <div class="easter-egg-reward">
+                <i class="fas fa-coins"></i>
+                <span>+1000 Punkte</span>
+            </div>
+            <p class="easter-egg-submessage">Der <strong>Cheat Mode</strong> wurde freigeschaltet!</p>
+            <button class="easter-egg-close-btn" id="closeEasterEggModal">
+                <i class="fas fa-check"></i> Awesome!
+            </button>
         </div>
     </div>
 
@@ -1326,6 +1377,174 @@
             }
         }
 
+        // ============================================
+        // EASTER EGG SYSTEM
+        // ============================================
+        
+        let easterEggClicks = 0;
+        let easterEggTimer = null;
+        const EASTER_EGG_CLICKS_REQUIRED = 7;
+        const EASTER_EGG_TIMEOUT = 3000;
+        
+        function initEasterEgg() {
+            const trigger = document.getElementById('easterEggTrigger');
+            const cheatModeUnlocked = localStorage.getItem('cheatModeUnlocked') === 'true';
+            
+            // Zeige Cheat Mode wenn bereits freigeschaltet
+            if (cheatModeUnlocked) {
+                showCheatMode();
+            }
+            
+            // Easter Egg Trigger (7x auf Tools-Icon klicken)
+            if (trigger) {
+                trigger.style.cursor = 'default';
+                trigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    
+                    // Wenn bereits freigeschaltet, nichts tun
+                    if (localStorage.getItem('cheatModeUnlocked') === 'true') return;
+                    
+                    easterEggClicks++;
+                    
+                    // Visual feedback
+                    trigger.style.transform = `scale(${1 + easterEggClicks * 0.05})`;
+                    trigger.style.color = `hsl(${easterEggClicks * 30}, 70%, 50%)`;
+                    
+                    // Reset timer
+                    if (easterEggTimer) clearTimeout(easterEggTimer);
+                    easterEggTimer = setTimeout(() => {
+                        easterEggClicks = 0;
+                        trigger.style.transform = '';
+                        trigger.style.color = '';
+                    }, EASTER_EGG_TIMEOUT);
+                    
+                    // Check if easter egg triggered
+                    if (easterEggClicks >= EASTER_EGG_CLICKS_REQUIRED) {
+                        triggerEasterEgg();
+                    }
+                });
+            }
+            
+            // Hint klick (alternative)
+            const hint = document.getElementById('easterEggHint');
+            if (hint) {
+                let hintClicks = 0;
+                hint.addEventListener('click', () => {
+                    hintClicks++;
+                    if (hintClicks >= 5 && localStorage.getItem('cheatModeUnlocked') !== 'true') {
+                        triggerEasterEgg();
+                    }
+                });
+            }
+            
+            // Modal schließen
+            document.getElementById('closeEasterEggModal')?.addEventListener('click', () => {
+                document.getElementById('easterEggModal').classList.remove('show');
+            });
+            
+            // Cheat Mode Buttons
+            document.getElementById('cheatAddPointsBtn')?.addEventListener('click', () => {
+                addCheatPoints(1000);
+            });
+            
+            document.getElementById('resetEasterEggBtn')?.addEventListener('click', async () => {
+                const confirmed = await showModernConfirm({
+                    type: 'warning',
+                    title: 'Easter Egg zurücksetzen?',
+                    message: 'Möchtest du das Easter Egg zurücksetzen? Du kannst es dann erneut finden!',
+                    details: ['Cheat Mode wird deaktiviert', 'Easter Egg muss erneut gefunden werden'],
+                    confirmLabel: 'Zurücksetzen'
+                });
+                
+                if (confirmed) {
+                    localStorage.removeItem('cheatModeUnlocked');
+                    hideCheatMode();
+                    easterEggClicks = 0;
+                    showSuccessNotification('Easter Egg zurückgesetzt!');
+                }
+            });
+        }
+        
+        function triggerEasterEgg() {
+            // Speichere Freischaltung
+            localStorage.setItem('cheatModeUnlocked', 'true');
+            
+            // Punkte hinzufügen
+            addCheatPoints(1000);
+            
+            // Zeige Modal mit Konfetti
+            showEasterEggModal();
+            
+            // Zeige Cheat Mode
+            showCheatMode();
+            
+            // Reset clicks
+            easterEggClicks = 0;
+            const trigger = document.getElementById('easterEggTrigger');
+            if (trigger) {
+                trigger.style.transform = '';
+                trigger.style.color = '';
+            }
+        }
+        
+        function showEasterEggModal() {
+            const modal = document.getElementById('easterEggModal');
+            modal.classList.add('show');
+            
+            // Konfetti erstellen
+            createConfetti();
+        }
+        
+        function createConfetti() {
+            const container = document.getElementById('confettiContainer');
+            container.innerHTML = '';
+            
+            const colors = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#9b59b6', '#e74c3c', '#f39c12'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-piece';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                container.appendChild(confetti);
+            }
+        }
+        
+        function showCheatMode() {
+            const indicator = document.getElementById('cheatModeIndicator');
+            const section = document.getElementById('cheatModeSection');
+            
+            if (indicator) indicator.style.display = 'flex';
+            if (section) section.style.display = 'block';
+        }
+        
+        function hideCheatMode() {
+            const indicator = document.getElementById('cheatModeIndicator');
+            const section = document.getElementById('cheatModeSection');
+            
+            if (indicator) indicator.style.display = 'none';
+            if (section) section.style.display = 'none';
+        }
+        
+        function addCheatPoints(amount) {
+            let pointsData = JSON.parse(localStorage.getItem('pointsData') || '{}');
+            pointsData.totalPoints = (pointsData.totalPoints || 0) + amount;
+            
+            // Zum Verlauf hinzufügen
+            if (!pointsData.history) pointsData.history = [];
+            pointsData.history.unshift({
+                type: '🎁 Easter Egg',
+                points: amount,
+                timestamp: new Date().toISOString(),
+                details: 'Cheat Mode Bonus'
+            });
+            
+            localStorage.setItem('pointsData', JSON.stringify(pointsData));
+            showSuccessNotification(`+${amount} Punkte!`);
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             loadTheme();
@@ -1335,6 +1554,7 @@
             setupDevTools();
             loadCommitTime();
             setupAccordion();
+            initEasterEgg();
             
             // Zoom Reset
             const zoomBtn = document.getElementById('zoomResetBtn');
