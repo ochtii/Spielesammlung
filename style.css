@@ -668,53 +668,201 @@ main {
     }
 }
 
-/* Developer Tools */
+/* Developer Tools Section */
+.dev-tools-section {
+    position: relative;
+}
+
+.dev-tools-card {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+}
+
+.dev-mode-options {
+    display: none;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--border-color);
+    animation: fadeIn 0.4s ease;
+}
+
+.dev-tools-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 12px;
+    color: white;
+}
+
+.dev-tools-header i {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+    opacity: 0.9;
+}
+
+.dev-tools-header h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.dev-tools-header p {
+    font-size: 0.9rem;
+    opacity: 0.95;
+    margin: 0;
+}
+
 .dev-tools-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
 }
 
 .dev-tool-btn {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
     background: var(--bg-primary);
     border: 2px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 16px;
     color: var(--text-primary);
     cursor: pointer;
     transition: all 0.3s ease;
-    font-size: 0.9rem;
-    font-weight: 500;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+}
+
+.dev-tool-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary-color);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.dev-tool-btn:hover::before {
+    transform: scaleY(1);
 }
 
 .dev-tool-btn:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px);
     border-color: var(--primary-color);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     background: var(--bg-secondary);
 }
 
 .dev-tool-btn:active {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
 }
 
-.dev-tool-btn i {
+.dev-tool-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: var(--bg-secondary);
+    transition: all 0.3s ease;
+}
+
+.dev-tool-btn:hover .dev-tool-icon {
+    transform: scale(1.1);
+}
+
+.dev-tool-icon i {
     font-size: 1.5rem;
     color: var(--primary-color);
 }
 
-.dev-tool-btn span {
-    text-align: center;
-    line-height: 1.3;
+.dev-tool-content {
+    flex: 1;
+}
+
+.dev-tool-content h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.dev-tool-content p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Color Variants */
+.dev-tool-info .dev-tool-icon {
+    background: linear-gradient(135deg, #667eea15, #764ba215);
+}
+
+.dev-tool-info:hover .dev-tool-icon {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.dev-tool-info:hover .dev-tool-icon i {
+    color: white;
+}
+
+.dev-tool-success .dev-tool-icon {
+    background: linear-gradient(135deg, #4CAF5015, #45a04915);
+}
+
+.dev-tool-success:hover .dev-tool-icon {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+}
+
+.dev-tool-success:hover .dev-tool-icon i {
+    color: white;
+}
+
+.dev-tool-warning .dev-tool-icon {
+    background: linear-gradient(135deg, #FF980015, #F57C0015);
+}
+
+.dev-tool-warning:hover .dev-tool-icon {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+}
+
+.dev-tool-warning:hover .dev-tool-icon i {
+    color: white;
+}
+
+.dev-tool-danger .dev-tool-icon {
+    background: linear-gradient(135deg, #F4433615, #D32F2F15);
+}
+
+.dev-tool-danger:hover .dev-tool-icon {
+    background: linear-gradient(135deg, #F44336, #D32F2F);
+}
+
+.dev-tool-danger:hover .dev-tool-icon i {
+    color: white;
 }
 
 @media (max-width: 768px) {
     .dev-tools-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .dev-tools-header {
+        padding: 1.25rem;
+    }
+    
+    .dev-tools-header i {
+        font-size: 2rem;
+    }
+    
+    .dev-tools-header h3 {
+        font-size: 1.2rem;
     }
 }
 
@@ -724,9 +872,16 @@ main {
     }
     
     .dev-tool-btn {
-        flex-direction: row;
-        justify-content: flex-start;
-        text-align: left;
+        padding: 1rem;
+    }
+    
+    .dev-tool-icon {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .dev-tool-icon i {
+        font-size: 1.3rem;
     }
 }
 

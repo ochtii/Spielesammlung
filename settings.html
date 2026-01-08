@@ -187,12 +187,12 @@
                 </div>
             </div>
 
-            <div class="settings-page-section">
-                <h2><i class="fas fa-code"></i> Entwicklermodus</h2>
-                <div class="settings-card">
+            <div class="settings-page-section dev-tools-section">
+                <h2><i class="fas fa-code"></i> Entwickler Tools</h2>
+                <div class="settings-card dev-tools-card">
                     <div class="settings-option">
                         <div class="settings-option-info">
-                            <span class="settings-option-label">Entwicklermodus aktivieren</span>
+                            <span class="settings-option-label">Entwickler Tools aktivieren</span>
                             <span class="settings-option-desc">Zeigt erweiterte Informationen und Debug-Optionen</span>
                         </div>
                         <label class="toggle-switch">
@@ -201,40 +201,72 @@
                         </label>
                     </div>
                     
-                    <div id="devModeOptions" style="display: none; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--border-color);">
-                        <h3 style="font-size: 1rem; color: var(--text-secondary); margin-bottom: 1rem;">
-                            <i class="fas fa-tools"></i> Entwickler-Tools
-                        </h3>
+                    <div id="devModeOptions" class="dev-mode-options">
+                        <div class="dev-tools-header">
+                            <i class="fas fa-tools"></i>
+                            <h3>Debug & Verwaltung</h3>
+                            <p>Erweiterte Tools für Entwickler und fortgeschrittene Benutzer</p>
+                        </div>
                         
                         <div class="dev-tools-grid">
-                            <button class="dev-tool-btn" id="showLocalStorageBtn">
-                                <i class="fas fa-database"></i>
-                                <span>LocalStorage anzeigen</span>
+                            <button class="dev-tool-btn dev-tool-info" id="showLocalStorageBtn">
+                                <div class="dev-tool-icon">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                                <div class="dev-tool-content">
+                                    <h4>LocalStorage</h4>
+                                    <p>Gespeicherte Daten anzeigen</p>
+                                </div>
                             </button>
                             
-                            <button class="dev-tool-btn" id="resetAllSettingsBtn">
-                                <i class="fas fa-undo"></i>
-                                <span>Alle Einstellungen zurücksetzen</span>
+                            <button class="dev-tool-btn dev-tool-warning" id="resetAllSettingsBtn">
+                                <div class="dev-tool-icon">
+                                    <i class="fas fa-undo"></i>
+                                </div>
+                                <div class="dev-tool-content">
+                                    <h4>Einstellungen</h4>
+                                    <p>Alle zurücksetzen</p>
+                                </div>
                             </button>
                             
-                            <button class="dev-tool-btn" id="resetPointsBtn">
-                                <i class="fas fa-eraser"></i>
-                                <span>Punkte zurücksetzen</span>
+                            <button class="dev-tool-btn dev-tool-danger" id="resetPointsBtn">
+                                <div class="dev-tool-icon">
+                                    <i class="fas fa-eraser"></i>
+                                </div>
+                                <div class="dev-tool-content">
+                                    <h4>Punkte</h4>
+                                    <p>Statistiken löschen</p>
+                                </div>
                             </button>
                             
-                            <button class="dev-tool-btn" id="exportDataBtn">
-                                <i class="fas fa-download"></i>
-                                <span>Daten exportieren</span>
+                            <button class="dev-tool-btn dev-tool-success" id="exportDataBtn">
+                                <div class="dev-tool-icon">
+                                    <i class="fas fa-download"></i>
+                                </div>
+                                <div class="dev-tool-content">
+                                    <h4>Export</h4>
+                                    <p>Daten sichern</p>
+                                </div>
                             </button>
                             
-                            <button class="dev-tool-btn" id="clearHistoryBtn">
-                                <i class="fas fa-trash"></i>
-                                <span>Historie löschen</span>
+                            <button class="dev-tool-btn dev-tool-warning" id="clearHistoryBtn">
+                                <div class="dev-tool-icon">
+                                    <i class="fas fa-trash"></i>
+                                </div>
+                                <div class="dev-tool-content">
+                                    <h4>Historie</h4>
+                                    <p>Verlauf löschen</p>
+                                </div>
                             </button>
                             
-                            <button class="dev-tool-btn" id="toggleFooterInfoBtn">
-                                <i class="fas fa-info-circle"></i>
-                                <span>Footer-Info erweitern</span>
+                            <button class="dev-tool-btn dev-tool-info" id="toggleFooterInfoBtn">
+                                <div class="dev-tool-icon">
+                                    <i class="fas fa-info-circle"></i>
+                                </div>
+                                <div class="dev-tool-content">
+                                    <h4>Footer</h4>
+                                    <p>Info erweitern</p>
+                                </div>
                             </button>
                         </div>
                     </div>
