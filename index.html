@@ -54,7 +54,28 @@
 
             <div class="game-selection">
                 <div id="gameGrid" class="game-grid">
-                    <!-- Games werden per JS eingefügt -->
+                    <!-- Fallback wenn JS nicht lädt -->
+                    <div class="selection-card" data-game="kennzeichen">
+                        <div class="selection-card-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <div class="selection-card-title">Kennzeichen</div>
+                        <div class="selection-card-desc">Erkenne österreichische KFZ-Kennzeichen</div>
+                    </div>
+                    <div class="selection-card" data-game="hauptstaedte">
+                        <div class="selection-card-icon">
+                            <i class="fas fa-city"></i>
+                        </div>
+                        <div class="selection-card-title">Hauptstädte</div>
+                        <div class="selection-card-desc">Kenne die Landeshauptstädte</div>
+                    </div>
+                    <div class="selection-card" data-game="welthauptstaedte">
+                        <div class="selection-card-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="selection-card-title">Welt-Hauptstädte</div>
+                        <div class="selection-card-desc">Hauptstädte der Welt</div>
+                    </div>
                 </div>
             </div>
 
