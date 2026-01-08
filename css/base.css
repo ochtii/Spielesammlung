@@ -22,7 +22,13 @@ body {
     background-color: var(--bg-body);
     min-height: 100vh;
     padding-top: var(--navbar-height);
-    padding-bottom: calc(var(--bottom-nav-height) + 20px);
+    padding-bottom: calc(var(--bottom-nav-height) + 16px);
+}
+
+@media (min-width: 769px) {
+    body {
+        padding-bottom: var(--space-5);
+    }
 }
 
 /* Typography */
@@ -104,6 +110,16 @@ input, select, textarea {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--text-secondary);
+}
+
+/* Mobile Typography Scale */
+@media (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.25rem; }
+    h3 { font-size: 1.125rem; }
 }
 
 /* Screen Reader Only */

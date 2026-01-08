@@ -57,8 +57,8 @@
     --transition-slow: 0.3s ease;
 
     /* Layout */
-    --navbar-height: 60px;
-    --bottom-nav-height: 65px;
+    --navbar-height: 56px;
+    --bottom-nav-height: 56px;
     --container-max: 800px;
     --container-wide: 1200px;
 }

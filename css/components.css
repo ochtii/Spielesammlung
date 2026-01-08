@@ -6,24 +6,26 @@
 .card {
     background: var(--bg-primary);
     border-radius: var(--radius-md);
-    padding: var(--space-5);
+    padding: var(--space-4);
     box-shadow: var(--shadow);
     border: 1px solid var(--border-color);
 }
 
 .welcome-card {
     text-align: center;
-    margin-bottom: var(--space-5);
+    margin-bottom: var(--space-4);
 }
 
 .welcome-card h2 {
-    margin-bottom: var(--space-3);
+    font-size: 1.25rem;
+    margin-bottom: var(--space-2);
     color: var(--text-primary);
 }
 
 .welcome-card p {
     color: var(--text-secondary);
     margin: 0;
+    font-size: 0.875rem;
 }
 
 /* ===========================================
@@ -95,15 +97,15 @@
    =========================================== */
 
 .selection-section {
-    margin-bottom: var(--space-5);
+    margin-bottom: var(--space-4);
 }
 
 .selection-section h3 {
-    font-size: 1rem;
+    font-size: 0.9375rem;
     font-weight: 500;
     color: var(--text-secondary);
     text-align: center;
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-3);
 }
 
 .button-grid {
@@ -124,7 +126,7 @@
     flex-direction: column;
     align-items: center;
     gap: var(--space-2);
-    padding: var(--space-5);
+    padding: var(--space-4);
     background: var(--bg-primary);
     border: 2px solid var(--border-color);
     border-radius: var(--radius-md);
@@ -136,23 +138,38 @@
 
 .game-btn i,
 .difficulty-btn i {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     color: var(--primary);
 }
 
 .game-btn span,
 .difficulty-btn span {
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     text-align: center;
 }
 
 .game-btn small,
 .difficulty-btn small {
     display: block;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 400;
     color: var(--text-secondary);
     margin-top: 2px;
+}
+
+@media (max-width: 480px) {
+    .game-btn,
+    .difficulty-btn {
+        padding: var(--space-3);
+    }
+    .game-btn i,
+    .difficulty-btn i {
+        font-size: 1.25rem;
+    }
+    .game-btn span,
+    .difficulty-btn span {
+        font-size: 0.8125rem;
+    }
 }
 
 .game-btn:hover,
@@ -180,20 +197,20 @@
 .start-game-section {
     display: flex;
     justify-content: center;
-    margin-top: var(--space-5);
+    margin-top: var(--space-4);
 }
 
 .start-btn {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-4) var(--space-8);
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
     background: var(--primary);
     color: white;
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 600;
     border: none;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     cursor: pointer;
     transition: all var(--transition);
 }
