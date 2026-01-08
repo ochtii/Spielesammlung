@@ -72,6 +72,15 @@
                             </label>
                         </div>
                     </div>
+                    <div class="settings-save-section">
+                        <button class="btn btn-primary" id="saveDarstellungBtn">
+                            <i class="fas fa-save"></i> Darstellung speichern
+                        </button>
+                        <div class="save-feedback" id="darstellungSaveFeedback" style="display: none;">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Einstellungen erfolgreich gespeichert!</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -234,6 +243,15 @@
                             </label>
                         </div>
                     </div>
+                    <div class="settings-save-section">
+                        <button class="btn btn-primary" id="saveSpieloptionenBtn">
+                            <i class="fas fa-save"></i> Spieloptionen speichern
+                        </button>
+                        <div class="save-feedback" id="spieloptionenSaveFeedback" style="display: none;">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Einstellungen erfolgreich gespeichert!</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -260,6 +278,15 @@
                                 <option value="200">200 Einträge (Groß)</option>
                                 <option value="500">500 Einträge (Maximal)</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="settings-save-section">
+                        <button class="btn btn-primary" id="saveDatenspeicherungBtn">
+                            <i class="fas fa-save"></i> Datenspeicherung speichern
+                        </button>
+                        <div class="save-feedback" id="datenspeicherungSaveFeedback" style="display: none;">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Einstellungen erfolgreich gespeichert!</span>
                         </div>
                     </div>
                 </div>
@@ -702,8 +729,61 @@
             }, 3000);
         }
 
+        // Generische Funktion zum Anzeigen von Speicher-Feedback
+        function showSaveFeedback(feedbackId) {
+            const feedback = document.getElementById(feedbackId);
+            if (feedback) {
+                feedback.style.display = 'flex';
+                feedback.classList.add('show');
+                setTimeout(() => {
+                    feedback.classList.remove('show');
+                    setTimeout(() => {
+                        feedback.style.display = 'none';
+                    }, 300);
+                }, 2500);
+            }
+        }
+
+        // Darstellung speichern
+        function saveDarstellungSettings() {
+            const darkMode = document.getElementById('darkModeCheck').checked;
+            localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+            showSaveFeedback('darstellungSaveFeedback');
+        }
+
+        // Spieloptionen speichern
+        function saveSpieloptionenSettings() {
+            localStorage.setItem('typoTolerance', document.getElementById('typoToleranceCheck').checked);
+            localStorage.setItem('paidHints', document.getElementById('paidHintsCheck').checked);
+            localStorage.setItem('balanceDisplayMode', document.getElementById('balanceDisplaySelect').value);
+            localStorage.setItem('timerEnabled', document.getElementById('timerEnabledCheck').checked);
+            localStorage.setItem('timerDuration', document.getElementById('timerDurationSlider').value);
+            localStorage.setItem('timerVisual', document.getElementById('timerVisualCheck').checked);
+            showSaveFeedback('spieloptionenSaveFeedback');
+        }
+
+        // Datenspeicherung speichern
+        function saveDatenspeicherungSettings() {
+            localStorage.setItem('historyLimit', document.getElementById('historyLimitSelect').value);
+            showSaveFeedback('datenspeicherungSaveFeedback');
+        }
+
         // Auto-Save bei Änderungen
         function setupAutoSave() {
+            // Darstellung Speichern Button
+            document.getElementById('saveDarstellungBtn').addEventListener('click', saveDarstellungSettings);
+
+            // Spieloptionen Speichern Button
+            document.getElementById('saveSpieloptionenBtn').addEventListener('click', saveSpieloptionenSettings);
+
+            // Datenspeicherung Speichern Button
+            document.getElementById('saveDatenspeicherungBtn').addEventListener('click', saveDatenspeicherungSettings);
+
             // Dark Mode
             document.getElementById('darkModeCheck').addEventListener('change', (e) => {
                 if (e.target.checked) {
