@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entwickler-Informationen - Spielesammlung</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <div class="nav-logo">
+            <i class="fas fa-code"></i> Entwickler-Info
+        </div>
+        <button class="menu-btn" id="menuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html"><i class="fas fa-home"></i> Startseite</a></li>
+            <li><a href="points.html"><i class="fas fa-trophy"></i> Punkte</a></li>
+            <li><a href="help.html"><i class="fas fa-circle-info"></i> Hilfe</a></li>
+            <li><a href="faq.html"><i class="fas fa-circle-question"></i> FAQ</a></li>
+            <li><a href="settings.html"><i class="fas fa-gear"></i> Einstellungen</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="dev-info-hero">
+            <div class="dev-info-icon">
+                <i class="fas fa-laptop-code"></i>
+            </div>
+            <h1>Entwickler-Informationen</h1>
+            <p>Technische Details und verwendete Technologien</p>
+        </div>
+
+        <!-- Projekt Info -->
+        <div class="info-section">
+            <h2><i class="fas fa-info-circle"></i> Über das Projekt</h2>
+            <div class="info-card">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Projektname:</strong>
+                        <span>Österreich Spielesammlung</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Version:</strong>
+                        <span id="versionInfo">Wird geladen...</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Letztes Update:</strong>
+                        <span id="lastUpdate">Wird geladen...</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Repository:</strong>
+                        <a href="https://github.com/ochtii/Spielesammlung" target="_blank" rel="noopener">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+                <p class="info-description">
+                    Eine interaktive Web-Anwendung zum Lernen österreichischer Geographie, Hauptstädte, 
+                    Kennzeichen und mehr. Entwickelt mit modernen Web-Technologien.
+                </p>
+            </div>
+        </div>
+
+        <!-- Technologien -->
+        <div class="info-section">
+            <h2><i class="fas fa-layer-group"></i> Verwendete Technologien</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-icon html">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <h3>HTML5</h3>
+                    <p>Semantisches Markup für moderne Webanwendungen</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon css">
+                        <i class="fab fa-css3-alt"></i>
+                    </div>
+                    <h3>CSS3</h3>
+                    <p>Modernes Design mit CSS-Variablen, Grid und Flexbox</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon js">
+                        <i class="fab fa-js"></i>
+                    </div>
+                    <h3>JavaScript ES6+</h3>
+                    <p>Vanilla JavaScript mit modernen Features</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon api">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>LocalStorage API</h3>
+                    <p>Persistente Datenspeicherung im Browser</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon fontawesome">
+                        <i class="fas fa-icons"></i>
+                    </div>
+                    <h3>Font Awesome</h3>
+                    <p>Icon-Bibliothek für moderne UI-Elemente</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon wikimedia">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <h3>Wikimedia Commons</h3>
+                    <p>Wappen-Bilder aus freier Bildquelle</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="info-section">
+            <h2><i class="fas fa-star"></i> Hauptfunktionen</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-gamepad"></i>
+                    <h4>5 Spielmodi</h4>
+                    <p>Hauptstädte, Kennzeichen, Einwohner-Vergleich, Wappen und Welthaupt­städte</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-chart-line"></i>
+                    <h4>Punktesystem</h4>
+                    <p>Detaillierte Statistiken mit Rang-System und Erfolgen</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h4>Responsive Design</h4>
+                    <p>Optimiert für Desktop, Tablet und Mobile</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-palette"></i>
+                    <h4>Dark Mode</h4>
+                    <p>Automatische Anpassung an System-Einstellungen</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-cog"></i>
+                    <h4>Anpassbar</h4>
+                    <p>Umfangreiche Einstellungsmöglichkeiten</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-save"></i>
+                    <h4>Offline-fähig</h4>
+                    <p>Funktioniert ohne Internetverbindung</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Datenschutz -->
+        <div class="info-section">
+            <h2><i class="fas fa-shield-alt"></i> Datenschutz & Speicherung</h2>
+            <div class="info-card">
+                <div class="privacy-info">
+                    <div class="privacy-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Lokale Speicherung</strong>
+                            <p>Alle Daten werden ausschließlich lokal im Browser gespeichert (LocalStorage)</p>
+                        </div>
+                    </div>
+                    <div class="privacy-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Keine Server-Kommunikation</strong>
+                            <p>Es werden keine Daten an externe Server übertragen</p>
+                        </div>
+                    </div>
+                    <div class="privacy-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Kein Tracking</strong>
+                            <p>Keine Analyse-Tools oder Tracking-Scripte</p>
+                        </div>
+                    </div>
+                    <div class="privacy-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Volle Kontrolle</strong>
+                            <p>Daten können jederzeit über die Entwickler-Tools gelöscht werden</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Browser Kompatibilität -->
+        <div class="info-section">
+            <h2><i class="fas fa-browser"></i> Browser-Kompatibilität</h2>
+            <div class="browser-grid">
+                <div class="browser-item">
+                    <i class="fab fa-chrome"></i>
+                    <span>Chrome 90+</span>
+                </div>
+                <div class="browser-item">
+                    <i class="fab fa-firefox"></i>
+                    <span>Firefox 88+</span>
+                </div>
+                <div class="browser-item">
+                    <i class="fab fa-safari"></i>
+                    <span>Safari 14+</span>
+                </div>
+                <div class="browser-item">
+                    <i class="fab fa-edge"></i>
+                    <span>Edge 90+</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Credits -->
+        <div class="info-section">
+            <h2><i class="fas fa-heart"></i> Danksagungen</h2>
+            <div class="info-card">
+                <ul class="credits-list">
+                    <li><strong>Wappen-Bilder:</strong> <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></li>
+                    <li><strong>Icons:</strong> <a href="https://fontawesome.com" target="_blank" rel="noopener">Font Awesome</a></li>
+                    <li><strong>Schriftarten:</strong> <a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a> (Roboto, Roboto Condensed)</li>
+                    <li><strong>Datenquellen:</strong> Öffentliche Daten zu österreichischen Bundesländern und Städten</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav" id="bottomNav">
+        <a href="index.html" class="bottom-nav-item" data-nav="home">
+            <i class="fas fa-home"></i>
+            <span>Start</span>
+        </a>
+        <a href="points.html" class="bottom-nav-item" data-nav="points">
+            <i class="fas fa-trophy"></i>
+            <span>Punkte</span>
+        </a>
+        <a href="help.html" class="bottom-nav-item" data-nav="help">
+            <i class="fas fa-circle-info"></i>
+            <span>Hilfe</span>
+        </a>
+        <a href="faq.html" class="bottom-nav-item" data-nav="faq">
+            <i class="fas fa-circle-question"></i>
+            <span>FAQ</span>
+        </a>
+        <a href="settings.html" class="bottom-nav-item" data-nav="settings">
+            <i class="fas fa-gear"></i>
+            <span>Einstellungen</span>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation Toggle
+            const menuBtn = document.getElementById('menuBtn');
+            const navLinks = document.getElementById('navLinks');
+
+            menuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Bottom Navigation Settings anwenden
+            applyBottomNavSettings();
+
+            // Version Info laden
+            loadVersionInfo();
+        });
+
+        function loadVersionInfo() {
+            // GitHub API für Commit-Info
+            fetch('https://api.github.com/repos/ochtii/Spielesammlung/commits/main')
+                .then(response => response.json())
+                .then(data => {
+                    const commitDate = new Date(data.commit.author.date);
+                    const sha = data.sha.substring(0, 7);
+                    
+                    document.getElementById('versionInfo').textContent = sha;
+                    document.getElementById('lastUpdate').textContent = commitDate.toLocaleDateString('de-AT', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                })
+                .catch(() => {
+                    document.getElementById('versionInfo').textContent = 'Nicht verfügbar';
+                    document.getElementById('lastUpdate').textContent = 'Nicht verfügbar';
+                });
+        }
+
+        function applyBottomNavSettings() {
+            const bottomNav = document.getElementById('bottomNav');
+            if (!bottomNav) return;
+
+            const enabled = localStorage.getItem('bottomNavEnabled') !== 'false';
+            const fixed = localStorage.getItem('bottomNavFixed') === 'true';
+            const size = localStorage.getItem('bottomNavSize') || 'medium';
+
+            bottomNav.style.display = enabled ? 'flex' : 'none';
+            
+            if (fixed) {
+                bottomNav.classList.add('fixed');
+            } else {
+                bottomNav.classList.remove('fixed');
+            }
+
+            bottomNav.classList.remove('size-small', 'size-medium', 'size-large');
+            bottomNav.classList.add(`size-${size}`);
+
+            const buttons = {
+                'home': localStorage.getItem('bottomNavShowHome') !== 'false',
+                'points': localStorage.getItem('bottomNavShowPoints') !== 'false',
+                'help': localStorage.getItem('bottomNavShowHelp') !== 'false',
+                'faq': localStorage.getItem('bottomNavShowFaq') === 'true',
+                'settings': localStorage.getItem('bottomNavShowSettings') !== 'false'
+            };
+
+            Object.entries(buttons).forEach(([key, show]) => {
+                const item = bottomNav.querySelector(`[data-nav="${key}"]`);
+                if (item) {
+                    item.style.display = show ? 'flex' : 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
