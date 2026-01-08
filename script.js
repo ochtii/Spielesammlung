@@ -1507,6 +1507,12 @@ class AustriaQuiz {
         const container = document.createElement('div');
         container.className = 'combined-container';
 
+        // Options Section zuerst erstellen (für Closure im Event-Handler)
+        const optionsSection = document.createElement('div');
+        optionsSection.className = 'options-container';
+        optionsSection.id = 'combinedOptionsSection';
+        optionsSection.style.display = 'none';
+
         const inputSection = document.createElement('div');
         inputSection.className = 'text-input-container';
         inputSection.id = 'combinedInputSection';
@@ -1554,11 +1560,6 @@ class AustriaQuiz {
         inputSection.appendChild(submitBtn);
         inputSection.appendChild(helpBtn);
         container.appendChild(inputSection);
-
-        const optionsSection = document.createElement('div');
-        optionsSection.className = 'options-container';
-        optionsSection.id = 'combinedOptionsSection';
-        optionsSection.style.display = 'none';
         container.appendChild(optionsSection);
 
         area.appendChild(container);
