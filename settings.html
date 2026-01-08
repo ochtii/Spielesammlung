@@ -387,6 +387,16 @@
                                     </div>
                                 </button>
                                 
+                                <button class="dev-tool-btn dev-tool-warning" id="clearCacheBtn">
+                                    <div class="dev-tool-icon">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </div>
+                                    <div class="dev-tool-content">
+                                        <h4>Cache leeren</h4>
+                                        <p>CSS/JS neu laden</p>
+                                    </div>
+                                </button>
+                                
                                 <button class="dev-tool-btn dev-tool-info" id="toggleFooterInfoBtn">
                                     <div class="dev-tool-icon">
                                         <i class="fas fa-info-circle"></i>
@@ -1134,6 +1144,53 @@
                 URL.revokeObjectURL(url);
                 
                 showSuccessNotification('Backup heruntergeladen!');
+            });
+
+            // Cache leeren und CSS/JS neu laden
+            document.getElementById('clearCacheBtn')?.addEventListener('click', async () => {
+                const btn = document.getElementById('clearCacheBtn');
+                const icon = btn.querySelector('.dev-tool-icon i');
+                
+                // Animation starten
+                icon.classList.add('fa-spin');
+                btn.disabled = true;
+                
+                try {
+                    // Service Worker Cache löschen (falls vorhanden)
+                    if ('caches' in window) {
+                        const cacheNames = await caches.keys();
+                        await Promise.all(cacheNames.map(name => caches.delete(name)));
+                    }
+                    
+                    // Cache-Bust Timestamp erstellen
+                    const cacheBust = Date.now();
+                    
+                    // Alle CSS-Links mit Cache-Bust neu laden
+                    const cssLinks = document.querySelectorAll('link[rel="stylesheet"]');
+                    cssLinks.forEach(link => {
+                        const href = link.href.split('?')[0];
+                        link.href = href + '?v=' + cacheBust;
+                    });
+                    
+                    // Cache-Bust in localStorage speichern für andere Seiten
+                    localStorage.setItem('cacheBust', cacheBust.toString());
+                    
+                    // Kurz warten für visuelles Feedback
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    
+                    showSuccessNotification('Cache geleert! Seite wird neu geladen...');
+                    
+                    // Seite mit Cache-Bust neu laden
+                    setTimeout(() => {
+                        window.location.reload(true);
+                    }, 1000);
+                    
+                } catch (error) {
+                    console.error('Cache-Fehler:', error);
+                    showSuccessNotification('Fehler beim Cache leeren');
+                    icon.classList.remove('fa-spin');
+                    btn.disabled = false;
+                }
             });
 
             // Historie löschen
