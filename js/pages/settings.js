@@ -826,6 +826,24 @@ const SettingsPage = {
         if (registeredGames && typeof GameRegistry !== 'undefined') {
             registeredGames.textContent = GameRegistry.getAll().length;
         }
+
+        // Build Time
+        const buildTime = document.getElementById('buildTime');
+        if (buildTime && typeof CacheBuster !== 'undefined' && CacheBuster.BUILD_TIME) {
+            buildTime.textContent = CacheBuster.BUILD_TIME;
+        }
+
+        // App Version
+        const appVersion = document.getElementById('appVersion');
+        if (appVersion && typeof CacheBuster !== 'undefined' && CacheBuster.BUILD_VERSION) {
+            appVersion.textContent = CacheBuster.BUILD_VERSION;
+        }
+
+        // Build Date
+        const buildDate = document.getElementById('buildDate');
+        if (buildDate && typeof CacheBuster !== 'undefined' && CacheBuster.BUILD_TIME) {
+            buildDate.textContent = CacheBuster.BUILD_TIME.split(' ')[0];
+        }
     },
 
     /**

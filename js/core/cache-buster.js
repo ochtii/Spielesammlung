@@ -6,7 +6,8 @@ const CacheBuster = {
     STORAGE_KEY: 'cacheBusterEnabled',
     VERSION_KEY: 'appVersion',
     LOG_KEY: 'cacheBusterLogs',
-    BUILD_VERSION: '2.1.5',
+    BUILD_VERSION: '2.1.6',
+    BUILD_TIME: '2026-01-08 14:32:15 UTC',
     MAX_LOGS: 100,
     
     // Session unique ID for tracking
